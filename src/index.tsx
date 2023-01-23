@@ -11,6 +11,7 @@ import {
 import Main from './components/Main';
 import Catalog from './components/catalog/Catalog';
 import NotFound from './components/NotFound';
+import { AuthForm } from './components/auth/AuthForm/AuthForm';
 
 
 const router = createBrowserRouter([
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: <h1>Hello world</h1>
+    element: <AuthForm />
   }
 ])
 
