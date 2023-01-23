@@ -1,3 +1,4 @@
+import {Outlet} from "react-router-dom";
 import { Link } from "react-router-dom";
 import './lux-thema.css'
 
@@ -8,5 +9,6 @@ export default function Catalog() {
     <h1>Catalog page</h1>
     <Link to="/">go home page</Link>
     <SearchForm />
+    <Outlet />
   </>
 }
