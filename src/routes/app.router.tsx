@@ -3,6 +3,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+
+import catalogRouter from './catalog.router'
+
 import Main from '../components/Main';
 import Catalog from '../components/catalog/Catalog';
 import NotFound from '../components/NotFound';
@@ -12,16 +15,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Main />,
     children: [
-      {
-        path: "/catalog",
-        element: <Catalog />,
-        children: [
-          {
-            path: "foo",
-            element: <NotFound />
-          }
-        ]
-      },
+      catalogRouter
     ]
   },
   {
