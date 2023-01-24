@@ -9,5 +9,8 @@ export default {
       path: "foo",
       element: <NotFound />
     }
-  ]
+  ],
+  loader: async () => {
+    return fetch(`/api/brands`)
+  }
 }
