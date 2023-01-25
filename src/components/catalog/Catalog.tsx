@@ -1,14 +1,14 @@
-import {Outlet} from "react-router-dom";
-import { Link } from "react-router-dom";
-import './lux-thema.css'
+import {
+  Outlet,
+  Link,
+} from "react-router-dom";
 
-import SearchForm from './components/SearchForm'
+import Navigate from "../navigate/Navigate"
 
 export default function Catalog() {
   return <>
-    <h1>Catalog page</h1>
-    <Link to="/">go home page</Link>
-    <SearchForm />
+    <Navigate />
+    <h1>Каталог</h1>
     <Outlet />
   </>
 }

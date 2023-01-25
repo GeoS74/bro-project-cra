@@ -8,7 +8,7 @@ ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
   .render(
-    <React.StrictMode>
+    <React.Fragment>
       {router}
-    </React.StrictMode>
+    </React.Fragment>
   );
