@@ -12,11 +12,15 @@ export default {
     },
     {
       path: "/catalog/edit/brands",
-      element: <Edit />
+      element: <Edit type="brands"/>,
+      loader: () => fetch('http://localhost:3500/api/brands')
+        .catch(error => error.message)
     },
     {
       path: "/catalog/edit/providers",
-      element: <h1>providers</h1>
+      element: <Edit type="providers"/>,
+      loader: () => fetch('http://localhost:3500/api/providers')
+        .catch(error => error.message)
     },
     {
       path: "/catalog/edit/upload",

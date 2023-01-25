@@ -10,24 +10,18 @@ export default function SearchForm() {
 
 function onSubmit(event: React.FormEvent<HTMLFormElement>): void {
   event.preventDefault()
-  console.log('search positions')
 
-  if(event.target instanceof HTMLFormElement){
-    fetch('http://localhost:3100/api/search', {
+    fetch('http://localhost:3500/api/search', {
       method: 'POST',
-      body: new FormData(event.target)
+      body: new FormData(event.target as HTMLFormElement)
     })
     .then(async response => {
       if(response.ok) {
-        const res = await response.text()
+        const res = await response.json()
         console.log(res)
         return;
       }
       throw new Error(`response status: ${response.status}`)
     })
     .catch(error => console.log(error.message))
-  }
-   
-
- 
 }
