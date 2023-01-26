@@ -27,6 +27,9 @@ function makeRows(rows: string[]) {
   return rows.map((v, i) => <Li key={i} val={v} />)
 }
 
+function OptionalButton({name}: {name: string}){
+  return <span>{name}</span>
+}
 
 function Li({val}: {val: string}){
   const [showOpt, setState] = useState(false)
@@ -34,6 +37,10 @@ function Li({val}: {val: string}){
     style={{padding: "10px"}} 
     onMouseEnter={() => setState(true)} 
     onMouseLeave={() => setState(false)}>
-      {showOpt ? <>{val} <span>Редактировать / Удалить</span></> : val }
+      {showOpt ? <>
+      {val} <OptionalButton name="Редактировать" /> /
+       <OptionalButton name="Удалить" />
+        </> : val }
     </li>
 }
+
