@@ -8,18 +8,14 @@ export default function Test() {
   </>
 }
 
-const reducer = (current: string[], arr: string[]) => {
-  return current.concat(arr)
-}
-
 function List({ data }: { data: string[] }) {
-  const [arr, setArr] = useReducer(reducer, data)
+  const [arr, setArr] = useState(data)
   
   return <>
     <ul>
       {makeRows(arr)}
     </ul>
-    <Button hook={setArr}/>
+    <Button hook={(newData) => setArr([...arr, ...newData])}/>
   </>
 }
 
