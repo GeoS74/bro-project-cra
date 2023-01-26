@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useReducer, useState } from "react"
 
 export default function Test() {
   return <>
@@ -7,8 +7,13 @@ export default function Test() {
   </>
 }
 
+const reducer = (current: string[], arr: string[]) => {
+  return current.concat(arr)
+}
+
 function List({ data }: { data: string[] }) {
-  const [arr, setArr] = useState(data)
+  const [arr, setArr] = useReducer(reducer, data)
+  
   return <>
     <ul>
       {makeRows(arr)}
@@ -18,11 +23,11 @@ function List({ data }: { data: string[] }) {
 }
 
 function makeRows(rows: string[]) {
-  return rows.map(v => {
-    return <li>{v}</li>
+  return rows.map((v, i) => {
+    return <li key={i}>{v}</li>
   })
 }
 
-function Button({hook}: {hook: React.Dispatch<React.SetStateAction<string[]>>}){
+function Button({hook}: {hook: React.Dispatch<string[]>}){
   return <button onClick={()=> hook(['coca-cola', 'fanta', 'sprite'])}>load</button>
 }
