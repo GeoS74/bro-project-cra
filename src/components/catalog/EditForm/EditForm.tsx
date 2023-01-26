@@ -1,9 +1,16 @@
 import styles from "./styles.module.css"
 
-export default function EditForm(conf: {[index: string]: string}) {
-  return <form onSubmit={onSubmit} className={styles.root}>
-  <input type="text" name={conf.name || "title"} placeholder={conf.placeholder || ""}/>
-  <input type="submit" className="btn btn-outline-primary" value="Поиск"/>
+type Props = {
+  name: string,
+  placeholder: string,
+}
+
+export default function EditForm({name, placeholder}: Props) {
+  
+
+  return <form onSubmit={onSubmit} className={styles.root} hidden={true}>
+  <input type="text" name={name || "title"} placeholder={placeholder || ""}/>
+  <input type="submit" className="btn btn-outline-primary" value="Добавить"/>
 </form>
 }
 

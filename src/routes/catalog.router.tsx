@@ -1,6 +1,8 @@
 import Catalog from "../components/catalog/Catalog"
 import Search from "../components/catalog/Search/Search"
 import Edit from "../components/catalog/Edit/Edit"
+import Test from "../components/catalog/Test/Test"
+import config from "../config"
 
 export default {
   path: "/catalog",
@@ -13,18 +15,22 @@ export default {
     {
       path: "/catalog/edit/brands",
       element: <Edit type="brands"/>,
-      loader: () => fetch('http://localhost:3500/api/brands')
+      loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/brands`)
         .catch(error => error.message)
     },
     {
       path: "/catalog/edit/providers",
       element: <Edit type="providers"/>,
-      loader: () => fetch('http://localhost:3500/api/providers')
+      loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
         .catch(error => error.message)
     },
     {
       path: "/catalog/edit/upload",
       element: <h1>upload</h1>
-    }
+    },
+    {
+      path: "/catalog/edit/test",
+      element: <Test />
+    },
   ]
 }
