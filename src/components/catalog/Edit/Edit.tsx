@@ -5,6 +5,11 @@ import {
 import EditForm from "../EditForm/EditForm"
 import styles from "./styles.module.css"
 
+type Row = {
+  id: number;
+  title: string;
+}
+
 export default function Edit({type}: {[index: string]: string}) {
   const rows = useLoaderData();
   const {title, name, placeholder} = _makeData(type)
@@ -13,18 +18,14 @@ export default function Edit({type}: {[index: string]: string}) {
     <h3>{title}</h3>
     <button type="button" className="btn btn-outline-primary" onClick={()=>{}}>Новая запись</button>
     <EditForm name={name} placeholder={placeholder} />
-    {_makeRows(rows)}
+    {_makeRows(rows as Row[])}
   </>
 }
 
-function _makeRows(rows: unknown){
-  const result: JSX.Element[] = new Array;
-  if(Array.isArray(rows)){
-    for(const row of rows){
-      result.push(<div className={styles.row}>{row.title}</div>)
-    }
-  }
-  return <div>{result}</div>
+function _makeRows(rows: Row[]){
+  return rows.map((v, i) => {
+    return <li key={i}>{v.title}</li>
+  })
 }
 
 function _makeData(type: string){

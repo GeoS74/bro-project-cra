@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react"
+import EditForm from "../EditForm/EditForm"
 
 export default function Test() {
   return <>
@@ -22,12 +23,21 @@ function List({ data }: { data: string[] }) {
   </>
 }
 
-function makeRows(rows: string[]) {
-  return rows.map((v, i) => {
-    return <li key={i}>{v}</li>
-  })
-}
-
 function Button({hook}: {hook: React.Dispatch<string[]>}){
   return <button onClick={()=> hook(['coca-cola', 'fanta', 'sprite'])}>load</button>
+}
+
+function makeRows(rows: string[]) {
+  return rows.map((v, i) => <Li key={i} val={v} />)
+}
+
+
+function Li({val}: {val: string}){
+  const [showOpt, setState] = useState(false)
+  return <li 
+    style={{padding: "10px"}} 
+    onMouseEnter={() => setState(true)} 
+    onMouseLeave={() => setState(false)}>
+      {showOpt ? <>{val} <span>Редактировать / Удалить</span></> : val }
+    </li>
 }

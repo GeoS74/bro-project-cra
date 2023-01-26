@@ -6,9 +6,7 @@ type Props = {
 }
 
 export default function EditForm({name, placeholder}: Props) {
-  
-
-  return <form onSubmit={onSubmit} className={styles.root} hidden={true}>
+  return <form onSubmit={onSubmit} className={styles.root}>
   <input type="text" name={name || "title"} placeholder={placeholder || ""}/>
   <input type="submit" className="btn btn-outline-primary" value="Добавить"/>
 </form>
