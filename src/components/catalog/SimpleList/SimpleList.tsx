@@ -23,56 +23,53 @@ const dataList: {
   },
 }
 
+
 export default function SimpleList({ typeList }: { [index: string]: keyof typeof dataList }) {
-  const [showForm, setShowForm] = useState(false)
-  
+  const [idActiveRow, setIdActiveRow] = useState(-1)
+
   return <>
     <h3>{dataList[typeList].title}</h3>
-    <button type="button" className="btn btn-outline-primary" onClick={() => setShowForm(true)}>Новая запись</button>
-    {showForm ? <EditForm
-      setShowForm={setShowForm} /> : ""}
-    {_makeList(useLoaderData(), setShowForm)}
+
+    <button type="button" className="btn btn-outline-primary" onClick={() => setIdActiveRow(0)}>Новая запись</button>
+
+    {idActiveRow == 0 ? <EditForm setIdActiveRow={setIdActiveRow} /> : ""}
+
+    {_makeList(useLoaderData(), idActiveRow, setIdActiveRow)}
   </>
 }
 
-function _makeList(rows: unknown, setShowFormAddRow: React.Dispatch<React.SetStateAction<boolean>>) {
+
+function _makeList(rows: unknown, idActiveRow: number, setIdActiveRow: React.Dispatch<React.SetStateAction<number>>) {
   if (Array.isArray(rows)) {
-    return rows.map((value, index) => <Row key={index} title={value.title} setShowFormAddRow={setShowFormAddRow}/>)
+    return rows.map((value, index) => <Row 
+    key={index} 
+    id={index+1}
+    title={value.title} 
+    idActiveRow={idActiveRow}
+    setIdActiveRow={setIdActiveRow} />)
   }
 }
 
-function Row({ title, setShowFormAddRow }: { title: string, setShowFormAddRow: React.Dispatch<React.SetStateAction<boolean>> }) {
+function Row({ id, title, idActiveRow, setIdActiveRow }: { id: number, title: string, idActiveRow: number, setIdActiveRow: React.Dispatch<React.SetStateAction<number>> }) {
   const [showOptionalButton, setShowOptionalButton] = useState(false);
-  const [showFormEditRow, setShowFormEditRow] = useState(false);
 
-  return showFormEditRow ?
-    <EditForm setShowForm={setShowFormEditRow} /> :
+ 
+  return idActiveRow ===  id ?
+    <EditForm setIdActiveRow={setIdActiveRow} /> :
     <li
       style={{ padding: "10px" }}
       onMouseEnter={() => setShowOptionalButton(true)}
       onMouseLeave={() => setShowOptionalButton(false)}
-      >
+    >
       {showOptionalButton ? <>
         {title} <span
-          onClick={()=>{
-            setShowFormAddRow(false)
-            setShowFormEditRow(true)}}
+          onClick={() => {
+            setIdActiveRow(id)
+          }}
         >
           Изменить
-          </span> /
-        <OptionalButton title="Удалить" setShowFormEditRow={setShowFormEditRow} />
+        </span> /
+        <span>Удалить</span>
       </> : title}
     </li>;
 }
-
-type OptionalButtonProps = {
-  title: string,
-  setShowFormEditRow: React.Dispatch<React.SetStateAction<boolean>>
-}
-function OptionalButton({ title, setShowFormEditRow }: OptionalButtonProps) {
-  return <span onClick={() => setShowFormEditRow(true)}>
-    {title}
-  </span>
-}
-
-
