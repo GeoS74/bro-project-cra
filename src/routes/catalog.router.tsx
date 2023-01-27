@@ -1,6 +1,6 @@
 import Catalog from "../components/catalog/Catalog"
 import Search from "../components/catalog/Search/Search"
-import Edit from "../components/catalog/Edit/Edit"
+import SimpleList from "../components/catalog/SimpleList/SimpleList"
 import Test from "../components/catalog/Test/Test"
 import config from "../config"
 
@@ -14,13 +14,13 @@ export default {
     },
     {
       path: "/catalog/edit/brands",
-      element: <Edit type="brands"/>,
+      element: <SimpleList type="brands"/>,
       loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/brands`)
         .catch(error => error.message)
     },
     {
       path: "/catalog/edit/providers",
-      element: <Edit type="providers"/>,
+      element: <SimpleList type="providers"/>,
       loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
         .catch(error => error.message)
     },
