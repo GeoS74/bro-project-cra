@@ -23,8 +23,7 @@ const dataList: {
   },
 }
 
-
-export default function SimpleList({ typeList }: { [index: string]: keyof typeof dataList }) {
+export default function SimpleList({ typeList }: { [index: string]: keyof typeof dataList }){
   const [idActiveRow, setIdActiveRow] = useState(-1)
 
   return <>
@@ -32,7 +31,7 @@ export default function SimpleList({ typeList }: { [index: string]: keyof typeof
 
     <button type="button" className="btn btn-outline-primary" onClick={() => setIdActiveRow(0)}>Новая запись</button>
 
-    {idActiveRow == 0 ? <EditForm setIdActiveRow={setIdActiveRow} /> : ""}
+    {idActiveRow === 0 ? <EditForm setIdActiveRow={setIdActiveRow} /> : ""}
 
     {_makeList(useLoaderData(), idActiveRow, setIdActiveRow)}
   </>
@@ -41,21 +40,21 @@ export default function SimpleList({ typeList }: { [index: string]: keyof typeof
 
 function _makeList(rows: unknown, idActiveRow: number, setIdActiveRow: React.Dispatch<React.SetStateAction<number>>) {
   if (Array.isArray(rows)) {
-    return rows.map((value, index) => <Row 
-    key={index} 
-    id={index+1}
-    title={value.title} 
-    idActiveRow={idActiveRow}
-    setIdActiveRow={setIdActiveRow} />)
+    return rows.map((value, index) => <Row
+      key={index}
+      id={index + 1}
+      title={value.title}
+      idActiveRow={idActiveRow}
+      setIdActiveRow={setIdActiveRow} />)
   }
 }
 
 function Row({ id, title, idActiveRow, setIdActiveRow }: { id: number, title: string, idActiveRow: number, setIdActiveRow: React.Dispatch<React.SetStateAction<number>> }) {
   const [showOptionalButton, setShowOptionalButton] = useState(false);
 
- 
-  return idActiveRow ===  id ?
-    <EditForm setIdActiveRow={setIdActiveRow} /> :
+
+  return idActiveRow === id ?
+    <EditForm setIdActiveRow={setIdActiveRow} title={title}/> :
     <li
       style={{ padding: "10px" }}
       onMouseEnter={() => setShowOptionalButton(true)}

@@ -24,6 +24,9 @@ export default function Navigate() {
           <li className="nav-item">
           <Link to="/catalog/edit/test" className="nav-link">Тест</Link>
           </li>
+          <li className="nav-item">
+          <Link to="/catalog/edit/test2" className="nav-link">Тест 2</Link>
+          </li>
         </ul>
       </div>
     </div>
