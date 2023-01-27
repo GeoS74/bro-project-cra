@@ -7,64 +7,69 @@ import {
 import EditForm from "../EditForm/EditForm"
 import styles from "./styles.module.css"
 
-export default function SimpleList({ type }: { [index: string]: string }) {
-  const [showFormAddRow, setShowFormAddRow] = useState(false)
+const dataList: {
+  [index: string]: {
+    title: string,
+    placeholder?: string
+  }
+} = {
+  brands: {
+    title: "Редактирование брендов",
+    placeholder: "Бренд",
+  },
+  providers: {
+    title: "Редактирование поставщиков",
+    placeholder: "Поставщик",
+  },
+}
 
-  const { title, placeholder } = _makeData(type)
-
+export default function SimpleList({ typeList }: { [index: string]: keyof typeof dataList }) {
+  const [showForm, setShowForm] = useState(false)
+  
   return <>
-    <h3>{title}</h3>
-    <button type="button" className="btn btn-outline-primary" onClick={() => setShowFormAddRow(true)}>Новая запись</button>
-    {showFormAddRow ? <EditForm placeholder={placeholder} setShowFormAddRow={setShowFormAddRow} /> : ""}
-    {_makeRows(useLoaderData())}
+    <h3>{dataList[typeList].title}</h3>
+    <button type="button" className="btn btn-outline-primary" onClick={() => setShowForm(true)}>Новая запись</button>
+    {showForm ? <EditForm
+      setShowForm={setShowForm} /> : ""}
+    {_makeList(useLoaderData(), setShowForm)}
   </>
 }
 
-function _makeData(type: string) {
-  switch (type) {
-    case "brands": return {
-      title: "Редактирование брендов",
-      placeholder: "Бренд",
-    }
-    case "providers": return {
-      title: "Редактирование поставщиков",
-      placeholder: "Поставщик",
-    }
-    default: return {
-      title: "Редактирование списка",
-      placeholder: "Название",
-    }
-  }
-}
-
-function _makeRows(rows: unknown) {
+function _makeList(rows: unknown, setShowFormAddRow: React.Dispatch<React.SetStateAction<boolean>>) {
   if (Array.isArray(rows)) {
-    return rows.map((value, index) => <Row key={index} title={value.title} />)
+    return rows.map((value, index) => <Row key={index} title={value.title} setShowFormAddRow={setShowFormAddRow}/>)
   }
 }
 
-function Row({ title }: { title: string }) {
+function Row({ title, setShowFormAddRow }: { title: string, setShowFormAddRow: React.Dispatch<React.SetStateAction<boolean>> }) {
   const [showOptionalButton, setShowOptionalButton] = useState(false);
   const [showFormEditRow, setShowFormEditRow] = useState(false);
 
-  return showFormEditRow ? 
-  <EditForm placeholder="change" setShowFormAddRow={setShowFormEditRow} /> : 
-  <li
-    style={{ padding: "10px" }}
-    onMouseEnter={() => setShowOptionalButton(true)}
-    onMouseLeave={() => setShowOptionalButton(false)}>
-    {showOptionalButton ? <>
-    {title} <OptionalButton title="Изменить" setShowFormEditRow={setShowFormEditRow} /> / 
-    <OptionalButton title="Удалить" setShowFormEditRow={setShowFormEditRow} />
-    </> : title}
-  </li>;
+  return showFormEditRow ?
+    <EditForm setShowForm={setShowFormEditRow} /> :
+    <li
+      style={{ padding: "10px" }}
+      onMouseEnter={() => setShowOptionalButton(true)}
+      onMouseLeave={() => setShowOptionalButton(false)}
+      >
+      {showOptionalButton ? <>
+        {title} <span
+          onClick={()=>{
+            setShowFormAddRow(false)
+            setShowFormEditRow(true)}}
+        >
+          Изменить
+          </span> /
+        <OptionalButton title="Удалить" setShowFormEditRow={setShowFormEditRow} />
+      </> : title}
+    </li>;
 }
 
 type OptionalButtonProps = {
   title: string,
   setShowFormEditRow: React.Dispatch<React.SetStateAction<boolean>>
 }
-function OptionalButton({ title, setShowFormEditRow }: OptionalButtonProps){
+function OptionalButton({ title, setShowFormEditRow }: OptionalButtonProps) {
   return <span onClick={() => setShowFormEditRow(true)}>
     {title}
   </span>

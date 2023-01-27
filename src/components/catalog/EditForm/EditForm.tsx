@@ -1,15 +1,14 @@
 import styles from "./styles.module.css"
 
 type Props = {
-  placeholder: string,
-  setShowFormAddRow: React.Dispatch<React.SetStateAction<boolean>>
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function EditForm({placeholder, setShowFormAddRow}: Props) {
+export default function EditForm({setShowForm}: Props) {
   return <form onSubmit={onSubmit} className={styles.root}>
-  <input type="text" name="title" placeholder={placeholder || ""}/>
+  <input type="text" name="title" placeholder={""}/>
   <input type="submit" className="btn btn-outline-primary" value="Добавить"/>
-  <span className="btn btn-outline-primary" onClick={() => setShowFormAddRow(false)}>Отмена</span>
+  <span className="btn btn-outline-primary" onClick={() => setShowForm(false)}>Отмена</span>
 </form>
 }
 

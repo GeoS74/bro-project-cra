@@ -14,13 +14,13 @@ export default {
     },
     {
       path: "/catalog/edit/brands",
-      element: <SimpleList type="brands"/>,
+      element: <SimpleList typeList="brands"/>,
       loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/brands`)
         .catch(error => error.message)
     },
     {
       path: "/catalog/edit/providers",
-      element: <SimpleList type="providers"/>,
+      element: <SimpleList typeList="providers"/>,
       loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
         .catch(error => error.message)
     },
