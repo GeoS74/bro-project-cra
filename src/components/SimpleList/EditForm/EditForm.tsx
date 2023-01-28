@@ -37,7 +37,7 @@ function onSubmit(
   .then(async response => {
     if(response.ok) {
       const res = await response.json()
-      console.log(res)
+      // console.log(res)
     
       if(addRow){
         addRow(res)
