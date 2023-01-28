@@ -2,12 +2,15 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import EditForm from "../EditForm/EditForm"
+import Row from "../Row/Row"
 
-const dataList: {
+type Props = {
   [index: string]: { 
     [index: string]: string
   }
-} = {
+}
+
+const dataList: Props = {
   brands: {
     title: "Редактирование брендов",
     placeholder: "Бренд",
@@ -18,7 +21,7 @@ const dataList: {
   },
 }
 
-export default function SimpleList({ typeList }: { [index: string]: keyof typeof dataList }){
+export default function SimpleList({ typeList }: { [index: string]: keyof Props }){
   const [idActiveRow, setIdActiveRow] = useState(-1)
 
   return <>
@@ -42,28 +45,4 @@ function _makeList(rows: unknown, idActiveRow: number, setIdActiveRow: React.Dis
       idActiveRow={idActiveRow}
       setIdActiveRow={setIdActiveRow} />)
   }
-}
-
-function Row({ id, title, idActiveRow, setIdActiveRow }: { id: number, title: string, idActiveRow: number, setIdActiveRow: React.Dispatch<React.SetStateAction<number>> }) {
-  const [showOptionalButton, setShowOptionalButton] = useState(false);
-
-
-  return idActiveRow === id ?
-    <EditForm setIdActiveRow={setIdActiveRow} title={title}/> :
-    <li
-      style={{ padding: "10px" }}
-      onMouseEnter={() => setShowOptionalButton(true)}
-      onMouseLeave={() => setShowOptionalButton(false)}
-    >
-      {showOptionalButton ? <>
-        {title} <span
-          onClick={() => {
-            setIdActiveRow(id)
-          }}
-        >
-          Изменить
-        </span> /
-        <span>Удалить</span>
-      </> : title}
-    </li>;
 }
