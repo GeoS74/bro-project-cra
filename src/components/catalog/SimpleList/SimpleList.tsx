@@ -24,6 +24,7 @@ const dataList: Props = {
 
 export default function SimpleList({ typeList }: { [index: string]: keyof Props }){
   const [idActiveRow, setIdActiveRow] = useState(-1)
+  const [rows, setRows] = useState(useLoaderData() as IRow[])
 
   return <>
     <h3>{dataList[typeList].title}</h3>
@@ -36,26 +37,27 @@ export default function SimpleList({ typeList }: { [index: string]: keyof Props 
         idActiveRow={idActiveRow}
         setIdActiveRow={setIdActiveRow} 
         data={dataList[typeList]}
+        addRow={(newRow: IRow)=>{
+          setRows([newRow, ...rows])
+        }}
       /> : ""}
 
-      {_makeList(useLoaderData(), idActiveRow, setIdActiveRow, dataList[typeList])}
+      {_makeList(rows, idActiveRow, setIdActiveRow, dataList[typeList])}
     </ul>
   </>
 }
 
-
 function _makeList(
-  rows: unknown, 
+  rows: IRow[], 
   idActiveRow: number, 
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   data: {[index: string]: string}) {
-  if (Array.isArray(rows)) {
+
     return rows.map((value, index) => <Row
-      key={index}
-      id={index + 1}
+      key={value.id}
+      id={value.id + 1}
       title={value.title}
       idActiveRow={idActiveRow}
       setIdActiveRow={setIdActiveRow}
       data={data} />)
-  }
 }

@@ -1,16 +1,19 @@
 import styles from "./styles.module.css"
 
 import config from "../../../config"
+import { idText } from "typescript"
 
 type Props = {
   value: string,
   placeholder: string,
+  setValueRow: React.Dispatch<React.SetStateAction<string | undefined>>,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   api: string,
+  addRow?: (row: IRow) => void,
 }
 
-export default function EditForm({ setIdActiveRow, value, placeholder, api }: Props) {
-  return <form onSubmit={(event) => {onSubmit(event, api, setIdActiveRow)}} className={styles.root}>
+export default function EditForm({ setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
+  return <form onSubmit={(event) => {onSubmit(event, api, setValueRow, setIdActiveRow, addRow)}} className={styles.root}>
     <input type="text" name="title" placeholder={placeholder} defaultValue={value}/>
     <input type="submit" className="btn btn-outline-primary" value="Добавить" />
     <span className="btn btn-outline-primary" onClick={() => setIdActiveRow(-1)}>Отмена</span>
@@ -20,7 +23,9 @@ export default function EditForm({ setIdActiveRow, value, placeholder, api }: Pr
 function onSubmit(
   event: React.FormEvent<HTMLFormElement>, 
   api: string, 
-  setIdActiveRow: React.Dispatch<React.SetStateAction<number>>) {
+  setValueRow: React.Dispatch<React.SetStateAction<string | undefined>>,
+  setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
+  addRow?: (row: IRow) => void) {
 
   event.preventDefault()
 
@@ -31,7 +36,11 @@ function onSubmit(
   .then(async response => {
     if(response.ok) {
       const res = await response.json()
-      console.log(res)
+      // console.log(res)
+      setValueRow(res.title)
+      if(addRow){
+        addRow(res)
+      }
       return;
     }
     throw new Error(`response status: ${response.status}`)
