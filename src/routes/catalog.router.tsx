@@ -21,7 +21,7 @@ export default {
     },
     {
       path: "/catalog/edit/providers",
-      element: <SimpleList typeList="providers"/>,
+      element: <><></><SimpleList typeList="providers"/></>,
       loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
         .catch(error => error.message)
     },

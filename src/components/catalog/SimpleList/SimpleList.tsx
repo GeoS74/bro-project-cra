@@ -1,16 +1,11 @@
 import { useState } from "react";
-import {
-  Link,
-  useLoaderData,
-} from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 import EditForm from "../EditForm/EditForm"
-import styles from "./styles.module.css"
 
 const dataList: {
-  [index: string]: {
-    title: string,
-    placeholder?: string
+  [index: string]: { 
+    [index: string]: string
   }
 } = {
   brands: {

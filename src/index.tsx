@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
@@ -38,10 +38,6 @@ ReactDOM.createRoot(
 
 // import React, { useState } from 'react';
 // import ReactDOM from 'react-dom/client';
-// import './index.css';
-
-// // import router from './routes/app.router'
-
 // import {
 //   createBrowserRouter,
 //   RouterProvider,
@@ -52,11 +48,15 @@ ReactDOM.createRoot(
 // const router = createBrowserRouter([
 //   {
 //     path: "/",
-//     element: <><Page title="page 1"/><Page title="page 11"/></>
+//     element: <><Page title="page 1"/></>
 //   },
 //   {
 //     path: "/foo",
-//     element: <><Page title="page 2"/></>
+//     element: <><></><Page title="page 2"/></>
+//   },
+//   {
+//     path: "/bar",
+//     element: <><></><Page title="page 2"/></>
 //   },
 // ])
 
@@ -66,6 +66,7 @@ ReactDOM.createRoot(
 //     <ul>
 //     <li><Link to="/">home</Link></li>
 //     <li><Link to="/foo">foo</Link></li>
+//     <li><Link to="/bar">bar</Link></li>
 //     </ul>
 //     {title}
 //     <p onClick={()=>setX(x+1)}>click me {x}</p>
