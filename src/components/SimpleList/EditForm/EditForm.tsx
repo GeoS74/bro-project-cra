@@ -1,7 +1,6 @@
 import styles from "./styles.module.css"
 
 import config from "../../../config"
-import { idText } from "typescript"
 
 type Props = {
   value: string,

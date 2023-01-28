@@ -1,6 +1,6 @@
 import Catalog from "../components/catalog/Catalog"
 import Search from "../components/catalog/Search/Search"
-import SimpleList from "../components/catalog/SimpleList/SimpleList"
+import SimpleList from "../components/SimpleList/SimpleList"
 import Test from "../components/catalog/Test/Test"
 import Test2 from "../components/catalog/Test/Test2"
 import config from "../config"

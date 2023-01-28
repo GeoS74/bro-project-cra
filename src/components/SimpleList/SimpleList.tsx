@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
-import Row from "../Row/Row"
+import Row from "./Row/Row"
 
 type Props = {
   [index: string]: IListConf
