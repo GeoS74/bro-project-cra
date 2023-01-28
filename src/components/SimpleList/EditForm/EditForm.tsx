@@ -37,14 +37,14 @@ function onSubmit(
   .then(async response => {
     if(response.ok) {
       const res = await response.json()
-      // console.log(res)
-    
+
       if(addRow){
         addRow(res)
         return;
       }
       
       setValueRow(res.title)
+      return;
     }
     throw new Error(`response status: ${response.status}`)
   })
