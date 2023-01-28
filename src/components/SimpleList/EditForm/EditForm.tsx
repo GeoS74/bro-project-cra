@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import styles from "./styles.module.css"
 
 import config from "../../../config"
@@ -13,10 +15,14 @@ type Props = {
 }
 
 export default function EditForm({id, setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
-  return <form onSubmit={(event) => {onSubmit(event, id, api, setValueRow, setIdActiveRow, addRow)}} className={styles.root}>
+  const [error, setError] = useState<string | undefined>(undefined);
+
+  return <form onSubmit={(event) => {onSubmit(event, id, api, setValueRow, setIdActiveRow, setError, addRow)}} className={styles.root}>
     <input type="text" name="title" placeholder={placeholder} defaultValue={value}/>
     <input type="submit" className="btn btn-outline-primary" value="Добавить" />
     <span className="btn btn-outline-primary" onClick={() => setIdActiveRow(-1)}>Отмена</span>
+    <br/>
+    {error ? <strong>{error}</strong> : ''}
   </form>
 }
 
@@ -26,6 +32,7 @@ function onSubmit(
   api: string, 
   setValueRow: React.Dispatch<React.SetStateAction<string | undefined>>,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
+  setError: React.Dispatch<React.SetStateAction<string | undefined>>,
   addRow?: (row: IRow) => void) {
 
   event.preventDefault()
@@ -37,6 +44,8 @@ function onSubmit(
   .then(async response => {
     if(response.ok) {
       const res = await response.json()
+      setIdActiveRow(-1)
+      setError(undefined)
 
       if(addRow){
         addRow(res)
@@ -46,8 +55,13 @@ function onSubmit(
       setValueRow(res.title)
       return;
     }
+    else if(response.status === 400){
+      const res = await response.json()
+      setError(res.error)
+      return
+    }
     throw new Error(`response status: ${response.status}`)
   })
   .catch(error => console.log(error.message))
-  .finally(() => setIdActiveRow(-1))
+  // .finally(() => setIdActiveRow(-1))
 }
