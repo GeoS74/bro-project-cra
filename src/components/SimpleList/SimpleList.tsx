@@ -20,7 +20,7 @@ const dataList: Props = {
   },
 }
 
-export default function SimpleList({ typeList }: { [index: string]: keyof Props }){
+export default function SimpleList({ typeList }: { typeList: keyof Props }){
   const [idActiveRow, setIdActiveRow] = useState(-1)
   const [rows, setRows] = useState(useLoaderData() as IRow[])
 
@@ -50,7 +50,11 @@ function _makeList(
   data: IListConf) {
 
     return rows
-      .sort((a, b) => a.id - b.id)
+      /*
+      * без сортировки порядок строк может быть неожиданным,
+      * особенно после редактирования строк
+      */
+      .sort((a, b) => b.id - a.id)
       .map((value) => <Row
         key={value.id}
         id={value.id}
