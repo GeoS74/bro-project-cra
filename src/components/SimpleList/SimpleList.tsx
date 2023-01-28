@@ -35,9 +35,7 @@ export default function SimpleList({ typeList }: { [index: string]: keyof Props 
         idActiveRow={idActiveRow}
         setIdActiveRow={setIdActiveRow} 
         data={dataList[typeList]}
-        addRow={(newRow: IRow)=>{
-          setRows([newRow, ...rows])
-        }}
+        addRow={(newRow: IRow)=>setRows([newRow, ...rows])}
       /> : ""}
 
       {_makeList(rows, idActiveRow, setIdActiveRow, dataList[typeList])}
@@ -53,7 +51,7 @@ function _makeList(
 
     return rows.map((value) => <Row
       key={value.id}
-      id={value.id + 1}
+      id={value.id}
       title={value.title}
       idActiveRow={idActiveRow}
       setIdActiveRow={setIdActiveRow}

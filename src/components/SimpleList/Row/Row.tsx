@@ -17,6 +17,7 @@ export default function Row({ id, title, idActiveRow, setIdActiveRow, data, addR
 
   return idActiveRow === id ?
     <EditForm 
+      id={id}
       setValueRow={setValueRow}
       setIdActiveRow={setIdActiveRow} 
       addRow={addRow}
