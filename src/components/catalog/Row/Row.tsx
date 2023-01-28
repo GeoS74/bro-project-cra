@@ -6,7 +6,7 @@ type Props = {
   id: number, 
   idActiveRow: number, 
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
-  data: {[index: string]: string},
+  data: IListConf,
   title?: string,
   addRow?: (row: IRow) => void
 }

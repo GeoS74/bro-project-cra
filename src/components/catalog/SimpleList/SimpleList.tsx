@@ -4,9 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import Row from "../Row/Row"
 
 type Props = {
-  [index: string]: { 
-    [index: string]: string
-  }
+  [index: string]: IListConf
 }
 
 const dataList: Props = {
@@ -51,9 +49,9 @@ function _makeList(
   rows: IRow[], 
   idActiveRow: number, 
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
-  data: {[index: string]: string}) {
+  data: IListConf) {
 
-    return rows.map((value, index) => <Row
+    return rows.map((value) => <Row
       key={value.id}
       id={value.id + 1}
       title={value.title}
