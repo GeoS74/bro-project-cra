@@ -4,6 +4,7 @@ interface IRow {
 }
 interface IListConf{
   title: string
+  placeholderSearch: string,
   placeholder: string,
   api: string
 }
