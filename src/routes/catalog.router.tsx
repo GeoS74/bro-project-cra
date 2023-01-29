@@ -1,6 +1,7 @@
 import Catalog from "../components/catalog/Catalog"
 import Search from "../components/catalog/Search/Search"
 import SimpleList from "../components/SimpleList/SimpleList"
+import UploadPriceForm from "../components/catalog/UploadPriceForm/UploadPriceForm"
 import Test from "../components/catalog/Test/Test"
 import Test2 from "../components/catalog/Test/Test2"
 import config from "../config"
@@ -27,7 +28,16 @@ export default {
     },
     {
       path: "/catalog/edit/upload",
-      element: <h1>upload</h1>
+      element: <UploadPriceForm />,
+      loader: () => {
+        return Promise.all([
+          fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/brands`)
+            .then(async res => await res.json()),
+          fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
+            .then(async res => await res.json()),
+        ])
+        .catch(error => error.message)
+      }
     },
     {
       path: "/catalog/edit/test",

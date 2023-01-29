@@ -17,8 +17,8 @@ type Props = {
 export default function EditForm({id, setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
   const [error, setError] = useState<string | undefined>(undefined);
 
-  return <form onSubmit={(event) => {onSubmit(event, id, api, setValueRow, setIdActiveRow, setError, addRow)}} className={styles.root}>
-    <input type="text" name="title" placeholder={placeholder} defaultValue={value}/>
+  return <form onSubmit={(event) => {_onSubmit(event, id, api, setValueRow, setIdActiveRow, setError, addRow)}} className={styles.root}>
+    <input type="text" name="title" placeholder={placeholder} defaultValue={value} autoFocus={true}/>
     <input type="submit" className="btn btn-outline-primary" value="Добавить" />
     <span className="btn btn-outline-primary" onClick={() => setIdActiveRow(-1)}>Отмена</span>
     <br/>
@@ -26,7 +26,7 @@ export default function EditForm({id, setValueRow, setIdActiveRow, value, placeh
   </form>
 }
 
-function onSubmit(
+function _onSubmit(
   event: React.FormEvent<HTMLFormElement>, 
   id: number,
   api: string, 
@@ -63,5 +63,4 @@ function onSubmit(
     throw new Error(`response status: ${response.status}`)
   })
   .catch(error => console.log(error.message))
-  // .finally(() => setIdActiveRow(-1))
 }
