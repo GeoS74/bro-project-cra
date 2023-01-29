@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
-import config from "../../config"
+import SearchForm from "../SimpleList/SearchForm/SearchForm"
 import Row from "./Row/Row"
 
 type Props = {
@@ -30,9 +30,11 @@ export default function SimpleList({ typeList }: { typeList: keyof Props }){
   return <>
     <h3>{dataList[typeList].title}</h3>
 
-    <form onSubmit={(event)=>_searchRow(event, dataList[typeList].api, setIdActiveRow, setRows)}>
-      <input type="search" name="query" placeholder={dataList[typeList].placeholderSearch} style={{ margin: "20px 0px" }}/>
-    </form>
+    <SearchForm 
+      api={dataList[typeList].api} 
+      setIdActiveRow={setIdActiveRow} 
+      setRows={setRows}
+      placeholderSearch={dataList[typeList].placeholderSearch}/>
 
     <br/>
     <button type="button" className="btn btn-outline-primary" onClick={() => setIdActiveRow(0)}>Новая запись</button>
@@ -70,27 +72,4 @@ function _makeList(
         idActiveRow={idActiveRow}
         setIdActiveRow={setIdActiveRow}
         listConf={data} />)
-}
-
-function _searchRow(
-  event: React.FormEvent<HTMLFormElement>, 
-  api: string,
-  setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
-  setRows:React.Dispatch<React.SetStateAction<IRow[]>>){
-  
-    event.preventDefault()
-
-    const fd = new FormData(event.target as HTMLFormElement)
-
-    fetch(`${config.catalog.back.host}:${config.catalog.back.port}${api}/?title=${fd.get('query')}`)
-    .then(async response => {
-      if(response.ok) {
-        const res = await response.json()
-        setIdActiveRow(-1)
-        setRows(res)
-        return;
-      }
-      throw new Error(`response status: ${response.status}`)
-    })
-    .catch(error => console.log(error.message))
 }
