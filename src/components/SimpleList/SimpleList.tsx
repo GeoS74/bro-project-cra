@@ -4,11 +4,11 @@ import { useLoaderData } from "react-router-dom";
 import SearchForm from "../SimpleList/SearchForm/SearchForm"
 import Row from "./Row/Row"
 
-type Props = {
+type SimpleListConf = {
   [index: string]: IListConf
 }
 
-const dataList: Props = {
+const dataList: SimpleListConf = {
   brands: {
     title: "Редактирование брендов",
     placeholderSearch: "поиск брендов",
@@ -23,7 +23,7 @@ const dataList: Props = {
   },
 }
 
-export default function SimpleList({ typeList }: { typeList: keyof Props }){
+export default function SimpleList({ typeList }: { typeList: keyof SimpleListConf }){
   const [idActiveRow, setIdActiveRow] = useState(-1)
   const [rows, setRows] = useState(useLoaderData() as IRow[])
 
