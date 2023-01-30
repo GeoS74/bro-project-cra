@@ -9,7 +9,7 @@ interface IRow {
 /*
 *интерфейс настроект компоненты  SimpleList
 */
-interface IListConf{
+interface IListConf {
   title: string
   placeholderSearch: string,
   placeholder: string,

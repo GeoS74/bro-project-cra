@@ -16,15 +16,21 @@ export default {
     },
     {
       path: "/catalog/edit/brands",
-      element: <SimpleList typeList="brands"/>,
+      element: <SimpleList typeList="brands" />,
       loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/brands`)
-        .catch(error => error.message)
+        .catch(error => {
+          console.log(error.message);
+          return [];
+        })
     },
     {
       path: "/catalog/edit/providers",
-      element: <><></><SimpleList typeList="providers"/></>,
+      element: <><></><SimpleList typeList="providers" /></>,
       loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
-        .catch(error => error.message)
+        .catch(error => {
+          console.log(error.message);
+          return [];
+        })
     },
     {
       path: "/catalog/edit/upload",
@@ -36,7 +42,10 @@ export default {
           fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
             .then(async res => await res.json()),
         ])
-        .catch(error => error.message)
+          .catch(error => {
+            console.log(error.message);
+            return [[],[]];
+          })
       }
     },
     {

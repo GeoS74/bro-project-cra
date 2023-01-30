@@ -1,7 +1,4 @@
-import {
-  Outlet,
-  Link,
-} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import styles from "./styles.module.css"
 
 import Navigate from "../navigate/Navigate"

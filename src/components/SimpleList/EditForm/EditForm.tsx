@@ -14,22 +14,22 @@ type Props = {
   addRow?: (row: IRow) => void,
 }
 
-export default function EditForm({id, setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
+export default function EditForm({ id, setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
   const [error, setError] = useState<string | undefined>(undefined);
 
-  return <form onSubmit={(event) => {_onSubmit(event, id, api, setValueRow, setIdActiveRow, setError, addRow)}} className={styles.root}>
-    <input type="text" name="title" placeholder={placeholder} defaultValue={value} autoFocus={true}/>
+  return <form onSubmit={(event) => { _onSubmit(event, id, api, setValueRow, setIdActiveRow, setError, addRow) }} className={styles.root}>
+    <input type="text" name="title" placeholder={placeholder} defaultValue={value} autoFocus={true} />
     <input type="submit" className="btn btn-outline-primary" value="Добавить" />
     <span className="btn btn-outline-primary" onClick={() => setIdActiveRow(-1)}>Отмена</span>
-    <br/>
+    <br />
     {error ? <strong>{error}</strong> : ''}
   </form>
 }
 
 function _onSubmit(
-  event: React.FormEvent<HTMLFormElement>, 
+  event: React.FormEvent<HTMLFormElement>,
   id: number,
-  api: string, 
+  api: string,
   setValueRow: React.Dispatch<React.SetStateAction<string | undefined>>,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   setError: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -37,30 +37,30 @@ function _onSubmit(
 
   event.preventDefault()
 
-  fetch(`${config.catalog.back.host}:${config.catalog.back.port}${api}/${addRow ? '': id}`, {
+  fetch(`${config.catalog.back.host}:${config.catalog.back.port}${api}/${addRow ? '' : id}`, {
     method: addRow ? 'POST' : 'PATCH',
     body: new FormData(event.target as HTMLFormElement)
   })
-  .then(async response => {
-    if(response.ok) {
-      const res = await response.json()
-      setIdActiveRow(-1)
-      setError(undefined)
+    .then(async response => {
+      if (response.ok) {
+        const res = await response.json()
+        setIdActiveRow(-1)
+        setError(undefined)
 
-      if(addRow){
-        addRow(res)
+        if (addRow) {
+          addRow(res)
+          return;
+        }
+
+        setValueRow(res.title)
         return;
       }
-      
-      setValueRow(res.title)
-      return;
-    }
-    else if(response.status === 400){
-      const res = await response.json()
-      setError(res.error)
-      return
-    }
-    throw new Error(`response status: ${response.status}`)
-  })
-  .catch(error => console.log(error.message))
+      else if (response.status === 400) {
+        const res = await response.json()
+        setError(res.error)
+        return
+      }
+      throw new Error(`response status: ${response.status}`)
+    })
+    .catch(error => console.log(error.message))
 }
