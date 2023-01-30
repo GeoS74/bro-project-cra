@@ -1,7 +1,7 @@
 import Catalog from "../components/catalog/Catalog"
 import Search from "../components/catalog/Search/Search"
 import SimpleList from "../components/SimpleList/SimpleList"
-import UploadPriceForm from "../components/catalog/UploadPriceForm/UploadPriceForm"
+import UploadPrice from "../components/catalog/UploadPrice/UploadPrice"
 import Test from "../components/catalog/Test/Test"
 import Test2 from "../components/catalog/Test/Test2"
 import config from "../config"
@@ -34,7 +34,7 @@ export default {
     },
     {
       path: "/catalog/edit/upload",
-      element: <UploadPriceForm />,
+      element: <UploadPrice />,
       loader: () => {
         return Promise.all([
           fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/brands`)

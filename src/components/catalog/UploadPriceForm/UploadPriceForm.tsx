@@ -1,65 +1,45 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
-
 import config from "../../../config";
 
-export default function UploadPriceForm() {
+type Props = {
   /*
-  * первый элемент массива исходных данных - бренды
+  * первый элемент массива исходных данных loaderData - бренды
   * второй - поставщики
   */
-  const loaderData = useLoaderData() as IRow[][];
+  loaderData: IRow[][],
+  setError: React.Dispatch<React.SetStateAction<string | undefined>>,
+  setUploadState: React.Dispatch<React.SetStateAction<string>>,
+}
 
-  const [error, setError] = useState<string | undefined>(undefined);
-  const [uploadState, setUploadState] = useState("new")
+export default function UploadPriceForm({ loaderData, setError, setUploadState }: Props) {
+  return <form onSubmit={(event) => _onSubmit(event, setError, setUploadState)}>
+    <div className="form-group row col-sm-5">
+      <select name="brandId" className="form-select m-1">
+        <option value="0">Выберите бренд</option>
+        {_makeOptions(loaderData[0])}
+      </select>
 
+      <select name="providerId" className="form-select m-1">
+        <option value="0">Выберите поставщика</option>
+        {_makeOptions(loaderData[1])}
+      </select>
 
-  return <>
-    <h1>Загрузка прайса</h1>
+      <input type="file" name="file" className="form-control m-1" />
+    </div>
 
-    {error ? <span>{error}</span> : ""}
+    <div className="form-group row col-sm-3">
+      начальная строка: <input type="text" name="startRow" placeholder="цена" defaultValue="1" />
+      конечная строка: <input type="text" name="endRow" placeholder="количество" />
+      <hr />
+    </div>
 
-    {uploadState === "upload" ?
-      <p>файл загружается ...</p> :
+    <MainFields />
+    <hr />
+    <OptionalFields />
+    <hr />
 
-      uploadState === "end" ?
-        <p>файл загружен.<span onClick={() => setUploadState("")}>Загрузить ещё?</span></p> :
-
-        <form onSubmit={(event) => _onSubmit(event, setError, setUploadState)}>
-          <select name="brandId">
-            <option value="0">Выберите бренд</option>
-            {_makeOptions(loaderData[0])}
-          </select>
-
-          <select name="providerId">
-            <option value="0">Выберите поставщика</option>
-            {_makeOptions(loaderData[1])}
-          </select>
-          <br />
-          <input type="file" name="file" />
-          <br />
-
-          начальная строка: <input type="text" name="startRow" placeholder="цена" defaultValue="1" /><br />
-          читать до строки: <input type="text" name="endRow" placeholder="количество" /><br />
-          <hr />
-
-          <input type="text" name="code" placeholder="код" /><br />
-          <input type="text" name="article" placeholder="артикул" /><br />
-          <input type="text" name="title" placeholder="наименование" /><br />
-          <input type="text" name="price" placeholder="цена" /><br />
-          <input type="text" name="amount" placeholder="количество" /><br />
-          <hr />
-          <input type="text" name="manufacturer" placeholder="производитель" /><br />
-          <input type="text" name="weight" placeholder="вес, кг" /><br />
-          <input type="text" name="length" placeholder="длина, мм" /><br />
-          <input type="text" name="width" placeholder="ширина, мм" /><br />
-          <input type="text" name="height" placeholder="высота, мм" /><br />
-          <br />
-
-          <input type="submit" className="btn btn-outline-primary" value="Загрузить прайс" />
-        </form>
-    }
-  </>
+    <input type="submit" className="btn btn-outline-primary" value="Загрузить прайс" />
+  </form>
 }
 
 function _onSubmit(
@@ -102,4 +82,39 @@ function _makeOptions(brands: IRow[]) {
       {value.title}
     </option>
   })
+}
+
+function MainFields() {
+  const [visible, setVisible] = useState(false)
+
+  return <div className="form-group row col-sm-3">
+    <label className="form-label mt-4" onClick={()=>setVisible(!visible)}>Основные данные</label>
+    {visible ?
+      <>
+        <input type="text" name="code" placeholder="код позиции" />
+        <input type="text" name="article" placeholder="артикул" />
+        <input type="text" name="title" placeholder="наименование" />
+        <input type="text" name="price" placeholder="цена" />
+        <input type="text" name="amount" placeholder="количество" />
+        <input type="text" name="profit" placeholder="наценка" />
+      </> : <></>
+    }
+  </div>
+}
+
+function OptionalFields() {
+  const [visible, setVisible] = useState(false)
+
+  return <div className="form-group row col-sm-3">
+    <label className="form-label mt-4" onClick={()=>setVisible(!visible)}>Дополнительные данные</label>
+    {visible ?
+      <>
+        <input type="text" name="manufacturer" placeholder="производитель" />
+      <input type="text" name="weight" placeholder="вес, кг" />
+      <input type="text" name="length" placeholder="длина, мм" />
+      <input type="text" name="width" placeholder="ширина, мм" />
+      <input type="text" name="height" placeholder="высота, мм" />
+      </> : <></>
+    }
+  </div>
 }
