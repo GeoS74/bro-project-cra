@@ -21,11 +21,17 @@ export default function Navigate() {
           <li className="nav-item">
             <Link to="/catalog/edit/providers" className="nav-link">Поставщики</Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to="/catalog/edit/test" className="nav-link">Тест</Link>
           </li>
           <li className="nav-item">
             <Link to="/catalog/edit/test2" className="nav-link">Тест 2</Link>
+          </li> */}
+          <li className="nav-item">
+            <Link to="/auth" className="nav-link">Sign in</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/signout" className="nav-link">Sign out</Link>
           </li>
         </ul>
       </div>

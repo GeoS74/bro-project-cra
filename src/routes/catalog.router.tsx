@@ -17,7 +17,7 @@ export default {
     {
       path: "/catalog/edit/brands",
       element: <SimpleList typeList="brands" />,
-      loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/brands`)
+      loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/bridge/brands`)
         .catch(error => {
           console.log(error.message);
           return [];
@@ -26,7 +26,7 @@ export default {
     {
       path: "/catalog/edit/providers",
       element: <><></><SimpleList typeList="providers" /></>,
-      loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
+      loader: () => fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/bridge/providers`)
         .catch(error => {
           console.log(error.message);
           return [];
@@ -37,9 +37,9 @@ export default {
       element: <UploadPrice />,
       loader: () => {
         return Promise.all([
-          fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/brands`)
+          fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/bridge/brands`)
             .then(async res => await res.json()),
-          fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/providers`)
+          fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/bridge/providers`)
             .then(async res => await res.json()),
         ])
           .catch(error => {

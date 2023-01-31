@@ -13,13 +13,13 @@ const dataList: SimpleListConf = {
     title: "Редактирование брендов",
     placeholderSearch: "поиск брендов",
     placeholder: "Бренд",
-    api: "/api/brands",
+    api: "/api/bridge/brands",
   },
   providers: {
     title: "Редактирование поставщиков",
     placeholderSearch: "поиск поставщиков",
     placeholder: "Поставщик",
-    api: "/api/providers",
+    api: "/api/bridge/providers",
   },
 }
 

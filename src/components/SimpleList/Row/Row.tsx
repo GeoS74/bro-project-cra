@@ -51,7 +51,7 @@ export default function Row({ id, title, idActiveRow, setIdActiveRow, listConf, 
 }
 
 function _deleteRow(id: number, api: string) {
-  return fetch(`${config.catalog.back.host}:${config.catalog.back.port}${api}/${id}`, {
+  return fetch(`${config.catalog.back.host}${config.catalog.back.port ? ':':''}${config.catalog.back.port}${api}/${id}`, {
     method: 'DELETE'
   })
     .then(async response => {

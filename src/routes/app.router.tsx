@@ -5,13 +5,15 @@ import {
 } from "react-router-dom";
 
 import catalogRouter from './catalog.router'
+import authRouter from './auth.router'
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    loader: () => redirect('/catalog')
+    loader: () => redirect('/catalog'),
   },
-  catalogRouter
+  catalogRouter,
+  authRouter
 ])
 
 export default <RouterProvider router={router} />

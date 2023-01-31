@@ -51,7 +51,7 @@ function _onSubmit(
   event.preventDefault()
   setUploadState("upload");
 
-  fetch(`${config.catalog.back.host}:${config.catalog.back.port}/api/file/upload`, {
+  fetch(`${config.catalog.back.host}${config.catalog.back.port ? ':':''}${config.catalog.back.port}/api/bridge/file/upload`, {
     method: 'POST',
     body: new FormData(event.target as HTMLFormElement)
   })
