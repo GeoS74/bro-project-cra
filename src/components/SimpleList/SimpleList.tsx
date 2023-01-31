@@ -5,7 +5,8 @@ import SearchForm from "../SimpleList/SearchForm/SearchForm"
 import Row from "./Row/Row"
 
 type SimpleListConf = {
-  [index: string]: IListConf
+  brands: IListConf,
+  providers: IListConf
 }
 
 const dataList: SimpleListConf = {
