@@ -2,11 +2,11 @@ import styles from "./styles.module.css";
 import classNames from "classnames";
 
 type Props = {
-  valueType: string,
-  setValueType: React.Dispatch<React.SetStateAction<string>>
+  formMode: string,
+  setFormMode: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const Footer = ({ valueType, setValueType }: Props) => {
+export const Footer = ({ formMode, setFormMode }: Props) => {
   const dateForm = {
     notReg: "Not registered?",
     already: "Already have an account?",
@@ -18,12 +18,12 @@ export const Footer = ({ valueType, setValueType }: Props) => {
     <div>
       <div className={classNames(styles.foo, styles.pandlink)}>
         <p>
-          {valueType === "signin" ? dateForm.notReg : dateForm.already}
+          {formMode === "signin" ? dateForm.notReg : dateForm.already}
           <button onClick={event => {
             event.preventDefault();
-            setValueType(valueType === 'signin' ? 'signup' : 'signin');
+            setFormMode(formMode === 'signin' ? 'signup' : 'signin');
             }}>
-            {valueType === "signin" ? dateForm.nameLink1 : dateForm.signin}
+            {formMode === "signin" ? dateForm.nameLink1 : dateForm.signin}
           </button>
         </p>
       </div>

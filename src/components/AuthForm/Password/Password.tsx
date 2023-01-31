@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import { Eye } from "../Eye/Eye";
 
-export const Password = ({ valueType, jsonData }: {valueType: string, jsonData: string}) => {
+export const Password = ({ formMode, jsonData }: {formMode: string, jsonData: string}) => {
     const [valueEyeSlash, setValueEyeSlash] = useState("Slash");
 
     const textError = (jsonData: string) => {
@@ -33,7 +33,7 @@ export const Password = ({ valueType, jsonData }: {valueType: string, jsonData: 
     return (
         <div
             className={classNames(styles.foo, styles.pass, {
-                [styles.hidden]: valueType === "forgot",
+                [styles.hidden]: formMode === "forgot",
             })}
         >
             <div className={styles.password}>

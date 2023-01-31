@@ -58,7 +58,7 @@ function _onSubmit(
       else if (response.status === 400) {
         const res = await response.json()
         setError(res.error)
-        return
+        return;
       }
       throw new Error(`response status: ${response.status}`)
     })

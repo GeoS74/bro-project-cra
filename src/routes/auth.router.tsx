@@ -1,13 +1,10 @@
-import Auth from "../components/Auth/Auth"
-import { AuthForm } from "../components/Auth/AuthForm/AuthForm"
+import Navigate from "../components/navigate/Navigate"
+import { AuthForm } from "../components/AuthForm/AuthForm"
 
 export default {
   path: "/auth",
-  element: <Auth />,
-  children: [
-    {
-      index: true,
-      element: <AuthForm />,
-    },
-  ]
+  element: <>
+    <Navigate />
+    <AuthForm />
+  </>
 }

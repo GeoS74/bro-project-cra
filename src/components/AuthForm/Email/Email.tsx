@@ -10,7 +10,7 @@ function textError(jsonData: string) {
         const param_text = "Пользователь не найден";
         return param_text;
     } else if (jsonData === "email is not unique") {
-        const param_text = "Пользователь с такой почтой уже создан";
+        const param_text = "Пользователь c такой почтой уже создан";
         return param_text;
     } else {
         const param_text = "";

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 
-export const YourName = ({ valueType, jsonData }: {valueType: string, jsonData: string}) => {
+export const YourName = ({ formMode, jsonData }: {formMode: string, jsonData: string}) => {
     const textError = (jsonData: string) => {
         if (jsonData === "incorrect name") {
             const param = "Имя не корректно";
@@ -14,7 +14,7 @@ export const YourName = ({ valueType, jsonData }: {valueType: string, jsonData: 
     };
     return (
         <div className={styles.root}>
-            <div className={classNames({ [styles.name]: valueType === "signup" }, { [styles.hidden]: valueType !== "signup" }, styles.foo)}>
+            <div className={classNames({ [styles.name]: formMode === "signup" }, { [styles.hidden]: formMode !== "signup" }, styles.foo)}>
                 <label htmlFor="YourName">Your name - optional</label>
                 <input type="text" id="YourName" name="name" placeholder="name" />
             </div>
