@@ -8,18 +8,39 @@ services:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=bridge
       - POSTGRES_DB=bridge
-  bridge:
+  bridge_app:
     image: "bridge"
     environment:
       - SERVER_PORT=3500
       - DB_USER=bridge
       - DB_HOST=db
-      - DB_NAME=bridge
+      - NODE_ENV=dev
+  mauth:
+    image: "mauth"
+    volumes:
+      - initdb:/mauth/libs/
+    environment:
+      - SERVER_PORT=3001
+      - DB_HOST=dbs
+      - DB_USER=mauth
+      - DB_NAME=mauth
       - DB_PASS=admin
-      - NODE_ENV=prod
-  app:
-    image: "testreact"
+      - VERIFICATION_TTL="10 minute"
+      - SESSION_TTL="30 day"
+  dbs:
+    image: "postgres"
+    volumes:
+      - initdb:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=mauth
+      - POSTGRES_DB=mauth
+  react:
+    build: .
     ports:
       - "8080:80"
     environment:
-      - NODE_HOST=bridge
+      - NODE_HOST_BRIDGE=bridge_app
+      - NODE_HOST_MAUTH=mauth
+volumes:
+  initdb:
