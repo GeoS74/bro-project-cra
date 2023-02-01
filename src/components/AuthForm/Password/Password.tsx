@@ -1,48 +1,26 @@
-import React from "react";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 import { useState } from "react";
+
 import { Eye } from "../Eye/Eye";
 
-export const Password = ({ formMode, jsonData }: {formMode: string, jsonData: string}) => {
-    const [valueEyeSlash, setValueEyeSlash] = useState("Slash");
+type Props = {
+  formMode: string,
+  errorMessage: IErrorResponse | undefined
+}
 
-    const textError = (jsonData: string) => {
-        if (jsonData === "invalid password") {
-            const param = "Пароль не корректен";
-            return param;
-        } else {
-            const param = "";
-            return param;
-        }
-    };
+export const Password = ({ formMode, errorMessage }: Props) => {
+  const [visiblePassword, setVisiblePassword] = useState(false);
 
-    const eyeSlash = () => {
-        if (valueEyeSlash === "Slash") {
-            setValueEyeSlash("NotSlash");
-        } else {
-            setValueEyeSlash("Slash");
-        }
-    };
+  return formMode === "forgot" ?
 
-    const dateForm = {
-        typePassword: "Password",
-        typeText: "Text",
-    };
+    <div className={styles.password}>
+      <input name="password" type={visiblePassword ? "text" : "password"} placeholder="password" />
+      <p onClick={eyeSlash}>
+        <Eye valueSlash={valueEyeSlash} />
+      </p>
 
-    return (
-        <div
-            className={classNames(styles.foo, styles.pass, {
-                [styles.hidden]: formMode === "forgot",
-            })}
-        >
-            <div className={styles.password}>
-                <input id="Password" name="password" type={valueEyeSlash === "Slash" ? dateForm.typePassword : dateForm.typeText} placeholder="password" />
-                <p onClick={eyeSlash}>
-                    <Eye valueSlash={valueEyeSlash} />
-                </p>
-            </div>
-            <p style={{ color: "red", fontSize: "13px" }}>{textError(jsonData)}</p>
-        </div>
-    );
+      {errorMessage?.field === "email" ? <p className={styles.error}>{errorMessage.message}</p> : <></>}
+    </div>
+    : <></>
 };

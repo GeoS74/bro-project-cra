@@ -1,29 +1,17 @@
-import React from "react";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 
-function textError(jsonData: string) {
-    if (jsonData === "invalid email") {
-        const param_text = "Почта не корректна";
-        return param_text;
-    } else if (jsonData === "user not found") {
-        const param_text = "Пользователь не найден";
-        return param_text;
-    } else if (jsonData === "email is not unique") {
-        const param_text = "Пользователь c такой почтой уже создан";
-        return param_text;
-    } else {
-        const param_text = "";
-        return param_text;
-    }
+type Props = {
+  errorMessage: IErrorResponse | undefined
 }
 
-export const Email = ({ jsonData}: {jsonData: string}) => {
-    return (
-        <div className={classNames(styles.email, styles.foo)}>
-            <label htmlFor="Email">Email</label>
-            <input type="text" id="Email" name="email" placeholder="email" />
-            <p style={{ color: "red", fontSize: "13px" }}>{textError(jsonData)}</p>
-        </div>
-    );
+export const Email = ({ errorMessage }: Props) => {
+  return (
+    <div className={classNames(styles.email, styles.foo)}>
+      <label htmlFor="Email">Email</label>
+      <input type="text" id="Email" name="email" placeholder="email" />
+
+      {errorMessage?.field === "email" ? <p className={styles.error}>{errorMessage.message}</p> : <></>}
+    </div>
+  );
 }

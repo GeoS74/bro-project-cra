@@ -1,8 +1,12 @@
+.error {
+  color: "red"
+}
+
 .foo {
-    margin: 7px 30px;
-  }
-  
-  .email {
-    display: flex;
-    flex-direction: column;
-  }
+  margin: 7px 30px;
+}
+
+.email {
+  display: flex;
+  flex-direction: column;
+}
