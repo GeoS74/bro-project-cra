@@ -11,7 +11,7 @@ import { Button } from "./Button/Button";
 import { Footer } from "./Footer/Footer";
 
 export const AuthForm = () => {
-  const [formMode, setFormMode] = useState("signin");
+  const [formMode, setFormMode] = useState<formMode>("signin");
   const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
 
   return <form
@@ -19,7 +19,7 @@ export const AuthForm = () => {
     className={styles.root}>
 
     <Email errorMessage={errorMessage} />
-    <LabelForgot formMode={formMode} setFormMode={setFormMode} />
+    <LabelForgot setFormMode={setFormMode} />
     <Password formMode={formMode} errorMessage={errorMessage} />
     <YourName formMode={formMode} errorMessage={errorMessage} />
     <Button formMode={formMode} />
@@ -30,7 +30,7 @@ export const AuthForm = () => {
 function _query(
   event: React.FormEvent<HTMLFormElement>,
   formMode: string,
-  setFormMode: React.Dispatch<React.SetStateAction<string>>,
+  setFormMode: React.Dispatch<React.SetStateAction<formMode>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>) {
 
   event.preventDefault();
@@ -67,5 +67,4 @@ function _getErrorResponse(error: string): IErrorAuthMessage {
         return { field: "name", message: "Имя заполнено не корректно" }
     default: return { field: "", message: "" }
   }
-
 }

@@ -14,13 +14,12 @@ export const Password = ({ formMode, errorMessage }: Props) => {
 
   return formMode === "forgot" ?
     <></> :
-
     <div className={styles.password}>
       <input name="password" type={visiblePassword ? "text" : "password"} placeholder="password" />
       <p onClick={() => setVisiblePassword(!visiblePassword)}>
         <Eye visiblePassword={visiblePassword} />
       </p>
-      
+
       {errorMessage?.field === "password" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
     </div>
 };
