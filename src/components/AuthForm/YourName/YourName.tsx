@@ -1,5 +1,6 @@
 import styles from "./styles.module.css";
 import classNames from "classnames";
+import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
 type Props = {
   formMode: string,
@@ -13,6 +14,6 @@ export const YourName = ({ formMode, errorMessage }: Props) => {
       <input type="text" id="YourName" name="name" placeholder="name" />
     </div>
 
-    {errorMessage?.field === "name" ? <p className={styles.error}>{errorMessage.message}</p> : <></>}
+    {errorMessage?.field === "name" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </div>
 };

@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import { useState } from "react";
 
 import { Eye } from "../Eye/Eye";
+import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
 type Props = {
   formMode: string,
@@ -19,7 +20,7 @@ export const Password = ({ formMode, errorMessage }: Props) => {
       <p onClick={() => setVisiblePassword(!visiblePassword)}>
         <Eye visiblePassword={visiblePassword} />
       </p>
-
-      {errorMessage?.field === "password" ? <p className={styles.error}>{errorMessage.message}</p> : <></>}
+      
+      {errorMessage?.field === "password" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
     </div>
 };

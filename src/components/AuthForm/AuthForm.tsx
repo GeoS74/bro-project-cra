@@ -15,7 +15,7 @@ export const AuthForm = () => {
   const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
 
   return <form
-    onSubmit={(event) => _query(event, formMode, setErrorResponse, setFormMode)}
+    onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse)}
     className={styles.root}>
 
     <Email errorMessage={errorMessage} />
@@ -30,8 +30,8 @@ export const AuthForm = () => {
 function _query(
   event: React.FormEvent<HTMLFormElement>,
   formMode: string,
-  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>,
-  setFormMode: React.Dispatch<React.SetStateAction<string>>) {
+  setFormMode: React.Dispatch<React.SetStateAction<string>>,
+  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>) {
 
   event.preventDefault();
 
