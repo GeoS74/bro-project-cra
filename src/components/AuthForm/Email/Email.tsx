@@ -2,7 +2,7 @@ import styles from "./styles.module.css";
 import classNames from "classnames";
 
 type Props = {
-  errorMessage: IErrorResponse | undefined
+  errorMessage: IErrorAuthMessage | undefined
 }
 
 export const Email = ({ errorMessage }: Props) => {

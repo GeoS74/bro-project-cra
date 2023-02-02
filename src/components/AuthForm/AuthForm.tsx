@@ -12,25 +12,25 @@ import { Footer } from "./Footer/Footer";
 
 export const AuthForm = () => {
   const [formMode, setFormMode] = useState("signin");
-  const [errorResponse, setErrorResponse] = useState<IErrorResponse | undefined>();
+  const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
 
   return <form
     onSubmit={(event) => _query(event, formMode, setErrorResponse, setFormMode)}
     className={styles.root}>
 
-    <Email errorMessage={errorResponse} />
+    <Email errorMessage={errorMessage} />
     <LabelForgot formMode={formMode} setFormMode={setFormMode} />
-    <Password formMode={formMode} errorMessage={errorResponse} />
-    {/* <YourName formMode={formMode} jsonData={jsonData} />
+    <Password formMode={formMode} errorMessage={errorMessage} />
+    <YourName formMode={formMode} errorMessage={errorMessage} />
     <Button formMode={formMode} />
-    <Footer formMode={formMode} setFormMode={setFormMode} /> */}
+    <Footer formMode={formMode} setFormMode={setFormMode} />
   </form>
 }
 
 function _query(
   event: React.FormEvent<HTMLFormElement>,
   formMode: string,
-  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorResponse | undefined>>,
+  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>,
   setFormMode: React.Dispatch<React.SetStateAction<string>>) {
 
   event.preventDefault();
@@ -53,15 +53,19 @@ function _query(
     .catch(error => console.log(error.message));
 }
 
-function _getErrorResponse(error: string): IErrorResponse {
-  switch(error) {
+function _getErrorResponse(error: string): IErrorAuthMessage {
+  switch (error) {
     case "invalid email":
-      return {field: "email", message: "Почта не корректна"}
+      return { field: "email", message: "Почта не корректна" }
     case "user not found":
-      return {field: "email", message: "Пользователь не найден"}
+      return { field: "email", message: "Пользователь не найден" }
     case "email is not unique":
-      return {field: "email", message: "Пользователь c такой почтой уже создан"}
-    default: return {field: "", message: ""}
+      return { field: "email", message: "Пользователь c такой почтой уже создан" }
+    case "invalid password":
+      return { field: "password", message: "Пароль не корректен" }
+      case "incorrect name":
+        return { field: "name", message: "Имя заполнено не корректно" }
+    default: return { field: "", message: "" }
   }
 
 }
