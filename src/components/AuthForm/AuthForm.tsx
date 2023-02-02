@@ -21,9 +21,10 @@ export const AuthForm = () => {
       <Email errorMessage={errorMessage} />
     {/* <LabelForgot setFormMode={setFormMode} />
     <Password formMode={formMode} errorMessage={errorMessage} />
-    <YourName formMode={formMode} errorMessage={errorMessage} />
+    <YourName formMode={formMode} errorMessage={errorMessage} /> */}
     <Button formMode={formMode} />
-    <Footer formMode={formMode} setFormMode={setFormMode} /> */}
+
+    {/* <Footer formMode={formMode} setFormMode={setFormMode} /> */}
     </form>
     {/* <div style={{background: "red"}}>lorem ipsum</div>
     <div style={{background: "yellow"}}>dolor sit amet</div> */}
@@ -59,7 +60,7 @@ function _query(
 function _getErrorResponse(error: string): IErrorAuthMessage {
   switch (error) {
     case "invalid email":
-      return { field: "email", message: "Почта не корректна" }
+      return { field: "email", message: "Введите адрес электронной почты" }
     case "user not found":
       return { field: "email", message: "Пользователь не найден" }
     case "email is not unique":

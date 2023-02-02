@@ -1,8 +1,9 @@
 import styles from "./styles.module.css";
+import classNames from "classnames";
 
 export const Button = ({ formMode }: { formMode: formMode }) => {
   return <div>
-    <button className={styles.root}>{_getTitle(formMode)}</button>
+    <button className={classNames(styles.root, "btn btn-outline-light mt-4")}>{_getTitle(formMode)}</button>
   </div>
 };
 
