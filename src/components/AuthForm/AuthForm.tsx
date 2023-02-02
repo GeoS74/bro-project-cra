@@ -19,9 +19,9 @@ export const AuthForm = () => {
     <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse)}>
       Authorization form
       <Email errorMessage={errorMessage} />
-    {/* <LabelForgot setFormMode={setFormMode} />
+    <LabelForgot setFormMode={setFormMode} />
     <Password formMode={formMode} errorMessage={errorMessage} />
-    <YourName formMode={formMode} errorMessage={errorMessage} /> */}
+    {/* <YourName formMode={formMode} errorMessage={errorMessage} /> */}
     <Button formMode={formMode} />
 
     {/* <Footer formMode={formMode} setFormMode={setFormMode} /> */}

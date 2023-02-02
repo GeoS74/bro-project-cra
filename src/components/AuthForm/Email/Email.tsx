@@ -1,5 +1,3 @@
-import styles from "./styles.module.css";
-import classNames from "classnames";
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
 type Props = {
@@ -7,11 +5,11 @@ type Props = {
 }
 
 export const Email = ({ errorMessage }: Props) => {
-  return <div className={classNames(styles.root, "form-group")}>
+  return <div className="form-group">
 
-    <label htmlFor="emailfield" className="form-label mt-4">Email</label>
+    <label htmlFor="email" className="form-label mt-4">Email</label>
 
-    <input type="email" id="emailfield" name="email" className="form-control" aria-describedby="emailHelp" placeholder="email" />
+    <input type="email" id="email" name="email" className="form-control" aria-describedby="emailHelp" placeholder="email" />
 
     {errorMessage?.field === "email" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </div>

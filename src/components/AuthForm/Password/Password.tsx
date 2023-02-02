@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { Eye } from "../Eye/Eye";
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
+import classNames from "classnames";
 
 type Props = {
   formMode: string,
@@ -14,11 +15,15 @@ export const Password = ({ formMode, errorMessage }: Props) => {
 
   return formMode === "forgot" ?
     <></> :
-    <div className={styles.password}>
-      <input name="password" type={visiblePassword ? "text" : "password"} placeholder="password" />
-      <p onClick={() => setVisiblePassword(!visiblePassword)}>
+    <div className={classNames(styles.root, "form-group")}>
+      
+      <label htmlFor="password" className="form-label mt-4">Password</label>
+      
+      <input type={visiblePassword ? "text" : "password"} id="password" name="password" className="form-control" placeholder="password" />
+      
+      <span onClick={() => setVisiblePassword(!visiblePassword)} className={styles.eye}>
         <Eye visiblePassword={visiblePassword} />
-      </p>
+      </span>
 
       {errorMessage?.field === "password" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
     </div>
