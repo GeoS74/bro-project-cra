@@ -1,5 +1,3 @@
-import React from "react";
-import styles from "./styles.module.css"
 import { useState } from "react";
 
 import config from "../../config";
@@ -9,22 +7,27 @@ import { Password } from "./Password/Password";
 import { YourName } from "./YourName/YourName";
 import { Button } from "./Button/Button";
 import { Footer } from "./Footer/Footer";
+import styles from "./styles.module.css"
 
 export const AuthForm = () => {
   const [formMode, setFormMode] = useState<formMode>("signin");
   const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
 
-  return <form
-    onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse)}
-    className={styles.root}>
 
-    <Email errorMessage={errorMessage} />
-    <LabelForgot setFormMode={setFormMode} />
+
+  return <div className={styles.root}>
+    <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse)}>
+      Authorization form
+      <Email errorMessage={errorMessage} />
+    {/* <LabelForgot setFormMode={setFormMode} />
     <Password formMode={formMode} errorMessage={errorMessage} />
     <YourName formMode={formMode} errorMessage={errorMessage} />
     <Button formMode={formMode} />
-    <Footer formMode={formMode} setFormMode={setFormMode} />
-  </form>
+    <Footer formMode={formMode} setFormMode={setFormMode} /> */}
+    </form>
+    {/* <div style={{background: "red"}}>lorem ipsum</div>
+    <div style={{background: "yellow"}}>dolor sit amet</div> */}
+  </div>
 }
 
 function _query(
@@ -63,8 +66,8 @@ function _getErrorResponse(error: string): IErrorAuthMessage {
       return { field: "email", message: "Пользователь c такой почтой уже создан" }
     case "invalid password":
       return { field: "password", message: "Пароль не корректен" }
-      case "incorrect name":
-        return { field: "name", message: "Имя заполнено не корректно" }
+    case "incorrect name":
+      return { field: "name", message: "Имя заполнено не корректно" }
     default: return { field: "", message: "" }
   }
 }

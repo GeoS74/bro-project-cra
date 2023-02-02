@@ -1,5 +1,6 @@
 import styles from "./styles.module.css";
+import classNames from "classnames";
 
 export const ErrorMessage = ({errorMessage}: {errorMessage: string}) => {
-  return <p className={styles.root}>{errorMessage}</p>
+  return <small className={classNames(styles.root, "form-text text-muted")}>{errorMessage}</small>
 }

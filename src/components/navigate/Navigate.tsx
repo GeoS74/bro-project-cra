@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
+import styles from "./styles.module.css"
+import classNames from "classnames";
 
 export default function Navigate() {
-  return <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+  return <nav className={classNames(styles.root, "navbar", "navbar-expand-lg", "navbar-dark", "bg-primary")}>
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">Marketplace</Link>
       <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
