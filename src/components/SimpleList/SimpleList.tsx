@@ -12,13 +12,13 @@ type SimpleListConf = {
 
 const dataList: SimpleListConf = {
   brands: {
-    title: "Редактирование брендов",
+    title: "Список брендов",
     placeholderSearch: "поиск брендов",
     placeholder: "Бренд",
     api: "/api/bridge/brands",
   },
   providers: {
-    title: "Редактирование поставщиков",
+    title: "Список поставщиков",
     placeholderSearch: "поиск поставщиков",
     placeholder: "Поставщик",
     api: "/api/bridge/providers",

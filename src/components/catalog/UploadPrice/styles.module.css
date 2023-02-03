@@ -1,3 +1,7 @@
 .root>h3 {
   color: white;
 }
+
+.root>ul span {
+  color: white;
+}

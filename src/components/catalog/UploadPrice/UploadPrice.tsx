@@ -17,7 +17,7 @@ export default function UploadPrice() {
   return <div className={styles.root}>
     <h3>Загрузка прайса</h3>
 
-    {error ? <span>{error}</span> : ""}
+    {/* {error ? <span>{error}</span> : ""}
 
     {uploadState === "upload" ?
       <p>файл загружается ...</p> :
@@ -26,6 +26,35 @@ export default function UploadPrice() {
         <p>файл загружен.<span onClick={() => setUploadState("")}>Загрузить ещё?</span></p> :
 
         <UploadPriceForm loaderData={loaderData} setError={setError} setUploadState={setUploadState} />
-    }
+    } */}
+
+
+
+
+
+
+
+    <ul className="nav nav-tabs" role="tablist">
+      <li className="nav-item" role="presentation">
+        <span className="nav-link" data-bs-toggle="tab" aria-selected="true" role="tab">Home</span>
+      </li>
+      <li className="nav-item" role="presentation">
+        <span className="nav-link active" data-bs-toggle="tab" aria-selected="false" role="tab">Profile</span>
+      </li>
+    </ul>
+    
+    <div id="myTabContent" className="tab-content">
+      <div className="tab-pane fade" id="home" role="tabpanel">
+        <p>first</p>
+      </div>
+      <div className="tab-pane fade active show" id="profile" role="tabpanel">
+        <p>second</p>
+      </div>
+    </div>
+
+
+
+
+
   </div>
 }
