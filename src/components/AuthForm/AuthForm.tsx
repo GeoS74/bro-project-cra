@@ -16,7 +16,9 @@ export const AuthForm = () => {
 
   return <div className={styles.root}>
     <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse)}>
-      Authorization form
+
+      <legend>{_getLegend(formMode)}</legend>
+
       <Email errorMessage={errorMessage} />
 
       <Password formMode={formMode} setFormMode={setFormMode} errorMessage={errorMessage} />
@@ -69,5 +71,13 @@ function _getErrorResponse(error: string): IErrorAuthMessage {
     case "incorrect name":
       return { field: "name", message: "Имя заполнено не корректно" }
     default: return { field: "", message: "" }
+  }
+}
+
+function _getLegend(formMode: formMode) {
+  switch (formMode) {
+    case "signin": return "Авторизация";
+    case "signup": return "Создание аккаунта";
+    case "forgot": return "Сброс пароля";
   }
 }

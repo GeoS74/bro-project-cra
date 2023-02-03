@@ -7,7 +7,7 @@ type Props = {
 export const Email = ({ errorMessage }: Props) => {
   return <div className="form-group">
 
-    <label htmlFor="email" className="form-label mt-4">Email</label>
+    <label htmlFor="email" className="form-label mt-1">Email</label>
 
     <input type="email" id="email" name="email" className="form-control" aria-describedby="emailHelp" placeholder="email" />
 

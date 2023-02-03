@@ -15,3 +15,8 @@ form {
   flex: 0.5 200px;
   max-width: 400px;
 }
+
+form legend {
+  color: #fff;
+  text-align: center;
+}
