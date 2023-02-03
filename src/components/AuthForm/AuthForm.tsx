@@ -19,12 +19,12 @@ export const AuthForm = () => {
     <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse)}>
       Authorization form
       <Email errorMessage={errorMessage} />
-    <LabelForgot setFormMode={setFormMode} />
-    <Password formMode={formMode} errorMessage={errorMessage} />
-    {/* <YourName formMode={formMode} errorMessage={errorMessage} /> */}
-    <Button formMode={formMode} />
+      <LabelForgot setFormMode={setFormMode} />
+      <Password formMode={formMode} errorMessage={errorMessage} />
+      {/* <YourName formMode={formMode} errorMessage={errorMessage} /> */}
+      <Button formMode={formMode} />
 
-    {/* <Footer formMode={formMode} setFormMode={setFormMode} /> */}
+      {/* <Footer formMode={formMode} setFormMode={setFormMode} /> */}
     </form>
     {/* <div style={{background: "red"}}>lorem ipsum</div>
     <div style={{background: "yellow"}}>dolor sit amet</div> */}

@@ -1,2 +1,6 @@
-
-
+.root {  
+  position: absolute;
+  top: 63px;
+  right: 10px;
+  width: 35px;
+}

@@ -20,10 +20,8 @@ export const Password = ({ formMode, errorMessage }: Props) => {
       <label htmlFor="password" className="form-label mt-4">Password</label>
       
       <input type={visiblePassword ? "text" : "password"} id="password" name="password" className="form-control" placeholder="password" />
-      
-      <span onClick={() => setVisiblePassword(!visiblePassword)} className={styles.eye}>
-        <Eye visiblePassword={visiblePassword} />
-      </span>
+
+      <Eye visiblePassword={visiblePassword} setVisiblePassword={setVisiblePassword} />
 
       {errorMessage?.field === "password" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
     </div>
