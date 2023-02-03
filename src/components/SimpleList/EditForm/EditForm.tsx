@@ -17,11 +17,16 @@ type Props = {
 export default function EditForm({ id, setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
   const [error, setError] = useState<string | undefined>(undefined);
 
-  return <form onSubmit={(event) => { _onSubmit(event, id, api, setValueRow, setIdActiveRow, setError, addRow) }} className={styles.root}>
-    <input type="text" name="title" placeholder={placeholder} defaultValue={value} autoFocus={true} />
-    <input type="submit" className="btn btn-outline-primary" value="Добавить" />
-    <span className="btn btn-outline-primary" onClick={() => setIdActiveRow(-1)}>Отмена</span>
-    <br />
+  return <form
+    onSubmit={(event) => { _onSubmit(event, id, api, setValueRow, setIdActiveRow, setError, addRow) }}
+    className={styles.root}>
+
+    <input type="text" name="title" className="form-control" placeholder={placeholder} defaultValue={value} autoFocus={true} />
+
+    <input type="submit" className="btn btn-outline-light" value="Добавить" />
+
+    <span className="btn btn-outline-light" onClick={() => setIdActiveRow(-1)}>Отмена</span>
+
     {error ? <strong>{error}</strong> : ''}
   </form>
 }
@@ -37,7 +42,7 @@ function _onSubmit(
 
   event.preventDefault()
 
-  fetch(`${config.catalog.back.host}${config.catalog.back.port ? ':':''}${config.catalog.back.port}${api}/${addRow ? '' : id}`, {
+  fetch(`${config.catalog.back.host}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port}${api}/${addRow ? '' : id}`, {
     method: addRow ? 'POST' : 'PATCH',
     body: new FormData(event.target as HTMLFormElement)
   })

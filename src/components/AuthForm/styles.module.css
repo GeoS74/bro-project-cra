@@ -10,13 +10,13 @@
   align-items: center;
 }
 
-form {
+.root > form {
   /* background-color: green; */
   flex: 0.5 200px;
   max-width: 400px;
 }
 
-form legend {
+.root > form legend {
   color: #fff;
   text-align: center;
 }

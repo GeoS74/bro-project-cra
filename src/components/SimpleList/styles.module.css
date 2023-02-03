@@ -1,3 +1,4 @@
-.row {
-  width: 100%;
+.root>h3,
+.root>ul {
+  color: white;
 }

@@ -1,3 +1,4 @@
 .root {
-  margin: 20px;
+  display: flex;
+  flex-flow: row nowrap;
 }

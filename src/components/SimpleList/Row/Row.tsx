@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import config from "../../../config"
 import EditForm from "../EditForm/EditForm"
+import styles from "./styles.module.css"
 
 type Props = {
   id: number,
@@ -31,18 +32,20 @@ export default function Row({ id, title, idActiveRow, setIdActiveRow, listConf, 
 
   if (visible) {
     return <li
-      style={{ padding: "10px" }}
+      className={styles.li}
       onMouseEnter={() => setShowOptionalButton(true)}
       onMouseLeave={() => setShowOptionalButton(false)}
     >
       {showOptionalButton ? <>
-        {valueRow} <span onClick={() => setIdActiveRow(id)}>Изменить</span>
+        {valueRow}
+        <span className="text-muted" onClick={() => setIdActiveRow(id)}>Изменить</span>
         /
-        <span onClick={() => {
-          if (!confirm('Delete this row?')) return;
-          setVisible(false)
-          _deleteRow(id, listConf.api);
-        }} >Удалить</span>
+        <span className="text-muted"
+          onClick={() => {
+            if (!confirm('Delete this row?')) return;
+            setVisible(false)
+            _deleteRow(id, listConf.api);
+          }} >Удалить</span>
       </> : valueRow}
     </li>
   }
@@ -51,7 +54,7 @@ export default function Row({ id, title, idActiveRow, setIdActiveRow, listConf, 
 }
 
 function _deleteRow(id: number, api: string) {
-  return fetch(`${config.catalog.back.host}${config.catalog.back.port ? ':':''}${config.catalog.back.port}${api}/${id}`, {
+  return fetch(`${config.catalog.back.host}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port}${api}/${id}`, {
     method: 'DELETE'
   })
     .then(async response => {
