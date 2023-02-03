@@ -14,9 +14,9 @@
 
 .root>span {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .root>span:hover {
-  text-decoration: underline;
   color: white;
 }

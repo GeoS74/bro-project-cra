@@ -21,7 +21,7 @@ export const AuthForm = () => {
 
       <Password formMode={formMode} setFormMode={setFormMode} errorMessage={errorMessage} />
 
-      {/* <YourName formMode={formMode} errorMessage={errorMessage} /> */}
+      <YourName formMode={formMode} errorMessage={errorMessage} />
 
       <Button formMode={formMode} />
 
@@ -32,7 +32,7 @@ export const AuthForm = () => {
 
 function _query(
   event: React.FormEvent<HTMLFormElement>,
-  formMode: string,
+  formMode: formMode,
   setFormMode: React.Dispatch<React.SetStateAction<formMode>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>) {
 

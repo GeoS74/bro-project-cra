@@ -2,21 +2,16 @@ import styles from "./styles.module.css";
 import classNames from "classnames";
 
 type Props = {
-  formMode: string,
+  formMode: formMode,
   setFormMode: React.Dispatch<React.SetStateAction<formMode>>
 }
 
 export const Footer = ({ formMode, setFormMode }: Props) => {
-  return <div className={classNames(styles.foo, styles.pandlink)}>
-    <p>
-      {formMode === "signin" ? "Not registered?" : "Already have an account?"}
-
-      <button onClick={(event) => {
-        event.preventDefault()
-        setFormMode(formMode === 'signin' ? 'signup' : 'signin')
-      }}>
-        {formMode === "signin" ? "Create an account" : "Sign in"}
-      </button>
+  return <div className={classNames(styles.root, "form-group mt-2")}>
+    <p>{formMode === "signin" ? "Not registered? " : "Already have an account? "}
+      <span
+        onClick={() => setFormMode(formMode === 'signin' ? 'signup' : 'signin')}
+      >{formMode === "signin" ? "Create an account" : "Sign in"}</span>
     </p>
   </div>
-};
+}

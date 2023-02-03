@@ -9,8 +9,8 @@ export const LabelForgot = ({ setFormMode }: Props) => {
 
     <label htmlFor="password" className="form-label mt-4">Password</label>
 
-    <span 
-      onClick={()=>setFormMode("forgot")}
+    <span
+      onClick={() => setFormMode("forgot")}
       className="form-label mt-4"
     >Forgot password?</span>
   </div>
