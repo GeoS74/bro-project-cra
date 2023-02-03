@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import UploadPriceForm from "../UploadPriceForm/UploadPriceForm";
+import styles from "./styles.module.css"
 
 export default function UploadPrice() {
   /*
@@ -13,8 +14,8 @@ export default function UploadPrice() {
   const [error, setError] = useState<string | undefined>(undefined);
   const [uploadState, setUploadState] = useState("new")
 
-  return <>
-    <h1>Загрузка прайса</h1>
+  return <div className={styles.root}>
+    <h3>Загрузка прайса</h3>
 
     {error ? <span>{error}</span> : ""}
 
@@ -26,5 +27,5 @@ export default function UploadPrice() {
 
         <UploadPriceForm loaderData={loaderData} setError={setError} setUploadState={setUploadState} />
     }
-  </>
+  </div>
 }
