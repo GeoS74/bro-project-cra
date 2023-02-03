@@ -10,6 +10,6 @@ type Props = {
 export const Eye = ({ visiblePassword, setVisiblePassword }: Props) => {
   return <span className={styles.root} onClick={() => setVisiblePassword(!visiblePassword)}>
 
-    {visiblePassword ? <img src={openEye} /> : <img src={closeEye} />}
+    {visiblePassword ? <img src={openEye} loading="lazy" /> : <img src={closeEye} loading="lazy" />}
   </span>
 };

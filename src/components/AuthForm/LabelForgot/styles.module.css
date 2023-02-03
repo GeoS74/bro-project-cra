@@ -1,34 +1,22 @@
-
-
-.hidden {
-  display: none!important;
-}
-
-.foo {
-  margin: 10px 30px 0 30px;
-}
-
-.pass {
+.root {
   display: flex;
-  flex-direction: column;
+  flex-flow: row nowrap;
 }
 
-.paslink {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 34px;
+.root>label {
+  flex: 2;
 }
 
-.passButton {
-  background: none!important;
-  border: none!important;
-  padding: 0!important;
-    /*optional*/
-  font-family: arial, sans-serif;
-    /*input has OS specific font-family*/
-  color: #069!important;
-  text-decoration: underline;
+.root>span {
+  flex: 2;
+  text-align: right;
+}
+
+.root>span {
   cursor: pointer;
+}
+
+.root>span:hover {
+  text-decoration: underline;
+  color: white;
 }

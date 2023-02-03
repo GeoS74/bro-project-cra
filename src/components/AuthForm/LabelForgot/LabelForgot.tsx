@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./styles.module.css";
 
 type Props = {
@@ -6,8 +5,13 @@ type Props = {
 }
 
 export const LabelForgot = ({ setFormMode }: Props) => {
-  return <div className={styles.paslink}>
-    <label htmlFor="Password">Password</label>
-    <p onClick={() => setFormMode("forgot")}>Forgot password?</p>
+  return <div className={styles.root}>
+
+    <label htmlFor="password" className="form-label mt-4">Password</label>
+
+    <span 
+      onClick={()=>setFormMode("forgot")}
+      className="form-label mt-4"
+    >Forgot password?</span>
   </div>
-};
+}

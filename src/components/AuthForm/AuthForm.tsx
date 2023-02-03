@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import config from "../../config";
 import { Email } from "./Email/Email";
-import { LabelForgot } from "./LabelForgot/LabelForgot";
 import { Password } from "./Password/Password";
 import { YourName } from "./YourName/YourName";
 import { Button } from "./Button/Button";
@@ -19,15 +18,15 @@ export const AuthForm = () => {
     <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse)}>
       Authorization form
       <Email errorMessage={errorMessage} />
-      <LabelForgot setFormMode={setFormMode} />
-      <Password formMode={formMode} errorMessage={errorMessage} />
+
+      <Password formMode={formMode} setFormMode={setFormMode} errorMessage={errorMessage} />
+
       {/* <YourName formMode={formMode} errorMessage={errorMessage} /> */}
+
       <Button formMode={formMode} />
 
-      {/* <Footer formMode={formMode} setFormMode={setFormMode} /> */}
+      <Footer formMode={formMode} setFormMode={setFormMode} />
     </form>
-    {/* <div style={{background: "red"}}>lorem ipsum</div>
-    <div style={{background: "yellow"}}>dolor sit amet</div> */}
   </div>
 }
 
