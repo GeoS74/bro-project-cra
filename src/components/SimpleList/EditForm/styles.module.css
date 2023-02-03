@@ -1,4 +1,20 @@
 .root {
   display: flex;
   flex-flow: row nowrap;
+  max-width: 600px;
+}
+
+.root>input,
+.root>span {
+  margin-right: 10px;
+  flex: 6;
+}
+
+.root>input[type=text] {
+  flex: 4;
+}
+
+.root>input[type=submit],
+.root>span {
+  flex: 1;
 }

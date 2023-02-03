@@ -38,7 +38,7 @@ export default function SimpleList({ typeList }: { typeList: keyof SimpleListCon
       setRows={setRows}
       placeholderSearch={dataList[typeList].placeholderSearch} />
 
- 
+
     <button type="button" className="btn btn-outline-light mt-4" onClick={() => setIdActiveRow(0)}>Новая запись</button>
 
     <ul className="mt-4">
@@ -51,6 +51,8 @@ export default function SimpleList({ typeList }: { typeList: keyof SimpleListCon
       /> : <></>}
 
       {_makeList(rows, idActiveRow, setIdActiveRow, dataList[typeList])}
+
+      {idActiveRow !== 0 && !rows.length ? "пока нет ни одной записи" : <></>}
     </ul>
   </div>
 }
