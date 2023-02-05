@@ -13,6 +13,10 @@ services:
       - NODE_ENV=dev
     volumes:
       - init-db-bridge:/bridge/libs
+    deploy:
+      resources:
+        limits:
+          memory: 50M
   db_bridge:
     image: "postgres"
     volumes:
@@ -21,6 +25,10 @@ services:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=bridge
       - POSTGRES_DB=bridge
+    deploy:
+      resources:
+        limits:
+          memory: 50M
   mauth_app:
     image: "geos74/mauth:1.0.0"
     ports:
@@ -42,6 +50,10 @@ services:
       - NODE_ENV=dev
     volumes:
       - init-db-mauth:/mauth/libs
+    deploy:
+      resources:
+        limits:
+          memory: 50M
   db_mauth:
     image: "postgres"
     volumes:
@@ -50,6 +62,10 @@ services:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=mauth
       - POSTGRES_DB=mauth
+    deploy:
+      resources:
+        limits:
+          memory: 50M
   # react:
   #   build: .
   #   ports:
