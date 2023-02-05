@@ -46,6 +46,7 @@ function _query(
   }).then(async (req) => {
     if (req.ok) {
       setFormMode("signin");
+      setErrorResponse(undefined);
       return;
     }
     else if (req.status === 400) {

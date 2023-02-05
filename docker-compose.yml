@@ -33,6 +33,7 @@ services:
     image: "geos74/mauth:1.0.0"
     ports:
       - "3001:3001"
+      - "587:587"
     environment:
       - SERVER_PORT=3001
       - DB_USER=mauth
@@ -41,8 +42,8 @@ services:
       - DB_PASS=admin
       - MAIL_HOST="smtp.ethereal.email"
       - MAIL_PORT=587
-      - MAIL_USER="demetrius20@ethereal.email"
-      - MAIL_PASS="cbz3tDWvSM4Xtxj1Zt"
+      - MAIL_USER="calista.ledner89@ethereal.email"
+      - MAIL_PASS="K3peFMtyuEXehgba8r"
       - JWT_TTL=1800
       - JWT_SECRET_KEY="any secret"
       - VERIFICATION_TTL="10 minute"
@@ -66,15 +67,15 @@ services:
       resources:
         limits:
           memory: 50M
-  # react:
-  #   build: .
-  #   ports:
-  #     - "8080:80"
-  #   environment:
-  #     - HOST_BRIDGE=bridge_app
-  #     - PORT_BRIDGE=3500
-  #     - HOST_MAUTH=mauth_app
-  #     - PORT_MAUTH=3001
+  react:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - HOST_BRIDGE=bridge_app
+      - PORT_BRIDGE=3500
+      - HOST_MAUTH=mauth_app
+      - PORT_MAUTH=3001
 volumes:
   init-db-bridge:
   init-db-mauth:
