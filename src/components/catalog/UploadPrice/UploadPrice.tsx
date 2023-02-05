@@ -40,5 +40,3 @@ function _getErrorResponse(error: string) {
     default: return "";
   }
 }
-
-_getErrorResponse
