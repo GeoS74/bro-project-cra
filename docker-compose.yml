@@ -1,46 +1,62 @@
 version: '1.0'
 services:
-  db:
+  bridge_app:
+    image: "geos74/bridge:0.0.2"
+    ports:
+      - "3100:3500"
+    environment:
+      - SERVER_PORT=3500
+      - DB_USER=bridge
+      - DB_HOST=db_bridge
+      - DB_NAME=bridge
+      - DB_PASS=admin
+      - NODE_ENV=dev
+    volumes:
+      - init-db-bridge:/bridge/libs
+  db_bridge:
     image: "postgres"
     volumes:
-      - /home/geos/nodejs/bridge/libs:/docker-entrypoint-initdb.d
+      - init-db-bridge:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=bridge
       - POSTGRES_DB=bridge
-  bridge_app:
-    image: "bridge"
-    environment:
-      - SERVER_PORT=3500
-      - DB_USER=bridge
-      - DB_HOST=db
-      - NODE_ENV=dev
-  mauth:
-    image: "mauth"
+  mauth_app:
+    image: "geos74/mauth:1.0.0"
     volumes:
-      - initdb:/mauth/libs/
+      - init-db-mauth:/mauth/libs/
+    ports:
+      - "3001:3001"
     environment:
       - SERVER_PORT=3001
-      - DB_HOST=dbs
       - DB_USER=mauth
+      - DB_HOST=db_mauth
       - DB_NAME=mauth
       - DB_PASS=admin
+      - MAIL_HOST="smtp.ethereal.email"
+      - MAIL_PORT=587
+      - MAIL_USER="demetrius20@ethereal.email"
+      - MAIL_PASS="cbz3tDWvSM4Xtxj1Zt"
+      - JWT_TTL=1800
+      - JWT_SECRET_KEY="any secret"
       - VERIFICATION_TTL="10 minute"
       - SESSION_TTL="30 day"
-  dbs:
+      - NODE_ENV=dev
+  db_mauth:
     image: "postgres"
     volumes:
-      - initdb:/docker-entrypoint-initdb.d
+      - init-db-mauth:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=mauth
       - POSTGRES_DB=mauth
-  react:
-    build: .
-    ports:
-      - "8080:80"
-    environment:
-      - NODE_HOST_BRIDGE=bridge_app
-      - NODE_HOST_MAUTH=mauth
+  # react:
+  #   build: .
+  #   ports:
+  #     - "8080:80"
+  #   environment:
+  #     - NODE_HOST_BRIDGE=bridge_app
+  #     - NODE_HOST_MAUTH=mauth
 volumes:
-  initdb:
+  init-db-bridge:
+  init-db-mauth:
