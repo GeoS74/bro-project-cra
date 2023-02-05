@@ -23,8 +23,6 @@ services:
       - POSTGRES_DB=bridge
   mauth_app:
     image: "geos74/mauth:1.0.0"
-    volumes:
-      - init-db-mauth:/mauth/libs/
     ports:
       - "3001:3001"
     environment:
@@ -42,6 +40,8 @@ services:
       - VERIFICATION_TTL="10 minute"
       - SESSION_TTL="30 day"
       - NODE_ENV=dev
+    volumes:
+      - init-db-mauth:/mauth/libs
   db_mauth:
     image: "postgres"
     volumes:
@@ -55,8 +55,10 @@ services:
   #   ports:
   #     - "8080:80"
   #   environment:
-  #     - NODE_HOST_BRIDGE=bridge_app
-  #     - NODE_HOST_MAUTH=mauth
+  #     - HOST_BRIDGE=bridge_app
+  #     - PORT_BRIDGE=3500
+  #     - HOST_MAUTH=mauth_app
+  #     - PORT_MAUTH=3001
 volumes:
   init-db-bridge:
   init-db-mauth:

@@ -8,10 +8,10 @@ server {
   }
 
   location /api/bridge {
-    proxy_pass http://${NODE_HOST_BRIDGE}:3500;
+    proxy_pass http://${HOST_BRIDGE}:${PORT_BRIDGE};
   }
 
   location /api/mauth {
-    proxy_pass http://${NODE_HOST_MAUTH}:3001;
+    proxy_pass http://${HOST_MAUTH}:${PORT_MAUTH};
   }
 }

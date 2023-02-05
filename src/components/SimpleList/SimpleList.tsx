@@ -27,7 +27,12 @@ const dataList: SimpleListConf = {
 
 export default function SimpleList({ typeList }: { typeList: keyof SimpleListConf }) {
   const [idActiveRow, setIdActiveRow] = useState(-1)
-  const [rows, setRows] = useState(useLoaderData() as IRow[])
+  
+  let preloadData = useLoaderData();
+  if(!Array.isArray(preloadData)){
+    preloadData = [];
+  }
+  const [rows, setRows] = useState(preloadData as IRow[])
 
   return <div className={styles.root}>
     <h3>{dataList[typeList].title}</h3>

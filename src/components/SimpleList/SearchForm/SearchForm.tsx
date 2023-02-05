@@ -26,7 +26,7 @@ function _searchRow(
 
   const fd = new FormData(event.target as HTMLFormElement)
 
-  fetch(`${config.catalog.back.host}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port}${api}/?title=${fd.get('query')}`)
+  fetch(`${config.catalog.back.host || ''}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port || ''}${api}/?title=${fd.get('query')}`)
     .then(async response => {
       if (response.ok) {
         const res = await response.json()

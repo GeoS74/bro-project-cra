@@ -40,7 +40,7 @@ function _query(
 
   event.preventDefault();
 
-  fetch(`${config.auth.back.host}${config.auth.back.port ? ':' : ''}${config.auth.back.port}/api/mauth/${formMode}`, {
+  fetch(`${config.auth.back.host || ''}${config.auth.back.port ? ':' : ''}${config.auth.back.port || ''}/api/mauth/${formMode}`, {
     method: formMode === "forgot" ? `PATCH` : `POST`,
     body: new FormData(event.currentTarget),
   }).then(async (req) => {

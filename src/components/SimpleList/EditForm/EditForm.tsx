@@ -42,7 +42,7 @@ function _onSubmit(
 
   event.preventDefault()
 
-  fetch(`${config.catalog.back.host}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port}${api}/${addRow ? '' : id}`, {
+  fetch(`${config.catalog.back.host || ''}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port || ''}${api}/${addRow ? '' : id}`, {
     method: addRow ? 'POST' : 'PATCH',
     body: new FormData(event.target as HTMLFormElement)
   })
