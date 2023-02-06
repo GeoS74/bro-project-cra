@@ -65,6 +65,8 @@ function _getErrorResponse(error: string): IErrorAuthMessage {
       return { field: "email", message: "Введите адрес электронной почты" }
     case "user not found":
       return { field: "email", message: "Пользователь не найден" }
+    case "email not confirmed":
+      return { field: "email", message: "email не подтверждён. Проверьте почту" }
     case "email is not unique":
       return { field: "email", message: "Пользователь c такой почтой уже создан" }
     case "invalid password":
