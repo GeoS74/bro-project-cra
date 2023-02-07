@@ -41,10 +41,10 @@ services:
       - DB_HOST=db_mauth
       - DB_NAME=mauth
       - DB_PASS=admin
+      - MAIL_USER=carson.kunde24@ethereal.email
+      - MAIL_PASS=2uzPaY8qYFN7xbDyHm
       - MAIL_HOST=smtp.ethereal.email
       - MAIL_PORT=587
-      - MAIL_USER=ricardo.langworth@ethereal.email
-      - MAIL_PASS=r8Yfjttk6nrc8DPWnv
       - MAIL_SECURE=false
       - IGNORE_TLS=false
       - JWT_TTL=1800
