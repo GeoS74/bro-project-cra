@@ -11,23 +11,25 @@ import styles from "./styles.module.css"
 export const AuthForm = () => {
   const [formMode, setFormMode] = useState<formMode>("signin");
   const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
-
+  const [disabled, setDisabled] = useState(false)
 
 
   return <div className={styles.root}>
-    <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse)}>
+    <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse, setDisabled)}>
 
       <legend>{_getLegend(formMode)}</legend>
 
-      <Email errorMessage={errorMessage} />
+      <fieldset disabled={disabled}>
+        <Email errorMessage={errorMessage} />
 
-      <Password formMode={formMode} setFormMode={setFormMode} errorMessage={errorMessage} />
+        <Password formMode={formMode} setFormMode={setFormMode} errorMessage={errorMessage} />
 
-      <YourName formMode={formMode} errorMessage={errorMessage} />
+        <YourName formMode={formMode} errorMessage={errorMessage} />
 
-      <Button formMode={formMode} />
+        <Button formMode={formMode} />
 
-      <Footer formMode={formMode} setFormMode={setFormMode} />
+        <Footer formMode={formMode} setFormMode={setFormMode} />
+      </fieldset>
     </form>
   </div>
 }
@@ -36,9 +38,11 @@ function _query(
   event: React.FormEvent<HTMLFormElement>,
   formMode: formMode,
   setFormMode: React.Dispatch<React.SetStateAction<formMode>>,
-  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>) {
+  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>,
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>) {
 
   event.preventDefault();
+  setDisabled(true)
 
   fetch(`${config.auth.back.host || ''}${config.auth.back.port ? ':' : ''}${config.auth.back.port || ''}/api/mauth/${formMode}`, {
     method: formMode === "forgot" ? `PATCH` : `POST`,
@@ -56,7 +60,8 @@ function _query(
     }
     throw new Error(`response status: ${req.status}`)
   })
-    .catch(error => console.log(error.message));
+    .catch(error => console.log(error.message))
+    .finally(() => setDisabled(false));
 }
 
 function _getErrorResponse(error: string): IErrorAuthMessage {

@@ -20,8 +20,7 @@ export default function UploadPriceForm({ setError, setUploadState }: Props) {
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setError: React.Dispatch<React.SetStateAction<string | undefined>>,
-  setUploadState: React.Dispatch<React.SetStateAction<string>>
-) {
+  setUploadState: React.Dispatch<React.SetStateAction<string>>) {
 
   event.preventDefault()
   setUploadState("upload");

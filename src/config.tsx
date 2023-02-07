@@ -1,14 +1,14 @@
 export default {
   catalog: {
     back: {
-      host: null,
-      port: null,
+      host: 'http://localhost',
+      port: 3100,
     }
   },
   auth: {
     back: {
-      host: null,
-      port: null,
+      host: 'http://localhost',
+      port: 3001,
     }
   }
 }
