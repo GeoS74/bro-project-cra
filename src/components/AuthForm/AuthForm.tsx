@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import config from "../../config";
+import serviceHost from "../../libs/service.host"
 import { Email } from "./Email/Email";
 import { Password } from "./Password/Password";
 import { YourName } from "./YourName/YourName";
@@ -44,7 +44,7 @@ function _query(
   event.preventDefault();
   setDisabled(true)
 
-  fetch(`${config.auth.back.host || ''}${config.auth.back.port ? ':' : ''}${config.auth.back.port || ''}/api/mauth/${formMode}`, {
+  fetch(`${serviceHost("mauth")}/api/mauth/${formMode}`, {
     method: formMode === "forgot" ? `PATCH` : `POST`,
     body: new FormData(event.currentTarget),
   }).then(async (req) => {

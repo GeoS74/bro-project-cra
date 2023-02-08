@@ -1,8 +1,7 @@
 import { useState } from "react";
 
+import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
-
-import config from "../../../config"
 
 type Props = {
   id: number,
@@ -47,7 +46,7 @@ function _onSubmit(
   event.preventDefault()
   setDisabled(true)
 
-  fetch(`${config.catalog.back.host || ''}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port || ''}${api}/${addRow ? '' : id}`, {
+  fetch(`${serviceHost("bridge")}${api}/${addRow ? '' : id}`, {
     method: addRow ? 'POST' : 'PATCH',
     body: new FormData(event.target as HTMLFormElement)
   })

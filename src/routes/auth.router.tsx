@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 import Navigate from "../components/navigate/Navigate"
 import { AuthForm } from "../components/AuthForm/AuthForm"
 import { InfoCard } from "../components/AuthForm/InfoCard/InfoCard"
-import config from "../config"
+import serviceHost from "../libs/service.host"
 
 export default {
   path: "/auth",
@@ -22,7 +22,7 @@ export default {
 
         if (typeof params === 'object' && params !== null) {
           if ("token" in params) {
-            return fetch(`${config.auth.back.host || ''}${config.auth.back.port ? ':' : ''}${config.auth.back.port || ''}/api/mauth/confirm/${params.token}`)
+            return fetch(`${serviceHost("mauth")}/api/mauth/confirm/${params.token}`)
               .then(res => res.status)
               .catch(error => {
                 console.log(error.message);

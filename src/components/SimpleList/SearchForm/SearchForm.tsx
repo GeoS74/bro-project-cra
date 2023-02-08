@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import config from "../../../config"
+import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -35,7 +35,7 @@ function _searchRow(
 
   const fd = new FormData(event.target as HTMLFormElement)
 
-  fetch(`${config.catalog.back.host || ''}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port || ''}${api}/?title=${fd.get('query')}`)
+  fetch(`${serviceHost("bridge")}${api}/?title=${fd.get('query')}`)
     .then(async response => {
       if (response.ok) {
         const res = await response.json()

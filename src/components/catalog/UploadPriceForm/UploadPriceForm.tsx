@@ -1,4 +1,4 @@
-import config from "../../../config";
+import serviceHost from "../../../libs/service.host"
 import { UploadPriceFormTabPane } from "../UploadPriceFormTabPane/UploadPriceFormTabPane";
 
 type Props = {
@@ -25,7 +25,7 @@ function _onSubmit(
   event.preventDefault()
   setUploadState("upload");
 
-  fetch(`${config.catalog.back.host || ''}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port || ''}/api/bridge/file/upload`, {
+  fetch(`${serviceHost("bridge")}/api/bridge/file/upload`, {
     method: 'POST',
     body: new FormData(event.target as HTMLFormElement)
   })
