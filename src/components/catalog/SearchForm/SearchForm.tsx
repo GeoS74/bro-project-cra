@@ -1,15 +1,25 @@
+import { useState } from "react"
+
 import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
 
 export default function SearchForm() {
-  return <form onSubmit={onSubmit} className={styles.root}>
-    <input type="search" name="query" placeholder="Поиск позиций" />
-    <input type="submit" className="btn btn-outline-primary" value="Поиск" />
+  const [disabled, setDisabled] = useState(false)
+
+  return <form onSubmit={(event) => onSubmit(event, setDisabled)} className={styles.root}>
+    <fieldset disabled={disabled}>
+      <input type="search" name="query" className="form-control" placeholder="Поиск позиций" />
+      <input type="submit" className="btn btn-outline-light" value="Поиск" />
+    </fieldset>
   </form>
 }
 
-function onSubmit(event: React.FormEvent<HTMLFormElement>): void {
+function onSubmit(
+  event: React.FormEvent<HTMLFormElement>,
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>) {
+
   event.preventDefault()
+  setDisabled(true)
 
   //GET /api/bridge/search?query='text'&offset='offset'&limit='limit'
   const fd = new FormData(event.target as HTMLFormElement)
@@ -24,4 +34,5 @@ function onSubmit(event: React.FormEvent<HTMLFormElement>): void {
       throw new Error(`response status: ${response.status}`)
     })
     .catch(error => console.log(error.message))
+    .finally(() => setDisabled(false));
 }

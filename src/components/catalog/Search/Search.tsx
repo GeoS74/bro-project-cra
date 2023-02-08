@@ -3,7 +3,7 @@ import styles from "./styles.module.css"
 
 export default function Search() {
   return <div className={styles.root}>
-    <h3>search page</h3>
+    <h3>Поиск позиций</h3>
     <SearchForm />
   </div>
 }
