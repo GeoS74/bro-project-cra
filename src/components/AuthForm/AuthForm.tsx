@@ -13,7 +13,6 @@ export const AuthForm = () => {
   const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
   const [disabled, setDisabled] = useState(false)
 
-
   return <div className={styles.root}>
     <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse, setDisabled)}>
 

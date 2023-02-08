@@ -14,21 +14,24 @@ export default function Navigate() {
           <li className="nav-item">
             <Link to="/" className="nav-link active">Home</Link>
           </li>
-          <li className="nav-item">
-            <Link to="/catalog/edit/upload" className="nav-link">Загрузка прайса</Link>
+
+          <li className="nav-item dropdown">
+            <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Каталог</span>
+            <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
+              <Link to="/catalog/edit/brands" className="dropdown-item">Бренды</Link>
+              <Link to="/catalog/edit/providers" className="dropdown-item">Поставщики</Link>
+              <hr />
+              <Link to="/catalog/edit/upload" className="dropdown-item">Загрузка прайса</Link>
+            </div>
           </li>
-          <li className="nav-item">
-            <Link to="/catalog/edit/brands" className="nav-link">Бренды</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/catalog/edit/providers" className="nav-link">Поставщики</Link>
-          </li>
+
           {/* <li className="nav-item">
             <Link to="/catalog/edit/test" className="nav-link">Тест</Link>
           </li>
           <li className="nav-item">
             <Link to="/catalog/edit/test2" className="nav-link">Тест 2</Link>
           </li> */}
+
           <li className="nav-item">
             <Link to="/auth" className="nav-link">Sign in</Link>
           </li>
