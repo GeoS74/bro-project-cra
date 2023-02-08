@@ -1,20 +1,19 @@
-.root {
+.root fieldset {
   display: flex;
   flex-flow: row nowrap;
   max-width: 600px;
 }
 
-.root>input,
-.root>span {
+.root fieldset>input,
+.root fieldset>span {
   margin-right: 10px;
-  flex: 6;
 }
 
-.root>input[type=text] {
+.root fieldset>input[type=text] {
   flex: 4;
 }
 
-.root>input[type=submit],
-.root>span {
+.root fieldset>input[type=submit],
+.root fieldset>span {
   flex: 1;
 }

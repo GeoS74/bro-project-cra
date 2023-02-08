@@ -1,4 +1,4 @@
-import React from "react";
+import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
 
 export default function SearchForm() {
@@ -11,10 +11,10 @@ export default function SearchForm() {
 function onSubmit(event: React.FormEvent<HTMLFormElement>): void {
   event.preventDefault()
 
-  fetch('http://localhost:3500/api/search', {
-    method: 'POST',
-    body: new FormData(event.target as HTMLFormElement)
-  })
+  //GET /api/bridge/search?query='text'&offset='offset'&limit='limit'
+  const fd = new FormData(event.target as HTMLFormElement)
+
+  fetch(`${serviceHost("bridge")}/api/bridge/search/?query=${fd.get('query')}`)
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
