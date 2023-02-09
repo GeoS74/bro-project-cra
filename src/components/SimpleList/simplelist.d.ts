@@ -3,7 +3,7 @@
 * бэкенд списка возвращает массив таких объектов
 */
 interface IRow {
-  id: number,
+  id: number
   title: string
 }
 /*
@@ -11,7 +11,7 @@ interface IRow {
 */
 interface IListConf {
   title: string
-  placeholderSearch: string,
-  placeholder: string,
+  placeholderSearch: string
+  placeholder: string
   api: string
 }

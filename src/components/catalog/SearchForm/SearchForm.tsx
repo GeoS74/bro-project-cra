@@ -3,10 +3,14 @@ import { useState } from "react"
 import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
 
-export default function SearchForm() {
+type Props = {
+  setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>
+}
+
+export default function SearchForm({setProducts}: Props) {
   const [disabled, setDisabled] = useState(false)
 
-  return <form onSubmit={(event) => onSubmit(event, setDisabled)} className={styles.root}>
+  return <form onSubmit={(event) => onSubmit(event, setDisabled, setProducts)} className={styles.root}>
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control" placeholder="Поиск позиций" />
       <input type="submit" className="btn btn-outline-light" value="Поиск" />
@@ -16,7 +20,8 @@ export default function SearchForm() {
 
 function onSubmit(
   event: React.FormEvent<HTMLFormElement>,
-  setDisabled: React.Dispatch<React.SetStateAction<boolean>>) {
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
+  setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>) {
 
   event.preventDefault()
   setDisabled(true)
@@ -29,6 +34,7 @@ function onSubmit(
       if (response.ok) {
         const res = await response.json()
         console.log(res)
+        setProducts(res.positions)
         return;
       }
       throw new Error(`response status: ${response.status}`)
