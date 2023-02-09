@@ -21,7 +21,7 @@ export default function SearchForm({ setSearchResult, searchResult, offset, limi
   </form>
 }
 
-function onSubmit(
+async function onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   searchResult: ISearchResult | undefined,
@@ -32,10 +32,13 @@ function onSubmit(
   event.preventDefault()
 
   const fd = new FormData(event.target as HTMLFormElement)
-  
+
   sessionStorage.setItem('lastQuery', fd.get('query') as string)
 
   setDisabled(true)
-  fetcher(searchResult, setSearchResult, fd.get('query') as string, offset, limit)
+  
+  const result = await fetcher(fd.get('query') as string, offset, limit)
     .finally(() => setDisabled(false));
+
+  setSearchResult(result)
 }

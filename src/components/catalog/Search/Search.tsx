@@ -11,10 +11,18 @@ export default function Search() {
   return <div className={styles.root}>
     <h3>Поиск позиций</h3>
 
-    <SearchForm offset={0} limit={searchResult?.limit} searchResult={searchResult}  setSearchResult={setSearchResult} />
+    <SearchForm
+      offset={0}
+      limit={10}
+      searchResult={searchResult}
+      setSearchResult={setSearchResult} />
 
     <SearchPane products={searchResult?.positions} />
 
-    <NextSearch offset={searchResult?.offset} limit={searchResult?.limit} searchResult={searchResult}  setSearchResult={setSearchResult} />
+    <NextSearch
+      offset={searchResult?.offset}
+      limit={searchResult?.limit}
+      searchResult={searchResult}
+      setSearchResult={setSearchResult} />
   </div>
 }
