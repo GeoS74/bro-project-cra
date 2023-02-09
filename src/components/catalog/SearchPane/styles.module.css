@@ -12,6 +12,9 @@
 .root>div>div {
   padding: 10px;
 }
+.root>header{
+  cursor: default;
+}
 
 /* title and article */
 .root div p:nth-child(1) {

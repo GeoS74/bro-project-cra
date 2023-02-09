@@ -1,11 +1,11 @@
 import styles from "./styles.module.css"
 
 type Props = {
-  products: IProduct[]
+  products: IProduct[] | undefined
 }
 
 export default function SearchPane({ products }: Props) {
-  return products.length ?
+  return products?.length ?
 
     <div className={styles.root}>
 
@@ -20,7 +20,7 @@ export default function SearchPane({ products }: Props) {
 
       {_makeList(products)}
 
-    </div> : <></>
+    </div> : <div>товары не найдены</div>
 }
 
 function _makeList(products: IProduct[]) {

@@ -1,4 +1,13 @@
 /*
+* интерфейс объекта ответа, возвращаемого микросервисом "bridge"
+*/
+interface ISearchResult {
+  limit: number
+  offset: number
+  positions: IProduct[]
+}
+
+/*
 * интерфейс объекта продукта, возвращаемого микросервисом "bridge"
 */
 interface IProduct {

@@ -1,16 +1,19 @@
 import { useState } from "react"
 
-import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
+import fetcher from "../Search/fetcher"
 
 type Props = {
-  setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>
+  searchResult: ISearchResult | undefined
+  setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult | undefined>>
+  offset?: number
+  limit?: number
 }
 
-export default function SearchForm({setProducts}: Props) {
+export default function SearchForm({ setSearchResult, searchResult, offset, limit }: Props) {
   const [disabled, setDisabled] = useState(false)
 
-  return <form onSubmit={(event) => onSubmit(event, setDisabled, setProducts)} className={styles.root}>
+  return <form id="searchForm" onSubmit={(event) => onSubmit(event, setDisabled, searchResult, setSearchResult, offset, limit)} className={styles.root}>
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control" placeholder="Поиск позиций" />
       <input type="submit" className="btn btn-outline-light" value="Поиск" />
@@ -21,24 +24,18 @@ export default function SearchForm({setProducts}: Props) {
 function onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
-  setProducts: React.Dispatch<React.SetStateAction<IProduct[]>>) {
+  searchResult: ISearchResult | undefined,
+  setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult | undefined>>,
+  offset?: number,
+  limit?: number) {
 
   event.preventDefault()
-  setDisabled(true)
 
-  //GET /api/bridge/search?query='text'&offset='offset'&limit='limit'
   const fd = new FormData(event.target as HTMLFormElement)
+  
+  sessionStorage.setItem('lastQuery', fd.get('query') as string)
 
-  fetch(`${serviceHost("bridge")}/api/bridge/search/?query=${fd.get('query')}`)
-    .then(async response => {
-      if (response.ok) {
-        const res = await response.json()
-        console.log(res)
-        setProducts(res.positions)
-        return;
-      }
-      throw new Error(`response status: ${response.status}`)
-    })
-    .catch(error => console.log(error.message))
+  setDisabled(true)
+  fetcher(searchResult, setSearchResult, fd.get('query') as string, offset, limit)
     .finally(() => setDisabled(false));
 }
