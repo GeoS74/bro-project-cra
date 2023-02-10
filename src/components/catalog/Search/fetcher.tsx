@@ -9,7 +9,7 @@ export default async function fetcher(
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
-        console.log(res)
+        // console.log(res)
         return res;
       }
       else if ([400, 404].includes(response.status)) {
