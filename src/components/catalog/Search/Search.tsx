@@ -14,14 +14,11 @@ export default function Search() {
     <SearchForm
       offset={0}
       limit={10}
-      searchResult={searchResult}
       setSearchResult={setSearchResult} />
 
     <SearchPane products={searchResult?.positions} />
 
     <NextSearch
-      offset={searchResult?.offset}
-      limit={searchResult?.limit}
       searchResult={searchResult}
       setSearchResult={setSearchResult} />
   </div>

@@ -5,11 +5,9 @@ import fetcher from "../Search/fetcher"
 type Props = {
   searchResult: ISearchResult | undefined
   setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult | undefined>>
-  offset?: number
-  limit?: number
 }
 
-export default function NextSearch({ setSearchResult, searchResult, offset, limit }: Props) {
+export default function NextSearch({ setSearchResult, searchResult}: Props) {
   const [hidden, setHidden] = useState(false)
 
   return searchResult?.positions.length ?
@@ -24,26 +22,22 @@ async function onSubmit(
   setHidden: React.Dispatch<React.SetStateAction<boolean>>,
   searchResult: ISearchResult | undefined,
   setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult | undefined>>,
-  offset?: number,
-  limit?: number) {
+  offset: number,
+  limit: number) {
 
   const query = sessionStorage.getItem('lastQuery') || "";
-  offset = offset || 0
-  limit = limit || 10
 
   setHidden(true)
   const result = await fetcher(query, offset + limit, limit)
     .finally(() => setHidden(false));
-
 
   /* start here */
   if (!result) {
     setHidden(true)
     return;
   }
-  
 
-  if (searchResult?.positions && result) {
+  if (searchResult && result) {
     setSearchResult({
       ...result,
       positions: [...searchResult.positions, ...result.positions]
