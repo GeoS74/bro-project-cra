@@ -7,6 +7,7 @@ import styles from "./styles.module.css"
 
 export default function Search() {
   const [searchResult, setSearchResult] = useState<ISearchResult>()
+  const [hiddenNextSearch, setHiddenNextSearch] = useState(false)
 
   return <div className={styles.root}>
     <h3>Поиск позиций</h3>
@@ -14,11 +15,14 @@ export default function Search() {
     <SearchForm
       offset={0}
       limit={10}
-      setSearchResult={setSearchResult} />
+      setSearchResult={setSearchResult} 
+      setHiddenNextSearch={setHiddenNextSearch} />
 
     <SearchPane products={searchResult?.positions} />
 
     <NextSearch
+      hiddenNextSearch={hiddenNextSearch}
+      setHiddenNextSearch={setHiddenNextSearch}
       searchResult={searchResult}
       setSearchResult={setSearchResult} />
   </div>

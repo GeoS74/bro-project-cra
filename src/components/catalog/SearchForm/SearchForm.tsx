@@ -4,15 +4,21 @@ import styles from "./styles.module.css"
 import fetcher from "../Search/fetcher"
 
 type Props = {
+  setHiddenNextSearch: React.Dispatch<React.SetStateAction<boolean>>
   setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult | undefined>>
   offset: number
   limit: number
 }
 
-export default function SearchForm({ setSearchResult, offset, limit }: Props) {
+export default function SearchForm({setHiddenNextSearch, setSearchResult, offset, limit }: Props) {
   const [disabled, setDisabled] = useState(false)
 
-  return <form id="searchForm" onSubmit={(event) => onSubmit(event, setDisabled, setSearchResult, offset, limit)} className={styles.root}>
+  return <form id="searchForm" className={styles.root}
+    onSubmit={(event) => {
+      setHiddenNextSearch(false)
+      onSubmit(event, setDisabled, setSearchResult, offset, limit)
+    }}>
+    
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control" placeholder="Поиск позиций" />
       <input type="submit" className="btn btn-outline-light" value="Поиск" />
@@ -34,7 +40,7 @@ async function onSubmit(
   sessionStorage.setItem('lastQuery', fd.get('query') as string)
 
   setDisabled(true)
-  
+
   const result = await fetcher(fd.get('query') as string, offset, limit)
     .finally(() => setDisabled(false));
 

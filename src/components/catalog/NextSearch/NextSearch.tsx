@@ -3,23 +3,23 @@ import { useState } from "react"
 import fetcher from "../Search/fetcher"
 
 type Props = {
+  hiddenNextSearch: boolean
+  setHiddenNextSearch: React.Dispatch<React.SetStateAction<boolean>>
   searchResult: ISearchResult | undefined
   setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult | undefined>>
 }
 
-export default function NextSearch({ setSearchResult, searchResult}: Props) {
-  const [hidden, setHidden] = useState(false)
-
+export default function NextSearch({hiddenNextSearch, setHiddenNextSearch, setSearchResult, searchResult}: Props) {
   return searchResult?.positions.length ?
     <button
-      hidden={hidden}
-      onClick={() => onSubmit(setHidden, searchResult, setSearchResult, searchResult.offset, searchResult.limit)}
+      hidden={hiddenNextSearch}
+      onClick={() => onSubmit(setHiddenNextSearch, searchResult, setSearchResult, searchResult.offset, searchResult.limit)}
       type="button" className="btn btn-outline-light mt-4">Загрузить ещё</button>
     : <></>
 }
 
 async function onSubmit(
-  setHidden: React.Dispatch<React.SetStateAction<boolean>>,
+  setHiddenNextSearch: React.Dispatch<React.SetStateAction<boolean>>,
   searchResult: ISearchResult | undefined,
   setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult | undefined>>,
   offset: number,
@@ -27,17 +27,16 @@ async function onSubmit(
 
   const query = sessionStorage.getItem('lastQuery') || "";
 
-  setHidden(true)
+  setHiddenNextSearch(true)
   const result = await fetcher(query, offset + limit, limit)
-    .finally(() => setHidden(false));
+    .finally(() => setHiddenNextSearch(false));
 
-  /* start here */
   if (!result) {
-    setHidden(true)
+    setHiddenNextSearch(true)
     return;
   }
 
-  if (searchResult && result) {
+  if (searchResult) {
     setSearchResult({
       ...result,
       positions: [...searchResult.positions, ...result.positions]
