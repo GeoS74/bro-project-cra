@@ -8,7 +8,7 @@ export default function EditButton({ editMode, setEditMode }: Props) {
     type="submit"
     className="btn btn-outline-light mt-4"
     onClick={() => setEditMode ? setEditMode(!editMode) : undefined}
-    defaultValue={editMode ? "Сохранить изменения" : "Редактировать страницу"}
+    value={editMode ? "Сохранить изменения" : "Редактировать страницу"}
   />
 
 }

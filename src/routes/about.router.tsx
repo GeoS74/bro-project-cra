@@ -7,6 +7,6 @@ export default {
   loader: () => fetch(`${serviceHost("informator")}/api/informator/about/company`)
     .catch(error => {
       console.log(error.message);
-      return [];
+      return undefined;
     })
 }

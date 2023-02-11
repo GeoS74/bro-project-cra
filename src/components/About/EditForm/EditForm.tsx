@@ -5,24 +5,25 @@ import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
 
 type Props = {
-  about: IAbout
-  setMD: React.Dispatch<React.SetStateAction<IAbout>>
+  about: IAbout | undefined
+  setAbout: React.Dispatch<React.SetStateAction<IAbout | undefined>>
   editMode: boolean
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
 
-export default function EditForm({ about, setMD, editMode, setEditMode }: Props) {
+export default function EditForm({ about, setAbout, editMode, setEditMode }: Props) {
   return <form
-    onSubmit={(event) => { _onSubmit(event, setEditMode, about, setMD) }}
+    onSubmit={(event) => { _onSubmit(event, setEditMode, about, setAbout) }}
     className={styles.root}>
 
     <EditButton editMode={editMode} />
 
     <div className="form-group">
       <label className="form-label mt-4">Редактировать  страницу (markdown)</label>
-      <textarea className="form-control" name="mdInfo" defaultValue={about.mdInfo}></textarea>
+      <textarea className="form-control" name="mdInfo" defaultValue={about?.mdInfo || ""}></textarea>
+      <input type="hidden" name="alias" defaultValue="company" />
     </div>
   </form>
 }
@@ -30,20 +31,20 @@ export default function EditForm({ about, setMD, editMode, setEditMode }: Props)
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>,
-  about: IAbout,
-  setMD: React.Dispatch<React.SetStateAction<IAbout>>
+  about: IAbout | undefined,
+  setAbout: React.Dispatch<React.SetStateAction<IAbout | undefined>>
 ) {
 
   event.preventDefault()
 
-  fetch(`${serviceHost("informator")}/api/informator/about/${about.alias || ""}`, {
-    method: about.alias ? 'PATCH' : 'POST',
+  fetch(`${serviceHost("informator")}/api/informator/about/${about?.alias || ""}`, {
+    method: about?.alias ? 'PATCH' : 'POST',
     body: new FormData(event.target as HTMLFormElement)
   })
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
-        setMD(res)
+        setAbout(res)
         return;
       }
       // else if (response.status === 400) {
