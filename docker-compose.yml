@@ -71,15 +71,36 @@ services:
       resources:
         limits:
           memory: 50M
-  react:
-    build: .
+  mdb:
+      image: "mongo"
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
+  informator:
+    image: "geos74/informator:0.0.1"
     ports:
-      - "8080:80"
+      - "3200:3200"
     environment:
-      - HOST_BRIDGE=bridge_app
-      - PORT_BRIDGE=3500
-      - HOST_MAUTH=mauth_app
-      - PORT_MAUTH=3001
+      - SERVER_PORT=3200
+      - NODE_ENV=dev
+      - DB_USER=root
+      - DB_PASS=passwordXXX
+      - DB_HOST=mdb
+      - DB_PORT=27017
+      - DB_NAME=admin
+    deploy:
+      resources:
+        limits:
+          memory: 50M
+  # react:
+  #   build: .
+  #   ports:
+  #     - "8080:80"
+  #   environment:
+  #     - HOST_BRIDGE=bridge_app
+  #     - PORT_BRIDGE=3500
+  #     - HOST_MAUTH=mauth_app
+  #     - PORT_MAUTH=3001
 volumes:
   init-db-bridge:
   init-db-mauth:
