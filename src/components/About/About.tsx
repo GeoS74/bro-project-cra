@@ -1,23 +1,28 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { Converter } from "md-conv"
 
 import Navigate from "../navigate/Navigate";
-import styles from "./styles.module.css"
+import Content from "./Content/Content";
+import EditButton from "./EditButton/EditButton";
+import EditForm from "./EditForm/EditForm";
 
-const converter = new Converter()
 
 export default function About() {
-  const [md, setMD] = useState(useLoaderData() as IAbout)
+  const [about, setMD] = useState(useLoaderData() as IAbout)
+  const [editMode, setEditMode] = useState(false)
 
   return <>
     <Navigate />
 
-    {md.mdInfo ?
-      <div dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(md.mdInfo) }}
-        className={styles.root}>
-      </div>
-      : <></>}
+    {editMode ?
+      <EditForm about={about} setMD={setMD} editMode={editMode} setEditMode={setEditMode} />
+      : <>
+        {/* эта кнопка должна быть доступна только админу */}
+        <EditButton editMode={editMode} setEditMode={setEditMode} />
+
+        <Content about={about} />
+      </>}
+
   </>
 
 }
