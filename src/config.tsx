@@ -10,5 +10,11 @@ export default {
       host: 'http://localhost',
       port: 3001,
     }
+  },
+  info: {
+    back: {
+      host: 'http://localhost',
+      port: 3200,
+    }
   }
 }

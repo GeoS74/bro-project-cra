@@ -6,6 +6,7 @@ import {
 
 import catalogRouter from './catalog.router'
 import authRouter from './auth.router'
+import aboutCompanyRouter from './about.router'
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +14,8 @@ export const router = createBrowserRouter([
     loader: () => redirect('/catalog'),
   },
   catalogRouter,
-  authRouter
+  authRouter,
+  aboutCompanyRouter
 ])
 
 export default <RouterProvider router={router} />
