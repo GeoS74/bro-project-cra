@@ -11,6 +11,8 @@ services:
       - DB_NAME=bridge
       - DB_PASS=admin
       - NODE_ENV=dev
+      - JWT_CHECK=true
+      - JWT_SECRET_KEY=any_secret
     volumes:
       - init-db-bridge:/bridge/libs
     deploy:
@@ -41,16 +43,16 @@ services:
       - DB_HOST=db_mauth
       - DB_NAME=mauth
       - DB_PASS=admin
-      - MAIL_USER=carson.kunde24@ethereal.email
-      - MAIL_PASS=2uzPaY8qYFN7xbDyHm
+      - MAIL_USER=jany.ankunding23@ethereal.email
+      - MAIL_PASS=2MbdmBBW1Dba8HJSH3
       - MAIL_HOST=smtp.ethereal.email
       - MAIL_PORT=587
       - MAIL_SECURE=false
       - IGNORE_TLS=false
       - JWT_TTL=1800
-      - JWT_SECRET_KEY="any secret"
-      - VERIFICATION_TTL="10 minute"
-      - SESSION_TTL="30 day"
+      - JWT_SECRET_KEY=any_secret
+      - VERIFICATION_TTL=10 minute
+      - SESSION_TTL=30 day
       - TPL_CONFIRM_PATH=/auth/confirm
       # - TPL_RECOVERY_PATH=/api/mauth/forgot
     volumes:
@@ -71,11 +73,6 @@ services:
       resources:
         limits:
           memory: 50M
-  mdb:
-      image: "mongo"
-      environment:
-        - MONGO_INITDB_ROOT_USERNAME=root
-        - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
   informator:
     image: "geos74/informator:0.0.1"
     ports:
@@ -85,13 +82,20 @@ services:
       - NODE_ENV=dev
       - DB_USER=root
       - DB_PASS=passwordXXX
-      - DB_HOST=mdb
+      - DB_HOST=db_info
       - DB_PORT=27017
       - DB_NAME=admin
+      - JWT_CHECK=true
+      - JWT_SECRET_KEY=any_secret
     deploy:
       resources:
         limits:
           memory: 50M
+  db_info:
+    image: "mongo"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
   # react:
   #   build: .
   #   ports:
