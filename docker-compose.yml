@@ -38,7 +38,7 @@ services:
     environment:
       - SERVER_PORT=3001
       - NODE_ENV=dev
-      - SERVER_DOMAIN=localhost:8080
+      - SERVER_DOMAIN=localhost:3001
       - DB_USER=mauth
       - DB_HOST=db_mauth
       - DB_NAME=mauth
@@ -53,7 +53,7 @@ services:
       - JWT_SECRET_KEY=any_secret
       - VERIFICATION_TTL=10 minute
       - SESSION_TTL=30 day
-      - TPL_CONFIRM_PATH=/auth/confirm
+      - TPL_CONFIRM_PATH=/api/mauth/confirm
       # - TPL_RECOVERY_PATH=/api/mauth/forgot
     volumes:
       - init-db-mauth:/mauth/libs
