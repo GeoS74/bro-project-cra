@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import EditButton from "../EditButton/EditButton";
 import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"

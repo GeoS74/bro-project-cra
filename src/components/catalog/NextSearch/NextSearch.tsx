@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 import fetcher from "../Search/fetcher"
 
 type Props = {
