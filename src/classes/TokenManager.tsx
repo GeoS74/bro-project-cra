@@ -3,11 +3,12 @@ import ITokenManager from "./ITokenManager"
 
 class TokenManager implements ITokenManager {
 
-  _refresh: string = ""
-  _access: string = ""
+  _refresh = ""
+  _access = ""
 
   constructor() {
-    this.refreshTokens(localStorage.getItem(`session_id`) || "")
+    this.setRefresh(localStorage.getItem(`session_id`) || "")
+    this.refreshTokens()
   }
 
   getRefresh(): string {
@@ -23,19 +24,20 @@ class TokenManager implements ITokenManager {
   setAccess(accessToken: string): void {
     this._access = accessToken
   }
-  async refreshTokens(refreshToken: string): Promise<boolean> {
-    if (!refreshToken) {
+  async refreshTokens(): Promise<boolean> {
+    if (!this._refresh) {
       return false
     }
 
     return fetch(`${serviceHost("mauth")}/api/mauth/refresh`, {
       method: "GET",
       headers: {
-        'Authorisation': `Bearer ${refreshToken}`
+        'Authorization': `Bearer ${this._refresh}`
       }
     }).then(async (req) => {
       if (req.ok) {
         const res = await req.json();
+        
         this.setAccess(res.access);
         this.setRefresh(res.refresh);
         return true;

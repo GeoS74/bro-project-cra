@@ -36,6 +36,9 @@ export default function Navigate() {
             <Link to="/about" className="nav-link">About</Link>
           </li>
           <li className="nav-item">
+            <Link to="/user" className="nav-link">User</Link>
+          </li>
+          <li className="nav-item">
             <Link to="/auth" className="nav-link">Sign in</Link>
           </li>
           <li className="nav-item">

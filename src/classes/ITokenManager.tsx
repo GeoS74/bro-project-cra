@@ -3,5 +3,5 @@ export default interface ITokenManager {
   getAccess(): string,
   setRefresh(refreshToken: string): void,
   setAccess(accessToken: string): void,
-  refreshTokens(refreshToken: string): Promise<boolean>,
+  refreshTokens(): Promise<boolean>,
 }
