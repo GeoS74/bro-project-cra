@@ -8,26 +8,33 @@ export default {
   path: "/user",
   element: <User />,
   loader: async () => {
-
-    if (!tokenManager.getAccess()) {
-      if (!await tokenManager.refreshTokens()) {
-        return redirect('/auth')
-      }
+    try {
+      return await _aboutMe()
     }
-
-    const user = await Promise.all([
-      _getUser(),
-      _getMe()
-    ])
-      .catch(() => redirect('/auth'))
-
-    if (Array.isArray(user)) {
-      return {
-        ...user[0],
-        ...user[1]
+    catch (error: unknown) {
+      if (error instanceof Error && error.message === "401") {
+        
+        try {
+          await tokenManager.refreshTokens()
+          return await _aboutMe()
+        }
+        catch (e) {/**/}
       }
+      return redirect('/auth')
     }
   }
+}
+
+
+async function _aboutMe() {
+  return Promise.all([
+    _getUser(),
+    _getMe()
+  ])
+    .then(res => ({
+      ...res[0],
+      ...res[1]
+    }))
 }
 
 function _getMe() {
@@ -41,7 +48,9 @@ function _getMe() {
       if (res.ok) {
         return await res.json()
       }
-      throw new Error()
+      if (res.status === 401) {
+        throw new Error("401")
+      }
     })
 }
 
@@ -61,7 +70,9 @@ function _getUser() {
         return await _createUser()
       }
 
-      throw new Error()
+      if (res.status === 401) {
+        throw new Error("401")
+      }
     })
 }
 

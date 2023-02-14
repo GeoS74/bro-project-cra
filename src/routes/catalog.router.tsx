@@ -58,3 +58,8 @@ export default {
     },
   ]
 }
+
+// function _query(){
+//   return fetch(`${serviceHost("bridge")}/api/bridge/brands`)
+//   .then(async res => await res.json())
+// }
