@@ -35,18 +35,11 @@ export default {
     {
       path: "/catalog/edit/upload",
       element: <UploadPrice />,
-      loader: () => {
-        return Promise.all([
-          fetch(`${serviceHost("bridge")}/api/bridge/brands`)
-            .then(async res => await res.json()),
-          fetch(`${serviceHost("bridge")}/api/bridge/providers`)
-            .then(async res => await res.json()),
-        ])
-          .catch(error => {
-            console.log(error.message);
-            return [[],[]];
-          })
-      }
+      loader: async () => Promise.all([
+        _query(`${serviceHost("bridge")}/api/bridge/brands`),
+        _query(`${serviceHost("bridge")}/api/bridge/providers`)
+      ])
+        .catch(error => [[], []])
     },
     {
       path: "/catalog/edit/test",
@@ -59,7 +52,13 @@ export default {
   ]
 }
 
-// function _query(){
-//   return fetch(`${serviceHost("bridge")}/api/bridge/brands`)
-//   .then(async res => await res.json())
-// }
+function _query(url: string) {
+  return fetch(url)
+    .then(async res => {
+      if (res.ok) {
+        return res.json()
+      }
+
+      throw new Error()
+    })
+}
