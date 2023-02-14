@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import serviceHost from "../../libs/service.host"
+import tokenManager from "../../classes/TokenManager"
+
 import { Email } from "./Email/Email";
 import { Password } from "./Password/Password";
 import { YourName } from "./YourName/YourName";
@@ -12,9 +15,13 @@ export const AuthForm = () => {
   const [formMode, setFormMode] = useState<formMode>("signin");
   const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
   const [disabled, setDisabled] = useState(false)
+  const navigate = useNavigate();
+
+  /* lifehack for navigate hook */
+  const nav = (path: string) => navigate(path)
 
   return <div className={styles.root}>
-    <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse, setDisabled)}>
+    <form onSubmit={(event) => _query(event, formMode, setFormMode, setErrorResponse, setDisabled, nav)}>
 
       <legend>{_getLegend(formMode)}</legend>
 
@@ -29,6 +36,7 @@ export const AuthForm = () => {
 
         <Footer formMode={formMode} setFormMode={setFormMode} />
       </fieldset>
+
     </form>
   </div>
 }
@@ -38,7 +46,8 @@ function _query(
   formMode: formMode,
   setFormMode: React.Dispatch<React.SetStateAction<formMode>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>,
-  setDisabled: React.Dispatch<React.SetStateAction<boolean>>) {
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
+  navigate: (path: string) => void) {
 
   event.preventDefault();
   setDisabled(true)
@@ -48,6 +57,14 @@ function _query(
     body: new FormData(event.currentTarget),
   }).then(async (req) => {
     if (req.ok) {
+
+      if (formMode === "signin") {
+        const result: IAuthResponse = await req.json()
+        _updateTokens(result)
+        navigate('/')
+        return;
+      }
+
       setFormMode("signin");
       setErrorResponse(undefined);
       return;
@@ -74,6 +91,7 @@ function _getErrorResponse(error: string): IErrorAuthMessage {
     case "email is not unique":
       return { field: "email", message: "Пользователь c такой почтой уже создан" }
     case "invalid password":
+    case "incorrect password":
       return { field: "password", message: "Пароль не корректен" }
     case "incorrect name":
       return { field: "name", message: "Имя заполнено не корректно" }
@@ -87,4 +105,9 @@ function _getLegend(formMode: formMode) {
     case "signup": return "Создание аккаунта";
     case "forgot": return "Сброс пароля";
   }
+}
+
+function _updateTokens(tokens: IAuthResponse) {
+  tokenManager.setAccess(tokens.access)
+  tokenManager.setRefresh(tokens.refresh)
 }
