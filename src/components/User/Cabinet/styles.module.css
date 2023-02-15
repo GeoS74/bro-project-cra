@@ -1,10 +1,8 @@
 .root {
   margin: 20px;
 
-  --bs-accordion-btn-icons: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
-  --bs-accordion-btn-icons-width: 1.25rem;
-  --bs-accordion-btn-icons-transform: rotate(-180deg);
-  --bs-accordion-btn-icons-transition: transform 0.2s ease-in-out;
+  --bs-accordion-btn-icon-custom: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+  --bs-accordion-btn-icon-custom-transition: transform 0.3s ease-in-out;
 }
 
 .root>h1,
@@ -12,39 +10,25 @@ p {
   color: white;
 }
 
-.root h2>button{
-  color: white !important;
-}
-
-.root div,
-.root h2>button{
+.root div:nth-child(1),
+.root h2>span{
   background-color: #1a1a1a !important;
   color: white !important;
 }
 
-.root h2>button::after {
-  color: rgb(13, 196, 110) !important;
+.root h2>span{
+  background-color: #272727 !important;
+}
+.root h2>span:hover{
+  cursor: pointer;
 }
 
-/* .accordion {
-  --bs-accordion-btn-icons: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 2' fill='red'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
-  --bs-accordion-btn-icon-width: 1.25rem;
-  --bs-accordion-btn-icon-transform: rotate(-180deg);
-  --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
-} */
-
-.root h2>button::after {
-  flex-shrink: 0;
-  width: var(--bs-accordion-btn-icons-width);
-  height: var(--bs-accordion-btn-icons-width);
-  margin-left: auto;
-  content: "";
-  background-image: var(--bs-accordion-btn-icons);
-  background-repeat: no-repeat;
-  background-size: var(--bs-accordion-btn-icons-width);
-  transition: var(--bs-accordion-btn-icons-transition);
+/* стрелка выпадающего листа */
+.root h2>span::after {
+  background-image: var(--bs-accordion-btn-icon-custom) !important;
+  transition: var(--bs-accordion-btn-icon-custom-transition);
 }
+.root h2>span:not(.collapsed)::after {
+  background-image: var(--bs-accordion-btn-icon-custom) !important;
 
-.root h2>button:not(.collapsed)::after {
-  background-image: var(--bs-accordion-btn-icons);
 }
