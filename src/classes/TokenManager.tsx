@@ -43,7 +43,7 @@ class TokenManager implements ITokenManager {
         this.setRefresh(res.refresh);
         return true;
       }
-      console.log(req.status)
+
       throw new Error(`response status: ${req.status}`)
     })
       .catch(() => {
