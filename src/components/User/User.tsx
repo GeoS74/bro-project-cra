@@ -13,7 +13,7 @@ export default function User() {
 
     {editMode ?
       <></>
-      // <EditForm about={about} setAbout={setAbout} editMode={editMode} setEditMode={setEditMode} />
+      // <EditForm user={user} setUser={setUser} editMode={editMode} setEditMode={setEditMode} />
       : <>
 
         <Cabinet user={user} />
