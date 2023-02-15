@@ -1,0 +1,12 @@
+.root {
+  text-align: center;
+}
+
+.root span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.root span:hover {
+  color: white;
+}
