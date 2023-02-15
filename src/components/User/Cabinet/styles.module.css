@@ -10,25 +10,46 @@ p {
   color: white;
 }
 
-.root div:nth-child(1),
-.root h2>span{
+/* компоновка контента */
+.content {
+  display: flex;
+  flex-flow: row wrap;
+}
+.content > div:nth-child(1) {
+  flex: 1 200px;
+  /* background-color: yellow; */
+}
+.content > div:nth-child(2) {
+  flex: 5 500px;
+}
+
+.content img {
+  height: 150px;
+}
+
+
+/* аккордеон */
+#accordion>div{
   background-color: #1a1a1a !important;
+}
+
+#accordion h2>span{
+  background-color: #272727 !important;
+}
+
+#accordion>div,
+#accordion h2>span{
   color: white !important;
 }
 
-.root h2>span{
-  background-color: #272727 !important;
-}
-.root h2>span:hover{
+#accordion h2>span:hover{
   cursor: pointer;
 }
 
 /* стрелка выпадающего листа */
-.root h2>span::after {
+#accordion h2>span::after {
   background-image: var(--bs-accordion-btn-icon-custom) !important;
   transition: var(--bs-accordion-btn-icon-custom-transition);
 }
-.root h2>span:not(.collapsed)::after {
-  background-image: var(--bs-accordion-btn-icon-custom) !important;
 
-}
+

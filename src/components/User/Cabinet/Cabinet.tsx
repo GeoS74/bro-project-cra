@@ -1,48 +1,61 @@
 import styles from "./styles.module.css"
+import classNames from "classnames"
+import person from "../image/person.svg"
 
 type Props = {
   user: IUser
 }
 
 export default function Content({ user }: Props) {
-  return <div className={styles.root}>
+  return <div className={styles.root} >
     <h1>Личный кабинет</h1>
-    <p>email: {user.email}</p>
+    <hr />
 
+    <div className={classNames(styles.content, "mt-4")}>
 
+      <div>
+        <img src={person} loading="lazy" />
+      </div>
 
+      <div className="accordion" id={styles.accordion}>
 
-    <div className="accordion" id="accordion">
-
-      <div className="accordion-item">
-        <h2 className="accordion-header" onClick={(event) => collapser(event)}>
-          <span className="accordion-button">
-            Accordion Item #1
-          </span>
-        </h2>
-        <div className="accordion-collapse">
-          <div className="accordion-body">
-            hello world
-            <span className="foo">aasdasdsad</span>
+        <div className="accordion-item">
+          <h2 className="accordion-header" onClick={(event) => collapser(event)}>
+            <span className="accordion-button">
+              пользователь
+            </span>
+          </h2>
+          <div className="accordion-collapse">
+            <div className="accordion-body">
+              <p>email: {user.email}</p>
+              <p>ранг: {user.rank}</p>
+              <p>должность: {user.position || "не указана"}</p>
+            </div>
           </div>
         </div>
+
+
+        <div className="accordion-item">
+          <h2 className="accordion-header" onClick={(event) => collapser(event)}>
+            <span className="accordion-button collapsed">
+              доп. информация
+            </span>
+          </h2>
+          <div className="accordion-collapse collapse">
+            <div className="accordion-body">
+              lorem ipsum
+            </div>
+          </div>
+        </div>
+
       </div>
 
 
-      <div className="accordion-item">
-        <h2 className="accordion-header" onClick={(event) => collapser(event)}>
-          <span className="accordion-button collapsed">
-            Accordion Item #2
-          </span>
-        </h2>
-        <div className="accordion-collapse collapse">
-          <div className="accordion-body">
-            lorem ipsum
-          </div>
-        </div>
-      </div>
+
 
     </div>
+
+
 
 
 
