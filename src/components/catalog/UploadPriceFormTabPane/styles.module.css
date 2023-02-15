@@ -1,0 +1,9 @@
+.root span,
+.root span:hover{
+  color: white;
+  cursor: pointer
+}
+
+.root h5 {
+  color: white;
+}
