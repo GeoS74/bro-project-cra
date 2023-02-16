@@ -39,7 +39,7 @@ export default {
         _query(`${serviceHost("bridge")}/api/bridge/brands`),
         _query(`${serviceHost("bridge")}/api/bridge/providers`)
       ])
-        .catch(error => [[], []])
+        .catch(() => [[], []])
     },
     {
       path: "/catalog/edit/test",

@@ -42,7 +42,7 @@ export default function Navigate() {
             <Link to="/auth" className="nav-link">Sign in</Link>
           </li>
           <li className="nav-item">
-            <Link to="/signout" className="nav-link">Sign out</Link>
+            <Link to="/auth/signout" className="nav-link">Sign out</Link>
           </li>
         </ul>
       </div>

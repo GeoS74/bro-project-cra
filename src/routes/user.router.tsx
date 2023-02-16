@@ -1,6 +1,7 @@
 import { redirect } from "react-router-dom";
 
 import serviceHost from "../libs/service.host"
+import queryWrapper from "../libs/query.wrapper"
 import User from "../components/User/User"
 import tokenManager from "../classes/TokenManager"
 
@@ -8,21 +9,26 @@ export default {
   path: "/user",
   element: <User />,
   loader: async () => {
-    try {
-      return await _aboutMe()
-    }
-    catch (error: unknown) {
-      if (error instanceof Error && error.message === "401") {
-        
-        try {
-          if(await tokenManager.refreshTokens()) {
-            return await _aboutMe()
-          }
-        }
-        catch (e) {/**/}
-      }
-      return redirect('/auth')
-    }
+
+    const user = await queryWrapper(() => _aboutMe())
+
+    return user || redirect('/auth')
+
+    // try {
+    //   return await _aboutMe()
+    // }
+    // catch (error: unknown) {
+
+    //   if (error instanceof Error && error.message === "401") {
+    //     try {
+    //       if(await tokenManager.refreshTokens()) {
+    //         return await _aboutMe()
+    //       }
+    //     }
+    //     catch (e) {/**/}
+    //   }
+    // }
+    // return redirect('/auth')
   }
 }
 

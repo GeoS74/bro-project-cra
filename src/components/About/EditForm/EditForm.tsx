@@ -1,5 +1,6 @@
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
+import queryWrapper from "../../../libs/query.wrapper"
 import EditButton from "../EditButton/EditButton";
 import styles from "./styles.module.css"
 
@@ -35,19 +36,23 @@ async function _onSubmit(
   event.preventDefault()
   setEditMode(false)
 
-  try {
-    await _query(setAbout, new FormData(event.target as HTMLFormElement), about?.alias)
-  } catch (error: unknown) {
+  await queryWrapper(() => _query(setAbout, new FormData(event.target as HTMLFormElement), about?.alias))
 
-    if (error instanceof Error && error.message === "401") {
-      try {
-        if(await tokenManager.refreshTokens()) {
-          await _query(setAbout, new FormData(event.target as HTMLFormElement), about?.alias)
-        }
-      }
-      catch (e) {/**/ }
-    }
-  }
+ 
+
+  // try {
+  //   await _query(setAbout, new FormData(event.target as HTMLFormElement), about?.alias)
+  // } catch (error: unknown) {
+
+  //   if (error instanceof Error && error.message === "401") {
+  //     try {
+  //       if(await tokenManager.refreshTokens()) {
+  //         await _query(setAbout, new FormData(event.target as HTMLFormElement), about?.alias)
+  //       }
+  //     }
+  //     catch (e) {/**/ }
+  //   }
+  // }
 }
 
 function _query(
