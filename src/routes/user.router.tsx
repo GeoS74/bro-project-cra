@@ -15,8 +15,9 @@ export default {
       if (error instanceof Error && error.message === "401") {
         
         try {
-          await tokenManager.refreshTokens()
-          return await _aboutMe()
+          if(await tokenManager.refreshTokens()) {
+            return await _aboutMe()
+          }
         }
         catch (e) {/**/}
       }

@@ -38,42 +38,17 @@ async function _onSubmit(
   try {
     await _query(setAbout, new FormData(event.target as HTMLFormElement), about?.alias)
   } catch (error: unknown) {
+
     if (error instanceof Error && error.message === "401") {
       try {
-        await tokenManager.refreshTokens()
-        await _query(setAbout, new FormData(event.target as HTMLFormElement), about?.alias)
+        if(await tokenManager.refreshTokens()) {
+          await _query(setAbout, new FormData(event.target as HTMLFormElement), about?.alias)
+        }
       }
       catch (e) {/**/ }
     }
   }
-
-
-  // fetch(`${serviceHost("informator")}/api/informator/about/${about?.alias || ""}`, {
-  //   method: about?.alias ? 'PATCH' : 'POST',
-  //   headers: {
-  //     'Authorization': `Bearer ${tokenManager.getAccess()}`
-  //   },
-  //   body: new FormData(event.target as HTMLFormElement)
-  // })
-  //   .then(async response => {
-  //     if (response.ok) {
-  //       const res = await response.json()
-  //       setAbout(res)
-  //       return;
-  //     }
-  //     // else if (response.status === 400) {
-  //     //   // const res = await response.json()
-  //     //   return;
-  //     // }
-  //     throw new Error(`response status: ${response.status}`)
-  //   })
-  //   .catch(error => console.log(error.message))
-  //   .finally(() => setEditMode(false));
 }
-
-
-
-
 
 function _query(
   setAbout: React.Dispatch<React.SetStateAction<IAbout | undefined>>,
