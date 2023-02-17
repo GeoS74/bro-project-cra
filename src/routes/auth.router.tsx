@@ -21,9 +21,17 @@ export default {
       path: "/auth/signout",
       element: <></>,
       loader: () => {
-        tokenManager.setAccess("")
-        tokenManager.setRefresh("")
-        return redirect("/auth")
+        
+        fetch(`${serviceHost("mauth")}/api/mauth/signout/`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${tokenManager.getRefresh()}`
+          }
+        });
+
+        tokenManager.setAccess("");
+        tokenManager.setRefresh("");
+        return redirect("/auth");
       }
     },
     {
