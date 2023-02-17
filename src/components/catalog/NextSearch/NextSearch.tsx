@@ -1,4 +1,4 @@
-import fetcher from "../Search/fetcher"
+import fetcher from "../fetcher"
 
 type Props = {
   hiddenNextSearch: boolean
