@@ -21,7 +21,5 @@ export default function About() {
 
         <Content about={about} />
       </>}
-
   </>
-
 }
