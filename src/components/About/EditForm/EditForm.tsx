@@ -1,6 +1,6 @@
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
-import queryWrapper from "../../../libs/query.wrapper"
+import fetchWrapper from "../../../libs/fetch.wrapper"
 import EditButton from "../EditButton/EditButton";
 import styles from "./styles.module.css"
 
@@ -36,7 +36,7 @@ async function _onSubmit(
   event.preventDefault()
   setEditMode(false)
 
-  await queryWrapper(() => _query(new FormData(event.target as HTMLFormElement), about?.alias))
+  await fetchWrapper(() => _query(new FormData(event.target as HTMLFormElement), about?.alias))
   .then(async response => {
       if (response.ok) {
         const res = await response.json()

@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
 
 import serviceHost from "../libs/service.host"
-import queryWrapper from "../libs/query.wrapper"
+import fetchWrapper from "../libs/fetch.wrapper"
 import User from "../components/User/User"
 import tokenManager from "../classes/TokenManager"
 
@@ -10,33 +10,18 @@ export default {
   element: <User />,
   loader: async () => {
 
-    const user = await queryWrapper(() => _aboutMe())
-
+    const user = await _aboutMe().catch(() => null)
     return user || redirect('/auth')
-
-    // try {
-    //   return await _aboutMe()
-    // }
-    // catch (error: unknown) {
-
-    //   if (error instanceof Error && error.message === "401") {
-    //     try {
-    //       if(await tokenManager.refreshTokens()) {
-    //         return await _aboutMe()
-    //       }
-    //     }
-    //     catch (e) {/**/}
-    //   }
-    // }
-    // return redirect('/auth')
   }
 }
 
 
+
+
 async function _aboutMe() {
   return Promise.all([
-    _getUser(),
-    _getMe()
+    _getMe(),
+    _getUser()
   ])
     .then(res => ({
       ...res[0],
@@ -44,42 +29,48 @@ async function _aboutMe() {
     }))
 }
 
+
+
+
+
+
+
+
+
+
+// async function _aboutMe() {
+//   return Promise.all([
+//     _getUser(),
+//     _getMe()
+//   ])
+//     .then(res => ({
+//       ...res[0],
+//       ...res[1]
+//     }))
+// }
+
 function _getMe() {
-  return fetch(`${serviceHost("mauth")}/api/mauth/access/`, {
+  return fetchWrapper(() => fetch(`${serviceHost("mauth")}/api/mauth/access/`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
+  }))
+  .then(async res => {
+    if(res.ok) return await res.json()
   })
-    .then(async res => {
-      if (res.ok) {
-        return await res.json()
-      }
-      if (res.status === 401) {
-        throw new Error("401")
-      }
-    })
 }
 
 function _getUser() {
-  return fetch(`${serviceHost("informator")}/api/informator/user/`, {
+  return fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user/`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
-  })
+  }))
     .then(async res => {
-      if (res.ok) {
-        return await res.json()
-      }
-
-      if (res.status === 404) {
-        return await _createUser()
-      }
-
-      if (res.status === 401) {
-        throw new Error("401")
-      }
+      if (res.ok) return await res.json()
+      if (res.status === 404) return await _createUser()
     })
 }
 

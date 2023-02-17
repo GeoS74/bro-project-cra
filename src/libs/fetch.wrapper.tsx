@@ -19,7 +19,7 @@ interface IFetchWrapper {
   (): Promise<Response>
 }
 
-export default async function queryWrapper<T extends IFetchWrapper>(func: T) {
+export default async function fetchWrapper<T extends IFetchWrapper>(func: T) {
   try {
     return await func()
       .then((response) => {
@@ -31,10 +31,8 @@ export default async function queryWrapper<T extends IFetchWrapper>(func: T) {
   } catch (error: unknown) {
 
     if (error instanceof Error && error.message === "401") {
-
       try {
         if (await tokenManager.refreshTokens()) {
-
           return await func()
             .then((response) => {
               if (response.status === 401) {
@@ -44,7 +42,7 @@ export default async function queryWrapper<T extends IFetchWrapper>(func: T) {
             })
         }
       }
-      catch (e) {/**/ }
+      catch (e) { /**/ }
     }
   }
   return Promise.reject()
