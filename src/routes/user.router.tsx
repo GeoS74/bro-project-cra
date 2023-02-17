@@ -11,8 +11,8 @@ export default {
   loader: async () => {
 
     try {
-      const me = await _getMe().catch(() => { throw new Error() })
-      const user = await _getUser().catch(() => { throw new Error() })
+      const me = await _getMe();
+      const user = await _getUser();
       return {
         ...me,
         ...user
