@@ -1,6 +1,8 @@
 import { useState } from "react";
 
+import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
+import fetchWrapper from "../../../libs/fetch.wrapper"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -35,7 +37,11 @@ function _searchRow(
 
   const fd = new FormData(event.target as HTMLFormElement)
 
-  fetch(`${serviceHost("bridge")}${api}/?title=${fd.get('query')}`)
+  fetchWrapper(() => fetch(`${serviceHost("bridge")}${api}/?title=${fd.get('query')}`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
+  }))
     .then(async response => {
       if (response.ok) {
         const res = await response.json()

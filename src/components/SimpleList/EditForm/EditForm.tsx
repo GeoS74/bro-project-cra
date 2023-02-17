@@ -1,6 +1,8 @@
 import { useState } from "react";
 
+import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
+import fetchWrapper from "../../../libs/fetch.wrapper"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -46,10 +48,13 @@ function _onSubmit(
   event.preventDefault()
   setDisabled(true)
 
-  fetch(`${serviceHost("bridge")}${api}/${addRow ? '' : id}`, {
+  fetchWrapper(() => fetch(`${serviceHost("bridge")}${api}/${addRow ? '' : id}`, {
     method: addRow ? 'POST' : 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
     body: new FormData(event.target as HTMLFormElement)
-  })
+  }))
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
