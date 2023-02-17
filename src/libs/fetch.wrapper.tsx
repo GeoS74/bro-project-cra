@@ -21,29 +21,30 @@ interface IFetchWrapper {
 
 export default async function fetchWrapper<T extends IFetchWrapper>(func: T) {
   try {
-    return await func()
-      .then((response) => {
-        if (response.status === 401) {
-          throw new Error("401")
-        }
-        return response
-      })
+
+    return await _thenable(func)
+
   } catch (error: unknown) {
 
     if (error instanceof Error && error.message === "401") {
       try {
         if (await tokenManager.refreshTokens()) {
-          return await func()
-            .then((response) => {
-              if (response.status === 401) {
-                throw new Error("401")
-              }
-              return response
-            })
+
+          return await _thenable(func)
         }
       }
       catch (e) { /**/ }
     }
   }
-  return Promise.reject()
+  return Promise.reject('error: fetch.wrapper')
+}
+
+function _thenable<T extends IFetchWrapper>(func: T) {
+  return func()
+    .then((response) => {
+      if (response.status === 401) {
+        throw new Error("401")
+      }
+      return response
+    })
 }

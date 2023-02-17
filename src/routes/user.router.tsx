@@ -10,47 +10,19 @@ export default {
   element: <User />,
   loader: async () => {
 
-    const user = await _aboutMe().catch(() => null)
-    // return user || redirect('/auth')
-    console.log(user)
-    return user || []
-
+    try {
+      const me = await _getMe().catch(() => { throw new Error() })
+      const user = await _getUser().catch(() => { throw new Error() })
+      return {
+        ...me,
+        ...user
+      }
+    }
+    catch (error) {
+      return redirect('/auth')
+    }
   }
 }
-
-
-
-
-async function _aboutMe() {
-  return Promise.all([
-    // _getMe(),
-    _getUser()
-  ])
-    .then(res => ({
-      ...res[0],
-      // ...res[1]
-    }))
-}
-
-
-
-
-
-
-
-
-
-
-// async function _aboutMe() {
-//   return Promise.all([
-//     _getUser(),
-//     _getMe()
-//   ])
-//     .then(res => ({
-//       ...res[0],
-//       ...res[1]
-//     }))
-// }
 
 function _getMe() {
   return fetchWrapper(() => fetch(`${serviceHost("mauth")}/api/mauth/access/`, {
@@ -59,9 +31,10 @@ function _getMe() {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
   }))
-  .then(async res => {
-    if(res.ok) return await res.json()
-  })
+    .then(async res => {
+      if (res.ok) return await res.json()
+      throw new Error()
+    })
 }
 
 function _getUser() {
@@ -74,6 +47,7 @@ function _getUser() {
     .then(async res => {
       if (res.ok) return await res.json()
       if (res.status === 404) return await _createUser()
+      throw new Error()
     })
 }
 
@@ -84,7 +58,7 @@ function _createUser() {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
   })
-  .then(async res => {
-    if(res.ok) return await res.json()
-  })
+    .then(async res => {
+      if (res.ok) return await res.json()
+    })
 }
