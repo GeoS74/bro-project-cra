@@ -5,8 +5,5 @@ export default {
   path: "/about",
   element: <About />,
   loader: async () => fetch(`${serviceHost("informator")}/api/informator/about/company`)
-    .catch(error => {
-      console.log(error.message);
-      return undefined;
-    })
+  .catch(() => ({}))
 }

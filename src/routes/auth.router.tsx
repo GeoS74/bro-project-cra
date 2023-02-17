@@ -1,4 +1,6 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, redirect } from "react-router-dom"
+
+import tokenManager from "../classes/TokenManager"
 import Navigate from "../components/navigate/Navigate"
 import { AuthForm } from "../components/AuthForm/AuthForm"
 import { InfoCard } from "../components/AuthForm/InfoCard/InfoCard"
@@ -14,6 +16,23 @@ export default {
     {
       index: true,
       element: <AuthForm />,
+    },
+    {
+      path: "/auth/signout",
+      element: <></>,
+      loader: () => {
+        
+        fetch(`${serviceHost("mauth")}/api/mauth/signout/`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${tokenManager.getRefresh()}`
+          }
+        });
+
+        tokenManager.setAccess("");
+        tokenManager.setRefresh("");
+        return redirect("/auth");
+      }
     },
     {
       path: "/auth/confirm/:token",

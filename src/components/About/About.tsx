@@ -6,7 +6,6 @@ import Content from "./Content/Content";
 import EditButton from "./EditButton/EditButton";
 import EditForm from "./EditForm/EditForm";
 
-
 export default function About() {
   const [about, setAbout] = useState(useLoaderData() as IAbout | undefined)
   const [editMode, setEditMode] = useState(false)
@@ -22,7 +21,5 @@ export default function About() {
 
         <Content about={about} />
       </>}
-
   </>
-
 }

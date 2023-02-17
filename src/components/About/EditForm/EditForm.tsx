@@ -1,5 +1,7 @@
-import EditButton from "../EditButton/EditButton";
+import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
+import fetchWrapper from "../../../libs/fetch.wrapper"
+import EditButton from "../EditButton/EditButton";
 import styles from "./styles.module.css"
 
 type Props = {
@@ -8,8 +10,6 @@ type Props = {
   editMode: boolean
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>
 }
-
-
 
 export default function EditForm({ about, setAbout, editMode, setEditMode }: Props) {
   return <form
@@ -26,7 +26,7 @@ export default function EditForm({ about, setAbout, editMode, setEditMode }: Pro
   </form>
 }
 
-function _onSubmit(
+async function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>,
   about: IAbout | undefined,
@@ -34,23 +34,28 @@ function _onSubmit(
 ) {
 
   event.preventDefault()
+  setEditMode(false)
 
-  fetch(`${serviceHost("informator")}/api/informator/about/${about?.alias || ""}`, {
-    method: about?.alias ? 'PATCH' : 'POST',
-    body: new FormData(event.target as HTMLFormElement)
-  })
-    .then(async response => {
+  await fetchWrapper(() => _query(new FormData(event.target as HTMLFormElement), about?.alias))
+  .then(async response => {
       if (response.ok) {
         const res = await response.json()
         setAbout(res)
         return;
       }
-      // else if (response.status === 400) {
-      //   // const res = await response.json()
-      //   return;
-      // }
-      throw new Error(`response status: ${response.status}`)
     })
-    .catch(error => console.log(error.message))
-    .finally(() => setEditMode(false));
+    .catch(() => console.log('error: не удалось обновить данные страницы'))
+}
+
+function _query(
+  fd: FormData,
+  alias: string | undefined
+) {
+  return fetch(`${serviceHost("informator")}/api/informator/about/${alias || ""}`, {
+    method: alias ? 'PATCH' : 'POST',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
+    body: fd
+  })
 }
