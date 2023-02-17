@@ -8,19 +8,20 @@ import tokenManager from "../classes/TokenManager"
 export default {
   path: "/user",
   element: <User />,
-  loader: async () => {
+  loader: () => _aboutMe()
+}
 
-    try {
-      const me = await _getMe();
-      const user = await _getUser();
-      return {
-        ...me,
-        ...user
-      }
+async function _aboutMe(){
+  try {
+    const me = await _getMe();
+    const user = await _getUser();
+    return {
+      ...me,
+      ...user
     }
-    catch (error) {
-      return redirect('/auth')
-    }
+  }
+  catch (error) {
+    return redirect('/auth')
   }
 }
 
