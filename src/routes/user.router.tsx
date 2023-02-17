@@ -11,7 +11,10 @@ export default {
   loader: async () => {
 
     const user = await _aboutMe().catch(() => null)
-    return user || redirect('/auth')
+    // return user || redirect('/auth')
+    console.log(user)
+    return user || []
+
   }
 }
 
@@ -20,12 +23,12 @@ export default {
 
 async function _aboutMe() {
   return Promise.all([
-    _getMe(),
+    // _getMe(),
     _getUser()
   ])
     .then(res => ({
       ...res[0],
-      ...res[1]
+      // ...res[1]
     }))
 }
 
@@ -80,5 +83,8 @@ function _createUser() {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
+  })
+  .then(async res => {
+    if(res.ok) return await res.json()
   })
 }
