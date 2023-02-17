@@ -31,7 +31,7 @@ export default {
     {
       path: "/catalog/edit/upload",
       element: <UploadPrice />,
-      loader: () => _getBrandsAndProviders()
+      loader: () => _getBrandsAndProviders().catch(() => redirect('/auth'))
     },
     {
       path: "/catalog/edit/test",
@@ -59,7 +59,7 @@ async function _getBrandsAndProviders(){
       })
     return [brands, providers]
   } catch (error) {
-    return redirect('/auth')
+    throw new Error()
   }
 }
 

@@ -17,8 +17,16 @@
 }
 
 /* title and article */
+.root div p {
+  color: #1a1a1a;
+}
+
 .root div p:nth-child(1) {
   font-weight: 900;
+  cursor: pointer;
+}
+.root div p:nth-child(1):hover {
+  text-decoration: underline;
 }
 
 .root div p:nth-child(2) {
