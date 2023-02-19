@@ -10,13 +10,6 @@ export default function User() {
 
   return <>
     <Navigate />
-
-    {editMode ?
-      <></>
-      // <EditForm user={user} setUser={setUser} editMode={editMode} setEditMode={setEditMode} />
-      : <>
-
-        <Cabinet user={user} />
-      </>}
+    <Cabinet user={user} />
   </>
 }
