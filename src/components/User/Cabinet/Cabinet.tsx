@@ -1,22 +1,29 @@
+import { useState } from "react";
 import styles from "./styles.module.css"
 import classNames from "classnames"
 import Photo from "../Photo/Photo"
+
 
 type Props = {
   user: IUser
 }
 
 export default function Content({ user }: Props) {
+  const [editMode, setEditMode] = useState(false)
+  
   return <div className={styles.root} >
     <h1>Личный кабинет</h1>
     <hr />
     <div className={styles.button}>
-      <button>редактировать профиль</button>
+      <button onClick={() => {
+        setEditMode(!editMode)
+        console.log(editMode)
+        }}>редактировать профиль</button>
     </div>
     <div className={classNames(styles.content, "mt-4")}>
     
       <div className={styles.photo}>
-        <Photo user={user}/>
+        <Photo user={user} editMode={editMode}/>
        
       </div>
 
