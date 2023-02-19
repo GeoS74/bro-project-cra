@@ -1,4 +1,4 @@
-import serviceHost from "../../../libs/service.host"
+import serviceHost from "../../libs/service.host"
 
 export default async function fetcher(
   query: string,

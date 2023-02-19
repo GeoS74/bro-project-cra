@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import styles from "./styles.module.css"
-import fetcher from "../Search/fetcher"
+import fetcher from "../fetcher"
 
 type Props = {
   setHiddenNextSearch: React.Dispatch<React.SetStateAction<boolean>>

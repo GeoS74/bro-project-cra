@@ -5,7 +5,8 @@
 .root fieldset {
   display: flex;
   flex-flow: row nowrap;
-  max-width: 600px;
+  justify-content: center;
+  align-items: center;
 }
 
 .root fieldset>input {
@@ -13,9 +14,9 @@
 }
 
 .root fieldset>input[type=search] {
-  flex: 5;
+  flex: 0.7;
 }
 
 .root fieldset>input[type=submit]{
-  flex: 1;
+  flex: 0.1;
 }

@@ -18,7 +18,7 @@ p {
 
 .content>div:nth-child(1) {
   flex: 1 200px;
-  margin: 0 15px 15px 0;
+  margin: 0 15px 0 0;
   /* background-color: yellow; */
 }
 
@@ -55,4 +55,22 @@ p {
 #accordion h2>span::after {
   background-image: var(--bs-accordion-btn-icon-custom) !important;
   transition: var(--bs-accordion-btn-icon-custom-transition);
+}
+
+.button {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.photo img {
+  width: 150px;
+  height: 150px;
+}
+
+.root button {
+  background-color: #272727 !important;
+  color: white !important;
+  height: 50px;
+  border-color: white;
+  border-width: 1px;
 }

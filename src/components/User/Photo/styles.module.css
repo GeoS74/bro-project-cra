@@ -1,0 +1,21 @@
+img {
+  margin-bottom: 8px;
+}
+
+.root div {
+  display: flex;
+  flex-direction: column;
+}
+
+.root input {
+  background-color: #272727 !important;
+  color: white !important;
+  height: 50px;
+  margin-bottom: 3px;
+  border-color: white;
+  border-width: 1px;
+}
+
+.root div :first-child {
+  padding-top: 10px;
+}

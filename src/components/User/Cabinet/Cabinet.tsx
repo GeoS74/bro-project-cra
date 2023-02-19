@@ -1,8 +1,6 @@
-import serviceHost from "../../../libs/service.host"
-
 import styles from "./styles.module.css"
 import classNames from "classnames"
-import person from "../image/person.svg"
+import Photo from "../Photo/Photo"
 
 type Props = {
   user: IUser
@@ -12,11 +10,14 @@ export default function Content({ user }: Props) {
   return <div className={styles.root} >
     <h1>Личный кабинет</h1>
     <hr />
-
+    <div className={styles.button}>
+      <button>редактировать профиль</button>
+    </div>
     <div className={classNames(styles.content, "mt-4")}>
-
-      <div>
-        {user.photo ? <img src={`${serviceHost('informator')}/api/informator/user/photo/${user.photo}`} loading="lazy" /> : <img src={person} loading="lazy" />}
+    
+      <div className={styles.photo}>
+        <Photo user={user}/>
+       
       </div>
 
       <div className="accordion" id={styles.accordion}>
@@ -49,19 +50,8 @@ export default function Content({ user }: Props) {
             </div>
           </div>
         </div>
-
       </div>
-
-
-
-
     </div>
-
-
-
-
-
-
   </div>
 }
 
