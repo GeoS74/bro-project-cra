@@ -18,13 +18,14 @@ export default function Photo({user, editMode}: Props) {
     //     imgElement?.removeAttribute("click")
     // }
     
+    
     return (
-        <form className={styles.root}>
+        <form className={styles.root} id="formElem">
             {user.photo ? <img src={`${serviceHost('informator')}/api/informator/user/photo/${user.photo}`} loading="lazy" id="imgPhoto" onClick={editMode ? createInput : undefined}/> : <img src={person} loading="lazy" id="imgPhoto" onClick={editMode ? createInput : undefined}/>}
-            <div>
-                {/* <input type="file" accept="image/*"/> */}
+            {/* <div>
+                <input type="file" accept="image/*"/>
                 <input type="submit" />
-            </div>
+            </div> */}
         </form>
             
     )
@@ -35,25 +36,59 @@ function createInput() {
     const inputElement = document.createElement("input")
     inputElement.type = "file"
     inputElement.accept="image/*"
+    inputElement.name="photo"
     inputElement.click()
-    inputElement.onchange=() => console.log(inputElement.value)
+    inputElement.onchange=(event) => {
+        event.preventDefault;
+        console.log(inputElement.value)
+        const fd = new FormData
+        fd.append("photo", inputElement.value)
+        fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+                        method: 'PATCH',
+                        headers: {
+                          'Authorization': `Bearer ${tokenManager.getAccess()}`
+                        },
+                        body: fd
+                         })
+
+
+
+
+
+        // if (formElem !== null) {
+        //     formElem.onsubmit = async () => {
+        //         console.log(1)
+        //         await fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+        //             method: 'PATCH',
+        //             headers: {
+        //               'Authorization': `Bearer ${tokenManager.getAccess()}`
+        //             },
+        //             body: new FormData
+            
+        //              })
+        //     }
+        // }
+        
     }
-function fetchPhoto() {
-    fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
-            method: 'PATCH',
-            headers: {
-              'Authorization': `Bearer ${tokenManager.getAccess()}`
-            },
-            body: fd
     
-             })
-}
+    
+    
+    
+    
+    
+    
+    
+    
+    // fetchPhoto(new FormData(inputElement))
+    }
 
-    // fetch(`${serviceHost("informator")}/api/informator/about/${alias || ""}`, {
-    //     method: alias ? 'PATCH' : 'POST',
-    //     headers: {
-    //       'Authorization': `Bearer ${tokenManager.getAccess()}`
-    //     },
-    //     body: fd
-
-       //   })
+// function fetchPhoto(fd: FormData) {
+//     await fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+//             method: 'PATCH',
+//             headers: {
+//               'Authorization': `Bearer ${tokenManager.getAccess()}`
+//             },
+//             body: fd
+    
+//              })
+// }
