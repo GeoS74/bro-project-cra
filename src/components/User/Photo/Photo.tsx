@@ -2,6 +2,7 @@ import serviceHost from "../../../libs/service.host"
 import tokenManager from "../../../classes/TokenManager"
 import person from "../image/person.svg"
 import styles from "./styles.module.css"
+import { useRef, useEffect, useState} from "react"
 
 type Props = {
     user: IUser,
@@ -9,67 +10,94 @@ type Props = {
   }
 
 export default function Photo({user, editMode}: Props) {
-    // if (editMode === true) {
-    //     const imgElement = document.getElementById("imgPhoto")
-    //     imgElement?.setAttribute("click", "createInput()")
-    //     console.log(imgElement)
-    // } else if (editMode === false) {
-    //     const imgElement = document.getElementById("imgPhoto")
-    //     imgElement?.removeAttribute("click")
-    // }
-    
+    const [state, setState] = useState<string | undefined>("")
+    const inputFile = useRef<HTMLInputElement>(null)
+    const inputSubmit = useRef<HTMLInputElement>(null)
+
+    const createInput = () => {
+        inputFile?.current?.click();
+        inputFile?.current?.onchange
+        console.log({inputFile})
+        setState(inputFile?.current?.value)
+        // inputFile?.current?.onchange
+        // setState(inputFile?.current?.value)
+    }
+    useEffect(() => {
+        inputSubmit?.current?.click();        
+    }, [state])
     
     return (
-        <form className={styles.root} id="formElem">
-            {user.photo ? <img src={`${serviceHost('informator')}/api/informator/user/photo/${user.photo}`} loading="lazy" id="imgPhoto" onClick={editMode ? createInput : undefined}/> : <img src={person} loading="lazy" id="imgPhoto" onClick={editMode ? createInput : undefined}/>}
-            {/* <div>
-                <input type="file" accept="image/*"/>
-                <input type="submit" />
-            </div> */}
+        <form className={styles.root} id="form_elem" onSubmit={(event) => {
+            event.preventDefault();
+            const fd = new FormData(event.target as HTMLFormElement)
+            fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${tokenManager.getAccess()}`
+                },
+                body: fd
+                    })
+        }}>
+            {user.photo ? <img src={`${serviceHost('informator')}/api/informator/user/photo/${user.photo}`} 
+            loading="lazy" id={styles.imgPhoto} onClick={createInput}/> : <img src={person} loading="lazy" id={styles.imgPhoto} onClick={createInput}/>}
+            <div>
+                <input type="file" accept="image/*" ref={inputFile} className={styles.inputFile} name="photo"/>
+                <input type="submit" id="inputSubmit" ref={inputSubmit}/>
+            </div>
         </form>
             
     )
 }
 
 
-function createInput() {
-    const inputElement = document.createElement("input")
-    inputElement.type = "file"
-    inputElement.accept="image/*"
-    inputElement.name="photo"
-    inputElement.click()
-    inputElement.onchange=(event) => {
-        event.preventDefault;
-        console.log(inputElement.value)
-        const fd = new FormData
-        fd.append("photo", inputElement.value)
-        fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
-                        method: 'PATCH',
-                        headers: {
-                          'Authorization': `Bearer ${tokenManager.getAccess()}`
-                        },
-                        body: fd
-                         })
+// async function onSubmitFoto(
+//     event: React.FormEvent<HTMLFormElement>,
+// ) {
+//     event.preventDefault;
+//     console.log(312312312312)
+// }
+
+
+    // inputFile.addEventListener('change', foo)
+// }  
+
+    // const inputElement = document.createElement("input")
+    // inputElement.type = "file"
+    // inputElement.accept="image/*"
+    // inputElement.name="photo"
+    // inputElement.click()
+    // inputElement.onchange=(event) => {
+    //     event.preventDefault;
+    //     const formElem = document.getElementById("formElem")
+    //     const fd = new FormData(formElem)
+    //     fd.append("photo", inputElement.value)
+    //     fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+    //                     method: 'PATCH',
+    //                     headers: {
+    //                       'Authorization': `Bearer ${tokenManager.getAccess()}`
+    //                     },
+    //                     body: fd
+    //                      })
 
 
 
 
 
-        // if (formElem !== null) {
-        //     formElem.onsubmit = async () => {
-        //         console.log(1)
-        //         await fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
-        //             method: 'PATCH',
-        //             headers: {
-        //               'Authorization': `Bearer ${tokenManager.getAccess()}`
-        //             },
-        //             body: new FormData
+    //     if (formElem !== null) {
+    //         formElem.onsubmit = async () => {
+    //             console.log(1)
+    //             await fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+    //                 method: 'PATCH',
+    //                 headers: {
+    //                   'Authorization': `Bearer ${tokenManager.getAccess()}`
+    //                 },
+    //                 body: new FormData
             
-        //              })
-        //     }
-        // }
+    //                  })
+    //         }
+    //     }
         
-    }
+    // }
     
     
     
@@ -80,7 +108,7 @@ function createInput() {
     
     
     // fetchPhoto(new FormData(inputElement))
-    }
+    // }
 
 // function fetchPhoto(fd: FormData) {
 //     await fetch(`${serviceHost("informator")}/api/informator/user/photo`, {

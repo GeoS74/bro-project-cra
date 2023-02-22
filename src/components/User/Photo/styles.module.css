@@ -1,21 +1,26 @@
-img {
-  margin-bottom: 8px;
+.root {
+  flex: 1 200px;
+  margin-right: 10px;
 }
 
-.root div {
-  display: flex;
-  flex-direction: column;
+img {
+  margin-bottom: 8px;
 }
 
 .root input {
   background-color: #272727 !important;
   color: white !important;
   height: 50px;
-  margin-bottom: 3px;
+  width: 100%;
+  margin-top: 50px;
   border-color: white;
   border-width: 1px;
 }
 
 .root div :first-child {
   padding-top: 10px;
+}
+
+.inputFile {
+  opacity: 0;
 }

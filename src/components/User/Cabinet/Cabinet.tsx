@@ -22,10 +22,10 @@ export default function Content({ user }: Props) {
     </div>
     <div className={classNames(styles.content, "mt-4")}>
     
-      <div className={styles.photo}>
+      {/* <div className={styles.photo}> */}
         <Photo user={user} editMode={editMode}/>
        
-      </div>
+      {/* </div> */}
 
       <div className="accordion" id={styles.accordion}>
 
