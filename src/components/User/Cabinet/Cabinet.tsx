@@ -20,13 +20,8 @@ export default function Content({ user }: Props) {
         console.log(editMode)
         }}>редактировать профиль</button>
     </div>
-    <div className={classNames(styles.content, "mt-4")}>
-    
-      {/* <div className={styles.photo}> */}
-        <Photo user={user} editMode={editMode}/>
-       
-      {/* </div> */}
-
+    <div className={classNames(styles.content, "mt-4")}>    
+      <Photo user={user} editMode={editMode}/>
       <div className="accordion" id={styles.accordion}>
 
         <div className="accordion-item">
@@ -40,6 +35,7 @@ export default function Content({ user }: Props) {
               <p>email: {user.email}</p>
               <p>ранг: {user.rank}</p>
               <p>должность: {user.position || "не указана"}</p>
+              <input type="text" value={"xsasca"}/>
             </div>
           </div>
         </div>
@@ -53,7 +49,12 @@ export default function Content({ user }: Props) {
           </h2>
           <div className="accordion-collapse collapse">
             <div className="accordion-body">
-              lorem ipsum
+              <p>1</p>
+              <input type="text" />
+              <p>2</p>
+              <input type="text" />
+              <p>3</p>
+              <input type="text" />
             </div>
           </div>
         </div>

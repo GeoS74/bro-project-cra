@@ -21,6 +21,6 @@ img {
   padding-top: 10px;
 }
 
-.inputFile {
-  opacity: 0;
+.inputForm {
+  display: none;
 }

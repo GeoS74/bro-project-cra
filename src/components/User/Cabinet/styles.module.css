@@ -19,7 +19,6 @@ p {
 .content>div:nth-child(1) {
   flex: 1 200px;
   margin: 0 15px 0 0;
-  /* background-color: yellow; */
 }
 
 .content>div:nth-child(2) {
@@ -62,10 +61,10 @@ p {
   flex-direction: row-reverse;
 }
 
-.photo img {
+/* .photo img {
   width: 150px;
   height: 150px;
-}
+} */
 
 .root button {
   background-color: #272727 !important;
