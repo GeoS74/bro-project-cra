@@ -73,3 +73,11 @@ p {
   border-color: white;
   border-width: 1px;
 }
+
+.disNon {
+  display: none;
+}
+
+.disBlok {
+  display: block;
+}
