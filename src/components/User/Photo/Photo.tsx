@@ -7,11 +7,9 @@ import { useRef, useState } from "react"
 
 type Props = {
     user: IUser,
-    editMode: boolean,
-    fornDataInfo: {position: string;}
   }
 
-export default function Photo({user, editMode, fornDataInfo}: Props) {
+export default function Photo({user}: Props) {
     // ссылка на input type=file
     const inputFile = useRef<HTMLInputElement>(null)
     // ссылка на input type=submit
@@ -28,27 +26,13 @@ export default function Photo({user, editMode, fornDataInfo}: Props) {
     async function submitForm (event: React.FormEvent<HTMLFormElement>)  {
         event.preventDefault();
         const fd = new FormData(event.target as HTMLFormElement)
-        fd.append("key1", "value1")
-        console.log(editMode)
-        console.log(fd)
-        if (editMode === false) {
-            await fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
-                method: 'PATCH',
-                headers: {
-                    'Authorization': `Bearer ${tokenManager.getAccess()}`
-                },
-                body: fd
-                    })
-        } else {
-            await fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
-                method: 'PATCH',
-                headers: {
-                    'Authorization': `Bearer ${tokenManager.getAccess()}`
-                },
-                body: fd
-                    })
-        }
-            
+        await fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${tokenManager.getAccess()}`
+            },
+            body: fd
+                })           
     }   
     
     return (
@@ -57,7 +41,7 @@ export default function Photo({user, editMode, fornDataInfo}: Props) {
             loading="lazy" id={styles.imgPhoto} onClick={clickInput}/> : <img src={person} loading="lazy" id={styles.imgPhoto} onClick={clickInput}/>}
             <div>
                 <input type="file" accept="image/*" ref={inputFile} className={styles.inputForm} name="photo" onChange={clickSubmit}/>
-                <input type="submit" id="inputSubmit" ref={inputSubmit} className={classNames(editMode === true ? styles.disNon : styles.disBlok)}/>
+                <input type="submit" id="inputSubmit" ref={inputSubmit} className={styles.inputForm}/>
             </div>
         </form>
             

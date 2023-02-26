@@ -5,21 +5,23 @@ import Photo from "../Photo/Photo"
 
 
 type Props = {
-  user: IUser
+  user: IUser,
+}
+
+type EditMode = {  
+  editMode: boolean,
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>,
+  divInformUser: React.RefObject<HTMLInputElement>,
 }
 
 export default function Content({ user }: Props) {
   // видно кнопки или нет
   const [editMode, setEditMode] = useState(false)
-  const [fornDataInfo, setFormDataInfo] = useState({position: ""})
-  useEffect (() => {
-    if (editMode === false) {
-      console.log(1)
-    }
-    
-  }, [editMode])
   // ищем div таблицы с информацией
-  const divInformUser = useRef<HTMLDivElement>(null)
+  const divInformUser = useRef<HTMLInputElement>(null)
+
+  // нажатие на кнопку отправить
+  
   
   return <div className={styles.root} >
     <h1>Личный кабинет</h1>
@@ -30,8 +32,16 @@ export default function Content({ user }: Props) {
         // console.log(formInformUser.current?.children[2].innerHTML)
         }}>редактировать профиль</button>
     </div>
-    <div className={classNames(styles.content, "mt-4")}>    
-      <Photo user={user} editMode={editMode} fornDataInfo={fornDataInfo}/>
+    <div className={classNames(styles.content, "mt-4")}>
+      <div>
+        <div className={styles.formAndButton}>
+          <Photo user={user} />
+          <button className={classNames(editMode === true ? styles.disNon : styles.disBlok)} 
+          onClick={() => submitinformUser({editMode, setEditMode, divInformUser})}>
+            Отправить
+          </button>
+        </div>        
+      </div>      
       <div className="accordion" id={styles.accordion}>
 
         <div className="accordion-item">
@@ -41,12 +51,12 @@ export default function Content({ user }: Props) {
             </span>
           </h2>
           <div className="accordion-collapse">
-            <div className="accordion-body" ref={divInformUser}>
+            <div className="accordion-body" >
               <p>email: {user.email}</p>
               <p>ранг: {user.rank}</p>
               <p className={classNames(editMode === false ? styles.disNon : styles.disBlok)}>должность: {user.position || "не указана"}</p>
               <label htmlFor="position" className={classNames(editMode === true ? styles.disNon : styles.disBlok)}>должность</label>
-              <input type="text" className={classNames(editMode === true ? styles.disNon : styles.disBlok)} name="position"/>
+              <input type="text" className={classNames(editMode === true ? styles.disNon : styles.disBlok)} ref={divInformUser} name="position"/>
             </div>
           </div>
         </div>
@@ -60,12 +70,15 @@ export default function Content({ user }: Props) {
           </h2>
           <div className="accordion-collapse collapse">
             <div className="accordion-body">
-              <p>1</p>
-              <input type="text" />
-              <p>2</p>
-              <input type="text" />
-              <p>3</p>
-              <input type="text" />
+              <p className={classNames(editMode === false ? styles.disNon : styles.disBlok)}>Хобби</p>
+              <label htmlFor="position" className={classNames(editMode === true ? styles.disNon : styles.disBlok)}>Хобби</label>
+              <input type="text" className={classNames(editMode === true ? styles.disNon : styles.disBlok)} name="position"/>
+              <p className={classNames(editMode === false ? styles.disNon : styles.disBlok)}>Пол</p>
+              <label htmlFor="position" className={classNames(editMode === true ? styles.disNon : styles.disBlok)}>Пол</label>
+              <input type="text" className={classNames(editMode === true ? styles.disNon : styles.disBlok)} name="position"/>
+              <p className={classNames(editMode === false ? styles.disNon : styles.disBlok)}>Питомец</p>
+              <label htmlFor="position" className={classNames(editMode === true ? styles.disNon : styles.disBlok)}>Питомец</label>
+              <input type="text" className={classNames(editMode === true ? styles.disNon : styles.disBlok)} name="position"/>
             </div>
           </div>
         </div>
@@ -77,4 +90,14 @@ export default function Content({ user }: Props) {
 function collapser(event: React.MouseEvent<HTMLHeadingElement, MouseEvent>) {
   event.currentTarget.firstElementChild?.classList.toggle("collapsed")
   event.currentTarget.nextElementSibling?.classList.toggle("collapse")
+}
+
+function submitinformUser({editMode, setEditMode, divInformUser}: EditMode) {
+  console.log(divInformUser.current?.value)
+  console.log(divInformUser.current?.attributes[2].value)
+  console.log(divInformUser)
+  const fd = new FormData
+  fd.append(divInformUser!.current!.attributes[2].value, divInformUser!.current!.value)
+  console.log(fd.get(divInformUser!.current!.attributes[2].value))
+  setEditMode(!editMode)
 }
