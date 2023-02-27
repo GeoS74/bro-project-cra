@@ -9,36 +9,29 @@ import tokenManager from "../classes/TokenManager"
 export default {
   path: "/user",
   element: <User />,
-  loader: () => _aboutMe()
+  loader: () => _aboutMe().catch(() => redirect('/auth'))
 }
 
 async function _aboutMe() {
-  try {
-    arrFetchWrapper([
-      () => _getMe(),
-      () => _getUser()
-    ])
-      .then(res => {
-        console.log(res)
-        // return [
-        //   res[0].then(async res => {
-        //     if (res.ok) return await res.json()
-        //     throw new Error()
-        //   })
-        // ]
-      })
-      .catch(console.log)
-    return {}
-    // const me = await _getMe();
-    // const user = await _getUser();
-    // return {
-    //   ...me,
-    //   ...user
-    // }
-  }
-  catch (error) {
-    return redirect('/auth')
-  }
+  return arrFetchWrapper([
+    _getMe,
+    _getUser
+  ])
+    .then(async res => ({
+      ...await _me(res[0]),
+      ...await _user(res[1]),
+    }))
+}
+
+async function _me(res: Response) {
+  if (res.ok) return await res.json()
+  throw new Error()
+}
+
+async function _user(res: Response) {
+  if (res.ok) return await res.json()
+  if (res.status === 404) return await _createUser()
+  throw new Error()
 }
 
 function _getMe() {
@@ -48,16 +41,6 @@ function _getMe() {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
   })
-  // return fetchWrapper(() => fetch(`${serviceHost("mauth")}/api/mauth/access/`, {
-  //   method: 'GET',
-  //   headers: {
-  //     'Authorization': `Bearer ${tokenManager.getAccess()}`
-  //   }
-  // }))
-  // .then(async res => {
-  //   if (res.ok) return await res.json()
-  //   throw new Error()
-  // })
 }
 
 function _getUser() {
@@ -67,17 +50,6 @@ function _getUser() {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
   })
-  // return fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user/`, {
-  //   method: 'GET',
-  //   headers: {
-  //     'Authorization': `Bearer ${tokenManager.getAccess()}`
-  //   }
-  // }))
-  //   .then(async res => {
-  //     if (res.ok) return await res.json()
-  //     if (res.status === 404) return await _createUser()
-  //     throw new Error()
-  //   })
 }
 
 function _createUser() {
