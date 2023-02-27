@@ -19,7 +19,7 @@ interface IFetchWrapper {
   (): Promise<Response>
 }
 
-export default async function fetchWrapper<T extends IFetchWrapper>(func: T) {
+export default async function fetchWrapper(func: IFetchWrapper) {
   try {
 
     return await _thenable(func)
@@ -39,7 +39,7 @@ export default async function fetchWrapper<T extends IFetchWrapper>(func: T) {
   return Promise.reject('error: fetch.wrapper')
 }
 
-function _thenable<T extends IFetchWrapper>(func: T) {
+function _thenable(func: IFetchWrapper) {
   return func()
     .then((response) => {
       if (response.status === 401) {
