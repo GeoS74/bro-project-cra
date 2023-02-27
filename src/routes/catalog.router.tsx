@@ -7,7 +7,7 @@ import UploadPrice from "../components/catalog/UploadPrice/UploadPrice"
 import Test from "../components/catalog/Test/Test"
 import Test2 from "../components/catalog/Test/Test2"
 import serviceHost from "../libs/service.host"
-import fetchWrapper from "../libs/fetch.wrapper"
+import fetchWrapper from "../libs/combo.fetch.wrapper"
 import tokenManager from "../classes/TokenManager"
 
 export default {
@@ -21,12 +21,12 @@ export default {
     {
       path: "/catalog/edit/brands",
       element: <SimpleList typeList="brands" />,
-      loader: () => _getBrands().catch(() => redirect('/auth'))
+      loader: () => fetchWrapper(_getBrands).catch(() => redirect('/auth'))
     },
     {
       path: "/catalog/edit/providers",
       element: <><></><SimpleList typeList="providers" /></>,
-      loader: () => _getProviders().catch(() => redirect('/auth'))
+      loader: () => fetchWrapper(_getProviders).catch(() => redirect('/auth'))
     },
     {
       path: "/catalog/edit/upload",
@@ -45,36 +45,36 @@ export default {
 }
 
 async function _getBrandsAndProviders(){
-  try {
-    const brands = await _getBrands()
-      .then(async res => {
-        if (res.ok) return await res.json()
-        throw new Error()
-      })
+  return fetchWrapper([
+    _getBrands,
+    _getProviders
+  ])
+  .then(response => {
+    if(Array.isArray(response)){
+      return Promise.all(response.map(async r => await _thenable(r)))
+    }
+  })
+}
 
-    const providers = await _getProviders()
-      .then(async res => {
-        if (res.ok) return await res.json()
-        throw new Error()
-      })
-    return [brands, providers]
-  } catch (error) {
-    throw new Error()
+async function _thenable(res: Response) {
+  if (res.ok) {
+    return await res.json()
   }
+  throw new Error()
 }
 
 function _getBrands() {
-  return fetchWrapper(() => fetch(`${serviceHost("bridge")}/api/bridge/brands`, {
+  return fetch(`${serviceHost("bridge")}/api/bridge/brands`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
-  }))
+  })
 }
 
 function _getProviders() {
-  return fetchWrapper(() => fetch(`${serviceHost("bridge")}/api/bridge/providers`, {
+  return fetch(`${serviceHost("bridge")}/api/bridge/providers`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
-  }))
+  })
 }
