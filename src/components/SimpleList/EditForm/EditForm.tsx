@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
-import fetchWrapper from "../../../libs/fetch.wrapper"
+import fetchWrapper from "../../../libs/combo.fetch.wrapper"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -55,6 +55,12 @@ function _onSubmit(
     },
     body: new FormData(event.target as HTMLFormElement)
   }))
+    .then(response => {
+      if (Array.isArray(response)) {
+        throw new Error(`error edit row`)
+      }
+      return response;
+    })
     .then(async response => {
       if (response.ok) {
         const res = await response.json()

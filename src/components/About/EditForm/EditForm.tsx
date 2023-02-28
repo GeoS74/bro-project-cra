@@ -1,6 +1,6 @@
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
-import fetchWrapper from "../../../libs/fetch.wrapper"
+import fetchWrapper from "../../../libs/combo.fetch.wrapper"
 import EditButton from "../EditButton/EditButton";
 import styles from "./styles.module.css"
 
@@ -37,11 +37,13 @@ async function _onSubmit(
   setEditMode(false)
 
   await fetchWrapper(() => _query(new FormData(event.target as HTMLFormElement), about?.alias))
-  .then(async response => {
-      if (response.ok) {
-        const res = await response.json()
-        setAbout(res)
-        return;
+    .then(async response => {
+      if (!Array.isArray(response)) {
+        if (response.ok) {
+          const res = await response.json()
+          setAbout(res)
+          return;
+        }
       }
     })
     .catch(() => console.log('error: не удалось обновить данные страницы'))

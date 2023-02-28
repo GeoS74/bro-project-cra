@@ -1,26 +1,24 @@
 import { redirect } from "react-router-dom";
 
 import serviceHost from "../libs/service.host"
-import fetchWrapper from "../libs/fetch.wrapper"
-import arrFetchWrapper from "../libs/arr.fetch.wrapper"
+// import fetchWrapper from "../libs/fetch.wrapper"
+import fetchWrapper from "../libs/combo.fetch.wrapper"
 import User from "../components/User/User"
 import tokenManager from "../classes/TokenManager"
 
 export default {
   path: "/user",
   element: <User />,
-  loader: () => _aboutMe().catch(() => redirect('/auth'))
-}
-
-async function _aboutMe() {
-  return arrFetchWrapper([
-    _getMe,
-    _getUser
-  ])
-    .then(async res => ({
-      ...await _me(res[0]),
-      ...await _user(res[1]),
-    }))
+  loader: () => fetchWrapper([_getMe, _getUser])
+    .then(async res => {
+      if (Array.isArray(res)) {
+        return {
+          ...await _me(res[0]),
+          ...await _user(res[1]),
+        }
+      }
+    })
+    .catch(() => redirect('/auth'))
 }
 
 async function _me(res: Response) {
@@ -36,7 +34,6 @@ async function _user(res: Response) {
 
 function _getMe() {
   return fetch(`${serviceHost("mauth")}/api/mauth/access/`, {
-    method: 'GET',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
@@ -45,7 +42,6 @@ function _getMe() {
 
 function _getUser() {
   return fetch(`${serviceHost("informator")}/api/informator/user/`, {
-    method: 'GET',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }

@@ -1,6 +1,6 @@
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
-import fetchWrapper from "../../../libs/fetch.wrapper"
+import fetchWrapper from "../../../libs/combo.fetch.wrapper"
 import { UploadPriceFormTabPane } from "../UploadPriceFormTabPane/UploadPriceFormTabPane";
 
 type Props = {
@@ -27,13 +27,20 @@ function _onSubmit(
   event.preventDefault()
   setUploadState("upload");
 
-  fetchWrapper(() => fetch(`${serviceHost("bridge")}/api/bridge/file/upload`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${tokenManager.getAccess()}`
-    },
-    body: new FormData(event.target as HTMLFormElement)
-  }))
+  // fetchWrapper(() => fetch(`${serviceHost("bridge")}/api/bridge/file/upload`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Authorization': `Bearer ${tokenManager.getAccess()}`
+  //   },
+  //   body: new FormData(event.target as HTMLFormElement)
+  // }))
+  fetchWrapper(() => _uploadPrice(event))
+    .then(response => {
+      if (Array.isArray(response)) {
+        throw new Error(`error upload price`)
+      }
+      return response;
+    })
     .then(async response => {
       if (response.ok) {
         setError(undefined);
@@ -53,4 +60,14 @@ function _onSubmit(
       setError("файл не загружен");
       console.log(error.message)
     })
+}
+
+function _uploadPrice(event: React.FormEvent<HTMLFormElement>) {
+  return fetch(`${serviceHost("bridge")}/api/bridge/file/upload`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
+    body: new FormData(event.target as HTMLFormElement)
+  })
 }
