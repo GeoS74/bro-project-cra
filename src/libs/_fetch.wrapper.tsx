@@ -19,12 +19,9 @@ interface IFetchWrapper {
   (): Promise<Response>
 }
 
-export default async function fetchWrapper(func: IFetchWrapper | IFetchWrapper[]) {
+export default async function fetchWrapper(func: IFetchWrapper) {
   try {
-    
-    if(Array.isArray(func)) {
-      return await Promise.all(func.map(f => _thenable(f)))
-    }
+
     return await _thenable(func)
 
   } catch (error: unknown) {
@@ -32,10 +29,7 @@ export default async function fetchWrapper(func: IFetchWrapper | IFetchWrapper[]
     if (error instanceof Error && error.message === "401") {
       try {
         if (await tokenManager.refreshTokens()) {
-          
-          if(Array.isArray(func)) {
-            return await Promise.all(func.map(f => _thenable(f)))
-          }
+
           return await _thenable(func)
         }
       }

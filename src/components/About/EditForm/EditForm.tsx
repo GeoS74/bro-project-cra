@@ -1,6 +1,6 @@
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
-import fetchWrapper from "../../../libs/combo.fetch.wrapper"
+import fetchWrapper from "../../../libs/fetch.wrapper"
 import EditButton from "../EditButton/EditButton";
 import styles from "./styles.module.css"
 

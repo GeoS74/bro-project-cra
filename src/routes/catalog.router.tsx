@@ -8,7 +8,7 @@ import Test from "../components/catalog/Test/Test"
 import Test2 from "../components/catalog/Test/Test2"
 import serviceHost from "../libs/service.host"
 import tokenManager from "../classes/TokenManager"
-import fetchWrapper from "../libs/combo.fetch.wrapper"
+import fetchWrapper from "../libs/fetch.wrapper"
 
 export default {
   path: "/catalog",

@@ -1,6 +1,6 @@
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
-import fetchWrapper from "../../../libs/combo.fetch.wrapper"
+import fetchWrapper from "../../../libs/fetch.wrapper"
 import { UploadPriceFormTabPane } from "../UploadPriceFormTabPane/UploadPriceFormTabPane";
 
 type Props = {
@@ -27,13 +27,6 @@ function _onSubmit(
   event.preventDefault()
   setUploadState("upload");
 
-  // fetchWrapper(() => fetch(`${serviceHost("bridge")}/api/bridge/file/upload`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Authorization': `Bearer ${tokenManager.getAccess()}`
-  //   },
-  //   body: new FormData(event.target as HTMLFormElement)
-  // }))
   fetchWrapper(() => _uploadPrice(event))
     .then(response => {
       if (Array.isArray(response)) {
