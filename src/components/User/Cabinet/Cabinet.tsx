@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import styles from "./styles.module.css"
 import classNames from "classnames"
 import Photo from "../Photo/Photo"
+import serviceHost from "../../../libs/service.host"
+import tokenManager from "../../../classes/TokenManager"
 
 
 type Props = {
@@ -16,12 +18,9 @@ type EditMode = {
 
 export default function Content({ user }: Props) {
   // видно кнопки или нет
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(true)
   // ищем div таблицы с информацией
-  const divInformUser = useRef<HTMLInputElement>(null)
-
-  // нажатие на кнопку отправить
-  
+  const divInformUser = useRef<HTMLInputElement>(null)  
   
   return <div className={styles.root} >
     <h1>Личный кабинет</h1>
@@ -29,7 +28,6 @@ export default function Content({ user }: Props) {
     <div className={styles.button}>
       <button onClick={() => {
         setEditMode(!editMode);
-        // console.log(formInformUser.current?.children[2].innerHTML)
         }}>редактировать профиль</button>
     </div>
     <div className={classNames(styles.content, "mt-4")}>
@@ -93,11 +91,14 @@ function collapser(event: React.MouseEvent<HTMLHeadingElement, MouseEvent>) {
 }
 
 function submitinformUser({editMode, setEditMode, divInformUser}: EditMode) {
-  console.log(divInformUser.current?.value)
-  console.log(divInformUser.current?.attributes[2].value)
-  console.log(divInformUser)
   const fd = new FormData
   fd.append(divInformUser!.current!.attributes[2].value, divInformUser!.current!.value)
-  console.log(fd.get(divInformUser!.current!.attributes[2].value))
   setEditMode(!editMode)
+  fetch(`${serviceHost("informator")}/api/informator/user`, {
+    method: 'PATCH',
+    headers: {
+        'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
+    body: fd
+        })   
 }

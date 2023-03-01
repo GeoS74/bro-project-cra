@@ -27,8 +27,8 @@ p {
 }
 
 .content img {
-  height: 150px;
-  border-radius: 150px;
+  height: 100%;
+  border-radius: 100%;
   overflow: hidden;
 }
 
@@ -78,6 +78,10 @@ p {
 .formAndButton {
   display: flex;
   flex-direction: column;
+}
+
+.formAndButton button {
+  margin-top: 20px;
 }
 
 .disNon {
