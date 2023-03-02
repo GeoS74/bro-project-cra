@@ -32,13 +32,20 @@ export default function Photo({user}: Props) {
                 'Authorization': `Bearer ${tokenManager.getAccess()}`
             },
             body: fd
-                })           
+                })
+                // .then((respon) => {
+                //     if (respon.ok) {
+
+                //     }
+                // })           
     }   
     
     return (
         <form className={styles.root} id="form_elem" onSubmit={submitForm}>
-            {user.photo ? <img src={`${serviceHost('informator')}/api/informator/user/photo/${user.photo}`} 
-            loading="lazy" id={styles.imgPhoto} onClick={clickInput}/> : <img src={person} loading="lazy" id={styles.imgPhoto} onClick={clickInput}/>}
+            {user.photo ? 
+            <img src={`${serviceHost('informator')}/api/informator/user/photo/${user.photo}`} 
+            loading="lazy" id={styles.imgPhoto} onClick={clickInput}/> : 
+            <img src={person} loading="lazy" id={styles.imgPhoto} onClick={clickInput}/>}
             <div>
                 <input type="file" accept="image/*" ref={inputFile} className={styles.inputForm} name="photo" onChange={clickSubmit}/>
                 <input type="submit" id="inputSubmit" ref={inputSubmit} className={styles.inputForm}/>
