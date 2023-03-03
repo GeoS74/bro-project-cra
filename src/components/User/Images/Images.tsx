@@ -19,7 +19,7 @@ export default function Images({user, inputFile, stateImage}: imageProps) {
 
     if (stateImage !== "") {
         return(
-        <img src={`${serviceHost('informator')}/api/informator/user/photo/{stateImage}`} loading="lazy" id={styles.imgPhoto} onClick={clickInput}/>)
+        <img src={`${serviceHost('informator')}/api/informator/user/photo/${stateImage}`} loading="lazy" id={styles.imgPhoto} onClick={clickInput}/>)
     } else if (user.photo !== null) {
         return(
         <img src={`${serviceHost('informator')}/api/informator/user/photo/${user.photo}`} 
