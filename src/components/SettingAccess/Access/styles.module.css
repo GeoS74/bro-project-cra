@@ -1,0 +1,12 @@
+.root {
+    display: flex;
+    align-items: flex-start;
+}
+
+.root input {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.root label {
+    margin-left: 3px
+}
