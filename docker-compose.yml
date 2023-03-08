@@ -92,12 +92,17 @@ services:
     deploy:
       resources:
         limits:
-          memory: 50M
+          memory: 70M
   db_info:
     image: "mongo"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 100M
+    
   # react:
   #   build: .
   #   ports:

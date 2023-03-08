@@ -7,8 +7,6 @@ type Props = {
 }
 
 export default function Accordion({ user, editMode }: Props) {
-  // console.log(user)
-
   return <div className={classNames(styles.root, "accordion")}>
 
     <div className="accordion-item">
@@ -21,11 +19,14 @@ export default function Accordion({ user, editMode }: Props) {
         <div className="accordion-body">
           <p>email: {user.email}</p>
           <p>ранг: {user.rank}</p>
-          {/* <p>должность: {user.position || "не указана"}</p> */}
+
           <p>должность: {editMode ?
-            <input type="text" name="position" defaultValue={user.position || ""} /> :
+            <input type="text"
+              // className="form-control"
+              name="position" defaultValue={user.position || ""} /> :
             (user.position || "не указана")}
           </p>
+
         </div>
       </div>
     </div>

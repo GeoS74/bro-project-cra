@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
+import serviceHost from "../../libs/service.host"
+import fetchWrapper from "../../libs/fetch.wrapper"
+import tokenManager from "../../classes/TokenManager"
 import Navigate from "../navigate/Navigate";
 import Avatar from "./Avatar/Avatar"
 import Accordion from "./Accordion/Accordion"
@@ -18,40 +21,57 @@ export default function User() {
       <h1>Личный кабинет</h1>
       <hr />
 
-      <form onSubmit={event => _submit(event, editMode, setEditMode)}>
-        <div className={classNames(styles.content, "mt-4")}>
+      <form onSubmit={event => _updateUserData(event, editMode, setEditMode, (editData) => setUser({...user, ...editData}))}
+        className={classNames(styles.content, "mt-4")}>
 
-          <div>
-            <Avatar userPhoto={user.photo} />
+        <div>
+          <Avatar userPhoto={user.photo} />
 
-            <input type="submit" className="btn btn-outline-light mt-4 mb-2"
-              value={editMode ? "Сохранить изменения" : "Редактировать профиль"}
-            />
-          </div>
-
-          <div><Accordion user={user} editMode={editMode} /></div>
-
+          <input type="submit" className="btn btn-outline-light mt-4 mb-2"
+            value={editMode ? "Сохранить изменения" : "Редактировать профиль"}
+          />
         </div>
+
+        <div><Accordion user={user} editMode={editMode} /></div>
+
       </form>
     </div>
   </>
 }
 
-function _submit(
+function _updateUserData(
   event: React.FormEvent<HTMLFormElement>,
   editMode: boolean,
-  setEditMode: React.Dispatch<React.SetStateAction<boolean>>
-  ){
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>,
+  setUser: React.Dispatch<React.SetStateAction<IUser>>
+) {
+
   event.preventDefault();
   setEditMode(!editMode);
 
-  if(!editMode) return;
+  if (!editMode) return;
 
-  console.log("change")
-  console.log(editMode)
+  fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
+    body: new FormData(event.currentTarget)
+  }))
+    .then(response => {
+      if (Array.isArray(response)) {
+        throw new Error(`error change user data`)
+      }
+      return response;
+    })
+    .then(async (response) => {
+      if (response.ok) {
+        const res = await response.json()
+        setUser(res)
+        return;
+      }
 
-  
-
-  const fd = new FormData(event.currentTarget)
-  console.log(fd.get('position'))
+      throw new Error(`response status: ${response.status}`)
+    })
+    .catch(error => console.log(error.message))
 }

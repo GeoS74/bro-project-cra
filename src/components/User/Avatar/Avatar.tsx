@@ -16,9 +16,7 @@ export default function Avatar({ userPhoto }: Props) {
 
   return <>
     <img src={_getAvatar(photo)} className={styles.root} loading="lazy"
-      onClick={e => {
-        (e.currentTarget.nextElementSibling?.querySelector('input') as HTMLInputElement).click()
-      }} />
+      onClick={_fileSelection} />
 
     <form onChange={event => _changePhoto(event, setPhoto)} hidden>
       <input type="file" accept="image/*" name="photo" />
@@ -58,4 +56,8 @@ function _changePhoto(
 
 function _getAvatar(photo: string | undefined) {
   return !photo ? person : `${serviceHost('informator')}/api/informator/user/photo/${photo}`;
+}
+
+function _fileSelection(event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
+  (event.currentTarget.nextElementSibling?.querySelector('input') as HTMLInputElement).click()
 }
