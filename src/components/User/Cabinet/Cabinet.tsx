@@ -50,16 +50,7 @@ export default function Content({ user }: Props) {
 
       </div>
 
-
-
-
     </div>
-
-
-
-
-
-
   </div>
 }
 

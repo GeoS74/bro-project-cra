@@ -15,8 +15,7 @@ export default function Avatar({ userPhoto }: Props) {
   const [photo, setPhoto] = useState(userPhoto)
 
   return <>
-    <img src={_getAvatar(photo)} loading="lazy"
-    className={styles.root}
+    <img src={_getAvatar(photo)} className={styles.root} loading="lazy"
       onClick={e => {
         (e.currentTarget.nextElementSibling?.querySelector('input') as HTMLInputElement).click()
       }} />
