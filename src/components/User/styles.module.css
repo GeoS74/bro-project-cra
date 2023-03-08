@@ -19,6 +19,7 @@ p {
 .content>div:nth-child(1) {
   flex: 1 200px;
   margin: 0 15px 15px 0;
+  max-width: 300px; /* ограничить растяжение блока */
 }
 
 .content>div:nth-child(2) {
