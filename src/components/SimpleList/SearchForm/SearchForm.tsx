@@ -3,6 +3,7 @@ import { useState } from "react";
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
+import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -42,6 +43,7 @@ function _searchRow(
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
   }))
+    .then(responseNotIsArray)
     .then(async response => {
       if (response.ok) {
         const res = await response.json()

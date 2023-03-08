@@ -1,6 +1,7 @@
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
+import { responseNotIsArray } from "../../../middleware/response.validator"
 import EditButton from "../EditButton/EditButton";
 import styles from "./styles.module.css"
 
@@ -37,7 +38,8 @@ async function _onSubmit(
   setEditMode(false)
 
   await fetchWrapper(() => _query(new FormData(event.target as HTMLFormElement), about?.alias))
-  .then(async response => {
+    .then(responseNotIsArray)
+    .then(async response => {
       if (response.ok) {
         const res = await response.json()
         setAbout(res)

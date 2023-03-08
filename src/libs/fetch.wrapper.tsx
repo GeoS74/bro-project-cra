@@ -1,5 +1,5 @@
 /**
- * queryWrapper - функция-обёртка над fetch запросом к БД
+ * fetchWrapper - функция-обёртка над fetch запросом к БД
  * используется в случае, когда требуется контроль доступа с сервисам бэка
  * и бэк может вернуть статус 401 (не авторизован)
  * 
@@ -19,9 +19,12 @@ interface IFetchWrapper {
   (): Promise<Response>
 }
 
-export default async function fetchWrapper<T extends IFetchWrapper>(func: T) {
+export default async function fetchWrapper(func: IFetchWrapper | IFetchWrapper[]) {
   try {
 
+    if (Array.isArray(func)) {
+      return await Promise.all(func.map(f => _thenable(f)))
+    }
     return await _thenable(func)
 
   } catch (error: unknown) {
@@ -30,6 +33,9 @@ export default async function fetchWrapper<T extends IFetchWrapper>(func: T) {
       try {
         if (await tokenManager.refreshTokens()) {
 
+          if (Array.isArray(func)) {
+            return await Promise.all(func.map(f => _thenable(f)))
+          }
           return await _thenable(func)
         }
       }
@@ -39,12 +45,12 @@ export default async function fetchWrapper<T extends IFetchWrapper>(func: T) {
   return Promise.reject('error: fetch.wrapper')
 }
 
-function _thenable<T extends IFetchWrapper>(func: T) {
+function _thenable(func: IFetchWrapper) {
   return func()
-    .then((response) => {
+    .then(response => {
       if (response.status === 401) {
-        throw new Error("401")
+        throw new Error("401");
       }
-      return response
+      return response;
     })
 }

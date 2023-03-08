@@ -8,48 +8,43 @@ import tokenManager from "../classes/TokenManager"
 export default {
   path: "/user",
   element: <User />,
-  loader: () => _aboutMe()
+  loader: () => fetchWrapper([_getMe, _getUser])
+    .then(async res => {
+      if (Array.isArray(res)) {
+        return {
+          ...await _me(res[0]),
+          ...await _user(res[1]),
+        }
+      }
+    })
+    .catch(() => redirect('/auth'))
 }
 
-async function _aboutMe(){
-  try {
-    const me = await _getMe();
-    const user = await _getUser();
-    return {
-      ...me,
-      ...user
-    }
-  }
-  catch (error) {
-    return redirect('/auth')
-  }
+async function _me(res: Response) {
+  if (res.ok) return await res.json()
+  throw new Error()
+}
+
+async function _user(res: Response) {
+  if (res.ok) return await res.json()
+  if (res.status === 404) return await _createUser()
+  throw new Error()
 }
 
 function _getMe() {
-  return fetchWrapper(() => fetch(`${serviceHost("mauth")}/api/mauth/access/`, {
-    method: 'GET',
+  return fetch(`${serviceHost("mauth")}/api/mauth/access/`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
-  }))
-    .then(async res => {
-      if (res.ok) return await res.json()
-      throw new Error()
-    })
+  })
 }
 
 function _getUser() {
-  return fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user/`, {
-    method: 'GET',
+  return fetch(`${serviceHost("informator")}/api/informator/user/`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
-  }))
-    .then(async res => {
-      if (res.ok) return await res.json()
-      if (res.status === 404) return await _createUser()
-      throw new Error()
-    })
+  })
 }
 
 function _createUser() {
