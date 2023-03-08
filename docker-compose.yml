@@ -18,7 +18,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 50M
+          memory: 100M
   db_bridge:
     image: "postgres"
     volumes:
@@ -30,7 +30,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 50M
+          memory: 100M
   mauth_app:
     image: "geos74/mauth:1.0.0"
     ports:
@@ -60,7 +60,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 50M
+          memory: 100M
   db_mauth:
     image: "postgres"
     volumes:
@@ -72,7 +72,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 50M
+          memory: 100M
   informator:
     image: "geos74/informator:0.0.1"
     ports:
@@ -92,16 +92,16 @@ services:
     deploy:
       resources:
         limits:
-          memory: 70M
+          memory: 100M
   db_info:
     image: "mongo"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
-    # deploy:
-    #   resources:
-    #     limits:
-    #       memory: 100M
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     
   # react:
   #   build: .
