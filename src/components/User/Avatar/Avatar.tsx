@@ -2,9 +2,9 @@ import { useState } from "react"
 
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
+import { responseNotIsArray } from "../../../middleware/response.validator"
 import tokenManager from "../../../classes/TokenManager"
 import styles from "./styles.module.css"
-
 import person from "./image/person.svg"
 
 type Props = {
@@ -36,12 +36,7 @@ function _changePhoto(
     },
     body: new FormData(event.currentTarget)
   }))
-    .then(response => {
-      if (Array.isArray(response)) {
-        throw new Error(`error change avatar`)
-      }
-      return response;
-    })
+    .then(responseNotIsArray)
     .then(async (response) => {
       if (response.ok) {
         const res = await response.json()

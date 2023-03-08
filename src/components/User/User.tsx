@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 
 import serviceHost from "../../libs/service.host"
 import fetchWrapper from "../../libs/fetch.wrapper"
+import { responseNotIsArray } from "../../middleware/response.validator"
 import tokenManager from "../../classes/TokenManager"
 import Navigate from "../navigate/Navigate";
 import Avatar from "./Avatar/Avatar"
@@ -58,12 +59,7 @@ function _updateUserData(
     },
     body: new FormData(event.currentTarget)
   }))
-    .then(response => {
-      if (Array.isArray(response)) {
-        throw new Error(`error change user data`)
-      }
-      return response;
-    })
+    .then(responseNotIsArray)
     .then(async (response) => {
       if (response.ok) {
         const res = await response.json()

@@ -3,6 +3,7 @@ import { useState } from "react";
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
+import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -55,12 +56,7 @@ function _onSubmit(
     },
     body: new FormData(event.target as HTMLFormElement)
   }))
-    .then(response => {
-      if (Array.isArray(response)) {
-        throw new Error(`error edit row`)
-      }
-      return response;
-    })
+    .then(responseNotIsArray)
     .then(async response => {
       if (response.ok) {
         const res = await response.json()

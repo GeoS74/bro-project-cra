@@ -1,6 +1,7 @@
 import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
+import { responseNotIsArray } from "../../../middleware/response.validator"
 import { UploadPriceFormTabPane } from "../UploadPriceFormTabPane/UploadPriceFormTabPane";
 
 type Props = {
@@ -28,12 +29,7 @@ function _onSubmit(
   setUploadState("upload");
 
   fetchWrapper(() => _uploadPrice(event))
-    .then(response => {
-      if (Array.isArray(response)) {
-        throw new Error(`error upload price`)
-      }
-      return response;
-    })
+    .then(responseNotIsArray)
     .then(async response => {
       if (response.ok) {
         setError(undefined);

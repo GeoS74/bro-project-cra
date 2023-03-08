@@ -14,11 +14,10 @@
  */
 
 import tokenManager from "../classes/TokenManager"
-import { check401 } from "../middleware/check.status.fetch.wrapper"
 
 interface IFetchWrapper {
   (): Promise<Response>
-} 
+}
 
 export default async function fetchWrapper(func: IFetchWrapper | IFetchWrapper[]) {
   try {
@@ -48,5 +47,10 @@ export default async function fetchWrapper(func: IFetchWrapper | IFetchWrapper[]
 
 function _thenable(func: IFetchWrapper) {
   return func()
-    .then(check401)
+    .then(response => {
+      if (response.status === 401) {
+        throw new Error("401");
+      }
+      return response;
+    })
 }
