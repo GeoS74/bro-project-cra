@@ -87,6 +87,8 @@ services:
       - DB_NAME=admin
       - JWT_CHECK=true
       - JWT_SECRET_KEY=any_secret
+    volumes:
+      - user-avatar-informator:/informator/files/photo
     deploy:
       resources:
         limits:
@@ -108,3 +110,4 @@ services:
 volumes:
   init-db-bridge:
   init-db-mauth:
+  user-avatar-informator:

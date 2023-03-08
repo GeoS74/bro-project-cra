@@ -1,8 +1,6 @@
-import serviceHost from "../../../libs/service.host"
-
+import Avatar from "../Avatar/Avatar"
 import styles from "./styles.module.css"
 import classNames from "classnames"
-import person from "../image/person.svg"
 
 type Props = {
   user: IUser
@@ -16,7 +14,7 @@ export default function Content({ user }: Props) {
     <div className={classNames(styles.content, "mt-4")}>
 
       <div>
-        {user.photo ? <img src={`${serviceHost('informator')}/api/informator/user/photo/${user.photo}`} loading="lazy" /> : <img src={person} loading="lazy" />}
+        <Avatar userPhoto={user.photo} />
       </div>
 
       <div className="accordion" id={styles.accordion}>
