@@ -7,18 +7,19 @@ import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
 
 type Props = {
+  serviceName: ServiceName,
   api: string,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   setRows: React.Dispatch<React.SetStateAction<IRow[]>>,
   placeholderSearch?: string,
 }
 
-export default function SearchForm({ api, setIdActiveRow, setRows, placeholderSearch }: Props) {
+export default function SearchForm({ serviceName, api, setIdActiveRow, setRows, placeholderSearch }: Props) {
   const [disabled, setDisabled] = useState(false)
 
   return <form
     className={styles.root}
-    onSubmit={(event) => _searchRow(event, api, setIdActiveRow, setRows, setDisabled)}>
+    onSubmit={(event) => _searchRow(event, serviceName, api, setIdActiveRow, setRows, setDisabled)}>
 
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control mt-4" placeholder={placeholderSearch || ""} />
@@ -28,6 +29,7 @@ export default function SearchForm({ api, setIdActiveRow, setRows, placeholderSe
 
 function _searchRow(
   event: React.FormEvent<HTMLFormElement>,
+  serviceName: ServiceName,
   api: string,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   setRows: React.Dispatch<React.SetStateAction<IRow[]>>,
@@ -38,7 +40,7 @@ function _searchRow(
 
   const fd = new FormData(event.target as HTMLFormElement)
 
-  fetchWrapper(() => fetch(`${serviceHost("bridge")}${api}/?title=${fd.get('query')}`, {
+  fetchWrapper(() => fetch(`${serviceHost(serviceName)}${api}/?title=${fd.get('query')}`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },

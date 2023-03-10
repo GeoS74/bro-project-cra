@@ -1,7 +1,5 @@
 import config from "../config"
 
-type ServiceName = "bridge" | "mauth" | "informator";
-
 export default function serviceHost(name: ServiceName): string {
   switch (name) {
     case "bridge":

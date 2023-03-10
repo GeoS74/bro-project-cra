@@ -7,21 +7,39 @@ import styles from "./styles.module.css"
 
 type SimpleListConf = {
   brands: IListConf,
-  providers: IListConf
+  providers: IListConf,
+  roles: IListConf,
+  actions: IListConf
 }
 
 const dataList: SimpleListConf = {
   brands: {
+    serviceName: 'bridge',
     title: "Список брендов",
     placeholderSearch: "поиск брендов",
     placeholder: "Бренд",
     api: "/api/bridge/brands",
   },
   providers: {
+    serviceName: 'bridge',
     title: "Список поставщиков",
     placeholderSearch: "поиск поставщиков",
     placeholder: "Поставщик",
     api: "/api/bridge/providers",
+  },
+  roles: {
+    serviceName: 'informator',
+    title: "Список ролей",
+    placeholderSearch: "поиск ролей",
+    placeholder: "Роль",
+    api: "/api/informator/role",
+  },
+  actions: {
+    serviceName: 'informator',
+    title: "Список действий",
+    placeholderSearch: "поиск действий",
+    placeholder: "Действие",
+    api: "/api/informator/action",
   },
 }
 
@@ -38,6 +56,7 @@ export default function SimpleList({ typeList }: { typeList: keyof SimpleListCon
     <h3>{dataList[typeList].title}</h3>
 
     <SearchForm
+      serviceName={dataList[typeList].serviceName}
       api={dataList[typeList].api}
       setIdActiveRow={setIdActiveRow}
       setRows={setRows}

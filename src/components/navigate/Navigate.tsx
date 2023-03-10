@@ -38,6 +38,15 @@ export default function Navigate() {
           <li className="nav-item">
             <Link to="/user" className="nav-link">User</Link>
           </li>
+
+          <li className="nav-item dropdown">
+            <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
+            <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
+              <Link to="/setting/edit/roles" className="dropdown-item">Роли</Link>
+              <Link to="/setting/edit/actions" className="dropdown-item">Действия</Link>
+            </div>
+          </li>
+
           <li className="nav-item">
             <Link to="/auth" className="nav-link">Sign in</Link>
           </li>

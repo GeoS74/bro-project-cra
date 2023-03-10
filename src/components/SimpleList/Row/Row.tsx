@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import tokenManager from "../../../classes/TokenManager"
 import serviceHost from "../../../libs/service.host"
 import EditForm from "../EditForm/EditForm"
 import styles from "./styles.module.css"
@@ -20,6 +21,7 @@ export default function Row({ id, title, idActiveRow, setIdActiveRow, listConf, 
 
   if (idActiveRow === id) {
     return <EditForm
+      serviceName={listConf.serviceName}
       id={id}
       setValueRow={setValueRow}
       setIdActiveRow={setIdActiveRow}
@@ -44,7 +46,7 @@ export default function Row({ id, title, idActiveRow, setIdActiveRow, listConf, 
           onClick={() => {
             if (!confirm('Delete this row?')) return;
             setVisible(false)
-            _deleteRow(id, listConf.api);
+            _deleteRow(listConf.serviceName, id, listConf.api);
           }} >Удалить</span>
       </> : valueRow}
     </li>
@@ -53,9 +55,16 @@ export default function Row({ id, title, idActiveRow, setIdActiveRow, listConf, 
   return <></>;
 }
 
-function _deleteRow(id: number, api: string) {
-  return fetch(`${serviceHost("bridge")}${api}/${id}`, {
-    method: 'DELETE'
+function _deleteRow(
+  serviceName: ServiceName,
+  id: number,
+  api: string
+) {
+  return fetch(`${serviceHost(serviceName)}${api}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
   })
     .then(async response => {
       if (response.ok) {
