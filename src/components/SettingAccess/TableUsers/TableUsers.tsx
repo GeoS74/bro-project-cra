@@ -28,21 +28,21 @@ function upLoadAccessTable(event: React.FormEvent<HTMLFormElement>) {
     const accessTable: Array<object> = []
     const userAccess = event.currentTarget.querySelectorAll('div.accordion')
     userAccess.forEach((items, indexs) => {        
-        const tempArrayAccess: Array<object> = [] 
+        const tempArrayAccess: Array<object> = []         
         items.querySelectorAll('input').forEach((item, index) => {
-            item.value === "on" ?
-            tempArrayAccess[index] = {[item.name]: false} :
-            tempArrayAccess[index] = {[item.name]: true}
+            item.checked ?
+            tempArrayAccess[index] = {[item.name]: true} :
+            tempArrayAccess[index] = {[item.name]: false}
         })
         items.querySelectorAll('span').forEach((item) => {
             accessTable[indexs] = {id: indexs, name: item.textContent, access: tempArrayAccess}
         });
     });
     console.log(accessTable);
-    fetch ('localhost', {
-        method: 'PATCH',
-        headers: {
-            'Authorization': `Bearer`
-          }        
-    })
+    // fetch ('localhost', {
+    //     method: 'PATCH',
+    //     headers: {
+    //         'Authorization': `Bearer`
+    //       }        
+    // })
 }
