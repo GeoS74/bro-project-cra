@@ -14,7 +14,7 @@ export default function User({nameUser, accessUser}: {nameUser: string, accessUs
                 </span>
                 </h2>
             <div className="accordion-collapse collapse">
-                <div className="accordion-body">
+                <div className={classNames("accordion-body", styles.accordionBody)}>
                     {accessUser.map((key, index) => {
                         return(
                             <Access key={index} accessTable={key} nameUser={nameUser}/>
