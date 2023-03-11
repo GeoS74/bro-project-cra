@@ -26,6 +26,11 @@ export default {
       element: <><></><SimpleList typeList="actions" /></>,
       loader: () => fetchWrapper(_getActions).catch(() => redirect('/auth'))
     },
+    {
+      path: "/setting/edit/processes",
+      element: <><></><></><SimpleList typeList="tasks" /></>,
+      loader: () => fetchWrapper(_getProcesses).catch(() => redirect('/auth'))
+    },
   ]
 }
 
@@ -39,6 +44,14 @@ function _getRoles() {
 
 function _getActions() {
   return fetch(`${serviceHost("informator")}/api/informator/action`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getProcesses() {
+  return fetch(`${serviceHost("informator")}/api/informator/task`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }

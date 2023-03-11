@@ -9,6 +9,7 @@ type SimpleListConf = {
   brands: IListConf,
   providers: IListConf,
   roles: IListConf,
+  tasks: IListConf,
   actions: IListConf
 }
 
@@ -33,6 +34,13 @@ const dataList: SimpleListConf = {
     placeholderSearch: "поиск ролей",
     placeholder: "Роль",
     api: "/api/informator/role",
+  },
+  tasks: {
+    serviceName: 'informator',
+    title: "Список процессов",
+    placeholderSearch: "поиск процессов",
+    placeholder: "Процесс",
+    api: "/api/informator/task",
   },
   actions: {
     serviceName: 'informator',

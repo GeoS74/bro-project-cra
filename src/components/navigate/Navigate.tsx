@@ -43,6 +43,7 @@ export default function Navigate() {
             <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
             <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
               <Link to="/setting/edit/roles" className="dropdown-item">Роли</Link>
+              <Link to="/setting/edit/processes" className="dropdown-item">Процессы</Link>
               <Link to="/setting/edit/actions" className="dropdown-item">Действия</Link>
             </div>
           </li>
