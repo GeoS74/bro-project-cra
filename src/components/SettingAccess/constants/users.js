@@ -1,7 +1,7 @@
 const userAccess = [
     {
         id: 0,
-        name: "administartor",
+        name: "administrator",
         access: [
             {button1: false},
             {button2: true},
