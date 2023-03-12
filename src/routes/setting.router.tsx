@@ -7,19 +7,31 @@ import fetchWrapper from "../libs/fetch.wrapper"
 import Setting from "../components/Setting/Setting"
 // import Search from "../components/catalog/Search/Search"
 import SimpleList from "../components/SimpleList/SimpleList"
+import AccessSetting from "../components/Setting/AccessSetting/AccessSetting"
 
 export default {
   path: "/setting",
   element: <Setting />,
   children: [
-    // {
-    //   index: true,
-    //   element: <Search />,
-    // },
+    {
+      index: true,
+      element: <></>,
+      loader: () => redirect('/setting/edit/roles'),
+    },
+    {
+      path: "/setting/edit",
+      element: <></>,
+      loader: () => redirect('/setting/edit/roles'),
+    },
     {
       path: "/setting/edit/roles",
       element: <SimpleList typeList="roles" />,
       loader: () => fetchWrapper(_getRoles).catch(() => redirect('/auth'))
+    },
+    {
+      path: "/setting/edit/processes",
+      element: <><></><></><SimpleList typeList="tasks" /></>,
+      loader: () => fetchWrapper(_getProcesses).catch(() => redirect('/auth'))
     },
     {
       path: "/setting/edit/actions",
@@ -27,9 +39,15 @@ export default {
       loader: () => fetchWrapper(_getActions).catch(() => redirect('/auth'))
     },
     {
-      path: "/setting/edit/processes",
-      element: <><></><></><SimpleList typeList="tasks" /></>,
-      loader: () => fetchWrapper(_getProcesses).catch(() => redirect('/auth'))
+      path: "/setting/edit/access",
+      element: <><></><></><></><AccessSetting /></>,
+      loader: () => fetchWrapper([_getRoles, _getActions, _getProcesses])
+        .then(response => {
+          if (Array.isArray(response)) {
+            return Promise.all(response.map(async r => await r.json()))
+          }
+        })
+        .catch(() => redirect('/auth'))
     },
   ]
 }

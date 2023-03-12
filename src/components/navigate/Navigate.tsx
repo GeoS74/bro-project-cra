@@ -45,6 +45,8 @@ export default function Navigate() {
               <Link to="/setting/edit/roles" className="dropdown-item">Роли</Link>
               <Link to="/setting/edit/processes" className="dropdown-item">Процессы</Link>
               <Link to="/setting/edit/actions" className="dropdown-item">Действия</Link>
+              <hr />
+              <Link to="/setting/edit/access" className="dropdown-item">Права доступа</Link>
             </div>
           </li>
 
