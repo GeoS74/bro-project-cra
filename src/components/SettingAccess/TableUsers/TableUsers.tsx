@@ -1,6 +1,6 @@
 import styles from "./styles.module.css"
 
-import users  from "../constants/users"
+import users  from "../../../constants/users"
 import User from "../User/User"
 
 export default function TableUsers() {

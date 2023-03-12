@@ -30,7 +30,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 100M
+          memory: 110M
   mauth_app:
     image: "geos74/mauth:1.0.0"
     ports:
