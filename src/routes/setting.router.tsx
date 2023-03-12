@@ -41,7 +41,7 @@ export default {
     {
       path: "/setting/edit/access",
       element: <><></><></><></><AccessSetting /></>,
-      loader: () => fetchWrapper([_getRoles, _getActions, _getProcesses])
+      loader: () => fetchWrapper([_getRoles, _getProcesses, _getActions])
         .then(response => {
           if (Array.isArray(response)) {
             return Promise.all(response.map(async r => await r.json()))
