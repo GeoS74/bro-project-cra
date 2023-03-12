@@ -1,6 +1,8 @@
 import styles from "./styles.module.css"
 import classNames from "classnames"
 
+import AccordionCheckbox from "../AccordionCheckbox/AccordionCheckbox"
+
 type Props = {
   roles: IRow[],
   tasks: IRow[],
@@ -64,11 +66,12 @@ function _getActionsList(roleId: string, taskId: string, actions: IRow[]) {
 
 function _getAction(roleId: string, taskId: string, action: IRow) {
   return <p key={roleId + taskId + action.id}>
-    <input type="checkbox" name={`${taskId}[${action.id}]`} className="form-check-input" id={roleId + taskId + action.id} />
 
-    <label className="form-check-label" htmlFor={roleId + taskId + action.id}>
-      {action.title}
-    </label>
+    <AccordionCheckbox
+      id={roleId + taskId + action.id}
+      name={`${taskId}[${action.id}]`}
+      title={action.title}
+    />
   </p>
 }
 
@@ -79,11 +82,11 @@ function _getTask(roleId: string, task: IRow) {
     onMouseLeave={_showOptionalButton}
   >
 
-    <input type="checkbox" name={`${roleId}[${task.id}]`} className="form-check-input" id={roleId + task.id} />
-
-    <label className="form-check-label" htmlFor={roleId + task.id}>
-      {task.title}
-    </label>
+    <AccordionCheckbox
+      id={roleId + task.id}
+      name={`${roleId}[${task.id}]`}
+      title={task.title}
+    />
 
     <span onClick={_showActionsList} className="text-muted" hidden={true}>показать действия</span>
   </div>
@@ -93,7 +96,6 @@ function _showOptionalButton(event: React.MouseEvent<HTMLParagraphElement>) {
   const optionalButton = event.currentTarget.querySelector('span') as HTMLElement;
   optionalButton.hidden = !optionalButton?.hidden;
 }
-
 
 function _showActionsList(event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) {
   const divActionsList = event.currentTarget.parentElement?.nextElementSibling as HTMLDivElement

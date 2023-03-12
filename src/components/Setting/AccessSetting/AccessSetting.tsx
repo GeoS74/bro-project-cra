@@ -20,24 +20,28 @@ export default function AccessSetting() {
   return <div className={styles.root}>
     <h3>Настройки прав доступа</h3>
 
-    <form 
-    //onSubmit={event => _updateUserData(event, editMode, setEditMode, (editData) => setUser({...user, ...editData}))}
-        className={classNames(styles.content, "mt-4")}>
+    <form
+      onSubmit={event => _updateAccessSetting(event)}
+      className={classNames(styles.content, "mt-4")}>
 
-        <Accordion roles={roles} tasks={tasks} actions={actions} />
+      <input
+        type="submit"
+        className="btn btn-outline-light mt-4 mb-4"
+        value="Сохранить настройки"
+      />
 
-      </form>
+      <Accordion roles={roles} tasks={tasks} actions={actions} />
+
+    </form>
   </div>
 }
 
-function _updateUserData(
-  event: React.FormEvent<HTMLFormElement>,
-  editMode: boolean,
-  setEditMode: React.Dispatch<React.SetStateAction<boolean>>,
-  setUser: React.Dispatch<React.SetStateAction<IUser>>
+function _updateAccessSetting(
+  event: React.FormEvent<HTMLFormElement>
 ) {
 
   event.preventDefault();
+  console.log(new FormData(event.currentTarget))
   // setEditMode(!editMode);
 
   // if (!editMode) return;
