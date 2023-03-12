@@ -17,3 +17,7 @@
 .root fieldset>span {
   flex: 1;
 }
+
+.root strong{
+  color:orange
+}

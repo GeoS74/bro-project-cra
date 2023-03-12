@@ -10,6 +10,7 @@ interface IRow {
 *интерфейс настроект компоненты  SimpleList
 */
 interface IListConf {
+  serviceName: ServiceName
   title: string
   placeholderSearch: string
   placeholder: string
