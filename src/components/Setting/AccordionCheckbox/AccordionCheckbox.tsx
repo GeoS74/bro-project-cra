@@ -7,7 +7,7 @@ type Props = {
 export default function AccordionCheckbox({ id, name, title }: Props) {
   return <>
     <input type="checkbox" 
-      name={name} 
+      name={name}
       id={id}
       className="form-check-input" />
 

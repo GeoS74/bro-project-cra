@@ -69,7 +69,7 @@ function _getAction(roleId: string, taskId: string, action: IRow) {
 
     <AccordionCheckbox
       id={roleId + taskId + action.id}
-      name={`${taskId}[${action.id}]`}
+      name={`id_${roleId}[id_${taskId}][id_${action.id}]`}
       title={action.title}
     />
   </p>
@@ -84,7 +84,7 @@ function _getTask(roleId: string, task: IRow) {
 
     <AccordionCheckbox
       id={roleId + task.id}
-      name={`${roleId}[${task.id}]`}
+      name={`id_${roleId}[id_${task.id}][]`}
       title={task.title}
     />
 
