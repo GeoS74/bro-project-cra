@@ -18,8 +18,6 @@ export default function AccessSetting() {
   // const [dataAccess, setDataAccess] = useState(useLoaderData() as IRow[][])
   const [roles, tasks, actions] = useLoaderData() as IRow[][];
 
-  console.log(useLoaderData())
-
   return <div className={styles.root}>
     <h3>Настройки прав доступа</h3>
 
