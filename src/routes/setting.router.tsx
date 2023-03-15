@@ -41,7 +41,7 @@ export default {
     {
       path: "/setting/edit/access",
       element: <><></><></><></><AccessSetting /></>,
-      loader: () => fetchWrapper([_getRoles, _getProcesses, _getActions])
+      loader: () => fetchWrapper([_getRoles, _getProcesses, _getActions, _getAccessSettings])
         .then(response => {
           if (Array.isArray(response)) {
             return Promise.all(response.map(async r => await r.json()))
@@ -50,6 +50,14 @@ export default {
         .catch(() => redirect('/auth'))
     },
   ]
+}
+
+function _getAccessSettings() {
+  return fetch(`${serviceHost("informator")}/api/informator/setting/access`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
 }
 
 function _getRoles() {

@@ -14,9 +14,10 @@ export default function AccessSetting() {
   * первый элемент массива исходных данных - роли
   * второй - задачи / процессы
   * третий - действия
+  * четвёртый - настройки прав доступа в виде объекта
   */
   // const [dataAccess, setDataAccess] = useState(useLoaderData() as IRow[][])
-  const [roles, tasks, actions] = useLoaderData() as IRow[][];
+  const [roles, tasks, actions, accessSettings] = useLoaderData() as IAccessSetting[][];
 
   return <div className={styles.root}>
     <h3>Настройки прав доступа</h3>
@@ -31,7 +32,7 @@ export default function AccessSetting() {
         value="Сохранить настройки"
       />
 
-      <Accordion roles={roles} tasks={tasks} actions={actions} />
+      <Accordion roles={roles} tasks={tasks} actions={actions} accessSettings={accessSettings}/>
 
     </form>
   </div>
@@ -42,11 +43,11 @@ function _updateAccessSetting(event: React.FormEvent<HTMLFormElement>) {
   event.preventDefault();
 
   fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/setting/access`, {
-    method: 'GET',
+    method: 'POST',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
-    // body: new FormData(event.currentTarget)
+    body: new FormData(event.currentTarget)
   }))
     .then(responseNotIsArray)
     .then(async (response) => {

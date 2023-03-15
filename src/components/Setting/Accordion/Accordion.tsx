@@ -6,10 +6,13 @@ import AccordionCheckbox from "../AccordionCheckbox/AccordionCheckbox"
 type Props = {
   roles: IRow[],
   tasks: IRow[],
-  actions: IRow[]
+  actions: IRow[],
+  accessSettings: IAccessSetting[]
 }
 
-export default function Accordion({ roles, tasks, actions }: Props) {
+export default function Accordion({ roles, tasks, actions, accessSettings }: Props) {
+  console.log(accessSettings)
+  
   return <div className={classNames(styles.root, "accordion")}>
 
     {roles.map(role => {
@@ -19,7 +22,7 @@ export default function Accordion({ roles, tasks, actions }: Props) {
 
         <div className="accordion-collapse collapse">
           <div className="accordion-body">
-            {_getTasksList(role.id.toString(), tasks, actions)}
+            {_getTasksList(role.id.toString(), tasks, actions, accessSettings)}
           </div>
         </div>
 
@@ -37,12 +40,12 @@ function _getRoleTitle(title: string) {
   </h2>
 }
 
-function _getTasksList(roleId: string, tasks: IRow[], actions: IRow[]) {
+function _getTasksList(roleId: string, tasks: IRow[], actions: IRow[], accessSettings:IAccessSetting[]) {
   return tasks.map(task => {
     return <>
-      {_getTask(roleId, task)}
+      {_getTask(roleId, task, accessSettings)}
 
-      {_getActionsList(roleId, task.id.toString(), actions)}
+      {_getActionsList(roleId, task.id.toString(), actions, accessSettings)}
     </>
   })
 }
@@ -55,37 +58,78 @@ function _allCheckboxOn(event: React.MouseEvent<HTMLParagraphElement, MouseEvent
     })
 }
 
-function _getActionsList(roleId: string, taskId: string, actions: IRow[]) {
+function _getActionsList(roleId: string, taskId: string, actions: IRow[], accessSettings: IAccessSetting[]) {
   return <div hidden={true} className={styles.actionsList}>
 
     <p onClick={_allCheckboxOn} className="mb-2 text-muted">Выделить все</p>
 
-    {actions.map(action => _getAction(roleId, taskId, action))}
+    {actions.map(action => _getAction(roleId, taskId, action, accessSettings))}
   </div>
 }
 
-function _getAction(roleId: string, taskId: string, action: IRow) {
+function _getAction(roleId: string, taskId: string, action: IRow, accessSettings: IAccessSetting[]) {
   return <p key={roleId + taskId + action.id}>
 
     <AccordionCheckbox
       id={roleId + taskId + action.id}
       name={`id_${roleId}[id_${taskId}][id_${action.id}]`}
       title={action.title}
+      checked={isCheckedAction(roleId, taskId, action.id.toString(), accessSettings)}
     />
   </p>
 }
 
-function _getTask(roleId: string, task: IRow) {
+function isCheckedAction(roleId: string, taskId: string, actionId: string, accessSettings: IAccessSetting[]) {
+
+  const role = accessSettings.find(e => e.id.toString() === roleId);
+  if(!role) {
+    return false;
+  }
+
+  return true;
+
+
+  // const task = role.tasks.find(e => e.id.toString() !== taskId);
+
+  // console.log(task)
+
+  // if(!task) {
+  //   return false;
+  // }
+
+  // // const foo = task.actions.find(e => e.id.toString() === actionId)
+  // // if(foo && foo.length) {
+  // //   return false;
+  // // }
+
+  // return true;
+}
+
+function isCheckedTask(roleId: string, taskId: string, accessSettings: IAccessSetting[]) {
+  const role = accessSettings.find(e => e.id.toString() === roleId);
+  if(!role) {
+    return false;
+  }
+
+
+  if(role.tasks.find(e => e.id.toString() !== taskId)) {
+    return false;
+  }
+  return true;
+}
+
+function _getTask(roleId: string, task: IRow, accessSettings: IAccessSetting[]) {
   return <div className={styles.task}
     key={roleId + task.id}
     onMouseEnter={_showOptionalButton}
     onMouseLeave={_showOptionalButton}
-  >
+    >
 
     <AccordionCheckbox
       id={roleId + task.id}
       name={`id_${roleId}[id_${task.id}][]`}
       title={task.title}
+      checked={isCheckedTask(roleId, task.id.toString(), accessSettings)}
     />
 
     <span onClick={_showActionsList} className="text-muted" hidden={true}>показать действия</span>
