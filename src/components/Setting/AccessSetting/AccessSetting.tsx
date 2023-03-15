@@ -37,18 +37,16 @@ export default function AccessSetting() {
   </div>
 }
 
-function _updateAccessSetting(
-  event: React.FormEvent<HTMLFormElement>
-) {
+function _updateAccessSetting(event: React.FormEvent<HTMLFormElement>) {
 
   event.preventDefault();
 
   fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/setting/access`, {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
-    body: new FormData(event.currentTarget)
+    // body: new FormData(event.currentTarget)
   }))
     .then(responseNotIsArray)
     .then(async (response) => {
