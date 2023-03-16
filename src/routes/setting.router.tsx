@@ -8,6 +8,7 @@ import Setting from "../components/Setting/Setting"
 // import Search from "../components/catalog/Search/Search"
 import SimpleList from "../components/SimpleList/SimpleList"
 import AccessSetting from "../components/Setting/AccessSetting/AccessSetting"
+import BundleRole from "../components/Setting/BundleRole/BundleRole"
 
 export default {
   path: "/setting",
@@ -49,7 +50,26 @@ export default {
         })
         .catch(() => redirect('/auth'))
     },
+    {
+      path: "/setting/edit/bundle/role",
+      element: <><></><></><></><></><BundleRole /></>,
+      loader: () => fetchWrapper([_getUsers, _getRoles])
+        .then(response => {
+          if (Array.isArray(response)) {
+            return Promise.all(response.map(async r => await r.json()))
+          }
+        })
+        .catch(() => redirect('/auth'))
+    },
   ]
+}
+
+function _getUsers() {
+  return fetch(`${serviceHost("informator")}/api/informator/user/all`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
 }
 
 function _getAccessSettings() {
