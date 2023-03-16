@@ -11,7 +11,7 @@ type Props = {
 }
 
 export default function Accordion({ roles, tasks, actions, accessSettings }: Props) {
-  console.log(accessSettings)
+  // console.log(accessSettings)
   
   return <div className={classNames(styles.root, "accordion")}>
 
@@ -86,33 +86,26 @@ function isCheckedAction(roleId: string, taskId: string, actionId: string, acces
     return false;
   }
 
+  const task = role.tasks.find(e => e.id.toString() === taskId)
+  if(!task) {
+    return false;
+  }
+
+  const action = task.actions.find(e => e.id.toString() === actionId)
+  if(!action) {
+    return false;
+  }
   return true;
-
-
-  // const task = role.tasks.find(e => e.id.toString() !== taskId);
-
-  // console.log(task)
-
-  // if(!task) {
-  //   return false;
-  // }
-
-  // // const foo = task.actions.find(e => e.id.toString() === actionId)
-  // // if(foo && foo.length) {
-  // //   return false;
-  // // }
-
-  // return true;
 }
 
-function isCheckedTask(roleId: string, taskId: string, accessSettings: IAccessSetting[]) {
+function isCheckedTask(roleId: string, taskId: string, accessSettings: IAccessSetting[]) {  
   const role = accessSettings.find(e => e.id.toString() === roleId);
   if(!role) {
     return false;
   }
 
-
-  if(role.tasks.find(e => e.id.toString() !== taskId)) {
+  const task = role.tasks.find(e => e.id.toString() === taskId)
+  if(!task) {
     return false;
   }
   return true;
