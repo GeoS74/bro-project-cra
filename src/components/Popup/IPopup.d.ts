@@ -1,1 +1,1 @@
-type IPopupMode = "success" | "danger" | undefined
+type popupMode = "success" | "danger" | undefined

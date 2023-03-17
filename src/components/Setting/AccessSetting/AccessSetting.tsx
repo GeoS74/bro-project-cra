@@ -12,7 +12,7 @@ import Popup from "../../Popup/Popup";
 
 export default function AccessSetting() {
   const [disabled, setDisabled] = useState(false);
-  const [modePopup, setModePopup] = useState<IPopupMode>();
+  const [modePopup, setModePopup] = useState<popupMode>();
   // console.log((modePopup || "no ") + disabled)
 
   /*
@@ -49,7 +49,7 @@ export default function AccessSetting() {
 function _updateAccessSetting(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
-  setModePopup: React.Dispatch<React.SetStateAction<IPopupMode>>
+  setModePopup: React.Dispatch<React.SetStateAction<popupMode>>
 ) {
 
   event.preventDefault();
