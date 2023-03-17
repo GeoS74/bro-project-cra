@@ -2,6 +2,19 @@
   margin: 20px;
 }
 
+.root>div {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.root>div:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+.root>div>div {
+  padding: 20px;
+}
+
 .root>h1,
 .root>h3,
 p {
