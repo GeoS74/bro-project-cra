@@ -10,37 +10,44 @@ import classNames from "classnames";
 import Accordion from "../Accordion/Accordion";
 
 export default function AccessSetting() {
+  const [disabled, setDisabled] = useState(false)
+
   /*
   * первый элемент массива исходных данных - роли
   * второй - задачи / процессы
   * третий - действия
   * четвёртый - настройки прав доступа в виде объекта
   */
-  // const [dataAccess, setDataAccess] = useState(useLoaderData() as IRow[][])
   const [roles, tasks, actions, accessSettings] = useLoaderData() as IAccessSetting[][];
 
   return <div className={styles.root}>
     <h3>Настройки прав доступа</h3>
 
     <form
-      onSubmit={event => _updateAccessSetting(event)}
+      onSubmit={event => _updateAccessSetting(event, setDisabled)}
       className={classNames(styles.content, "mt-4")}>
 
-      <input
-        type="submit"
-        className="btn btn-outline-light mt-4 mb-4"
-        value="Сохранить настройки"
-      />
+      <fieldset disabled={disabled}>
+        <input
+          type="submit"
+          className="btn btn-outline-light mt-4 mb-4"
+          value="Сохранить настройки"
+        />
 
-      <Accordion roles={roles} tasks={tasks} actions={actions} accessSettings={accessSettings}/>
+        <Accordion roles={roles} tasks={tasks} actions={actions} accessSettings={accessSettings} />
 
+      </fieldset>
     </form>
   </div>
 }
 
-function _updateAccessSetting(event: React.FormEvent<HTMLFormElement>) {
+function _updateAccessSetting(
+  event: React.FormEvent<HTMLFormElement>,
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>
+  ) {
 
   event.preventDefault();
+  setDisabled(true)
 
   fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/setting/access`, {
     method: 'POST',
@@ -60,4 +67,5 @@ function _updateAccessSetting(event: React.FormEvent<HTMLFormElement>) {
       throw new Error(`response status: ${response.status}`)
     })
     .catch(error => console.log(error.message))
+    .finally(() => setDisabled(false));
 }
