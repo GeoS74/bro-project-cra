@@ -4,7 +4,7 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 
 type Props = {
-  mode : IPopupMode
+  mode: IPopupMode
   message: string
 }
 
@@ -15,10 +15,11 @@ export default function Popup({ mode, message }: Props) {
     return <></>
   }
 
-  return <div className={styles.root}>
-    <div className={styles.layer} onClick={() => setPopupMode(undefined)}></div>
+  return <div className={classNames(styles.root, styles.layer)}>
+    
+    <div className={classNames(styles.layer, styles.fon)} onClick={() => setPopupMode(undefined)}></div>
 
-    <div className={classNames('alert', 'alert-dismissible', `alert-${popupMode}`)}>
+    <div className={classNames('alert alert-dismissible', `alert-${popupMode}`)}>
       <button type="button" className="btn-close"
         onClick={() => setPopupMode(undefined)}></button>
       <strong>{message}</strong>
