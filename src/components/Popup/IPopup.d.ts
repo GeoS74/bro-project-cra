@@ -1,4 +1,1 @@
-interface IPopup {
-  showPopup: boolean
-  modePopup?: "success" | "danger"
-}
+type IPopupMode = "success" | "danger" | undefined

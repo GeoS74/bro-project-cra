@@ -12,7 +12,9 @@ import Popup from "../../Popup/Popup";
 
 export default function AccessSetting() {
   const [disabled, setDisabled] = useState(false);
-  const [{ showPopup, modePopup }, setShowPopup] = useState<IPopup>({ showPopup: false});
+  const [modePopup, setModePopup] = useState<IPopupMode>();
+  // console.log((modePopup || "no ") + disabled)
+
   /*
   * первый элемент массива исходных данных - роли
   * второй - задачи / процессы
@@ -25,7 +27,7 @@ export default function AccessSetting() {
     <h3>Настройки прав доступа</h3>
 
     <form
-      onSubmit={event => _updateAccessSetting(event, setDisabled, setShowPopup)}
+      onSubmit={event => _updateAccessSetting(event, setDisabled, setModePopup)}
       className={classNames(styles.content, "mt-4")}>
 
       <fieldset disabled={disabled}>
@@ -39,19 +41,20 @@ export default function AccessSetting() {
 
       </fieldset>
     </form>
-
-    <Popup showPopup={showPopup} modePopup={modePopup} setShowPopup={setShowPopup} />
+    
+    {modePopup ? <Popup mode={modePopup} message={modePopup === "success"? "Настройки успешно записаны" : "Настройки не записаны! Попробуйте ещё раз"}/> : <></>}
   </div>
 }
 
 function _updateAccessSetting(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
-  setShowPopup: React.Dispatch<React.SetStateAction<IPopup>>
+  setModePopup: React.Dispatch<React.SetStateAction<IPopupMode>>
 ) {
 
   event.preventDefault();
-  setDisabled(true)
+  setDisabled(true);
+  setModePopup(undefined);
 
   fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/setting/access`, {
     method: 'POST',
@@ -63,13 +66,15 @@ function _updateAccessSetting(
     .then(responseNotIsArray)
     .then(async (response) => {
       if (response.ok) {
-        setShowPopup({ showPopup: true, modePopup: "success" })
+        setModePopup("success")
         return;
       }
 
       throw new Error(`response status: ${response.status}`)
     })
-    // .then(() => <h1>dfs</h1>)
-    .catch(error => console.log(error.message))
+    .catch(error => {
+      console.log(error.message)
+      setModePopup("danger")
+    })
     .finally(() => setDisabled(false));
 }
