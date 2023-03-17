@@ -11,8 +11,6 @@ type Props = {
 }
 
 export default function Accordion({ roles, tasks, actions, accessSettings }: Props) {
-  // console.log(accessSettings)
-  
   return <div className={classNames(styles.root, "accordion")}>
 
     {roles.map(role => {
@@ -28,7 +26,6 @@ export default function Accordion({ roles, tasks, actions, accessSettings }: Pro
 
       </div>
     })}
-
   </div>
 }
 

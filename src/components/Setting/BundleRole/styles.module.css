@@ -7,16 +7,27 @@
   flex-flow: row nowrap;
 }
 
-.root>div:hover {
+/* .root>div:hover {
   background-color: rgb(240, 240, 240);
-}
+} */
 
 .root>div>div {
   padding: 20px;
 }
 
 .root>h1,
-.root>h3,
-p {
+.root>h3{
   color: white;
+}
+
+.root p{
+  color: #1a1a1a;
+}
+
+.root p>span{
+  margin-left: 10px;
+}
+.root span:hover{
+  cursor: pointer;
+  text-decoration: underline;
 }
