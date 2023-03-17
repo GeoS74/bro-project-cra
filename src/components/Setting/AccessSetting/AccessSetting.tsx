@@ -8,10 +8,11 @@ import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
 import classNames from "classnames";
 import Accordion from "../Accordion/Accordion";
+import Popup from "../../Popup/Popup";
 
 export default function AccessSetting() {
-  const [disabled, setDisabled] = useState(false)
-
+  const [disabled, setDisabled] = useState(false);
+  const [{ showPopup, modePopup }, setShowPopup] = useState<IPopup>({ showPopup: false});
   /*
   * первый элемент массива исходных данных - роли
   * второй - задачи / процессы
@@ -24,7 +25,7 @@ export default function AccessSetting() {
     <h3>Настройки прав доступа</h3>
 
     <form
-      onSubmit={event => _updateAccessSetting(event, setDisabled)}
+      onSubmit={event => _updateAccessSetting(event, setDisabled, setShowPopup)}
       className={classNames(styles.content, "mt-4")}>
 
       <fieldset disabled={disabled}>
@@ -38,13 +39,16 @@ export default function AccessSetting() {
 
       </fieldset>
     </form>
+
+    <Popup showPopup={showPopup} modePopup={modePopup} setShowPopup={setShowPopup} />
   </div>
 }
 
 function _updateAccessSetting(
   event: React.FormEvent<HTMLFormElement>,
-  setDisabled: React.Dispatch<React.SetStateAction<boolean>>
-  ) {
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
+  setShowPopup: React.Dispatch<React.SetStateAction<IPopup>>
+) {
 
   event.preventDefault();
   setDisabled(true)
@@ -59,13 +63,13 @@ function _updateAccessSetting(
     .then(responseNotIsArray)
     .then(async (response) => {
       if (response.ok) {
-        const res = await response.json()
-        console.log(res)
+        setShowPopup({ showPopup: true, modePopup: "success" })
         return;
       }
 
       throw new Error(`response status: ${response.status}`)
     })
+    // .then(() => <h1>dfs</h1>)
     .catch(error => console.log(error.message))
     .finally(() => setDisabled(false));
 }
