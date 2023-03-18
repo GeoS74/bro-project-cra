@@ -1,4 +1,8 @@
 interface IRole extends IRow {
+  directings: IDirecting[]
+}
+
+interface IDirecting extends IRow {
   tasks: ITask[]
 }
 

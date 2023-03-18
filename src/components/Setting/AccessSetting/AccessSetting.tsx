@@ -16,11 +16,12 @@ export default function AccessSetting() {
 
   /*
   * первый элемент массива исходных данных - роли
-  * второй - задачи / процессы
-  * третий - действия
-  * четвёртый - настройки прав доступа в виде объекта
+  * второй - направления
+  * третий - задачи / процессы
+  * четвёртый - действия
+  * пятый - настройки прав доступа в виде объекта
   */
-  const [roles, tasks, actions, accessSettings] = useLoaderData() as IRole[][];
+  const [roles, directings, tasks, actions, accessSettings] = useLoaderData() as IRole[][];
 
   return <div className={styles.root}>
     <h3>Настройки прав доступа</h3>
@@ -36,7 +37,7 @@ export default function AccessSetting() {
           value="Сохранить настройки"
         />
 
-        <Accordion roles={roles} tasks={tasks} actions={actions} accessSettings={accessSettings} />
+        <Accordion roles={roles} directings={directings} tasks={tasks} actions={actions} accessSettings={accessSettings} />
 
       </fieldset>
     </form>

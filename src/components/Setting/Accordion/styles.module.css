@@ -29,24 +29,24 @@
   cursor: pointer;
 }
 
-.root .actionsList{
+.root .checkboxList{
   margin-left: 50px;
 }
-.root .actionsList p:first-child{
+.root .checkboxList p:first-child{
   font-size: small;
 }
-.root .actionsList p:first-child:hover{
+.root .checkboxList p:first-child:hover{
   cursor: pointer;
   text-decoration: underline;
 }
 
-.root .task{
-  padding: 10px;
+.root .level{
+  margin-bottom: 15px;
 }
-.root .task>span{
+.root .level>span{
   margin-left: 10px;
 }
-.root .task>span:hover{
+.root .level>span:hover{
   cursor: pointer;
   text-decoration: underline;
 }
