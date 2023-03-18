@@ -37,9 +37,9 @@ const dataList: SimpleListConf = {
   },
   tasks: {
     serviceName: 'informator',
-    title: "Список процессов",
-    placeholderSearch: "поиск процессов",
-    placeholder: "Процесс",
+    title: "Список объектов",
+    placeholderSearch: "поиск объектов",
+    placeholder: "Объект",
     api: "/api/informator/task",
   },
   actions: {
