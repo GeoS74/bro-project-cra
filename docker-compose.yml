@@ -18,7 +18,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 500M
+          memory: 100M
   db_bridge:
     image: "postgres"
     volumes:
