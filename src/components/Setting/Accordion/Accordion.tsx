@@ -39,11 +39,11 @@ function _getRoleTitle(title: string) {
 
 function _getTasksList(roleId: string, tasks: IRow[], actions: IRow[], accessSettings:IAccessSetting[]) {
   return tasks.map(task => {
-    return <>
+    return <div key={roleId + task.id}>
       {_getTask(roleId, task, accessSettings)}
 
       {_getActionsList(roleId, task.id.toString(), actions, accessSettings)}
-    </>
+    </div>
   })
 }
 
