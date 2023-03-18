@@ -13,7 +13,6 @@ import Popup from "../../Popup/Popup";
 export default function AccessSetting() {
   const [disabled, setDisabled] = useState(false);
   const [modePopup, setModePopup] = useState<popupMode>();
-  // console.log((modePopup || "no ") + disabled)
 
   /*
   * первый элемент массива исходных данных - роли
@@ -21,7 +20,7 @@ export default function AccessSetting() {
   * третий - действия
   * четвёртый - настройки прав доступа в виде объекта
   */
-  const [roles, tasks, actions, accessSettings] = useLoaderData() as IAccessSetting[][];
+  const [roles, tasks, actions, accessSettings] = useLoaderData() as IRole[][];
 
   return <div className={styles.root}>
     <h3>Настройки прав доступа</h3>

@@ -7,7 +7,7 @@ type Props = {
   roles: IRow[],
   tasks: IRow[],
   actions: IRow[],
-  accessSettings: IAccessSetting[]
+  accessSettings: IRole[]
 }
 
 export default function Accordion({ roles, tasks, actions, accessSettings }: Props) {
@@ -37,7 +37,7 @@ function _getRoleTitle(title: string) {
   </h2>
 }
 
-function _getTasksList(roleId: string, tasks: IRow[], actions: IRow[], accessSettings:IAccessSetting[]) {
+function _getTasksList(roleId: string, tasks: IRow[], actions: IRow[], accessSettings:IRole[]) {
   return tasks.map(task => {
     return <div key={roleId + task.id}>
       {_getTask(roleId, task, accessSettings)}
@@ -55,7 +55,7 @@ function _allCheckboxOn(event: React.MouseEvent<HTMLParagraphElement, MouseEvent
     })
 }
 
-function _getActionsList(roleId: string, taskId: string, actions: IRow[], accessSettings: IAccessSetting[]) {
+function _getActionsList(roleId: string, taskId: string, actions: IRow[], accessSettings: IRole[]) {
   return <div hidden={true} className={styles.actionsList}>
 
     <p onClick={_allCheckboxOn} className="mb-2 text-muted">Выделить все</p>
@@ -64,7 +64,7 @@ function _getActionsList(roleId: string, taskId: string, actions: IRow[], access
   </div>
 }
 
-function _getAction(roleId: string, taskId: string, action: IRow, accessSettings: IAccessSetting[]) {
+function _getAction(roleId: string, taskId: string, action: IRow, accessSettings: IRole[]) {
   return <p key={roleId + taskId + action.id}>
 
     <AccordionCheckbox
@@ -76,7 +76,7 @@ function _getAction(roleId: string, taskId: string, action: IRow, accessSettings
   </p>
 }
 
-function isCheckedAction(roleId: string, taskId: string, actionId: string, accessSettings: IAccessSetting[]) {
+function isCheckedAction(roleId: string, taskId: string, actionId: string, accessSettings: IRole[]) {
 
   const role = accessSettings.find(e => e.id.toString() === roleId);
   if(!role) {
@@ -95,7 +95,7 @@ function isCheckedAction(roleId: string, taskId: string, actionId: string, acces
   return true;
 }
 
-function isCheckedTask(roleId: string, taskId: string, accessSettings: IAccessSetting[]) {  
+function isCheckedTask(roleId: string, taskId: string, accessSettings: IRole[]) {  
   const role = accessSettings.find(e => e.id.toString() === roleId);
   if(!role) {
     return false;
@@ -108,7 +108,7 @@ function isCheckedTask(roleId: string, taskId: string, accessSettings: IAccessSe
   return true;
 }
 
-function _getTask(roleId: string, task: IRow, accessSettings: IAccessSetting[]) {
+function _getTask(roleId: string, task: IRow, accessSettings: IRole[]) {
   return <div className={styles.task}
     key={roleId + task.id}
     onMouseEnter={_showOptionalButton}
