@@ -52,9 +52,6 @@ export default function Navigate() {
           </li>
 
           <li className="nav-item">
-            <Link to="/acces" className="nav-link"> setting acces</Link>
-          </li>
-          <li className="nav-item">
             <Link to="/auth" className="nav-link">Sign in</Link>
           </li>
           <li className="nav-item">
