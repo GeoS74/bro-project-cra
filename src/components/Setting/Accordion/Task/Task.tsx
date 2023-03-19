@@ -21,6 +21,7 @@ export default function Task({ role, directing, task, actions, accessSettings }:
       id={(role.id + directing.id + task.id).toString()}
       name={`id_${role.id}[id_${directing.id}][id_${task.id}][]`}
       title={task.title}
+      changeHandler={_directingCheckboxOn}
 
       checked={false}
     // checked={isCheckedTask(roleId, task.id.toString(), accessSettings)}
@@ -41,6 +42,12 @@ export default function Task({ role, directing, task, actions, accessSettings }:
       />)}
     </div>
   </div>
+}
+
+function _directingCheckboxOn(event: React.ChangeEvent<HTMLInputElement>){
+  const directingCheckbox = event.currentTarget.parentElement?.parentElement?.parentElement
+  ?.querySelector('input');
+  (directingCheckbox as HTMLInputElement).checked = true;
 }
 
 function _showOptionalButton(event: React.MouseEvent<HTMLParagraphElement>) {
