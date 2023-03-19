@@ -20,6 +20,7 @@ export default function Accordion({ roles, directings, tasks, actions, accessSet
       directings={directings}
       tasks={tasks}
       actions={actions}
+      accessSettings={accessSettings}
     />)}
   </div>
 }
@@ -29,10 +30,12 @@ type RoleProps = {
   directings: IRow[],
   tasks: IRow[],
   actions: IRow[],
+  accessSettings: IRole[]
 }
 
-function Role({ role, directings, tasks, actions }: RoleProps) {
+function Role({ role, directings, tasks, actions, accessSettings }: RoleProps) {
   return <div className="accordion-item" key={role.id}>
+    
     <h2 className="accordion-header" onClick={(event) => collapser(event)}>
       <span className="accordion-button collapsed">
         {role.title}
@@ -48,6 +51,7 @@ function Role({ role, directings, tasks, actions }: RoleProps) {
           directing={directing}
           tasks={tasks}
           actions={actions}
+          accessSettings={accessSettings}
         />)}
       </div>
     </div>
@@ -59,9 +63,10 @@ type DirectingProps = {
   directing: IRow,
   tasks: IRow[],
   actions: IRow[],
+  accessSettings: IRole[]
 }
 
-function Directing({ role, directing, tasks, actions }: DirectingProps) {
+function Directing({ role, directing, tasks, actions, accessSettings }: DirectingProps) {
   return <div className={styles.level}
     onMouseEnter={_showOptionalButton}
     onMouseLeave={_showOptionalButton}>
@@ -86,6 +91,7 @@ function Directing({ role, directing, tasks, actions }: DirectingProps) {
         directing={directing}
         task={task}
         actions={actions}
+        accessSettings={accessSettings}
       />)}
     </div>
   </div>
@@ -97,9 +103,10 @@ type TaskProps = {
   directing: IRow,
   task: IRow,
   actions: IRow[],
+  accessSettings: IRole[]
 }
 
-function Task({ role, directing, task, actions }: TaskProps) {
+function Task({ role, directing, task, actions, accessSettings }: TaskProps) {
   return <div
     className={styles.level}
     onMouseEnter={_showOptionalButton}
@@ -125,6 +132,7 @@ function Task({ role, directing, task, actions }: TaskProps) {
         directing={directing}
         task={task}
         action={action}
+        accessSettings={accessSettings}
       />)}
     </div>
   </div>
@@ -135,9 +143,10 @@ type ActionProps = {
   directing: IRow,
   task: IRow,
   action: IRow,
+  accessSettings: IRole[]
 }
 
-function Action({ role, directing, task, action }: ActionProps) {
+function Action({ role, directing, task, action, accessSettings }: ActionProps) {
   return <div className={styles.level}>
 
     <AccordionCheckbox
