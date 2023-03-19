@@ -21,8 +21,8 @@ export default function Directing({ role, directing, tasks, actions, accessSetti
       name={`id_${role.id}[id_${directing.id}][]`}
       title={directing.title}
 
-      checked={false}
-    // checked={isCheckedTask(roleId, task.id.toString(), accessSettings)}
+      // checked={false}
+    checked={_isChecked(role.id, directing.id, accessSettings)}
     />
 
     <span onClick={_showHideList} className="text-muted" hidden={true}>показать список</span>
@@ -40,6 +40,14 @@ export default function Directing({ role, directing, tasks, actions, accessSetti
       />)}
     </div>
   </div>
+}
+
+function _isChecked(roleId: number, directingId: number, accessSettings: IRole[]){
+
+  const checked = accessSettings.find(e => e.id === roleId)
+  ?.directings.find(e => e.id === directingId);
+
+  return !!checked;
 }
 
 function _showOptionalButton(event: React.MouseEvent<HTMLParagraphElement>) {
