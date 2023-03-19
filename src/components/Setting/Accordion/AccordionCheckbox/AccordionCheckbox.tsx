@@ -1,3 +1,6 @@
+import styles from "./styles.module.css"
+import classNames from "classnames"
+
 type Props = {
   id: string,
   name: string,
@@ -13,7 +16,7 @@ export default function AccordionCheckbox({ id, name, title, checked }: Props) {
       id={id}
       className="form-check-input" />
 
-    <label className="form-check-label" htmlFor={id}>
+    <label className={classNames("form-check-label", styles.label)} htmlFor={id}>
       {title}
     </label>
   </>
