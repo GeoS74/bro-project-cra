@@ -21,17 +21,35 @@ function _makeList(users: IUser[]) {
 
       <div>
         <p>
-          {user.email}
-          <span className="text-muted" hidden={true}>назначить роль</span>
+          Пользователь: {user.email}
         </p>
 
+        <form onSubmit={(event) => false}>
+          <div className="form-group col-sm-5">
+            <select name="roleId" className="form-select" id="roleSelect">
+              <option value="0">Выберите роль</option>
+              {/* {_makeOption()} */}
+            </select>
+
+            <input type="submit" value="Загрузить прайс" className="btn btn-outline-light mt-4" />
+          </div>
+        </form>
+
         <span className="mt-2">Роль: Admin</span>
+        <span className="text-muted" hidden={true}>назначить роль</span>
+
       </div>
     </div>
   })
 }
 
+// function _makeOption(roles: IRow[]){
+//   const options = [];
+
+//   options.push('<option></option>')
+// }
+
 function _showOptionalButton(event: React.MouseEvent<HTMLParagraphElement>) {
-  const optionalButton = event.currentTarget.querySelector('span') as HTMLElement;
-  optionalButton.hidden = !optionalButton?.hidden;
+  const optionalButton = event.currentTarget.querySelectorAll('span')[1] as HTMLElement;
+  optionalButton.hidden = !optionalButton.hidden ;
 }
