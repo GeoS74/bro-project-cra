@@ -59,7 +59,3 @@ export class Me extends TokenManager {
     return super.refreshTokens()
   }
 }
-
-
-// export default new TokenManager();
-
