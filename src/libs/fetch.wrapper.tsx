@@ -13,7 +13,7 @@
  * 7) если не одно условие не сработало вернуть отклоненный промис
  */
 
-import tokenManager from "../classes/TokenManager"
+import tokenManager from "./token.manager"
 
 interface IFetchWrapper {
   (): Promise<Response>

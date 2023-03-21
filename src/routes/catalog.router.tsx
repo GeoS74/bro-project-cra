@@ -7,7 +7,7 @@ import UploadPrice from "../components/catalog/UploadPrice/UploadPrice"
 import Test from "../components/catalog/Test/Test"
 import Test2 from "../components/catalog/Test/Test2"
 import serviceHost from "../libs/service.host"
-import tokenManager from "../classes/TokenManager"
+import tokenManager from "../libs/token.manager"
 import fetchWrapper from "../libs/fetch.wrapper"
 
 export default {

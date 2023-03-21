@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
 
 import serviceHost from "../libs/service.host"
-import tokenManager from "../classes/TokenManager"
+import tokenManager from "../libs/token.manager"
 import fetchWrapper from "../libs/fetch.wrapper"
 
 import Setting from "../components/Setting/Setting"

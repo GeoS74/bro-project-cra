@@ -3,7 +3,7 @@ import { redirect } from "react-router-dom";
 import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
 import User from "../components/User/User"
-import tokenManager from "../classes/TokenManager"
+import tokenManager from "../libs/token.manager"
 
 export default {
   path: "/user",

@@ -1,4 +1,4 @@
-import tokenManager from "../../../classes/TokenManager"
+import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"

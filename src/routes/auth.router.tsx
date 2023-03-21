@@ -1,6 +1,6 @@
 import { Outlet, redirect } from "react-router-dom"
 
-import tokenManager from "../classes/TokenManager"
+import tokenManager from "../libs/token.manager"
 import Navigate from "../components/navigate/Navigate"
 import { AuthForm } from "../components/AuthForm/AuthForm"
 import { InfoCard } from "../components/AuthForm/InfoCard/InfoCard"

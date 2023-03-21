@@ -1,7 +1,7 @@
 import serviceHost from "../libs/service.host"
 import ITokenManager from "./ITokenManager"
 
-class TokenManager implements ITokenManager {
+export default class TokenManager implements ITokenManager {
 
   _refresh = ""
   _access = ""
@@ -54,4 +54,12 @@ class TokenManager implements ITokenManager {
   }
 }
 
-export default new TokenManager();
+export class Me extends TokenManager {
+  async refreshTokens(): Promise<boolean> {
+    return super.refreshTokens()
+  }
+}
+
+
+// export default new TokenManager();
+
