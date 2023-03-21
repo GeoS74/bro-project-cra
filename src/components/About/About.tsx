@@ -7,7 +7,11 @@ import EditButton from "./EditButton/EditButton";
 import EditForm from "./EditForm/EditForm";
 
 export default function About() {
-  const [about, setAbout] = useState(useLoaderData() as IAbout | undefined)
+  console.log(useLoaderData())
+
+  const loaderData = useLoaderData() as [IAbout | undefined, IUser]
+
+  const [about, setAbout] = useState(loaderData[0])
   const [editMode, setEditMode] = useState(false)
 
   return <>
@@ -17,7 +21,8 @@ export default function About() {
       <EditForm about={about} setAbout={setAbout} editMode={editMode} setEditMode={setEditMode} />
       : <>
         {/* эта кнопка должна быть доступна только админу */}
-        <EditButton editMode={editMode} setEditMode={setEditMode} />
+        {loaderData[1].rank === 'admin' ? <EditButton editMode={editMode} setEditMode={setEditMode} /> : <></> }
+         
 
         <Content about={about} />
       </>}
