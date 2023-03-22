@@ -41,8 +41,8 @@ export default function AccessSetting() {
 
       </fieldset>
     </form>
-    
-    {modePopup ? <Popup mode={modePopup} message={modePopup === "success"? "Настройки успешно записаны" : "Настройки не записаны! Попробуйте ещё раз"}/> : <></>}
+
+    {modePopup ? <Popup mode={modePopup} message={modePopup === "success" ? "Настройки успешно записаны" : "Настройки не записаны! Попробуйте ещё раз"} /> : <></>}
   </div>
 }
 

@@ -38,7 +38,7 @@ function _searchRow(
   event.preventDefault()
   setDisabled(true)
 
-  const fd = new FormData(event.target as HTMLFormElement)
+  const fd = new FormData(event.currentTarget)
 
   fetchWrapper(() => fetch(`${serviceHost(serviceName)}${api}/?title=${fd.get('query')}`, {
     headers: {
