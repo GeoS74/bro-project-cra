@@ -1,0 +1,9 @@
+.root>div {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.root select {
+  border: solid 1px #1a1a1a;
+  width: auto;
+}

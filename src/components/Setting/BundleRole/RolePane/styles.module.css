@@ -1,0 +1,11 @@
+.root p{
+  color: #1a1a1a;
+}
+
+.root span{
+  margin-left: 10px;
+}
+.root span:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
