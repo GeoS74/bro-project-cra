@@ -42,7 +42,7 @@ export default async function fetchWrapper(func: IFetchWrapper | IFetchWrapper[]
       catch (e) { /**/ }
     }
   }
-  return Promise.reject('error: fetch.wrapper')
+  return Promise.reject(new Error('error: fetch.wrapper'))
 }
 
 function _thenable(func: IFetchWrapper) {

@@ -26,12 +26,27 @@ function _changePhoto(
   setPhoto: React.Dispatch<React.SetStateAction<string | undefined>>
 ) {
 
+  /* BUG detected
+  если access токен будет просрочен, то после refresh-a фото не будет изменено при таком вызове
+    fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${tokenManager.getAccess()}`
+      },
+      body: new FormData(event.currentTarget)
+    }))
+
+  для исправления надо FormData записывать в константу перед вызовом fetchWrapper
+  PS возможно это как-то связано с тем, что используется событие onChange, а не onSubmit
+  */
+  const fd = new FormData(event.currentTarget)
+
   fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
     method: 'PATCH',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
-    body: new FormData(event.currentTarget)
+    body: fd
   }))
     .then(responseNotIsArray)
     .then(async (response) => {

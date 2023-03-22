@@ -56,12 +56,14 @@ function _updateAccessSetting(
   setDisabled(true);
   setModePopup(undefined);
 
+  const fd = new FormData(event.currentTarget)
+
   fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/setting/access`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
-    body: new FormData(event.currentTarget)
+    body: fd
   }))
     .then(responseNotIsArray)
     .then(async (response) => {

@@ -69,12 +69,14 @@ function _updateUserData(
   setEditMode(!editMode);
   if (!editMode) return;
 
+  const fd = new FormData(event.currentTarget)
+
   fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user`, {
     method: 'PATCH',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
-    body: new FormData(event.currentTarget)
+    body: fd
   }))
     .then(responseNotIsArray)
     .then(async (response) => {

@@ -51,12 +51,14 @@ function _onSubmit(
   event.preventDefault()
   setDisabled(true)
 
+  const fd = new FormData(event.currentTarget)
+
   fetchWrapper(() => fetch(`${serviceHost(serviceName)}${api}/${addRow ? '' : id}`, {
     method: addRow ? 'POST' : 'PATCH',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
-    body: new FormData(event.target as HTMLFormElement)
+    body: fd
   }))
     .then(responseNotIsArray)
     .then(async response => {
