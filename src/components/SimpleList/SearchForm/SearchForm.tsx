@@ -39,7 +39,7 @@ function _searchRow(
   setDisabled(true)
 
   const fd = new FormData(event.currentTarget)
-
+  
   fetchWrapper(() => fetch(`${serviceHost(serviceName)}${api}/?title=${fd.get('query')}`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
