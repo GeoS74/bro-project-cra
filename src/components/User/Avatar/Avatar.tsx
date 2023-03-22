@@ -14,14 +14,11 @@ type Props = {
 export default function Avatar({ userPhoto }: Props) {
   const [photo, setPhoto] = useState(userPhoto)
 
-  return <>
-    <img src={_getAvatar(photo)} className={styles.root} loading="lazy"
-      onClick={_fileSelection} />
+  return <form className={styles.root} onChange={event => _changePhoto(event, setPhoto)}>
+    <img src={_getAvatar(photo)} loading="lazy" onClick={_fileSelection} />
 
-    <form onChange={event => _changePhoto(event, setPhoto)} hidden>
-      <input type="file" accept="image/*" name="photo" />
-    </form>
-  </>
+    <input type="file" accept="image/*" name="photo" hidden />
+  </form>
 }
 
 function _changePhoto(
@@ -54,5 +51,5 @@ function _getAvatar(photo: string | undefined) {
 }
 
 function _fileSelection(event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
-  (event.currentTarget.nextElementSibling?.querySelector('input') as HTMLInputElement).click()
+  (event.currentTarget.nextElementSibling as HTMLInputElement).click()
 }

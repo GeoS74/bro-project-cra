@@ -1,51 +1,92 @@
+import serviceHost from "../../../libs/service.host"
+import fetchWrapper from "../../../libs/fetch.wrapper"
+import { responseNotIsArray } from "../../../middleware/response.validator"
+import tokenManager from "../../../libs/token.manager"
+
 import styles from "./styles.module.css"
 import classNames from "classnames"
 
 type Props = {
   user: IUser,
-  editMode: boolean
+  setUser: React.Dispatch<React.SetStateAction<IUser>>,
+  editMode: boolean,
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-export default function Accordion({ user, editMode }: Props) {
-  return <div className={classNames(styles.root, "accordion")}>
+export default function Accordion({ user, setUser, editMode, setEditMode }: Props) {
+  return <form onSubmit={event => _updateUserData(event, editMode, setEditMode, (editData) => setUser({ ...user, ...editData }))}
+    className={classNames(styles.content, "mt-4")}>
 
-    <div className="accordion-item">
-      <h2 className="accordion-header" onClick={(event) => collapser(event)}>
-        <span className="accordion-button">
-          пользователь
-        </span>
-      </h2>
-      <div className="accordion-collapse">
-        <div className="accordion-body">
-          <p>email: {user.email}</p>
-          <p>ранг: {user.rank}</p>
+    <div className={classNames(styles.root, "accordion")}>
 
-          <p>должность: {editMode ?
-            <input type="text"
-              // className="form-control"
-              name="position" defaultValue={user.position || ""} /> :
-            (user.position || "не указана")}
-          </p>
-
+      <div className="accordion-item">
+        <h2 className="accordion-header" onClick={(event) => collapser(event)}>
+          <span className="accordion-button">
+            пользователь
+          </span>
+        </h2>
+        <div className="accordion-collapse">
+          <div className="accordion-body">
+            <p>email: {user.email}</p>
+            <p>ранг: {user.rank}</p>
+            <p>должность: {editMode ?
+              <input type="text"
+                // className="form-control"
+                name="position" defaultValue={user.position || ""} /> :
+              (user.position || "не указана")}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-
-    <div className="accordion-item">
-      <h2 className="accordion-header" onClick={(event) => collapser(event)}>
-        <span className="accordion-button collapsed">
-          доп. информация
-        </span>
-      </h2>
-      <div className="accordion-collapse collapse">
-        <div className="accordion-body">
-          lorem ipsum
+      <div className="accordion-item">
+        <h2 className="accordion-header" onClick={(event) => collapser(event)}>
+          <span className="accordion-button collapsed">
+            доп. информация
+          </span>
+        </h2>
+        <div className="accordion-collapse collapse">
+          <div className="accordion-body">
+            lorem ipsum
+          </div>
         </div>
       </div>
-    </div>
 
-  </div>
+    </div>
+    <input type="submit" hidden />
+  </form>
+}
+
+function _updateUserData(
+  event: React.FormEvent<HTMLFormElement>,
+  editMode: boolean,
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>,
+  setUser: React.Dispatch<React.SetStateAction<IUser>>
+) {
+
+  event.preventDefault();
+
+  setEditMode(!editMode);
+  if (!editMode) return;
+
+  fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
+    body: new FormData(event.currentTarget)
+  }))
+    .then(responseNotIsArray)
+    .then(async (response) => {
+      if (response.ok) {
+        const res = await response.json()
+        setUser(res)
+        return;
+      }
+
+      throw new Error(`response status: ${response.status}`)
+    })
+    .catch(error => console.log(error.message))
 }
 
 function collapser(event: React.MouseEvent<HTMLHeadingElement, MouseEvent>) {
