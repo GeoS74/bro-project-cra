@@ -11,7 +11,7 @@ type Props = {
 export default function RolePane({ currentUser, roles }: Props) {
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState(currentUser);
-  console.log(user)
+
   return <div className={styles.root}
     onMouseEnter={_showOptionalButton}
     onMouseLeave={_showOptionalButton}
