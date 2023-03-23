@@ -1,15 +1,22 @@
 import { useLoaderData } from "react-router-dom";
 
 import RolePane from "./RolePane/RolePane"
+import SearchUserForm from "./SearchUserForm/SearchUserForm"
 import styles from "./styles.module.css"
+import { useState } from "react";
 
 export default function BundleRole() {
-  const [users, roles] = useLoaderData() as [IUser[], IRow[]];
+  const [usersAll, roles] = useLoaderData() as [IUser[], IRow[]];
+
+  const [users, setUsers] = useState(usersAll)
 
   return <div className={styles.root}>
     <h3 className="mb-4">Привязка ролей пользователей</h3>
 
-    {users.map((user, i) => <div className="mt-2" key={i}>
+    <SearchUserForm setUsers={setUsers}/>
+
+    {/* если в качестве key использовать index элемента, то при поиске роль будет сохраняться между элементами  */}
+    {users.map(user => <div className="mt-2" key={user.email}>
 
       <h5>Пользователь: {user.email}</h5>
 
