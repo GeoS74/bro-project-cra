@@ -53,9 +53,3 @@ export default class TokenManager implements ITokenManager {
       })
   }
 }
-
-export class Me extends TokenManager {
-  async refreshTokens(): Promise<boolean> {
-    return super.refreshTokens()
-  }
-}

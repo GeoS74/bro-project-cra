@@ -33,7 +33,7 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
               <input type="text"
                 // className="form-control"
                 name="position" defaultValue={user.position || ""} /> :
-              (user.position || "не указана")}
+              (user.position || "не указан")}
             </p>
           </div>
         </div>
