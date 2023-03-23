@@ -11,10 +11,10 @@ export default function BundleRole() {
 
     {users.map((user, i) => <div className="card mt-2" key={i}>
 
-        <h5>Пользователь: {user.email}</h5>
+      <h5>Пользователь: {user.email}</h5>
 
-        <RolePane rank={user.rank}/>
-      </div>
-   )}
+      <RolePane currentUser={user} roles={roles} />
+    </div>
+    )}
   </div>
 }

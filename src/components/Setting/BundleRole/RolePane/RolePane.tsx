@@ -4,23 +4,26 @@ import EditRoleForm from "../EditRoleForm/EditRoleForm"
 import styles from "./styles.module.css"
 
 type Props = {
-  rank: string,
+  currentUser: IUser,
+  roles: IRow[]
 }
 
-export default function RolePane({ rank }: Props) {
-  const [editMode, setEditMode] = useState(false)
+export default function RolePane({ currentUser, roles }: Props) {
+  const [editMode, setEditMode] = useState(false);
+  const [user, setUser] = useState(currentUser);
 
   return <div className={styles.root}
     onMouseEnter={_showOptionalButton}
     onMouseLeave={_showOptionalButton}
   >
     {editMode ?
-      <EditRoleForm setEditMode={setEditMode} /> :
+      <EditRoleForm setEditMode={setEditMode} roles={roles} setUser={setUser} user={user} /> :
 
-        <p className="mt-2">Роль: {rank || "не назначена"}
-          <span className="text-muted" hidden={true}
-            onClick={() => setEditMode(true)}>назначить роль</span>
-        </p>
+      <p className="mt-2">Роль: {user.roles[0]?.title || "не назначена"}
+
+        <span className="text-muted" hidden={true}
+          onClick={() => setEditMode(true)}>назначить роль</span>
+      </p>
     }
   </div>
 }
