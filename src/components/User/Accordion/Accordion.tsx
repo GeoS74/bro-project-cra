@@ -29,7 +29,7 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
           <div className="accordion-body">
             <p>email: {user.email}</p>
             <p>ранг: {user.rank}</p>
-            <p>должность: {editMode ?
+            <p>статус: {editMode ?
               <input type="text"
                 // className="form-control"
                 name="position" defaultValue={user.position || ""} /> :
@@ -42,12 +42,12 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
       <div className="accordion-item">
         <h2 className="accordion-header" onClick={(event) => collapser(event)}>
           <span className="accordion-button collapsed">
-            доп. информация
+            система эл. документооборота
           </span>
         </h2>
         <div className="accordion-collapse collapse">
           <div className="accordion-body">
-            lorem ipsum
+            <p>роль: {user.roles[0]?.title || "не назначена"}</p>
           </div>
         </div>
       </div>
