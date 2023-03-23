@@ -1,3 +1,6 @@
+.root>h3 {
+  color: white;
+}
 .root>div {
   padding:20px 30px;
 }

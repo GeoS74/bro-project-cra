@@ -14,16 +14,13 @@ export default function RolePane({ rank }: Props) {
     onMouseEnter={_showOptionalButton}
     onMouseLeave={_showOptionalButton}
   >
-
-    {!editMode ?
+    {editMode ?
       <EditRoleForm setEditMode={setEditMode} /> :
 
-      <>
         <p className="mt-2">Роль: {rank || "не назначена"}
           <span className="text-muted" hidden={true}
             onClick={() => setEditMode(true)}>назначить роль</span>
         </p>
-      </>
     }
   </div>
 }
