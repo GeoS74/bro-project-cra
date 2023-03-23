@@ -9,7 +9,7 @@ export default function BundleRole() {
   return <div className={styles.root}>
     <h3 className="mb-4">Привязка ролей пользователей</h3>
 
-    {users.map((user, i) => <div className="card mt-2" key={i}>
+    {users.map((user, i) => <div className="mt-2" key={i}>
 
       <h5>Пользователь: {user.email}</h5>
 

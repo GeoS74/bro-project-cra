@@ -18,14 +18,14 @@ export default function EditRoleForm({ setEditMode, roles, setUser, user }: Prop
 
   return <form onSubmit={(event) => _submit(event, setEditMode, setDisabled, setUser)} className={styles.root}>
     <fieldset className="form-group" disabled={disabled}>
-      <select name="roleId" className="form-select btn-outline-primary mt-2" defaultValue={user.roles[0]?.id}>
+      <select name="roleId" className="form-select btn-outline-light mt-2" defaultValue={user.roles[0]?.id}>
         <option value="">Выберите роль</option>
         {_mekeOptions(roles)}
       </select>
 
       <input type="hidden" value={user.email} name="email" />
 
-      <input type="submit" value="Установить роль" className="btn btn-outline-primary mt-2" />
+      <input type="submit" value="Установить роль" className="btn btn-outline-light mt-2" />
     </fieldset>
   </form>
 }

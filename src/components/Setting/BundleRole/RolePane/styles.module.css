@@ -1,9 +1,9 @@
-.root p{
-  color: #1a1a1a;
-}
-
 .root span{
   margin-left: 10px;
+}
+.root p,
+.root span {
+  color: white;
 }
 .root span:hover{
   cursor: pointer;
