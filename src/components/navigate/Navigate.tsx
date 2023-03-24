@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import me from "../../libs/token.manager"
+
 import styles from "./styles.module.css"
 import classNames from "classnames";
 
@@ -15,15 +17,18 @@ export default function Navigate() {
             <Link to="/" className="nav-link active">Home</Link>
           </li>
 
-          <li className="nav-item dropdown">
-            <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Каталог</span>
-            <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
-              <Link to="/catalog/edit/brands" className="dropdown-item">Бренды</Link>
-              <Link to="/catalog/edit/providers" className="dropdown-item">Поставщики</Link>
-              <hr />
-              <Link to="/catalog/edit/upload" className="dropdown-item">Загрузка прайса</Link>
-            </div>
-          </li>
+          {me.getMe()?.rank === 'admin' ?
+            <li className="nav-item dropdown">
+              <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Каталог</span>
+              <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
+                <Link to="/catalog/edit/brands" className="dropdown-item">Бренды</Link>
+                <Link to="/catalog/edit/providers" className="dropdown-item">Поставщики</Link>
+                <hr />
+                <Link to="/catalog/edit/upload" className="dropdown-item">Загрузка прайса</Link>
+              </div>
+            </li>
+            : <></>}
+
 
           {/* <li className="nav-item">
             <Link to="/catalog/edit/test" className="nav-link">Тест</Link>
@@ -35,22 +40,31 @@ export default function Navigate() {
           <li className="nav-item">
             <Link to="/about" className="nav-link">About</Link>
           </li>
-          <li className="nav-item">
+
+
+          {me.getMe() ? <li className="nav-item">
             <Link to="/user" className="nav-link">User</Link>
           </li>
+            : <></>}
 
-          <li className="nav-item dropdown">
-            <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
-            <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
-              <Link to="/setting/edit/roles" className="dropdown-item">Роли</Link>
-              <Link to="/setting/edit/directings" className="dropdown-item">Направления</Link>
-              <Link to="/setting/edit/processes" className="dropdown-item">Объекты</Link>
-              <Link to="/setting/edit/actions" className="dropdown-item">Действия</Link>
-              <hr />
-              <Link to="/setting/edit/access" className="dropdown-item">Права доступа</Link>
-              <Link to="/setting/edit/bundle/role" className="dropdown-item">Привязка ролей</Link>
-            </div>
-          </li>
+
+          {me.getMe()?.rank === 'admin' ?
+            <li className="nav-item dropdown">
+              <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
+              <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
+                <Link to="/setting/edit/roles" className="dropdown-item">Роли</Link>
+                <Link to="/setting/edit/directings" className="dropdown-item">Направления</Link>
+                <Link to="/setting/edit/processes" className="dropdown-item">Объекты</Link>
+                <Link to="/setting/edit/actions" className="dropdown-item">Действия</Link>
+                <hr />
+                <Link to="/setting/edit/access" className="dropdown-item">Права доступа</Link>
+                <Link to="/setting/edit/bundle/role" className="dropdown-item">Привязка ролей</Link>
+              </div>
+            </li>
+            : <></>
+          }
+
+
 
           <li className="nav-item">
             <Link to="/auth" className="nav-link">Sign in</Link>

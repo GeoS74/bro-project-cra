@@ -1,3 +1,4 @@
-import TokenManager from "../classes/TokenManager";
+// import TokenManager from "../classes/TokenManager";
+import Me from "../classes/Me";
 
-export default new TokenManager();
+export default new Me();

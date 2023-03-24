@@ -8,7 +8,7 @@ export default class TokenManager implements ITokenManager {
 
   constructor() {
     this.setRefresh(localStorage.getItem(`session_id`) || "")
-    
+
     // don`t call async function this.refreshTokens() in constructor!!!
   }
 
@@ -38,7 +38,7 @@ export default class TokenManager implements ITokenManager {
     }).then(async (req) => {
       if (req.ok) {
         const res = await req.json();
-        
+
         this.setAccess(res.access);
         this.setRefresh(res.refresh);
         return true;
