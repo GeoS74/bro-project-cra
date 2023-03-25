@@ -3,8 +3,15 @@ import me from "../../libs/token.manager"
 
 import styles from "./styles.module.css"
 import classNames from "classnames";
+import { useState } from "react";
 
 export default function Navigate() {
+  const [foo, setFoo] = useState();
+  me.subscribe('navigate', setFoo);
+
+  console.log('Navigate')
+  console.log(me)
+
   return <nav className={classNames(styles.root, "navbar", "navbar-expand-lg", "navbar-dark", "bg-primary")}>
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">Marketplace</Link>

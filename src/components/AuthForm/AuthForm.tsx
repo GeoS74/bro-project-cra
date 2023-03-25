@@ -61,6 +61,7 @@ function _query(
       if (formMode === "signin") {
         const result: IAuthResponse = await req.json()
         _updateTokens(result)
+        await tokenManager.refreshTokens()
         navigate('/')
         return;
       }

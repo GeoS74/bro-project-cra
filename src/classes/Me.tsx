@@ -4,9 +4,22 @@ import IMe from "./IMe"
 
 export default class Me extends TokenManager implements IMe {
     _me: IUser | undefined
+    _stateHooks: Map<string, React.Dispatch<React.SetStateAction<undefined>>> = new Map()
 
     constructor() {
         super();
+    }
+
+    subscribe(component: string, hook: React.Dispatch<React.SetStateAction<undefined>>){
+      this._stateHooks.set(component, hook)
+    }
+
+    unsubscribe(component: string, hook: React.Dispatch<React.SetStateAction<undefined>>){
+      this._stateHooks.set(component, hook)
+    }
+
+    private notify(){
+      this._stateHooks.forEach(hook => hook(undefined))
     }
 
     async refreshTokens(): Promise<boolean> {
@@ -15,6 +28,7 @@ export default class Me extends TokenManager implements IMe {
         if (isRefreshed) {
             const me = await this.whoAmI();
             this.setMe(me);
+            this.notify();
         }
         return isRefreshed;
     }
