@@ -5,21 +5,19 @@ import './styles.module.css';
 
 import router from './routes/app.router'
 
-import tokenManager from './libs/token.manager';
+import session from './libs/token.manager';
 
+// session.refreshTokens();
+// session.start();
 
-(async () => {
-  await tokenManager.refreshTokens()
-
-  ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-  )
-    .render(
-      <React.Fragment>
-        {router}
-      </React.Fragment>
-    );
-})();
+ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+)
+  .render(
+    <React.Fragment>
+      {router}
+    </React.Fragment>
+  );
 
 
 // const CTX = createContext<{

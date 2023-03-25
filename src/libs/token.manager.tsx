@@ -1,4 +1,4 @@
 // import TokenManager from "../classes/TokenManager";
-import Me from "../classes/Me";
+import Session from "../classes/Session";
 
-export default new Me();
+export default new Session();
