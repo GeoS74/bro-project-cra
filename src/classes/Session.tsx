@@ -76,6 +76,11 @@ export default class Session extends TokenManager implements ISession, IObserver
   }
 
   private async whoAmI() {
+    return Promise.all([this.getMeAccess(), this.getUser()])
+      .then(res => ({ ...res[0], ...res[1] }))
+  }
+
+  private getMeAccess() {
     return fetch(`${serviceHost("mauth")}/api/mauth/access/`, {
       headers: {
         'Authorization': `Bearer ${this.getAccess()}`
@@ -85,6 +90,20 @@ export default class Session extends TokenManager implements ISession, IObserver
         if (res.ok) {
           const me = await res.json();
           return me;
+        }
+      })
+  }
+
+  private getUser() {
+    return fetch(`${serviceHost("informator")}/api/informator/user/`, {
+      headers: {
+        'Authorization': `Bearer ${this.getAccess()}`
+      }
+    })
+      .then(async res => {
+        if (res.ok) {
+          const user = await res.json();
+          return user;
         }
       })
   }
