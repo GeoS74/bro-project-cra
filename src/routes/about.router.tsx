@@ -9,6 +9,7 @@ export default {
   element: <About />,
   loader: () => fetchWrapper(_getAboutCompany)
         .catch(() => [])
+        .finally(() => tokenManager.start())
 }
 
 function _getAboutCompany(){

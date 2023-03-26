@@ -7,9 +7,14 @@ import EditButton from "./EditButton/EditButton";
 import EditForm from "./EditForm/EditForm";
 import me from "../../libs/token.manager"
 
+import session from "../../libs/token.manager"
+
 export default function About() {
   const [about, setAbout] = useState(useLoaderData() as IAbout | undefined)
   const [editMode, setEditMode] = useState(false)
+
+  const [update, setUpdate] = useState(false);
+  session.subscribe('about', setUpdate);
 
   return <>
     <Navigate />

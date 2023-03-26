@@ -64,8 +64,8 @@ function _query(
         const result: IAuthResponse = await req.json()
         _updateTokens(result)
 
-        await session.start()
-        
+        // await session.start()
+
         navigate('/')
         return;
       }

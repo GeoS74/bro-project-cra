@@ -11,12 +11,29 @@ export default class Session extends TokenManager implements IMe, IObserverPatte
     super();
   }
 
-  async start() {
-    await this.refreshTokens()
+  setAccess(accessToken: string): void {
+    super.setAccess(accessToken)
 
-    await this.whoAmI()
-      .then((me) => this.setMe(me))
-      .then(() => this.notify())
+    if (!this.getMe() && this.getAccess()) {
+      this.whoAmI()
+        .then((me) => this.setMe(me))
+        .then(() => this.notify())
+    }
+  }
+
+  async start() {
+    if (this.getRefresh() && !this.getAccess()) {
+
+      this.refreshTokens()
+        .then(() => this.whoAmI())
+        .then((me) => this.setMe(me))
+        .then(() => this.notify())
+    }
+    // await this.refreshTokens()
+
+    // await this.whoAmI()
+    //   .then((me) => this.setMe(me))
+    //   .then(() => this.notify())
   }
 
   close() {
