@@ -7,8 +7,9 @@ import UploadPrice from "../components/catalog/UploadPrice/UploadPrice"
 import Test from "../components/catalog/Test/Test"
 import Test2 from "../components/catalog/Test/Test2"
 import serviceHost from "../libs/service.host"
-import tokenManager from "../libs/token.manager"
 import fetchWrapper from "../libs/fetch.wrapper"
+import tokenManager from "../libs/token.manager"
+import session from "../libs/token.manager"
 
 export default {
   path: "/catalog",
@@ -17,6 +18,7 @@ export default {
     {
       index: true,
       element: <Search />,
+      loader: () => session.start(),
     },
     {
       path: "/catalog/edit/brands",

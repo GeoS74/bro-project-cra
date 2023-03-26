@@ -1,9 +1,10 @@
 import serviceHost from "../libs/service.host";
 import TokenManager from "./TokenManager";
-import IMe from "./ISession"
+import ISession from "./ISession"
 import IObserverPattern from "./IObserverPattern"
+import { useState } from "react";
 
-export default class Session extends TokenManager implements IMe, IObserverPattern {
+export default class Session extends TokenManager implements ISession, IObserverPattern {
   _me: IUser | undefined
   _stateHooks: Map<string, React.Dispatch<React.SetStateAction<IUser | undefined>>> = new Map()
 
@@ -29,6 +30,8 @@ export default class Session extends TokenManager implements IMe, IObserverPatte
         .then((me) => this.setMe(me))
         .then(() => this.notify())
     }
+
+    return null;
   }
 
   close() {
@@ -38,8 +41,9 @@ export default class Session extends TokenManager implements IMe, IObserverPatte
     this.notify();
   }
 
-  subscribe(componentKey: string, hook: React.Dispatch<React.SetStateAction<IUser | undefined>>) {
-    this._stateHooks.set(componentKey, hook)
+  subscribe(componentKey: string) {
+    const [user, updateUser] = useState(this.getMe());
+    this._stateHooks.set(componentKey, updateUser);
   }
 
   unsubscribe(componentKey: string) {

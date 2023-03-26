@@ -11,8 +11,7 @@ export default function About() {
   const [about, setAbout] = useState(useLoaderData() as IAbout | undefined)
   const [editMode, setEditMode] = useState(false)
 
-  const [user, updateUser] = useState(session.getMe());
-  session.subscribe('about', updateUser);
+  session.subscribe('about')
 
   return <>
     <Navigate />
@@ -21,7 +20,7 @@ export default function About() {
       <EditForm about={about} setAbout={setAbout} editMode={editMode} setEditMode={setEditMode} />
       : <>
         {/* эта кнопка должна быть доступна только админу */}
-        {user?.rank === 'admin' ? <EditButton editMode={editMode} setEditMode={setEditMode} /> : <></> }
+        {session.getMe()?.rank === 'admin' ? <EditButton editMode={editMode} setEditMode={setEditMode} /> : <></> }
          
         <Content about={about} />
       </>}
