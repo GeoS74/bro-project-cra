@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import router from './routes/app.router';
-import session from './libs/token.manager';
 import './index.css';
 import './styles.module.css';
 

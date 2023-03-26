@@ -5,7 +5,7 @@ import IObserverPattern from "./IObserverPattern"
 
 export default class Session extends TokenManager implements IMe, IObserverPattern {
   _me: IUser | undefined
-  _stateHooks: Map<string, React.Dispatch<React.SetStateAction<boolean>>> = new Map()
+  _stateHooks: Map<string, React.Dispatch<React.SetStateAction<IUser | undefined>>> = new Map()
 
   constructor() {
     super();
@@ -29,11 +29,6 @@ export default class Session extends TokenManager implements IMe, IObserverPatte
         .then((me) => this.setMe(me))
         .then(() => this.notify())
     }
-    // await this.refreshTokens()
-
-    // await this.whoAmI()
-    //   .then((me) => this.setMe(me))
-    //   .then(() => this.notify())
   }
 
   close() {
@@ -43,7 +38,7 @@ export default class Session extends TokenManager implements IMe, IObserverPatte
     this.notify();
   }
 
-  subscribe(componentKey: string, hook: React.Dispatch<React.SetStateAction<boolean>>) {
+  subscribe(componentKey: string, hook: React.Dispatch<React.SetStateAction<IUser | undefined>>) {
     this._stateHooks.set(componentKey, hook)
   }
 
@@ -52,42 +47,8 @@ export default class Session extends TokenManager implements IMe, IObserverPatte
   }
 
   notify() {
-    this._stateHooks.forEach(hook => hook(true))
+    this._stateHooks.forEach(hook => hook(this.getMe()))
   }
-
-
-
-  // async refreshTokens(): Promise<boolean> {
-  //   const isRefreshed = await super.refreshTokens();
-
-  //   if (isRefreshed) {
-  //     await this.start()
-  //     return isRefreshed
-  //   }
-
-  //   await this.close()
-  //   return isRefreshed
-  // }
-
-  // setAccess(accessToken: string): void {
-  //   if(accessToken){
-  //     if(!this.getAccess()) {
-  //       super.setAccess(accessToken);
-  //       this.start()
-  //       return;
-  //     }
-  //   }
-
-  //   if(!accessToken){
-  //     if(this.getAccess()) {
-  //       super.setAccess(accessToken);
-  //       this.close()
-  //       return;
-  //     }
-  //   }
-
-  //   super.setAccess(accessToken);
-  // }
 
   private async whoAmI() {
     return fetch(`${serviceHost("mauth")}/api/mauth/access/`, {

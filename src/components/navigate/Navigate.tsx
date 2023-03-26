@@ -6,8 +6,8 @@ import classNames from "classnames";
 import { useState } from "react";
 
 export default function Navigate() {
-  const [update, setUpdate] = useState(false);
-  session.subscribe('navigate', setUpdate);
+  const [user, updateUser] = useState(session.getMe());
+  session.subscribe('navigate', updateUser);
 
   return <nav className={classNames(styles.root, "navbar", "navbar-expand-lg", "navbar-dark", "bg-primary")}>
     <div className="container-fluid">
@@ -21,7 +21,7 @@ export default function Navigate() {
             <Link to="/" className="nav-link active">Home</Link>
           </li>
 
-          {session.getMe()?.rank === 'admin' ?
+          {user?.rank === 'admin' ?
             <li className="nav-item dropdown">
               <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Каталог</span>
               <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
@@ -46,13 +46,13 @@ export default function Navigate() {
           </li>
 
 
-          {session.getMe() ? <li className="nav-item">
+          {user ? <li className="nav-item">
             <Link to="/user" className="nav-link">User</Link>
           </li>
             : <></>}
 
 
-          {session.getMe()?.rank === 'admin' ?
+          {user?.rank === 'admin' ?
             <li className="nav-item dropdown">
               <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
               <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>

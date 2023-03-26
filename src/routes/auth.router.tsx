@@ -30,8 +30,6 @@ export default {
           }
         });
 
-        // tokenManager.setAccess("");
-        // tokenManager.setRefresh("");
         session.close()
         return redirect("/auth");
       }

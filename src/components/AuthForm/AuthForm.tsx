@@ -11,8 +11,6 @@ import { Button } from "./Button/Button";
 import { Footer } from "./Footer/Footer";
 import styles from "./styles.module.css"
 
-import session from "../../libs/token.manager"
-
 export const AuthForm = () => {
   const [formMode, setFormMode] = useState<formMode>("signin");
   const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
@@ -63,9 +61,6 @@ function _query(
       if (formMode === "signin") {
         const result: IAuthResponse = await req.json()
         _updateTokens(result)
-
-        // await session.start()
-
         navigate('/')
         return;
       }
