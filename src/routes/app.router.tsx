@@ -10,7 +10,7 @@ import aboutCompanyRouter from './about.router'
 import userRouter from './user.router'
 import settingRouter from './setting.router'
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     loader: () => redirect('/catalog'),

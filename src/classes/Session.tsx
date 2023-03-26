@@ -12,12 +12,16 @@ export default class Session extends TokenManager implements IMe, IObserverPatte
   }
 
   async start() {
-    this.whoAmI()
+    await this.refreshTokens()
+
+    await this.whoAmI()
       .then((me) => this.setMe(me))
       .then(() => this.notify())
   }
 
-  async close() {
+  close() {
+    this.setAccess("");
+    this.setRefresh("");
     this.setMe(undefined);
     this.notify();
   }
@@ -36,25 +40,37 @@ export default class Session extends TokenManager implements IMe, IObserverPatte
 
 
 
-  setAccess(accessToken: string): void {
-    if(accessToken){
-      if(!this.getAccess()) {
-        super.setAccess(accessToken);
-        this.start()
-        return;
-      }
-    }
+  // async refreshTokens(): Promise<boolean> {
+  //   const isRefreshed = await super.refreshTokens();
 
-    if(!accessToken){
-      if(this.getAccess()) {
-        super.setAccess(accessToken);
-        this.close()
-        return;
-      }
-    }
+  //   if (isRefreshed) {
+  //     await this.start()
+  //     return isRefreshed
+  //   }
 
-    super.setAccess(accessToken);
-  }
+  //   await this.close()
+  //   return isRefreshed
+  // }
+
+  // setAccess(accessToken: string): void {
+  //   if(accessToken){
+  //     if(!this.getAccess()) {
+  //       super.setAccess(accessToken);
+  //       this.start()
+  //       return;
+  //     }
+  //   }
+
+  //   if(!accessToken){
+  //     if(this.getAccess()) {
+  //       super.setAccess(accessToken);
+  //       this.close()
+  //       return;
+  //     }
+  //   }
+
+  //   super.setAccess(accessToken);
+  // }
 
   private async whoAmI() {
     return fetch(`${serviceHost("mauth")}/api/mauth/access/`, {

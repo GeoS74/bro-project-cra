@@ -5,6 +5,7 @@ import Navigate from "../components/navigate/Navigate"
 import { AuthForm } from "../components/AuthForm/AuthForm"
 import { InfoCard } from "../components/AuthForm/InfoCard/InfoCard"
 import serviceHost from "../libs/service.host"
+import session from "../libs/token.manager"
 
 export default {
   path: "/auth",
@@ -29,8 +30,9 @@ export default {
           }
         });
 
-        tokenManager.setAccess("");
-        tokenManager.setRefresh("");
+        // tokenManager.setAccess("");
+        // tokenManager.setRefresh("");
+        session.close()
         return redirect("/auth");
       }
     },
