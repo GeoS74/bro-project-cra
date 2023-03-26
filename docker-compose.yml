@@ -23,6 +23,7 @@ services:
     image: "postgres"
     volumes:
       - init-db-bridge:/docker-entrypoint-initdb.d
+      - db-bridge:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=bridge
@@ -65,6 +66,7 @@ services:
     image: "postgres"
     volumes:
       - init-db-mauth:/docker-entrypoint-initdb.d
+      - db-mauth:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=mauth
@@ -95,6 +97,8 @@ services:
           memory: 100M
   db_info:
     image: "mongo"
+    volumes:
+      - db-informator:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
@@ -114,5 +118,8 @@ services:
   #     - PORT_MAUTH=3001
 volumes:
   init-db-bridge:
+  db-bridge:
   init-db-mauth:
+  db-mauth:
+  db-informator:
   user-avatar-informator:
