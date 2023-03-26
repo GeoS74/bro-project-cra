@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import session from "../../libs/token.manager"
 
+import Greet from "./Greet/Greet";
 import styles from "./styles.module.css"
 import classNames from "classnames";
 
 export default function Navigate() {
   session.subscribe('navigate')
 
-  return <nav className={classNames(styles.root, "navbar", "navbar-expand-lg", "navbar-dark", "bg-primary")}>
+  return <nav className={classNames(styles.root, "navbar navbar-expand-lg navbar-dark bg-primary")}>
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">Marketplace</Link>
       <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,12 +41,12 @@ export default function Navigate() {
           </li> */}
 
           <li className="nav-item">
-            <Link to="/about" className="nav-link">About</Link>
+            <Link to="/about" className="nav-link">О компании</Link>
           </li>
 
 
           {session.getMe() ? <li className="nav-item">
-            <Link to="/user" className="nav-link">User</Link>
+            <Link to="/user" className="nav-link">Кабинет</Link>
           </li>
             : <></>}
 
@@ -68,14 +69,15 @@ export default function Navigate() {
 
 
 
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to="/auth" className="nav-link">Sign in</Link>
           </li>
           <li className="nav-item">
             <Link to="/auth/signout" className="nav-link">Sign out</Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
+    <Greet />
   </nav>
 }
