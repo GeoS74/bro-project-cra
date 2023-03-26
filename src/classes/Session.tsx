@@ -12,11 +12,14 @@ export default class Session extends TokenManager implements ISession, IObserver
     super();
   }
 
+  // @Override
   setAccess(accessToken: string): void {
     if (!this.compareAccessTokens(this.getAccess(), accessToken)) {
-      super.setAccess(accessToken);
-      this.sessionStart();
-      return;
+      if (accessToken) {
+        super.setAccess(accessToken);
+        this.sessionStart();
+        return;
+      }
     }
     super.setAccess(accessToken);
   }
@@ -40,6 +43,10 @@ export default class Session extends TokenManager implements ISession, IObserver
 
   getMe() {
     return this._me;
+  }
+
+  private async setMe(me?: IUser) {
+    this._me = me;
   }
 
   /* сравнить jwt токены исключив сигнатуру */
@@ -80,9 +87,5 @@ export default class Session extends TokenManager implements ISession, IObserver
           return me;
         }
       })
-  }
-
-  private async setMe(me?: IUser) {
-    this._me = me;
   }
 }
