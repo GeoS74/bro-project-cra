@@ -13,24 +13,20 @@ export default class Session extends TokenManager implements ISession, IObserver
   }
 
   setAccess(accessToken: string): void {
-    super.setAccess(accessToken)
-
-    if (!this.getMe() && this.getAccess()) {
-      this.whoAmI()
-        .then((me) => this.setMe(me))
-        .then(() => this.notify())
+    if (!this.compareAccessTokens(this.getAccess(), accessToken)) {
+      super.setAccess(accessToken);
+      this.sessionStart();
+      return;
     }
+    super.setAccess(accessToken);
   }
 
-  async start() {
+  start() {
     if (this.getRefresh() && !this.getAccess()) {
-
       this.refreshTokens()
-        .then(() => this.whoAmI())
-        .then((me) => this.setMe(me))
-        .then(() => this.notify())
+        .then(this.sessionStart)
+        .catch(() => { /* do nothing */ })
     }
-
     return null;
   }
 
@@ -39,18 +35,36 @@ export default class Session extends TokenManager implements ISession, IObserver
     this.setRefresh("");
     this.setMe(undefined);
     this.notify();
+    return null;
+  }
+
+  getMe() {
+    return this._me;
+  }
+
+  /* сравнить jwt токены исключив сигнатуру */
+  private compareAccessTokens(oldToken: string, newToken: string) {
+    return oldToken.split('.').slice(0, 2).join('') === newToken.split('.').slice(0, 2).join('')
+  }
+
+  private async sessionStart() {
+    return this.whoAmI()
+      .then((me) => this.setMe(me))
+      .then(() => this.notify());
   }
 
   subscribe(componentKey: string) {
     const [user, updateUser] = useState(this.getMe());
     this._stateHooks.set(componentKey, updateUser);
+
+    user?.toString(); // it does nothing, this is antilinter
   }
 
   unsubscribe(componentKey: string) {
     this._stateHooks.delete(componentKey)
   }
 
-  notify() {
+  private notify() {
     this._stateHooks.forEach(hook => hook(this.getMe()))
   }
 
@@ -70,9 +84,5 @@ export default class Session extends TokenManager implements ISession, IObserver
 
   private async setMe(me?: IUser) {
     this._me = me;
-  }
-
-  getMe() {
-    return this._me;
   }
 }

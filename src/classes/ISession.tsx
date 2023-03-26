@@ -1,5 +1,5 @@
 export default interface ISession {
-  start(): Promise<null>
-  close(): void
+  start(): null
+  close(): null
   getMe(): IUser | undefined
 }

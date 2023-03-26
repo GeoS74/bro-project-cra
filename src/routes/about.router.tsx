@@ -1,3 +1,4 @@
+import tokenManager from "../libs/token.manager"
 import session from "../libs/token.manager"
 import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
@@ -8,14 +9,14 @@ export default {
   path: "/about",
   element: <About />,
   loader: () => fetchWrapper(_getAboutCompany)
-        .catch(() => [])
-        .finally(() => session.start())
+    .catch(() => [])
+    .finally(() => session.start())
 }
 
-function _getAboutCompany(){
+function _getAboutCompany() {
   return fetch(`${serviceHost("informator")}/api/informator/about/company`, {
     headers: {
-      'Authorization': `Bearer ${session.getAccess()}`
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
   })
 }
