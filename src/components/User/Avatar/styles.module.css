@@ -1,9 +1,0 @@
-.root {
-  height: 150px;
-  border-radius: 150px;
-  overflow: hidden;
-}
-
-.root:hover{
-  cursor: pointer
-}
