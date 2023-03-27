@@ -1,0 +1,15 @@
+.root {
+  z-index: 100500;
+  display: flex;
+  flex-flow: row nowrap !important;
+}
+.root span{
+  cursor: pointer !important;
+}
+
+.root div:nth-child(1){
+  flex: 12;
+}
+.root div:nth-child(2){
+  flex: 1;
+}

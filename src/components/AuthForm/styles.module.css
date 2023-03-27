@@ -1,0 +1,21 @@
+.root {
+  background-color: #1a1a1a;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.root > form {
+  flex: 0.5 200px;
+  max-width: 400px;
+}
+
+.root > form legend {
+  color: #fff;
+  text-align: center;
+}

@@ -1,0 +1,9 @@
+.root>img {
+  height: 150px;
+  border-radius: 150px;
+  overflow: hidden;
+}
+
+.root>img:hover{
+  cursor: pointer
+}
