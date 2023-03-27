@@ -86,7 +86,7 @@ services:
       - DB_PASS=passwordXXX
       - DB_HOST=db_info
       - DB_PORT=27017
-      - DB_NAME=admin
+      - DB_NAME=informator
       - JWT_CHECK=true
       - JWT_SECRET_KEY=any_secret
     volumes:
@@ -102,6 +102,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
+      - MONGO_INITDB_DATABASE=informator
     deploy:
       resources:
         limits:

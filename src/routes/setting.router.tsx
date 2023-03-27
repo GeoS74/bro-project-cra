@@ -9,6 +9,7 @@ import Setting from "../components/Setting/Setting"
 import SimpleList from "../components/SimpleList/SimpleList"
 import AccessSetting from "../components/Setting/AccessSetting/AccessSetting"
 import BundleRole from "../components/Setting/BundleRole/BundleRole"
+import FrozenList from "../components/FrozenList/FrozenList";
 
 export default {
   path: "/setting",
@@ -41,7 +42,8 @@ export default {
     },
     {
       path: "/setting/edit/actions",
-      element: <><></><></><></><SimpleList typeList="actions" /></>,
+      // element: <><></><></><></><SimpleList typeList="actions" /></>,
+      element: <><></><></><></><FrozenList /></>,
       loader: () => fetchWrapper(_getActions).catch(() => redirect('/auth'))
     },
     {
