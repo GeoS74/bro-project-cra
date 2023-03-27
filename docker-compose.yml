@@ -124,3 +124,4 @@ volumes:
   db-mauth:
   db-informator:
   user-avatar-informator:
+
