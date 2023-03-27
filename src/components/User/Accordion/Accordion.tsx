@@ -32,8 +32,8 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
             <p>статус: {editMode ?
               <input type="text"
                 // className="form-control"
-                name="position" defaultValue={user.position || ""} /> :
-              (user.position || "не указан")}
+                name="status" defaultValue={user.status || ""} /> :
+              (user.status || "не указан")}
             </p>
           </div>
         </div>

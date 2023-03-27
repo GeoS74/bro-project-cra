@@ -4,5 +4,5 @@ interface IUser {
   roles: IRow[]
   name?: string
   photo?: string
-  position?: string
+  status?: string
 }
