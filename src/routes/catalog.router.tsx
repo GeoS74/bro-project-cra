@@ -4,8 +4,6 @@ import Catalog from "../components/catalog/Catalog"
 import Search from "../components/catalog/Search/Search"
 import SimpleList from "../components/SimpleList/SimpleList"
 import UploadPrice from "../components/catalog/UploadPrice/UploadPrice"
-import Test from "../components/catalog/Test/Test"
-import Test2 from "../components/catalog/Test/Test2"
 import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
 import tokenManager from "../libs/token.manager"
@@ -40,14 +38,6 @@ export default {
           }
         })
         .catch(() => redirect('/auth'))
-    },
-    {
-      path: "/catalog/edit/test",
-      element: <Test />
-    },
-    {
-      path: "/catalog/edit/test2",
-      element: <Test2 />
     },
   ]
 }

@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 export default function Navigate() {
   session.subscribe('navigate')
-console.log(session.getMe())
+
   return <nav className={classNames(styles.root, "navbar navbar-expand-lg navbar-dark bg-primary")}>
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">Marketplace</Link>
@@ -19,6 +19,12 @@ console.log(session.getMe())
           <li className="nav-item">
             <Link to="/" className="nav-link active">Home</Link>
           </li>
+
+          {session.getMe() ? 
+            <li className="nav-item">
+              <Link to="/docs" className="nav-link active">С.Э.Д.</Link>
+            </li>
+          : <></>}
 
           {session.getMe()?.rank === 'admin' ?
             <li className="nav-item dropdown">
