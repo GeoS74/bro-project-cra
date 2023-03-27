@@ -1,0 +1,10 @@
+.root {
+  margin: 0 20px;
+  text-align: right;
+}
+.root a{
+  white-space: nowrap;
+}
+.root a:hover{
+  color: white;
+}

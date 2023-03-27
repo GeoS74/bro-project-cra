@@ -18,11 +18,12 @@ services:
     deploy:
       resources:
         limits:
-          memory: 100M
+          memory: 500M
   db_bridge:
     image: "postgres"
     volumes:
       - init-db-bridge:/docker-entrypoint-initdb.d
+      - db-bridge:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=bridge
@@ -30,7 +31,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 110M
+          memory: 100M
   mauth_app:
     image: "geos74/mauth:1.0.0"
     ports:
@@ -65,6 +66,7 @@ services:
     image: "postgres"
     volumes:
       - init-db-mauth:/docker-entrypoint-initdb.d
+      - db-mauth:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=mauth
@@ -84,7 +86,7 @@ services:
       - DB_PASS=passwordXXX
       - DB_HOST=db_info
       - DB_PORT=27017
-      - DB_NAME=admin
+      - DB_NAME=informator
       - JWT_CHECK=true
       - JWT_SECRET_KEY=any_secret
     volumes:
@@ -95,9 +97,12 @@ services:
           memory: 100M
   db_info:
     image: "mongo"
+    volumes:
+      - db-informator:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
+      - MONGO_INITDB_DATABASE=informator
     deploy:
       resources:
         limits:
@@ -114,5 +119,9 @@ services:
   #     - PORT_MAUTH=3001
 volumes:
   init-db-bridge:
+  db-bridge:
   init-db-mauth:
+  db-mauth:
+  db-informator:
   user-avatar-informator:
+

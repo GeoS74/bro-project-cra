@@ -1,14 +1,14 @@
 import serviceHost from "../libs/service.host"
 import ITokenManager from "./ITokenManager"
 
-class TokenManager implements ITokenManager {
+export default class TokenManager implements ITokenManager {
 
   _refresh = ""
   _access = ""
 
   constructor() {
     this.setRefresh(localStorage.getItem(`session_id`) || "")
-    
+
     // don`t call async function this.refreshTokens() in constructor!!!
   }
 
@@ -38,7 +38,7 @@ class TokenManager implements ITokenManager {
     }).then(async (req) => {
       if (req.ok) {
         const res = await req.json();
-        
+
         this.setAccess(res.access);
         this.setRefresh(res.refresh);
         return true;
@@ -53,5 +53,3 @@ class TokenManager implements ITokenManager {
       })
   }
 }
-
-export default new TokenManager();

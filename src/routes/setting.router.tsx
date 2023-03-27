@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
 
 import serviceHost from "../libs/service.host"
-import tokenManager from "../classes/TokenManager"
+import tokenManager from "../libs/token.manager"
 import fetchWrapper from "../libs/fetch.wrapper"
 
 import Setting from "../components/Setting/Setting"
@@ -9,6 +9,7 @@ import Setting from "../components/Setting/Setting"
 import SimpleList from "../components/SimpleList/SimpleList"
 import AccessSetting from "../components/Setting/AccessSetting/AccessSetting"
 import BundleRole from "../components/Setting/BundleRole/BundleRole"
+import FrozenList from "../components/FrozenList/FrozenList";
 
 export default {
   path: "/setting",
@@ -30,19 +31,25 @@ export default {
       loader: () => fetchWrapper(_getRoles).catch(() => redirect('/auth'))
     },
     {
+      path: "/setting/edit/directings",
+      element: <><></><SimpleList typeList="directings" /></>,
+      loader: () => fetchWrapper(_getDirectings).catch(() => redirect('/auth'))
+    },
+    {
       path: "/setting/edit/processes",
       element: <><></><></><SimpleList typeList="tasks" /></>,
       loader: () => fetchWrapper(_getProcesses).catch(() => redirect('/auth'))
     },
     {
       path: "/setting/edit/actions",
-      element: <><></><SimpleList typeList="actions" /></>,
+      // element: <><></><></><></><SimpleList typeList="actions" /></>,
+      element: <><></><></><></><FrozenList /></>,
       loader: () => fetchWrapper(_getActions).catch(() => redirect('/auth'))
     },
     {
       path: "/setting/edit/access",
-      element: <><></><></><></><AccessSetting /></>,
-      loader: () => fetchWrapper([_getRoles, _getProcesses, _getActions, _getAccessSettings])
+      element: <><></><></><></><></><AccessSetting /></>,
+      loader: () => fetchWrapper([_getRoles, _getDirectings, _getProcesses, _getActions, _getAccessSettings])
         .then(response => {
           if (Array.isArray(response)) {
             return Promise.all(response.map(async r => await r.json()))
@@ -52,7 +59,7 @@ export default {
     },
     {
       path: "/setting/edit/bundle/role",
-      element: <><></><></><></><></><BundleRole /></>,
+      element: <><></><></><></><></><></><BundleRole /></>,
       loader: () => fetchWrapper([_getUsers, _getRoles])
         .then(response => {
           if (Array.isArray(response)) {
@@ -82,6 +89,14 @@ function _getAccessSettings() {
 
 function _getRoles() {
   return fetch(`${serviceHost("informator")}/api/informator/role`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getDirectings() {
+  return fetch(`${serviceHost("informator")}/api/informator/directing`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }

@@ -13,7 +13,32 @@
  * 7) если не одно условие не сработало вернуть отклоненный промис
  */
 
-import tokenManager from "../classes/TokenManager"
+/* BUG detected
+
+  1) About -> EditForm
+  2) Catalog -> UploadPriceForm
+
+  1) Setting -> AccessSetting
+  2) SimpleList -> EditForm
+  3) SimpleList -> SearchForm
+  4) User -> Accordion
+  5) User -> Avatar
+
+
+  если access токен будет просрочен, то после refresh-a фото не будет изменено при таком вызове
+    fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/user/photo`, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${tokenManager.getAccess()}`
+      },
+      body: new FormData(event.currentTarget)
+    }))
+
+  для исправления надо FormData записывать в константу перед вызовом fetchWrapper
+  PS возможно это как-то связано с тем, что используется событие onChange, а не onSubmit
+  */
+ 
+import tokenManager from "./token.manager"
 
 interface IFetchWrapper {
   (): Promise<Response>
@@ -42,7 +67,7 @@ export default async function fetchWrapper(func: IFetchWrapper | IFetchWrapper[]
       catch (e) { /**/ }
     }
   }
-  return Promise.reject('error: fetch.wrapper')
+  return Promise.reject(new Error('error: fetch.wrapper'))
 }
 
 function _thenable(func: IFetchWrapper) {

@@ -1,8 +1,12 @@
-interface IAccessSetting extends IRow {
-  tasks: IAccessTask[]
+interface IRole extends IRow {
+  directings: IDirecting[]
 }
 
-interface IAccessTask extends IRow {
+interface IDirecting extends IRow {
+  tasks: ITask[]
+}
+
+interface ITask extends IRow {
   actions: IRow[]
 }
 

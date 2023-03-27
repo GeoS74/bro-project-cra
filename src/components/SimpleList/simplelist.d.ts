@@ -9,6 +9,15 @@ interface IRow {
 /*
 *интерфейс настроект компоненты  SimpleList
 */
+interface ISimpleListConf {
+  brands: IListConf,
+  providers: IListConf,
+  roles: IListConf,
+  directings: IListConf,
+  tasks: IListConf,
+  actions: IListConf
+}
+
 interface IListConf {
   serviceName: ServiceName
   title: string

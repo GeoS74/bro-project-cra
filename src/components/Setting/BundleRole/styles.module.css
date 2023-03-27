@@ -1,33 +1,9 @@
-.root {
-  margin: 20px;
-}
-
-.root>div {
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-/* .root>div:hover {
-  background-color: rgb(240, 240, 240);
-} */
-
-.root>div>div {
-  padding: 20px;
-}
-
-.root>h1,
-.root>h3{
+.root h3,
+.root h5 {
   color: white;
 }
 
-.root p{
-  color: #1a1a1a;
-}
-
-.root p>span{
-  margin-left: 10px;
-}
-.root span:hover{
-  cursor: pointer;
-  text-decoration: underline;
+.root>div {
+  padding:20px 30px;
+  border: 2px solid white;
 }

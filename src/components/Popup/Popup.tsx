@@ -26,3 +26,4 @@ export default function Popup({ mode, message }: Props) {
     </div>
   </div>
 }
+

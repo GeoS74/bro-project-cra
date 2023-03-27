@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import tokenManager from "../../../classes/TokenManager"
+import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
@@ -38,8 +38,8 @@ function _searchRow(
   event.preventDefault()
   setDisabled(true)
 
-  const fd = new FormData(event.target as HTMLFormElement)
-
+  const fd = new FormData(event.currentTarget)
+  
   fetchWrapper(() => fetch(`${serviceHost(serviceName)}${api}/?title=${fd.get('query')}`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`

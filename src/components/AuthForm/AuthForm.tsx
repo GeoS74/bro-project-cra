@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import serviceHost from "../../libs/service.host"
-import tokenManager from "../../classes/TokenManager"
+import tokenManager from "../../libs/token.manager"
 
 import { Email } from "./Email/Email";
 import { Password } from "./Password/Password";

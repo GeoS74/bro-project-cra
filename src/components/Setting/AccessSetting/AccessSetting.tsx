@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
-import tokenManager from "../../../classes/TokenManager";
+import tokenManager from "../../../libs/token.manager";
 import serviceHost from "../../../libs/service.host";
 import fetchWrapper from "../../../libs/fetch.wrapper";
 import { responseNotIsArray } from "../../../middleware/response.validator"
@@ -13,16 +13,15 @@ import Popup from "../../Popup/Popup";
 export default function AccessSetting() {
   const [disabled, setDisabled] = useState(false);
   const [modePopup, setModePopup] = useState<popupMode>();
-  // console.log((modePopup || "no ") + disabled)
 
   /*
   * первый элемент массива исходных данных - роли
-  * второй - задачи / процессы
-  * третий - действия
-  * четвёртый - настройки прав доступа в виде объекта
+  * второй - направления
+  * третий - задачи / процессы
+  * четвёртый - действия
+  * пятый - настройки прав доступа в виде объекта
   */
-  const [roles, tasks, actions, accessSettings] = useLoaderData() as IAccessSetting[][];
-  console.log(accessSettings);
+  const [roles, directings, tasks, actions, accessSettings] = useLoaderData() as IRole[][];
 
   return <div className={styles.root}>
     <h3>Настройки прав доступа</h3>
@@ -38,12 +37,12 @@ export default function AccessSetting() {
           value="Сохранить настройки"
         />
 
-        <Accordion roles={roles} tasks={tasks} actions={actions} accessSettings={accessSettings} />
+        <Accordion roles={roles} directings={directings} tasks={tasks} actions={actions} accessSettings={accessSettings} />
 
       </fieldset>
     </form>
-    
-    {modePopup ? <Popup mode={modePopup} message={modePopup === "success"? "Настройки успешно записаны" : "Настройки не записаны! Попробуйте ещё раз"}/> : <></>}
+
+    {modePopup ? <Popup mode={modePopup} message={modePopup === "success" ? "Настройки успешно записаны" : "Настройки не записаны! Попробуйте ещё раз"} /> : <></>}
   </div>
 }
 
@@ -57,12 +56,14 @@ function _updateAccessSetting(
   setDisabled(true);
   setModePopup(undefined);
 
+  const fd = new FormData(event.currentTarget)
+
   fetchWrapper(() => fetch(`${serviceHost("informator")}/api/informator/setting/access`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
-    body: new FormData(event.currentTarget)
+    body: fd
   }))
     .then(responseNotIsArray)
     .then(async (response) => {

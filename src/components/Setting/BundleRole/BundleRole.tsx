@@ -1,39 +1,27 @@
 import { useLoaderData } from "react-router-dom";
 
+import RolePane from "./RolePane/RolePane"
+import SearchUserForm from "./SearchUserForm/SearchUserForm"
 import styles from "./styles.module.css"
+import { useState } from "react";
 
 export default function BundleRole() {
-  const [users, roles] = useLoaderData() as [IUser[], IRow[]];
-  console.log(users);
-  console.log(roles);
+  const [usersAll, roles] = useLoaderData() as [IUser[], IRow[]];
+
+  const [users, setUsers] = useState(usersAll)
 
   return <div className={styles.root}>
     <h3 className="mb-4">Привязка ролей пользователей</h3>
 
-    {_makeList(users)}
-  </div>
-}
+    <SearchUserForm setUsers={setUsers}/>
 
-function _makeList(users: IUser[]) {
-  return users.map(user => {
-    return <div className="card mt-2" key={user.email}
-      onMouseEnter={_showOptionalButton}
-      onMouseLeave={_showOptionalButton}
-    >
+    {/* если в качестве key использовать index элемента, то при поиске роль будет сохраняться между элементами  */}
+    {users.map(user => <div className="mt-2" key={user.email}>
 
-      <div>
-        <p>
-          {user.email}
-          <span className="text-muted" hidden={true}>назначить роль</span>
-        </p>
+      <h5>Пользователь: {user.email}</h5>
 
-        <span className="mt-2">Роль: Admin</span>
-      </div>
+      <RolePane currentUser={user} roles={roles} />
     </div>
-  })
-}
-
-function _showOptionalButton(event: React.MouseEvent<HTMLParagraphElement>) {
-  const optionalButton = event.currentTarget.querySelector('span') as HTMLElement;
-  optionalButton.hidden = !optionalButton?.hidden;
+    )}
+  </div>
 }

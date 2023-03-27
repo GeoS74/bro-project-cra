@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import tokenManager from "../../../classes/TokenManager"
+import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import EditForm from "../EditForm/EditForm"
 import styles from "./styles.module.css"
