@@ -86,11 +86,12 @@ services:
       - DB_PASS=passwordXXX
       - DB_HOST=db_info
       - DB_PORT=27017
-      - DB_NAME=informator
+      - DB_NAME=admin
       - JWT_CHECK=true
       - JWT_SECRET_KEY=any_secret
     volumes:
       - user-avatar-informator:/informator/files/photo
+      - init-db-informator:/informator/libs/db.init
     deploy:
       resources:
         limits:
@@ -99,10 +100,11 @@ services:
     image: "mongo"
     volumes:
       - db-informator:/data/db
+      - init-db-informator:/docker-entrypoint-initdb.d
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
-      - MONGO_INITDB_DATABASE=informator
+      - MONGO_INITDB_DATABASE=admin
     deploy:
       resources:
         limits:
@@ -124,3 +126,4 @@ volumes:
   db-mauth:
   db-informator:
   user-avatar-informator:
+  init-db-informator:
