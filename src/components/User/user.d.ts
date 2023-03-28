@@ -1,7 +1,7 @@
 interface IUser {
   email: string
   rank: string
-  roles: IRow[]
+  roles: IRole[]
   name?: string
   photo?: string
   status?: string

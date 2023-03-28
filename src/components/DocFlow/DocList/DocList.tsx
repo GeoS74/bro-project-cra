@@ -7,23 +7,37 @@ import Doc from "../Doc/Doc"
 import styles from "./styles.module.css"
 
 export default function DocList() {
-    session.subscribe('task')
+  session.subscribe('task');
+  const [idActiveDoc, setIdActiveDoc] = useState('-1');
 
-    const docs = useLoaderData() as IDoc[];
-    console.log(docs)
+  const [docs, setDocs] = useState(useLoaderData() as IDoc[])
 
-    return <div className={styles.root} >
-        <h3>Мои документы</h3>
+  console.log(docs)
 
-        {finder(session.getMe()?.roles, 'Создать') ?
-            <button type="button" className="btn btn-outline-light mt-4 mb-4">Создать документ</button>
-            : <></>
-        }
+  return <div className={styles.root} >
+    <h3>Мои документы</h3>
 
-        {_makeList(docs)}
-    </div>
-}
+    {finder(session.getMe()?.roles, 'Создать') ?
+      <button type="button"
+        className="btn btn-outline-light mt-4 mb-4"
+        onClick={() => setIdActiveDoc('0')}
+      >Создать документ</button>
+      : <></>
+    }
 
-function _makeList(docs: IDoc[]) {
-    return docs.map(doc => <Doc key={doc.id} {...doc} />)
+    {idActiveDoc === '0' ?
+      <Doc
+        id={idActiveDoc}
+        idActiveDoc={idActiveDoc}
+        setIdActiveDoc={setIdActiveDoc}
+        addDoc={(newDoc: IDoc) => setDocs([newDoc, ...docs])}
+      /> : <></>}
+
+    {docs.map(doc => <Doc
+      key={doc.id}
+      {...doc}
+      idActiveDoc={idActiveDoc}
+      setIdActiveDoc={setIdActiveDoc}
+    />)}
+  </div>
 }
