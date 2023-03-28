@@ -22,7 +22,7 @@ export default function Navigate() {
 
           {session.getMe() ? 
             <li className="nav-item">
-              <Link to="/docs" className="nav-link active">С.Э.Д.</Link>
+              <Link to="/docflow" className="nav-link">С.Э.Д.</Link>
             </li>
           : <></>}
 
