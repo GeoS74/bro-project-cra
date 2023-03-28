@@ -31,6 +31,7 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
             <p>ранг: {user.rank}</p>
             <p>статус: {editMode ?
               <input type="text"
+                autoFocus
                 // className="form-control"
                 name="status" defaultValue={user.status || ""} /> :
               (user.status || "не указан")}
