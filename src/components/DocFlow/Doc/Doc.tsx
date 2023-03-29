@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import EditForm from "../EditForm/EditForm"
 import classNames from "classnames"
@@ -23,7 +24,8 @@ export default function Doc({ id, title, description, directing, task, idActiveD
     {id === idActiveDoc ?
       <EditForm setIdActiveDoc={setIdActiveDoc} setValueDoc={setValueDoc} addDoc={addDoc}/>
       : <>
-        <h5>{valueDoc.title}</h5>
+        <h5><Link to={`/docflow/${id}`} className="nav-link">{valueDoc.title}</Link></h5>
+         
         <p>{valueDoc.description}</p>
         
         <small>{valueDoc.directing?.title} / {valueDoc.task?.title}</small>

@@ -1,8 +1,13 @@
 .root {
   padding:20px 30px;
   border: 1px solid white;
+  max-width: 1000px;
 }
 
 .root h5 {
   color: white
+}
+.root h5:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }

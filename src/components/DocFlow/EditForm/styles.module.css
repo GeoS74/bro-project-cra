@@ -1,6 +1,7 @@
-.root {
-  max-width: 600px;;
-}
 .root h3 {
   color: white;
+}
+
+.root input[type=submit] {
+  margin-right: 10px;
 }
