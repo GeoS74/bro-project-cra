@@ -12,8 +12,6 @@ export default function DocList() {
 
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
 
-  // console.log(docs)
-
   return <div className={styles.root} >
     <h3>Мои документы</h3>
 

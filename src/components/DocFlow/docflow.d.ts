@@ -5,3 +5,8 @@ interface IDoc {
     directing: IRow
     task: IRow
 }
+
+interface IErrorDocMessage {
+    message: string
+    field: string
+  }

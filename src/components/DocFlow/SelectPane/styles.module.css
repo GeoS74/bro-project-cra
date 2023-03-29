@@ -3,7 +3,7 @@
   flex-flow: row wrap;
 }
 
-.root select{
+.root>div{
   flex:1 200px;
   margin-right: 20px;
 }
