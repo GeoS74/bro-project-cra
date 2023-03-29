@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import session from "../../../libs/token.manager"
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
@@ -16,6 +17,7 @@ type Props = {
     description: string | undefined;
     directing: IRow | undefined;
     task: IRow | undefined;
+    author: IRow | undefined;
 }>>
   addDoc?: (row: IDoc) => void
 }
@@ -38,6 +40,7 @@ export default function EditForm({ setIdActiveDoc, setValueDoc, addDoc }: Props)
 
       <span className="btn btn-outline-light" onClick={() => setIdActiveDoc('-1')}>Отмена</span>
 
+      <input type="hidden" name="author" defaultValue={session.getMe()?.email} />
     </fieldset>
   </form>
 }
@@ -52,6 +55,7 @@ function _onSubmit(
     description: string | undefined;
     directing: IRow | undefined;
     task: IRow | undefined;
+    author: IRow | undefined;
   }>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorDocMessage | undefined>>,
   addDoc?: (row: IDoc) => void

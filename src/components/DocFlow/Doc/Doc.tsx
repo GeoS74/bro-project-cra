@@ -14,10 +14,11 @@ type Props = {
   description?: string
   directing?: IRow
   task?: IRow
+  author?: IRow
 }
 
-export default function Doc({ id, title, description, directing, task, idActiveDoc, setIdActiveDoc, addDoc }: Props) {
-  const [valueDoc, setValueDoc] = useState({id, title, description, directing, task});
+export default function Doc({ id, title, description, directing, task, author, idActiveDoc, setIdActiveDoc, addDoc }: Props) {
+  const [valueDoc, setValueDoc] = useState({id, title, description, directing, task, author});
 
   return <div className={classNames(styles.root, "mt-2")}>
 
@@ -29,6 +30,7 @@ export default function Doc({ id, title, description, directing, task, idActiveD
         <p>{valueDoc.description}</p>
         
         <small>{valueDoc.directing?.title} / {valueDoc.task?.title}</small>
+        <small>{author?.title}</small>
       </>
     }
   </div>

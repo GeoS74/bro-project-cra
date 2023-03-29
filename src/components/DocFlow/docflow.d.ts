@@ -4,6 +4,7 @@ interface IDoc {
     description: string
     directing: IRow
     task: IRow
+    author: IRow
 }
 
 interface IErrorDocMessage {
