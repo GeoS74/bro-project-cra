@@ -17,7 +17,7 @@ export default function Doc({ id, description, idActiveDoc, setIdActiveDoc, titl
   return <div className={classNames(styles.root, "mt-2")}>
 
     {id === idActiveDoc ?
-      <EditForm setIdActiveDoc={setIdActiveDoc}/>
+      <EditForm setIdActiveDoc={setIdActiveDoc} mode={idActiveDoc==='0' ? 'create' : 'update'}/>
       : <>
         <h5>{title}</h5>
         <p>{description}</p>

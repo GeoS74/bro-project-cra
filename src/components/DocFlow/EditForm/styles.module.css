@@ -1,3 +1,6 @@
+.root {
+  max-width: 600px;;
+}
 .root h3 {
   color: white;
 }
