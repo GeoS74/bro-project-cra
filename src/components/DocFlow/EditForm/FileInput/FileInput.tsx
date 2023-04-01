@@ -26,7 +26,7 @@ export default function FileInput({ errorMessage, setFileList }: Props) {
 
     <input type="file" onChange={event => _change(event, setFileList)} hidden />
 
-    {errorMessage?.field === "title" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
+    {errorMessage?.field === "files" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </div>
 }
 

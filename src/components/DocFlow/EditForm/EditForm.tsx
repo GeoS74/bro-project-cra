@@ -7,6 +7,7 @@ import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import SelectPane from "./SelectPane/SelectPane";
 import TextPane from "./TextPane/TextPane";
+import TitleDoc from "./TitleDoc/TitleDoc";
 import FileInput from "./FileInput/FileInput";
 import FileNameList from "./FileNameList/FileNameList"
 import styles from "./styles.module.css"
@@ -38,11 +39,8 @@ export default function EditForm({ setIdActiveDoc, setValueDoc, addDoc }: Props)
 
       <SelectPane errorMessage={errorMessage} mode={addDoc ? "create" : "update"} />
 
-      <div>
-        <label htmlFor="titleInput" className="form-label mt-1">Название документа</label>
-        <input type="text" id="titleInput" name="title" className="form-control" placeholder="Введите название документа" />
-      </div>
-
+      <TitleDoc errorMessage={errorMessage} />
+      
       <FileNameList fileList={fileList} setFileList={setFileList}/>
 
       <FileInput errorMessage={errorMessage}
