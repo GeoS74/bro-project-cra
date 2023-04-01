@@ -1,0 +1,11 @@
+.root>p{
+  opacity: 0.7;
+}
+.root>p:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: 1;
+}
+.root>p img{
+  width: 50px
+}

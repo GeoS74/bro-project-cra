@@ -7,6 +7,7 @@ import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import SelectPane from "../SelectPane/SelectPane";
 import TextPane from "../TextPane/TextPane";
+import FilePane from "../FilePane/FilePane";
 import styles from "./styles.module.css"
 
 type Props = {
@@ -26,8 +27,10 @@ export default function EditForm({ setIdActiveDoc, setValueDoc, addDoc }: Props)
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorDocMessage>();
 
+  const [fileList, setFileList] = useState<FileList[]>([])
+
   return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setIdActiveDoc, setValueDoc, setErrorResponse, addDoc)}
+    onSubmit={event => _onSubmit(event, setDisabled, setIdActiveDoc, setValueDoc, setErrorResponse, fileList, addDoc)}
   >
     <fieldset disabled={disabled} className="form-group">
       <legend>{addDoc ? "Создание документа" : "Изменение документа"}</legend>
@@ -35,6 +38,10 @@ export default function EditForm({ setIdActiveDoc, setValueDoc, addDoc }: Props)
       <SelectPane errorMessage={errorMessage} mode={addDoc ? "create" : "update"} />
 
       <TextPane errorMessage={errorMessage} />
+
+      <FilePane errorMessage={errorMessage}
+      setFileList={(file: FileList) => setFileList([...fileList, file])}
+      />
 
       <input type="submit" className="btn btn-outline-light" value="Записать" />
 
@@ -58,12 +65,15 @@ function _onSubmit(
     author: IRow | undefined;
   }>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorDocMessage | undefined>>,
+  fileList: FileList[],
   addDoc?: (row: IDoc) => void
 ) {
   event.preventDefault();
   setDisabled(true);
 
   const fd = new FormData(event.currentTarget)
+  
+  fileList.map(f => fd.append('test[]', f[0]))
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow`, {
     method: addDoc ? 'POST' : 'PATCH',
