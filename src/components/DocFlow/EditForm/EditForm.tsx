@@ -5,9 +5,9 @@ import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
-import SelectPane from "../SelectPane/SelectPane";
-import TextPane from "../TextPane/TextPane";
-import FilePane from "../FilePane/FilePane";
+import SelectPane from "./SelectPane/SelectPane";
+import TextPane from "./TextPane/TextPane";
+import FilePane from "./FilePane/FilePane";
 import styles from "./styles.module.css"
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
     directing: IRow | undefined;
     task: IRow | undefined;
     author: IRow | undefined;
-}>>
+  }>>
   addDoc?: (row: IDoc) => void
 }
 
@@ -37,11 +37,16 @@ export default function EditForm({ setIdActiveDoc, setValueDoc, addDoc }: Props)
 
       <SelectPane errorMessage={errorMessage} mode={addDoc ? "create" : "update"} />
 
-      <TextPane errorMessage={errorMessage} />
+      <div>
+        <label htmlFor="titleInput" className="form-label mt-1">Название документа</label>
+        <input type="text" id="titleInput" name="title" className="form-control" placeholder="Введите название документа" />
+      </div>
+
 
       <FilePane errorMessage={errorMessage}
-      setFileList={(file: FileList) => setFileList([...fileList, file])}
-      />
+        setFileList={(file: FileList) => setFileList([...fileList, file])} />
+
+      <TextPane />
 
       <input type="submit" className="btn btn-outline-light" value="Записать" />
 
@@ -72,7 +77,7 @@ function _onSubmit(
   setDisabled(true);
 
   const fd = new FormData(event.currentTarget)
-  
+
   fileList.map(f => fd.append('test[]', f[0]))
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow`, {

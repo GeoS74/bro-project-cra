@@ -10,31 +10,28 @@ type Props = {
 }
 
 export default function FilePane({ errorMessage, setFileList }: Props) {
-  return <div className={classNames("form-group mb-4", styles.root)}>
+  return <div className={classNames("form-group mb-4", styles.root)}
+  onClick={event => (event.currentTarget.querySelector('input') as HTMLElement).click()}
+  >
 
-    <p className="mt-4" onClick={event => (event.currentTarget.nextElementSibling as HTMLElement).click()}>
+    <p className="mt-4">
       <img src={uploadIcon} loading="lazy" />
       <small>Добавить скан-копию</small></p>
 
-    <InputFile setFileList={setFileList} />
+      <input type="file" onChange={event => _change(event, setFileList)} hidden />
+
     {errorMessage?.field === "title" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </div>
 }
 
-function InputFile({ setFileList }: {
-  setFileList: (file: FileList) => void
-}) {
-  return <input type="file" onChange={event => _foo(event, setFileList)} />
-}
-
-function _foo(
+function _change(
   event: React.ChangeEvent<HTMLInputElement>,
   setFileList: (file: FileList) => void
 ) {
-  const foo = event.currentTarget.files
+  const files = event.currentTarget.files
 
-  if(foo) {
-    setFileList(foo);
+  if(files) {
+    setFileList(files);
   }
 
 }

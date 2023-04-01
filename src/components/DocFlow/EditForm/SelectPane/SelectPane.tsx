@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-import session from "../../../libs/token.manager"
-import finder from "../../../libs/deep.finder"
+import session from "../../../../libs/token.manager"
+import finder from "../../../../libs/deep.finder"
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 import classNames from "classnames"
 import styles from "./styles.module.css"

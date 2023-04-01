@@ -1,21 +1,10 @@
 import classNames from "classnames"
-import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 
 import addDescIcon from "./image/addDescIcon.svg"
 import styles from "./styles.module.css"
 
-type Props = {
-  errorMessage: IErrorDocMessage | undefined
-}
-
-export default function TextPane({ errorMessage }: Props) {
+export default function TextPane() {
   return <div className={classNames("form-group mb-4", styles.root)}>
-
-    <div>
-      <label htmlFor="titleInput" className="form-label mt-1">Название документа</label>
-      <input type="text" id="titleInput" name="title" className="form-control" placeholder="Введите название документа" />
-      {errorMessage?.field === "title" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
-    </div>
 
     <p className="mt-4" onClick={_showTextarea}>
     <img src={addDescIcon} loading="lazy"/>
