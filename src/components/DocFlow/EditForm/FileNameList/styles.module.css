@@ -1,3 +1,6 @@
+.root li:hover{
+  cursor: pointer;
+}
 .root span{
   margin-left: 10px;
 }

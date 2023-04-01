@@ -35,4 +35,6 @@ function _showOptionalButton(event: React.MouseEvent<HTMLLIElement, MouseEvent>)
   if (optionalButton) {
     optionalButton.hidden = !optionalButton.hidden;
   }
+
+  event.currentTarget.classList.toggle("text-muted")
 }
