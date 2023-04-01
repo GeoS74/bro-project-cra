@@ -43,7 +43,7 @@ export default function EditForm({ setIdActiveDoc, setValueDoc, addDoc }: Props)
         <input type="text" id="titleInput" name="title" className="form-control" placeholder="Введите название документа" />
       </div>
 
-      <FileNameList fileList={fileList}/>
+      <FileNameList fileList={fileList} setFileList={setFileList}/>
 
       <FileInput errorMessage={errorMessage}
         setFileList={(file: FileList) => setFileList([...fileList, file])} />

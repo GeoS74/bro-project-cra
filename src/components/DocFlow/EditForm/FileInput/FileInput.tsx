@@ -11,21 +11,20 @@ type Props = {
 
 export default function FileInput({ errorMessage, setFileList }: Props) {
   return <div className={classNames("form-group mt-4", styles.root)}
-  onClick={event => (event.currentTarget.querySelector('input') as HTMLElement).click()}
-  onDrop={event => {
-    event.preventDefault()
-    setFileList(event.dataTransfer.files)
-    console.log(event.dataTransfer.files)
-  }}
-  onDragEnter={event => event.preventDefault()}
-  onDragOver={event => event.preventDefault()}
+    onClick={event => (event.currentTarget.querySelector('input') as HTMLElement).click()}
+    onDrop={event => {
+      event.preventDefault()
+      setFileList(event.dataTransfer.files)
+    }}
+    onDragEnter={event => event.preventDefault()}
+    onDragOver={event => event.preventDefault()}
   >
 
     <p className="mt-4">
       <img src={uploadIcon} loading="lazy" />
       <small>Добавить файл</small></p>
 
-      <input type="file" onChange={event => _change(event, setFileList)} hidden />
+    <input type="file" onChange={event => _change(event, setFileList)} hidden />
 
     {errorMessage?.field === "title" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </div>
@@ -37,7 +36,7 @@ function _change(
 ) {
   const files = event.currentTarget.files
 
-  if(files) {
+  if (files) {
     setFileList(files);
   }
 
