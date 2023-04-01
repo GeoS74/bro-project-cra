@@ -1,13 +1,13 @@
 .root {
   display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
   border: solid 1px white;
+  max-width: 350px;
+  opacity: 0.8;
 }
-
-.root>p{
-  opacity: 0.7;
-}
-.root>p:hover{
-  text-decoration: underline;
+.root:hover{
   cursor: pointer;
   opacity: 1;
 }

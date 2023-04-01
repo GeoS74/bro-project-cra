@@ -10,7 +10,7 @@ type Props = {
 }
 
 export default function FilePane({ errorMessage, setFileList }: Props) {
-  return <div className={classNames("form-group mb-4", styles.root)}
+  return <div className={classNames("form-group mt-4", styles.root)}
   onClick={event => (event.currentTarget.querySelector('input') as HTMLElement).click()}
   >
 
