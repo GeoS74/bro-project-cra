@@ -7,7 +7,8 @@ import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import SelectPane from "./SelectPane/SelectPane";
 import TextPane from "./TextPane/TextPane";
-import FilePane from "./FilePane/FilePane";
+import FileInput from "./FileInput/FileInput";
+import FileNameList from "./FileNameList/FileNameList"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -42,8 +43,9 @@ export default function EditForm({ setIdActiveDoc, setValueDoc, addDoc }: Props)
         <input type="text" id="titleInput" name="title" className="form-control" placeholder="Введите название документа" />
       </div>
 
+      <FileNameList fileList={fileList}/>
 
-      <FilePane errorMessage={errorMessage}
+      <FileInput errorMessage={errorMessage}
         setFileList={(file: FileList) => setFileList([...fileList, file])} />
 
       <TextPane />
