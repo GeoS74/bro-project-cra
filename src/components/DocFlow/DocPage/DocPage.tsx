@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 
@@ -11,9 +12,8 @@ import styles from "./styles.module.css"
 
 export default function DocPage() {
   session.subscribe('doc');
-
+  const navigate = useNavigate();
   const [doc, setDoc] = useState(useLoaderData() as IDoc);
-
   const [showForm, setShowForm] = useState(false);
 
   if (showForm) {
@@ -38,7 +38,10 @@ export default function DocPage() {
     {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
       <button type="button"
         className="btn btn-outline-light mt-4 mb-4"
-        onClick={() => _delDoc(doc.id)}
+        onClick={() => {
+          _delDoc(doc.id);
+          navigate('/docflow');
+        }}
       >Удалить документ</button>
       : <></>}
   </div>
@@ -55,7 +58,6 @@ function _delDoc(id: string) {
   if(!confirm('Удалить этот документ?')) {
     return;
   }
-
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${id}`, {
     method: 'DELETE',
     headers: {
@@ -69,6 +71,5 @@ function _delDoc(id: string) {
       }
       throw new Error(`response status: ${response.status}`)
     })
-    .catch(error => console.log(error.message))
-    .finally(() => location.href = '/docflow');
+    .catch(error => console.log(error.message));
 }

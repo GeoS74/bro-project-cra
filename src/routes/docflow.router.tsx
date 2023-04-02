@@ -4,6 +4,7 @@ import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
 import tokenManager from "../libs/token.manager"
 
+import { responseNotIsArray } from "../middleware/response.validator";
 import DocFlow from "../components/DocFlow/DocFlow"
 import DocList from "../components/DocFlow/DocList/DocList"
 import DocPage from "../components/DocFlow/DocPage/DocPage";
@@ -21,6 +22,13 @@ export default {
       path: "/docflow/:id",
       element: <DocPage />,
       loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
+        .then(responseNotIsArray)
+        .then(res => {
+          if (res.status === 404) {
+            return redirect('/docflow')
+          }
+          return res;
+        })
         .catch(() => redirect('/auth'))
     }
   ]
