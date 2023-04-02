@@ -15,10 +15,11 @@ type Props = {
   directing?: IRow
   task?: IRow
   author?: IRow
+  files?: IDocFile[]
 }
 
-export default function Doc({ id, title, description, directing, task, author, idActiveDoc, setIdActiveDoc, addDoc }: Props) {
-  const [valueDoc, setValueDoc] = useState({id, title, description, directing, task, author});
+export default function Doc({ id, title, description, directing, task, author, idActiveDoc, files, setIdActiveDoc, addDoc }: Props) {
+  const [valueDoc, setValueDoc] = useState({id, title, description, directing, task, author, files});
 
   return <div className={classNames(styles.root, "mt-2")}>
 

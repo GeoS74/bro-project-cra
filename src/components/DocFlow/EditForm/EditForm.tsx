@@ -21,6 +21,7 @@ type Props = {
     directing: IRow | undefined;
     task: IRow | undefined;
     author: IRow | undefined;
+    files: IDocFile[] | undefined;
   }>>
   addDoc?: (row: IDoc) => void
 }
@@ -68,6 +69,7 @@ function _onSubmit(
     directing: IRow | undefined;
     task: IRow | undefined;
     author: IRow | undefined;
+    files: IDocFile[] | undefined;
   }>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorDocMessage | undefined>>,
   fileList: FileList[],
@@ -78,7 +80,7 @@ function _onSubmit(
 
   const fd = new FormData(event.currentTarget)
 
-  fileList.map(f => fd.append('test[]', f[0]))
+  fileList.map(f => fd.append('scans', f[0]))
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow`, {
     method: addDoc ? 'POST' : 'PATCH',
