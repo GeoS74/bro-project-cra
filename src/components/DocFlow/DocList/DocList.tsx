@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 
 import session from "../../../libs/token.manager"
 import finder from "../../../libs/deep.finder"
-import Doc from "../Doc/Doc"
+import DocRow from "../DocRow/DocRow"
 import EditForm from "../EditForm/EditForm";
 import styles from "./styles.module.css"
 
@@ -27,6 +27,6 @@ export default function DocList() {
       <EditForm setShowForm={setShowForm} addDoc={(newDoc: IDoc) => setDocs([newDoc, ...docs])} />
       : <></>}
 
-    {docs.map(doc => <Doc key={doc.id} {...doc} />)}
+    {docs.map(doc => <DocRow key={doc.id} {...doc} />)}
   </div>
 }

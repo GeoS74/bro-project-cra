@@ -16,9 +16,10 @@ import styles from "./styles.module.css"
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
   addDoc?: (row: IDoc) => void
+  updDoc?: (row: IDoc) => void
 }
 
-export default function EditForm({ setShowForm, addDoc }: Props) {
+export default function EditForm({ setShowForm, addDoc, updDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorDocMessage>();
 
@@ -26,7 +27,7 @@ export default function EditForm({ setShowForm, addDoc }: Props) {
 
   return <div className={classNames(styles.root, "mt-2")}>
     <form
-      onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, addDoc)}
+      onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, addDoc, updDoc)}
     >
       <fieldset disabled={disabled} className="form-group">
         <legend>{addDoc ? "Создание документа" : "Изменение документа"}</legend>
@@ -58,7 +59,8 @@ function _onSubmit(
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorDocMessage | undefined>>,
   fileList: FileList[],
-  addDoc?: (row: IDoc) => void
+  addDoc?: (row: IDoc) => void,
+  updDoc?: (row: IDoc) => void
 ) {
   event.preventDefault();
   setDisabled(true);
@@ -82,10 +84,10 @@ function _onSubmit(
 
         if (addDoc) {
           addDoc(res)
-          return;
         }
-
-        // setValueDoc(res)
+        if (updDoc) {
+          updDoc(res)
+        }
         return;
       }
       else if (response.status === 400) {

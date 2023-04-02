@@ -3,12 +3,15 @@
   border: 1px solid white;
   max-width: 1000px;
 }
-.root a,
 .root h5 {
   color: white
 }
 
-.root a:hover,
+.root a:hover{
+  color: white !important;
+}
+
+
 .root h5:hover {
   text-decoration: underline;
   cursor: pointer;
