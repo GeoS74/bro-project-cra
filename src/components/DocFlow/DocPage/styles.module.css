@@ -1,3 +1,10 @@
-.root>h3 {
+.root>h3,
+.root>h5 {
   color: white;
+}
+.root button{
+  margin-right: 15px;
+}
+.root a:hover{
+  color: white !important;
 }

@@ -7,19 +7,22 @@ import classNames from "classnames"
 import styles from "./styles.module.css"
 
 type Props = {
+  directingId: string | undefined
+  taskId: string | undefined
   mode: string
   errorMessage: IErrorDocMessage | undefined
 }
 
-export default function SelectPane({ mode, errorMessage }: Props) {
-  const [directing, setDirecting] = useState<IDirecting>()
+export default function SelectPane({ directingId, taskId, mode, errorMessage }: Props) {
+  const [directing, setDirecting] = useState(_getDirecting(directingId));
 
   return <div className={classNames(styles.root, "mb-4")}>
 
     <div className="form-group">
       <label htmlFor="directSelect" className="form-label mt-4">Направление:</label>
-      <select name="directingId" className="form-select btn-outline-light mt-2" defaultValue={""} id="directSelect"
-        onChange={(event) => _selectDirecting(event, setDirecting)}
+      <select name="directingId" className="form-select btn-outline-light mt-2" id="directSelect"
+        onChange={(event) => setDirecting(_getDirecting(event.currentTarget.value))}
+        defaultValue={directingId}
       >
         <option value="">Выберите направление</option>
         {_mekeOptions(mode, session.getMe()?.roles[0].directings as IRow[])}
@@ -30,7 +33,9 @@ export default function SelectPane({ mode, errorMessage }: Props) {
 
     <div className="form-group">
       <label htmlFor="taskSelect" className="form-label mt-4">Тип документа:</label>
-      <select name="taskId" className="form-select btn-outline-light mt-2" defaultValue={""} id="taskSelect">
+      <select name="taskId" className="form-select btn-outline-light mt-2" id="taskSelect"
+        defaultValue={taskId}
+      >
         <option value="">Выберите тип документа</option>
         {_mekeOptions(mode, directing?.tasks)}
       </select>
@@ -41,13 +46,8 @@ export default function SelectPane({ mode, errorMessage }: Props) {
   </div>
 }
 
-function _selectDirecting(
-  event: React.ChangeEvent<HTMLSelectElement>,
-  setDirecting: React.Dispatch<React.SetStateAction<IDirecting | undefined>>
-) {
-  const current = event.currentTarget.value
-  const directing = session.getMe()?.roles[0].directings.find(e => e.id.toString() === current)
-  setDirecting(directing)
+function _getDirecting(id?: string) {
+  return session.getMe()?.roles[0].directings.find(e => e.id.toString()=== id)
 }
 
 function _mekeOptions(mode: string, rows?: IRow[]) {

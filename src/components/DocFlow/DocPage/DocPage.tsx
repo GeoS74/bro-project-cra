@@ -18,32 +18,50 @@ export default function DocPage() {
 
   if (showForm) {
     return <div className={styles.root}>
-      <EditForm setShowForm={setShowForm} updDoc={setDoc} />
+      <EditForm setShowForm={setShowForm} updDoc={setDoc} doc={doc}/>
     </div>
   }
 
   return <div className={styles.root}>
-    <h3 className="mb-4">{doc.title}</h3>
-
-    <small>{doc.directing?.title} / {doc.task?.title}</small>
-    <p className="mt-2">{doc.description}</p>
-
+    <div className="mt-4 mb-4">
     {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
       <button type="button"
-        className="btn btn-outline-light mt-4 mb-4"
+        className="btn btn-outline-light mt-2"
         onClick={() => setShowForm(true)}
       >Редактировать документ</button>
       : <></>}
 
     {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
       <button type="button"
-        className="btn btn-outline-light mt-4 mb-4"
+        className="btn btn-outline-light mt-2"
         onClick={() => {
           _delDoc(doc.id);
           navigate('/docflow');
         }}
       >Удалить документ</button>
       : <></>}
+    </div>
+
+
+    <h3 className="mb-4">{doc.title}</h3>
+
+    <small>{doc.directing?.title} / {doc.task?.title}</small>
+
+    <h5 className="mt-4">Прикреплённые файлы:</h5>
+    <ul>
+      {doc.files.map(file => {
+        return <li key={file.fileName + doc.id}>
+          <a
+          className="text-muted"
+            href={`${serviceHost('informator')}/api/informator/docflow/scan/${file.fileName}`}
+            download={true}
+          >{file.originalName}</a>
+        </li>
+      })}
+    </ul>
+
+
+    <p className="mt-2">{doc.description}</p>
   </div>
 }
 

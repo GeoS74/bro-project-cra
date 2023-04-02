@@ -15,11 +15,12 @@ import styles from "./styles.module.css"
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
+  doc?: IDoc
   addDoc?: (row: IDoc) => void
   updDoc?: (row: IDoc) => void
 }
 
-export default function EditForm({ setShowForm, addDoc, updDoc }: Props) {
+export default function EditForm({ setShowForm, doc, addDoc, updDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorDocMessage>();
 
@@ -32,9 +33,13 @@ export default function EditForm({ setShowForm, addDoc, updDoc }: Props) {
       <fieldset disabled={disabled} className="form-group">
         <legend>{addDoc ? "Создание документа" : "Изменение документа"}</legend>
 
-        <SelectPane errorMessage={errorMessage} mode={addDoc ? "create" : "update"} />
+        <SelectPane 
+        directingId={doc?.directing.id.toString()}
+        taskId={doc?.task.id.toString()}
+        errorMessage={errorMessage} 
+        mode={addDoc ? "create" : "update"} />
 
-        <TitleDoc errorMessage={errorMessage} />
+        <TitleDoc errorMessage={errorMessage} title={doc?.title}/>
 
         <FileNameList fileList={fileList} setFileList={setFileList} />
 
