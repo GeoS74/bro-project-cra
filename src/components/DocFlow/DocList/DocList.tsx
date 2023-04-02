@@ -4,12 +4,12 @@ import { useLoaderData } from "react-router-dom";
 import session from "../../../libs/token.manager"
 import finder from "../../../libs/deep.finder"
 import Doc from "../Doc/Doc"
+import EditForm from "../EditForm/EditForm";
 import styles from "./styles.module.css"
 
 export default function DocList() {
   session.subscribe('task');
-  const [idActiveDoc, setIdActiveDoc] = useState('-1');
-
+  const [showForm, setShowForm] = useState(false);
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
 
   return <div className={styles.root} >
@@ -18,24 +18,15 @@ export default function DocList() {
     {finder(session.getMe()?.roles, 'Создать') ?
       <button type="button"
         className="btn btn-outline-light mt-4 mb-4"
-        onClick={() => setIdActiveDoc('0')}
+        onClick={() => setShowForm(true)}
       >Создать документ</button>
       : <></>
     }
 
-    {idActiveDoc === '0' ?
-      <Doc
-        id={idActiveDoc}
-        idActiveDoc={idActiveDoc}
-        setIdActiveDoc={setIdActiveDoc}
-        addDoc={(newDoc: IDoc) => setDocs([newDoc, ...docs])}
-      /> : <></>}
+    {showForm ?
+      <EditForm setShowForm={setShowForm} addDoc={(newDoc: IDoc) => setDocs([newDoc, ...docs])} />
+      : <></>}
 
-    {docs.map(doc => <Doc
-      key={doc.id}
-      {...doc}
-      idActiveDoc={idActiveDoc}
-      setIdActiveDoc={setIdActiveDoc}
-    />)}
+    {docs.map(doc => <Doc key={doc.id} {...doc} />)}
   </div>
 }

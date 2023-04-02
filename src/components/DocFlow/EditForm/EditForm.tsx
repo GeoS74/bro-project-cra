@@ -10,67 +10,52 @@ import TextPane from "./TextPane/TextPane";
 import TitleDoc from "./TitleDoc/TitleDoc";
 import FileInput from "./FileInput/FileInput";
 import FileNameList from "./FileNameList/FileNameList"
+import classNames from "classnames"
 import styles from "./styles.module.css"
 
 type Props = {
-  setIdActiveDoc: React.Dispatch<React.SetStateAction<string>>
-  setValueDoc: React.Dispatch<React.SetStateAction<{
-    id: string;
-    title: string | undefined;
-    description: string | undefined;
-    directing: IRow | undefined;
-    task: IRow | undefined;
-    author: IRow | undefined;
-    files: IDocFile[] | undefined;
-  }>>
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>
   addDoc?: (row: IDoc) => void
 }
 
-export default function EditForm({ setIdActiveDoc, setValueDoc, addDoc }: Props) {
+export default function EditForm({ setShowForm, addDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorDocMessage>();
 
   const [fileList, setFileList] = useState<FileList[]>([])
 
-  return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setIdActiveDoc, setValueDoc, setErrorResponse, fileList, addDoc)}
-  >
-    <fieldset disabled={disabled} className="form-group">
-      <legend>{addDoc ? "Создание документа" : "Изменение документа"}</legend>
+  return <div className={classNames(styles.root, "mt-2")}>
+    <form
+      onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, addDoc)}
+    >
+      <fieldset disabled={disabled} className="form-group">
+        <legend>{addDoc ? "Создание документа" : "Изменение документа"}</legend>
 
-      <SelectPane errorMessage={errorMessage} mode={addDoc ? "create" : "update"} />
+        <SelectPane errorMessage={errorMessage} mode={addDoc ? "create" : "update"} />
 
-      <TitleDoc errorMessage={errorMessage} />
-      
-      <FileNameList fileList={fileList} setFileList={setFileList}/>
+        <TitleDoc errorMessage={errorMessage} />
 
-      <FileInput errorMessage={errorMessage}
-        setFileList={(file: FileList) => setFileList([...fileList, file])} />
+        <FileNameList fileList={fileList} setFileList={setFileList} />
 
-      <TextPane />
+        <FileInput errorMessage={errorMessage}
+          setFileList={(file: FileList) => setFileList([...fileList, file])} />
 
-      <input type="submit" className="btn btn-outline-light" value="Записать" />
+        <TextPane />
 
-      <span className="btn btn-outline-light" onClick={() => setIdActiveDoc('-1')}>Отмена</span>
+        <input type="submit" className="btn btn-outline-light" value="Записать" />
 
-      <input type="hidden" name="author" defaultValue={session.getMe()?.email} />
-    </fieldset>
-  </form>
+        <span className="btn btn-outline-light" onClick={() => setShowForm(false)}>Отмена</span>
+
+        <input type="hidden" name="author" defaultValue={session.getMe()?.email} />
+      </fieldset>
+    </form>
+  </div>
 }
 
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
-  setIdActiveDoc: React.Dispatch<React.SetStateAction<string>>,
-  setValueDoc: React.Dispatch<React.SetStateAction<{
-    id: string;
-    title: string | undefined;
-    description: string | undefined;
-    directing: IRow | undefined;
-    task: IRow | undefined;
-    author: IRow | undefined;
-    files: IDocFile[] | undefined;
-  }>>,
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorDocMessage | undefined>>,
   fileList: FileList[],
   addDoc?: (row: IDoc) => void
@@ -93,14 +78,14 @@ function _onSubmit(
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
-        setIdActiveDoc('-1')
+        setShowForm(false)
 
         if (addDoc) {
           addDoc(res)
           return;
         }
 
-        setValueDoc(res)
+        // setValueDoc(res)
         return;
       }
       else if (response.status === 400) {
