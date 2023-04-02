@@ -25,6 +25,5 @@ export default function DocRow(doc: IDoc) {
     <p>{doc.description}</p>
 
     <small>{doc.directing?.title} / {doc.task?.title}</small>
-    <small>{doc.title}</small>
   </div>
 }

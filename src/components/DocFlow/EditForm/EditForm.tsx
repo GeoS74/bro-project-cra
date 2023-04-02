@@ -9,6 +9,7 @@ import SelectPane from "./SelectPane/SelectPane";
 import TextPane from "./TextPane/TextPane";
 import TitleDoc from "./TitleDoc/TitleDoc";
 import FileInput from "./FileInput/FileInput";
+import FileLinkList from "./FileLinkList/FileLinkList"
 import FileNameList from "./FileNameList/FileNameList"
 import classNames from "classnames"
 import styles from "./styles.module.css"
@@ -28,7 +29,7 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc }: Props) {
 
   return <div className={classNames(styles.root, "mt-2")}>
     <form
-      onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, addDoc, updDoc)}
+      onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
     >
       <fieldset disabled={disabled} className="form-group">
         <legend>{addDoc ? "Создание документа" : "Изменение документа"}</legend>
@@ -41,12 +42,14 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc }: Props) {
 
         <TitleDoc errorMessage={errorMessage} title={doc?.title}/>
 
+        <FileLinkList docId={doc?.id} files={doc?.files} />
+
         <FileNameList fileList={fileList} setFileList={setFileList} />
 
         <FileInput errorMessage={errorMessage}
           setFileList={(file: FileList) => setFileList([...fileList, file])} />
 
-        <TextPane />
+        <TextPane description={doc?.description} />
 
         <input type="submit" className="btn btn-outline-light" value="Записать" />
 
@@ -64,6 +67,7 @@ function _onSubmit(
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorDocMessage | undefined>>,
   fileList: FileList[],
+  doc?: IDoc,
   addDoc?: (row: IDoc) => void,
   updDoc?: (row: IDoc) => void
 ) {
@@ -74,7 +78,7 @@ function _onSubmit(
 
   fileList.map(f => fd.append('scans', f[0]))
 
-  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow`, {
+  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc?.id || ''}`, {
     method: addDoc ? 'POST' : 'PATCH',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`

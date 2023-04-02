@@ -3,16 +3,24 @@ import classNames from "classnames"
 import addDescIcon from "./image/addDescIcon.svg"
 import styles from "./styles.module.css"
 
-export default function TextPane() {
+type Props = {
+  description: string | undefined
+}
+
+export default function TextPane({ description }: Props) {
   return <div className={classNames("form-group mb-4", styles.root)}>
 
-    <p className="mt-4" onClick={_showTextarea}>
-    <img src={addDescIcon} loading="lazy"/>
-      <small>Добавить пояснительную записку</small></p>
+    {
+      !description ?
+        <p className="mt-4" onClick={_showTextarea}>
+          <img src={addDescIcon} loading="lazy" />
+          <small>Добавить пояснительную записку</small></p>
+        : <></>
+    }
 
-    <div hidden>
+    <div hidden={!description}>
       <label htmlFor="descTextarea" className="form-label mt-4">Пояснительная записка</label>
-      <textarea className="form-control" id="descTextarea" name="description"></textarea>
+      <textarea className="form-control" id="descTextarea" name="description" defaultValue={description}></textarea>
     </div>
   </div>
 }
