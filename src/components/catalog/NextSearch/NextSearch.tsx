@@ -24,9 +24,10 @@ async function onSubmit(
   limit: number) {
 
   const query = sessionStorage.getItem('lastQuery') || "";
+  const lastId = searchResult?.positions[searchResult?.positions.length-1].id;
 
   setHiddenNextSearch(true)
-  const result = await fetcher(query, offset + limit, limit)
+  const result = await fetcher(query, offset + limit, limit, lastId)
     .finally(() => setHiddenNextSearch(false));
 
   if (!result) {

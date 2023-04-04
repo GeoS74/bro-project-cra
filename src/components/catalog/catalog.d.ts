@@ -11,6 +11,7 @@ interface ISearchResult {
 * интерфейс объекта продукта, возвращаемого микросервисом "bridge"
 */
 interface IProduct {
+  id:number
   createdAt: string
   brandId: number
   brantTitle: string
