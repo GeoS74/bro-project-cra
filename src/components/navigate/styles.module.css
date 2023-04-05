@@ -13,3 +13,7 @@
 .root div:nth-child(2){
   flex: 1;
 }
+
+.root img{
+  width: 8em;
+}

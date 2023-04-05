@@ -4,6 +4,8 @@ import {
   redirect,
 } from "react-router-dom";
 
+// import Main from "../components/Main/Main"
+// import session from "../libs/token.manager"
 import catalogRouter from './catalog.router'
 import authRouter from './auth.router'
 import aboutCompanyRouter from './about.router'
@@ -15,6 +17,8 @@ const router = createBrowserRouter([
   {
     path: "/",
     loader: () => redirect('/catalog'),
+    // element: <Main />,
+    // loader: () => session.start(),
   },
   catalogRouter,
   authRouter,

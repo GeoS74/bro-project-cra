@@ -4,13 +4,15 @@ import session from "../../libs/token.manager"
 import Greet from "./Greet/Greet";
 import styles from "./styles.module.css"
 import classNames from "classnames";
+import logo from "./image/logo.svg"
 
 export default function Navigate() {
   session.subscribe('navigate')
 
   return <nav className={classNames(styles.root, "navbar navbar-expand-lg navbar-dark bg-primary")}>
     <div className="container-fluid">
-      <Link className="navbar-brand" to="/">Marketplace</Link>
+      <Link className="navbar-brand" to="/"><img src={logo} loading="lazy"/></Link>
+
       <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
