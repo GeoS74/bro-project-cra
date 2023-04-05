@@ -1,7 +1,7 @@
-import classNames from "classnames"
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 
 import uploadIcon from "./image/uploadScan.svg"
+import classNames from "classnames"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -25,8 +25,7 @@ export default function FileInput({ errorMessage, setFileList }: Props) {
       <small>Добавить файл</small></p>
 
     <input type="file" onChange={event => _change(event, setFileList)} hidden />
-
-    {errorMessage?.field === "files" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
+    {errorMessage?.field === "file" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </div>
 }
 

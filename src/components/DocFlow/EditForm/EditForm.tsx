@@ -44,7 +44,7 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc }: Props) {
 
         <FileLinkList docId={doc?.id} files={doc?.files} />
 
-        <FileNameList fileList={fileList} setFileList={setFileList} />
+        <FileNameList fileList={fileList} setFileList={setFileList} errorMessage={errorMessage} />
 
         <FileInput errorMessage={errorMessage}
           setFileList={(file: FileList) => setFileList([...fileList, file])} />
@@ -119,6 +119,8 @@ function _getErrorResponse(error: string): IErrorDocMessage {
       return { field: "directSelect", message: "Не выбрано направление" }
     case "invalid task id":
       return { field: "taskSelect", message: "Не выбран тип документа" }
+    case "bad mime type":
+      return { field: "fileUpload", message: "Не поддерживаемый тип файлов" }
     default: return { field: "", message: "" }
   }
 }

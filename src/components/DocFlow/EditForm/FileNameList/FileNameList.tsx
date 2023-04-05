@@ -1,13 +1,14 @@
+import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 import styles from "./styles.module.css"
-
 import classNames from "classnames";
 
 type Props = {
   fileList: FileList[],
-  setFileList: React.Dispatch<React.SetStateAction<FileList[]>>
+  setFileList: React.Dispatch<React.SetStateAction<FileList[]>>,
+  errorMessage: IErrorDocMessage | undefined
 }
 
-export default function FileInput({ fileList, setFileList }: Props) {
+export default function FileInput({ fileList, setFileList, errorMessage }: Props) {
   return <div className={classNames("mt-4", styles.root)}>
     {fileList.length ? <><legend>Файлы:</legend><hr></hr></> : <></>}
 
@@ -27,6 +28,7 @@ export default function FileInput({ fileList, setFileList }: Props) {
           ><small>удалить файл</small></span>
         </li>))}
     </ul>
+    {errorMessage?.field === "fileUpload" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </div>
 }
 
