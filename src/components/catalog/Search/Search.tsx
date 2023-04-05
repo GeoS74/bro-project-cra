@@ -14,7 +14,7 @@ export default function Search() {
 
     <SearchForm
       offset={0}
-      limit={2}
+      limit={25}
       setSearchResult={setSearchResult} 
       setHiddenNextSearch={setHiddenNextSearch} />
 
