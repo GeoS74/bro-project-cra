@@ -4,10 +4,11 @@
   position: absolute;
   top: 0;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
 }
-.root img{
-  width: 50em;
+.root h1{
+  color: white;
+  font-size: 5em;
 }

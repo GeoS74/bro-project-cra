@@ -21,7 +21,7 @@ export const UploadPriceFormTabPane = () => {
           onClick={() => setActiveTab("main")}
           className={classNames("nav-link", activeTab === "main" ? "active" : "")}>Основные</span>
       </li>
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <span
           onClick={() => setActiveTab("optional")}
           className={classNames("nav-link", activeTab === "optional" ? "active" : "")}>Дополнительные</span>
@@ -30,7 +30,7 @@ export const UploadPriceFormTabPane = () => {
         <span
           onClick={() => setActiveTab("properties")}
           className={classNames("nav-link", activeTab === "properties" ? "active" : "")}>Характеристики</span>
-      </li>
+      </li> */}
     </ul>
 
     <div className="tab-content">

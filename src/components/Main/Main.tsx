@@ -6,8 +6,8 @@ export default function Main() {
     return <>
         <Navigate />
         <div className={styles.root}>
-            <img src={logo} loading="lazy" />
-            <h3>Поиск позиций</h3>
+            <h1>Redial Trade</h1>
+            <p><small>bearing company since of 2012</small></p>
         </div>
     </>
 }

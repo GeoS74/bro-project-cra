@@ -52,7 +52,7 @@ function _onSubmit(
 }
 
 function _uploadPrice(event: React.FormEvent<HTMLFormElement>) {
-  return fetch(`${serviceHost("bridge")}/api/bridge/file/upload`, {
+  return fetch(`${serviceHost("bridge")}/api/bridge/file/upload/redial-trade`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
