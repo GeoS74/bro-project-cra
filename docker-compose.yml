@@ -110,17 +110,17 @@ services:
         limits:
           memory: 500M
     
-  react:
-    build: .
-    ports:
-      - "8080:80"
-    environment:
-      - HOST_BRIDGE=bridge_app
-      - PORT_BRIDGE=3500
-      - HOST_MAUTH=mauth_app
-      - PORT_MAUTH=3001
-      - HOST_INFORMATOR=informator
-      - PORT_INFORMATOR=3200
+  # react:
+  #   build: .
+  #   ports:
+  #     - "8080:80"
+  #   environment:
+  #     - HOST_BRIDGE=bridge_app
+  #     - PORT_BRIDGE=3500
+  #     - HOST_MAUTH=mauth_app
+  #     - PORT_MAUTH=3001
+  #     - HOST_INFORMATOR=informator
+  #     - PORT_INFORMATOR=3200
 volumes:
   init-db-bridge:
   db-bridge:
