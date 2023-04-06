@@ -6,14 +6,23 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 import logo from "./image/logo.svg"
 
+function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  event.currentTarget.classList.toggle('collapsed')
+  event.currentTarget.nextElementSibling?.classList.toggle('show');
+}
+
 export default function Navigate() {
   session.subscribe('navigate')
 
-  return <nav className={classNames(styles.root, "navbar navbar-expand-lg navbar-dark bg-primary")}>
+  return <div className={styles.root}>
+    <div>
+    <nav className={classNames("navbar navbar-expand-lg navbar-dark bg-primary")}>
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">Redial Trade</Link>
 
-      <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01"
+        aria-expanded="true" aria-label="Toggle navigation"
+        onClick={_toggleMenu}>
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarColor01">
@@ -53,6 +62,8 @@ export default function Navigate() {
         </ul>
       </div>
     </div>
-    <Greet />
   </nav>
+    </div>
+  <Greet />
+  </div>
 }

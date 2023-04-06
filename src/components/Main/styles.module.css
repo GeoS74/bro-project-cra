@@ -9,6 +9,12 @@
   align-items: center;
 }
 .root h1{
+  font-size: 2.5em;
+}
+.root h1>a{
   color: white;
-  font-size: 5em;
+  text-decoration: none;
+}
+.root h1>a:hover{
+  cursor: pointer;
 }
