@@ -14,4 +14,8 @@ server {
   location /api/mauth/ {
     proxy_pass http://${HOST_MAUTH}:${PORT_MAUTH};
   }
+
+  location /api/informator/ {
+    proxy_pass http://${HOST_INFORMATOR}:${PORT_INFORMATOR};
+  }
 }

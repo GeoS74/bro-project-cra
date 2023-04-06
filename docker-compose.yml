@@ -44,8 +44,8 @@ services:
       - DB_HOST=db_mauth
       - DB_NAME=mauth
       - DB_PASS=admin
-      - MAIL_USER=jany.ankunding23@ethereal.email
-      - MAIL_PASS=2MbdmBBW1Dba8HJSH3
+      - MAIL_USER=carlos.mclaughlin74@ethereal.email
+      - MAIL_PASS=HHFkMdCtXwYpy7Ej7a
       - MAIL_HOST=smtp.ethereal.email
       - MAIL_PORT=587
       - MAIL_SECURE=false
@@ -110,15 +110,17 @@ services:
         limits:
           memory: 500M
     
-  # react:
-  #   build: .
-  #   ports:
-  #     - "8080:80"
-  #   environment:
-  #     - HOST_BRIDGE=bridge_app
-  #     - PORT_BRIDGE=3500
-  #     - HOST_MAUTH=mauth_app
-  #     - PORT_MAUTH=3001
+  react:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - HOST_BRIDGE=bridge_app
+      - PORT_BRIDGE=3500
+      - HOST_MAUTH=mauth_app
+      - PORT_MAUTH=3001
+      - HOST_INFORMATOR=informator
+      - PORT_INFORMATOR=3200
 volumes:
   init-db-bridge:
   db-bridge:
