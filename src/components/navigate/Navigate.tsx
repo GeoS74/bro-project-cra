@@ -16,9 +16,9 @@ export default function Navigate() {
 
   return <div className={styles.root}>
     <div>
-      <nav className={classNames("navbar navbar-expand-lg navbar-dark bg-primary")}>
+      <nav className={classNames("navbar navbar-expand-lg navbar-dark")}>
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/"><img src={logo} loading="lazy" /></Link>
+          <Link className="navbar-brand" to="/"><img src={logo} loading="lazy" id={logo}/></Link>
 
           <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
           onClick={_toggleMenu} >
