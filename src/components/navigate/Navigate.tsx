@@ -4,8 +4,12 @@ import session from "../../libs/token.manager"
 import Toggle from "./Toggle/Toggle";
 import Greet from "./Greet/Greet";
 import styles from "./styles.module.css"
-import classNames from "classnames";
 import logo from "./image/logo.svg"
+
+function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  event.currentTarget.classList.toggle('collapsed')
+  event.currentTarget.nextElementSibling?.classList.toggle('show');
+}
 
 export default function Navigate() {
   session.subscribe('navigate')
@@ -15,11 +19,13 @@ export default function Navigate() {
 
     <div className={styles.root}>
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-lg navbar-dark">
           <div className="container-fluid">
             <Link className="navbar-brand" to="/"><img src={logo} loading="lazy" /></Link>
 
-            <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
+              onClick={_toggleMenu}
+            >
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarColor01">

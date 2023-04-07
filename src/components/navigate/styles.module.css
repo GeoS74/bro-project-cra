@@ -3,7 +3,7 @@
   display: flex;
   flex-flow: row nowrap !important;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 }
 .root span{
   cursor: pointer !important;
@@ -13,6 +13,7 @@
   flex: 12;
 }
 .root div:nth-child(2){
+  margin-top: 20px;
   flex: 1;
 }
 
