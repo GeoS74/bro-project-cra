@@ -1,3 +1,17 @@
-body {
-  background-color: #1a1a1a;
+:root[data-theme="light"] {
+  /* filter: invert(1);
+  --color: #ffffff; */
+  --background-color: #ffffff;
 }
+
+:root[data-theme="dark"] {
+  --background-color: #1a1a1a;
+}
+
+body {
+  background: var(--background-color) !important;
+}
+/* 
+h1, h2, h3, h4, p,  input{
+  color: var(--color) !important;
+} */
