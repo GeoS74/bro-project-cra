@@ -2,9 +2,13 @@ declare module "*.module.scss" {
   const classes: { readonly [key: string]: string };
   export default classes;
 }
+type StyleTheme = "dark" | "light"
+interface IThemeContext {
+    theme: StyleTheme;
+    setTheme: Dispatch<SetStateAction<StyleTheme>>;
+}
 
 type ServiceName = "bridge" | "mauth" | "informator"
-type StyleTheme = "dark" | "light"
 type PopupMode = "success" | "danger" | undefined
 type AuthFormMode = "signin" | "signup" | "forgot"
 /*
@@ -19,11 +23,6 @@ type AuthInfoCardMode = "confirm" | "recovery"
 interface ISimpleRow {
   id: number
   title: string
-}
-
-interface IThemeContext {
-    theme: StyleTheme;
-    setTheme: Dispatch<SetStateAction<StyleTheme>>;
 }
 
 /*
@@ -113,7 +112,6 @@ interface ITask extends ISimpleRow {
 /*
 *интерфейс настроек компоненты  SimpleList
 */
-// type SL = "brands" | "providers" | "roles" | "directings" | "tasks" | "actions"
 interface ISimpleListConf {
   brands: IListConf,
   providers: IListConf,
