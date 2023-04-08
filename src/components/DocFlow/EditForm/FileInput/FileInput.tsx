@@ -5,7 +5,7 @@ import classNames from "classnames"
 import styles from "./styles.module.css"
 
 type Props = {
-  errorMessage: IErrorDocMessage | undefined
+  errorMessage: IErrorMessage | undefined
   setFileList: (file: FileList) => void
 }
 

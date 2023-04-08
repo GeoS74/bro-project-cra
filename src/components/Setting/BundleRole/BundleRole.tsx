@@ -6,7 +6,7 @@ import styles from "./styles.module.css"
 import { useState } from "react";
 
 export default function BundleRole() {
-  const [usersAll, roles] = useLoaderData() as [IUser[], IRow[]];
+  const [usersAll, roles] = useLoaderData() as [IUser[], ISimpleRow[]];
 
   const [users, setUsers] = useState(usersAll)
 

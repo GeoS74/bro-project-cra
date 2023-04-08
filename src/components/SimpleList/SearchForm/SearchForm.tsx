@@ -10,7 +10,7 @@ type Props = {
   serviceName: ServiceName,
   api: string,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
-  setRows: React.Dispatch<React.SetStateAction<IRow[]>>,
+  setRows: React.Dispatch<React.SetStateAction<ISimpleRow[]>>,
   placeholderSearch?: string,
 }
 
@@ -32,7 +32,7 @@ function _searchRow(
   serviceName: ServiceName,
   api: string,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
-  setRows: React.Dispatch<React.SetStateAction<IRow[]>>,
+  setRows: React.Dispatch<React.SetStateAction<ISimpleRow[]>>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>) {
 
   event.preventDefault()

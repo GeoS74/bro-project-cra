@@ -8,7 +8,7 @@ import styles from "./styles.module.css"
 
 type Props = {
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>
-  roles: IRow[],
+  roles: ISimpleRow[],
   setUser: React.Dispatch<React.SetStateAction<IUser>>
   user: IUser
 }
@@ -65,6 +65,6 @@ function _submit(
     });
 }
 
-function _mekeOptions(roles: IRow[]) {
+function _mekeOptions(roles: ISimpleRow[]) {
   return roles.map((role, index) => <option value={role.id} key={index}>{role.title}</option>)
 }

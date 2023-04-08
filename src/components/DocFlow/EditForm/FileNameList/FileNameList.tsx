@@ -5,7 +5,7 @@ import classNames from "classnames";
 type Props = {
   fileList: FileList[],
   setFileList: React.Dispatch<React.SetStateAction<FileList[]>>,
-  errorMessage: IErrorDocMessage | undefined
+  errorMessage: IErrorMessage | undefined
 }
 
 export default function FileInput({ fileList, setFileList, errorMessage }: Props) {

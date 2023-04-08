@@ -10,7 +10,7 @@ type Props = {
   directingId: string | undefined
   taskId: string | undefined
   mode: string
-  errorMessage: IErrorDocMessage | undefined
+  errorMessage: IErrorMessage | undefined
 }
 
 export default function SelectPane({ directingId, taskId, mode, errorMessage }: Props) {
@@ -25,7 +25,7 @@ export default function SelectPane({ directingId, taskId, mode, errorMessage }: 
         defaultValue={directingId}
       >
         <option value="">Выберите направление</option>
-        {_mekeOptions(mode, session.getMe()?.roles[0].directings as IRow[])}
+        {_mekeOptions(mode, session.getMe()?.roles[0].directings as ISimpleRow[])}
       </select>
 
       {errorMessage?.field === "directSelect" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
@@ -50,7 +50,7 @@ function _getDirecting(id?: string) {
   return session.getMe()?.roles[0].directings.find(e => e.id.toString()=== id)
 }
 
-function _mekeOptions(mode: string, rows?: IRow[]) {
+function _mekeOptions(mode: string, rows?: ISimpleRow[]) {
   if (rows) {
     return rows.map((row, index) => {
       if (finder(row, mode === 'create' ? 'Создать' : 'Редактировать')) {

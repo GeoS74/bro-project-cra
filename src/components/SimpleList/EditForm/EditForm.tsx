@@ -14,7 +14,7 @@ type Props = {
   setValueRow: React.Dispatch<React.SetStateAction<string | undefined>>,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   api: string,
-  addRow?: (row: IRow) => void,
+  addRow?: (row: ISimpleRow) => void,
 }
 
 export default function EditForm({ serviceName, id, setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
@@ -46,7 +46,7 @@ function _onSubmit(
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   setError: React.Dispatch<React.SetStateAction<string | undefined>>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
-  addRow?: (row: IRow) => void) {
+  addRow?: (row: ISimpleRow) => void) {
 
   event.preventDefault()
   setDisabled(true)

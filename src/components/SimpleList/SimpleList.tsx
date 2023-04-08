@@ -13,7 +13,7 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
   if(!Array.isArray(preloadData)){
     preloadData = [];
   }
-  const [rows, setRows] = useState(preloadData as IRow[])
+  const [rows, setRows] = useState(preloadData as ISimpleRow[])
 
   return <div className={styles.root}>
     <h3>{dataList[typeList].title}</h3>
@@ -34,7 +34,7 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
         idActiveRow={idActiveRow}
         setIdActiveRow={setIdActiveRow}
         listConf={dataList[typeList]}
-        addRow={(newRow: IRow) => setRows([newRow, ...rows])}
+        addRow={(newRow: ISimpleRow) => setRows([newRow, ...rows])}
       /> : <></>}
 
       {_makeList(rows, idActiveRow, setIdActiveRow, dataList[typeList])}
@@ -45,7 +45,7 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
 }
 
 function _makeList(
-  rows: IRow[],
+  rows: ISimpleRow[],
   idActiveRow: number,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   data: IListConf) {

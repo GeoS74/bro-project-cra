@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 
 type Props = {
-  setFormMode: React.Dispatch<React.SetStateAction<formMode>>
+  setFormMode: React.Dispatch<React.SetStateAction<AuthFormMode>>
 }
 
 export const LabelForgot = ({ setFormMode }: Props) => {

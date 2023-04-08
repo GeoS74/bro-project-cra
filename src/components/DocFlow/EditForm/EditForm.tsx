@@ -23,7 +23,7 @@ type Props = {
 
 export default function EditForm({ setShowForm, doc, addDoc, updDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
-  const [errorMessage, setErrorResponse] = useState<IErrorDocMessage>();
+  const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
 
   const [fileList, setFileList] = useState<FileList[]>([])
 
@@ -65,7 +65,7 @@ function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
-  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorDocMessage | undefined>>,
+  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>,
   fileList: FileList[],
   doc?: IDoc,
   addDoc?: (row: IDoc) => void,
@@ -110,8 +110,7 @@ function _onSubmit(
     .finally(() => setDisabled(false));
 }
 
-function _getErrorResponse(error: string): IErrorDocMessage {
-  console.log(error)
+function _getErrorResponse(error: string): IErrorMessage {
   switch (error) {
     case "invalid title":
       return { field: "title", message: "Введите название документа" }

@@ -1,8 +1,8 @@
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
 type Props = {
-  formMode: formMode,
-  errorMessage: IErrorAuthMessage | undefined
+  formMode: AuthFormMode,
+  errorMessage: IErrorMessage | undefined
 }
 
 export const YourName = ({ formMode, errorMessage }: Props) => {

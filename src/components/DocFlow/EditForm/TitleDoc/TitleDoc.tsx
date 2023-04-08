@@ -2,7 +2,7 @@ import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 
 type Props = {
   title: string | undefined
-  errorMessage: IErrorDocMessage | undefined
+  errorMessage: IErrorMessage | undefined
 }
 
 export default function TitleDoc({ title, errorMessage }: Props) {
