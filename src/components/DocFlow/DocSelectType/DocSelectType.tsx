@@ -6,7 +6,7 @@ import EditForm from "../EditForm/EditForm"
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
-  addDoc?: (row: IDoc) => void
+  addDoc?: ((row: IDoc) => void) | undefined
 }
 
 export default function DocSelectType({ setShowForm, addDoc }: Props) {

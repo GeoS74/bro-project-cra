@@ -30,26 +30,6 @@ export default function DocPage() {
   return <div className={styles.root}>
     <small>{doc.directing?.title} / {doc.task?.title}</small>
 
-
-    <div className="mt-4 mb-4">
-      {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
-        <button type="button"
-          className="btn btn-outline-light mt-2"
-          onClick={() => setShowForm(true)}
-        >Редактировать документ</button>
-        : <></>}
-
-      {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
-        <button type="button"
-          className="btn btn-outline-light mt-2"
-          onClick={() => {
-            _delDoc(doc.id);
-            navigate('/docflow');
-          }}
-        >Удалить документ</button>
-        : <></>}
-    </div>
-
     <h3 className="mt-2">{doc.title}</h3>
 
 
@@ -69,6 +49,25 @@ export default function DocPage() {
 
 
     <p className="mt-2">{doc.description}</p>
+
+    <div className="mt-4 mb-4">
+      {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
+        <button type="button"
+          className="btn btn-outline-light mt-2"
+          onClick={() => setShowForm(true)}
+        >Редактировать документ</button>
+        : <></>}
+
+      {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
+        <button type="button"
+          className="btn btn-outline-light mt-2"
+          onClick={() => {
+            _delDoc(doc.id);
+            navigate('/docflow');
+          }}
+        >Удалить документ</button>
+        : <></>}
+    </div>
   </div>
 }
 

@@ -56,7 +56,6 @@ interface ISearchResult {
   offset: number
   positions: IProduct[]
 }
-
 /*
 * интерфейс объекта продукта, возвращаемого микросервисом "bridge"
 */
