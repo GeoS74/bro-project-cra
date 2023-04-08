@@ -12,7 +12,7 @@ ReactDOM.createRoot(
   .render(
     <React.Fragment>
       <ThemeProvider>
-        {router}
-      </ThemeProvider>      
+          {router}   
+      </ThemeProvider>  
     </React.Fragment>
   );

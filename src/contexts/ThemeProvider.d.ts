@@ -1,4 +1,6 @@
+type StyleTheme = "dark" | "light";
+
 interface ITheme {
-    theme: string;
-    setTheme?: Dispatch<SetStateAction<T>>;
+    theme: StyleTheme;
+    setTheme: Dispatch<SetStateAction<StyleTheme>>;
 }

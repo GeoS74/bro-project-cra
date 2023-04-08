@@ -1,7 +1,7 @@
 :root[data-theme="light"] {
-  filter: invert(1);
-  --color: #ffffff;
-  --background-color: #000000;
+  /* filter: invert(1);
+  --color: #ffffff; */
+  --background-color: #ffffff;
 }
 
 :root[data-theme="dark"] {
@@ -11,7 +11,7 @@
 body {
   background: var(--background-color) !important;
 }
-
+/* 
 h1, h2, h3, h4, p,  input{
   color: var(--color) !important;
-}
+} */

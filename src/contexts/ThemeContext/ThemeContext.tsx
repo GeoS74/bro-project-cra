@@ -1,12 +1,8 @@
 import React from "react";
 
-export const themes = {
-    dark: "dark",
-    light: "light",
+const defaultState: ITheme = {
+  theme: "dark",
+  setTheme: (): void => {throw new Error('setContext function must be overridden');},
 };
 
-const defaultState = {
-    theme: "dark",
-};
-
-export const ThemeContext = React.createContext<ITheme>(defaultState);
+export const ThemeContext = React.createContext(defaultState as ITheme);
