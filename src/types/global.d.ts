@@ -137,3 +137,8 @@ interface IUser {
   photo?: string
   status?: string
 }
+
+type DocType = {
+  directing: IDirecting
+  task?: ITask
+}

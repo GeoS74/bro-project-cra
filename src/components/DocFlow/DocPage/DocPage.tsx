@@ -17,8 +17,13 @@ export default function DocPage() {
   const [showForm, setShowForm] = useState(false);
 
   if (showForm) {
+    const typeDoc: DocType = {
+      directing: doc.directing as IDirecting,
+      task: doc.task as ITask
+    }
+
     return <div className={styles.root}>
-      <EditForm setShowForm={setShowForm} updDoc={setDoc} doc={doc} />
+      <EditForm setShowForm={setShowForm} updDoc={setDoc} doc={doc} typeDoc={typeDoc}/>
     </div>
   }
 
