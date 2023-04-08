@@ -32,7 +32,11 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
     onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
   >
     <fieldset disabled={disabled} className="form-group">
-      <legend>{addDoc ? "Создание документа" : "Изменение документа"}</legend>
+
+    <small>{typeDoc.directing.title} / {typeDoc.task?.title}</small>
+
+
+      <legend className="mt-3">{addDoc ? "Создание документа" : "Изменение документа"}</legend>
 
       {/* <SelectPane 
     directingId={doc?.directing.id.toString()}

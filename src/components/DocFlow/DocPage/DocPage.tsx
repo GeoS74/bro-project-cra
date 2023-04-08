@@ -23,11 +23,14 @@ export default function DocPage() {
     }
 
     return <div className={styles.root}>
-      <EditForm setShowForm={setShowForm} updDoc={setDoc} doc={doc} typeDoc={typeDoc}/>
+      <EditForm setShowForm={setShowForm} updDoc={setDoc} doc={doc} typeDoc={typeDoc} />
     </div>
   }
 
   return <div className={styles.root}>
+    <small>{doc.directing?.title} / {doc.task?.title}</small>
+
+
     <div className="mt-4 mb-4">
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
         <button type="button"
@@ -47,11 +50,9 @@ export default function DocPage() {
         : <></>}
     </div>
 
-    <small>{doc.directing?.title} / {doc.task?.title}</small>
-
     <h3 className="mt-2">{doc.title}</h3>
 
-     
+
     {doc.files.length ? <p className="mt-4">Прикреплённые файлы:</p> : <></>}
 
     <ul>
