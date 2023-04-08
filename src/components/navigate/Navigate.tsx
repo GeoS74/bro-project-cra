@@ -56,17 +56,6 @@ export default function Navigate() {
                   <Link to="/about" className="nav-link">О компании</Link>
                 </li>
 
-                {/* <li className="nav-item">
-            <Link to="/catalog/edit/test" className="nav-link">Тест</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/catalog/edit/test2" className="nav-link">Тест 2</Link>
-          </li> */}
-
-                <li className="nav-item">
-                  <Link to="/about" className="nav-link">О компании</Link>
-                </li>
-
 
                 {session.getMe() ? <li className="nav-item">
                   <Link to="/user" className="nav-link">Кабинет</Link>

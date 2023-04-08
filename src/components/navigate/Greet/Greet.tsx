@@ -2,13 +2,11 @@ import { Link } from "react-router-dom";
 
 import session from "../../../libs/token.manager"
 import styles from "./styles.module.css"
-import Toggle from "../Toggle/Toggle";
 
 export default function Greet() {
   session.subscribe('greet')
 
   return <div className={styles.root}>
-    <Toggle />
     {session.getMe() ? <>
 
       <Link to="/user" className="nav-link">{session.getMe()?.email}</Link>
