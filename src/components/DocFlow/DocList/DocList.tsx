@@ -6,21 +6,21 @@ import finder from "../../../libs/deep.finder"
 import DocRow from "../DocRow/DocRow"
 import SearchForm from "../SearchForm/SearchForm";
 import NextSearch from "../NextSearch/NextSearch";
-// import EditForm from "../EditForm/EditForm"
 import DocSelectType from "../DocSelectType/DocSelectType"
 import styles from "./styles.module.css"
 
-const limitDocs = 25;
+const docsLimit = 25;
 
 export default function DocList() {
   session.subscribe('task');
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
   const [showForm, setShowForm] = useState(false);
+  const [showNextButton , setShowNextButton] = useState(true)
 
   return <div className={styles.root} >
     <h3>Мои документы</h3>
 
-    <SearchForm setDocs={setDocs} limit={limitDocs} setShowForm={setShowForm}/>
+    <SearchForm setDocs={setDocs} limit={docsLimit} setShowForm={setShowForm} setShowNextButton={setShowNextButton}/>
 
     {showForm ?
       <DocSelectType setShowForm={setShowForm} addDoc={(newDoc: IDoc) => setDocs([newDoc, ...docs])} />
@@ -36,7 +36,13 @@ export default function DocList() {
 
         {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
 
-        <NextSearch setDocs={setDocs} lastId={docs[docs.length-1].id}/>
+        <NextSearch
+          setDocs={(newDocs: IDoc[]) => setDocs([...docs, ...newDocs])}
+          lastId={docs[docs.length - 1]?.id}
+          limit={docsLimit}
+          showNextButton={showNextButton}
+          setShowNextButton={setShowNextButton}
+        />
       </>}
   </div>
 }

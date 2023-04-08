@@ -32,7 +32,6 @@ export default function DocPage() {
 
     <h3 className="mt-2">{doc.title}</h3>
 
-
     {doc.files.length ? <p className="mt-4">Прикреплённые файлы:</p> : <></>}
 
     <ul>

@@ -7,20 +7,18 @@ import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
 
 type Props = {
-  // setHiddenNextSearch: React.Dispatch<React.SetStateAction<boolean>>
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
   setDocs: React.Dispatch<React.SetStateAction<IDoc[]>>
+  setShowNextButton: React.Dispatch<React.SetStateAction<boolean>>
   limit: number
-  last?: number
 }
 
-export default function SearchForm({/*etHiddenNextSearch, */setShowForm, setDocs, last, limit }: Props) {
+export default function SearchForm({setShowNextButton, setShowForm, setDocs, limit }: Props) {
   const [disabled, setDisabled] = useState(false)
 
   return <form id="searchForm" className={styles.root}
     onSubmit={(event) => {
-      // setHiddenNextSearch(false)
-      onSubmit(event, setDisabled, setDocs, setShowForm, limit, last)
+      onSubmit(event, setDisabled, setDocs, setShowForm, setShowNextButton, limit)
     }}>
     
     <fieldset disabled={disabled}>
@@ -35,11 +33,12 @@ async function onSubmit(
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   setDocs: React.Dispatch<React.SetStateAction<IDoc[]>>,
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
-  limit: number,
-  last?: number
+  setShowNextButton: React.Dispatch<React.SetStateAction<boolean>>,
+  limit: number
   ) {
 
   event.preventDefault()
+  setShowNextButton(true)
 
   const fd = new FormData(event.target as HTMLFormElement)
 
@@ -61,6 +60,9 @@ async function onSubmit(
       if (response.ok) {
         const res = await response.json()
         setDocs(res)
+
+        setShowNextButton(!!res.length)
+
         return;
       }
       throw new Error(`response status: ${response.status}`)
