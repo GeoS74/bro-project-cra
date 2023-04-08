@@ -5,6 +5,7 @@ import session from "../../../libs/token.manager"
 import finder from "../../../libs/deep.finder"
 import DocRow from "../DocRow/DocRow"
 import SearchForm from "../SearchForm/SearchForm";
+import NextSearch from "../NextSearch/NextSearch";
 // import EditForm from "../EditForm/EditForm"
 import DocSelectType from "../DocSelectType/DocSelectType"
 import styles from "./styles.module.css"
@@ -34,6 +35,8 @@ export default function DocList() {
         }
 
         {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
+
+        <NextSearch setDocs={setDocs} lastId={docs[docs.length-1].id}/>
       </>}
   </div>
 }
