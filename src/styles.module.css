@@ -1,10 +1,12 @@
 :root[data-theme="light"] {
   /* filter: invert(1);
-  --color: #ffffff; */
+   */
+  --color: #1a1a1a;
   --background-color: #ffffff;
 }
 
 :root[data-theme="dark"] {
+  --color: #ffffff;
   --background-color: #1a1a1a;
 }
 

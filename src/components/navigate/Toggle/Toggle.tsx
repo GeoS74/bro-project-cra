@@ -9,6 +9,7 @@ export default function Toggle() {
           <ThemeContext.Consumer>
             {({ theme, setTheme }) => (
               <input type="checkbox"
+                defaultChecked={theme !== "dark"}
                 onClick={() => (theme === "dark" ? setTheme("light") : setTheme("dark"))}
               />
             )}
