@@ -5,9 +5,6 @@ export const PropertiesTab = () => {
     </div>
 
     <div className="form-group col-sm-3">
-      <label htmlFor="manufacturer" className="form-label mt-2">Производитель</label>
-      <input type="text" name="manufacturer" className="form-control" id="manufacturer" />
-
       <label htmlFor="weight" className="form-label mt-3">Вес, кг</label>
       <input type="text" name="weight" className="form-control" id="weight" />
 

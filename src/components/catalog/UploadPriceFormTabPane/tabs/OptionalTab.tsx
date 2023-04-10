@@ -31,6 +31,9 @@ export const OptionalTab = () => {
       <label htmlFor="amount" className="form-label mt-3">Количество</label>
       <input type="text" name="amount" className="form-control" id="amount" />
 
+      <label htmlFor="manufacturer" className="form-label mt-2">Производитель</label>
+      <input type="text" name="manufacturer" className="form-control" id="manufacturer" />
+
       <label htmlFor="code" className="form-label mt-3">Код позиции</label>
       <input type="text" name="code" className="form-control" id="code" />
     </div>

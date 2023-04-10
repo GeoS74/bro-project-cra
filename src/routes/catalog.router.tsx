@@ -4,6 +4,7 @@ import Catalog from "../components/catalog/Catalog"
 import Search from "../components/catalog/Search/Search"
 import SimpleList from "../components/SimpleList/SimpleList"
 import UploadPrice from "../components/catalog/UploadPrice/UploadPrice"
+import DownloadPrice from "../components/catalog/DownloadPrice/DownloadPrice";
 import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
 import tokenManager from "../libs/token.manager"
@@ -38,6 +39,11 @@ export default {
           }
         })
         .catch(() => redirect('/auth'))
+    },
+    {
+      path: "/catalog/download/price",
+      element: <><DownloadPrice /></>,
+      loader: () => session.start(),
     },
   ]
 }
