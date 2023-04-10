@@ -1,9 +1,14 @@
 import styles from "./styles.module.css";
 import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 export const Button = ({ formMode }: { formMode: AuthFormMode }) => {
   return <div>
-    <button className={classNames(styles.root, "btn btn-outline-light mt-4")}>{_getTitle(formMode)}</button>
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <button className={classNames(styles.root, `mt-4 btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)}>{_getTitle(formMode)}</button>
+      )}
+    </ThemeContext.Consumer>
   </div>
 };
 

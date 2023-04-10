@@ -7,5 +7,5 @@
   white-space: nowrap;
 }
 .root a:hover{
-  color: white;
+  color: var(--color);
 }

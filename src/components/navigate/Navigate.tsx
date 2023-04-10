@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext";
 import session from "../../libs/token.manager"
 
 import Toggle from "./Toggle/Toggle";
 import Greet from "./Greet/Greet";
 import styles from "./styles.module.css"
+import classNames from "classnames";
 import logo from "./image/logo.svg"
 
 function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -17,9 +19,15 @@ export default function Navigate() {
   return <div>
     <Toggle />
 
+
+   
+
+
     <div className={styles.root}>
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark">
+      <ThemeContext.Consumer>
+      {({ theme }) => (
+        <nav className={classNames(styles.root, `navbar navbar-expand-lg navbar-${theme === 'light' ? 'primary' : 'dark'}`)}>
           <div className="container-fluid">
             <Link className="navbar-brand" to="/"><img src={logo} loading="lazy" /></Link>
 
@@ -102,6 +110,8 @@ export default function Navigate() {
             </div>
           </div>
         </nav>
+      )}
+    </ThemeContext.Consumer>
       </div>
       <Greet />
     </div>

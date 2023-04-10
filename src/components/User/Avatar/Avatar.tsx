@@ -5,7 +5,7 @@ import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import tokenManager from "../../../libs/token.manager"
 import styles from "./styles.module.css"
-import person from "./image/person.svg"
+import { ReactComponent as Person } from "./image/person.svg"
 
 type Props = {
   userPhoto?: string,
@@ -15,7 +15,12 @@ export default function Avatar({ userPhoto }: Props) {
   const [photo, setPhoto] = useState(userPhoto)
 
   return <form className={styles.root} onChange={event => _changePhoto(event, setPhoto)}>
-    <img src={_getAvatar(photo)} loading="lazy" onClick={_fileSelection} />
+    <div onClick={_fileSelection}>
+      {!photo ?
+        <Person width="150" height="150" />
+        : <img src={`${serviceHost('informator')}/api/informator/user/photo/${photo}`} loading="lazy" onClick={_fileSelection} />
+      }
+    </div>
 
     <input type="file" accept="image/*" name="photo" hidden />
   </form>
@@ -45,10 +50,6 @@ function _changePhoto(
       throw new Error(`response status: ${response.status}`)
     })
     .catch(error => console.log(error.message))
-}
-
-function _getAvatar(photo: string | undefined) {
-  return !photo ? person : `${serviceHost('informator')}/api/informator/user/photo/${photo}`;
 }
 
 function _fileSelection(event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
