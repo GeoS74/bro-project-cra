@@ -40,9 +40,21 @@ export default function Navigate() {
                   </li>
                   : <></>}
 
+                {session.getMe() ?
+                  <li className="nav-item">
+                    <Link to="/catalog" className="nav-link">Каталог</Link>
+                  </li>
+                  : <></>}
+
+                {session.getMe() ?
+                  <li className="nav-item">
+                    <Link to="/catalog/download/price" className="nav-link">Скачать прайс</Link>
+                  </li>
+                  : <></>}
+
                 {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item dropdown">
-                    <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Каталог</span>
+                    <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Прайс</span>
                     <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
                       <Link to="/catalog/edit/brands" className="dropdown-item">Бренды</Link>
                       <Link to="/catalog/edit/providers" className="dropdown-item">Поставщики</Link>

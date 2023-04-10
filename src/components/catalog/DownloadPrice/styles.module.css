@@ -1,0 +1,14 @@
+.root h3,
+.root p {
+  color: var(--color);
+}
+
+.root img {
+  height: 50px;
+  overflow: hidden;
+}
+
+.linker:hover{
+  text-decoration: underline;
+  cursor: pointer
+}
