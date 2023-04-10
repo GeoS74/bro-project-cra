@@ -45,7 +45,7 @@ async function onSubmit(
       if (response.ok) {
         const res = await response.json()
         setDocs(res)
-        console.log(res.length)
+
         if(!res.length){
           setShowNextButton(false)
         }

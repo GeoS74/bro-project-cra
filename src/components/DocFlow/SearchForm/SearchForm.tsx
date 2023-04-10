@@ -38,7 +38,6 @@ async function onSubmit(
   ) {
 
   event.preventDefault()
-  setShowNextButton(true)
 
   const fd = new FormData(event.target as HTMLFormElement)
 
@@ -57,6 +56,7 @@ async function onSubmit(
   }))
     .then(responseNotIsArray)
     .then(async response => {
+      setShowNextButton(true)
       if (response.ok) {
         const res = await response.json()
         setDocs(res)

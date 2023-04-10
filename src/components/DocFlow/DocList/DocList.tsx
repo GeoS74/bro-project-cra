@@ -36,13 +36,16 @@ export default function DocList() {
 
         {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
 
-        <NextSearch
+        {docs.length > 0 ? <NextSearch
           setDocs={(newDocs: IDoc[]) => setDocs([...docs, ...newDocs])}
           lastId={docs[docs.length - 1]?.id}
           limit={docsLimit}
           showNextButton={showNextButton}
           setShowNextButton={setShowNextButton}
         />
+      : <></>}
+
+        
       </>}
   </div>
 }

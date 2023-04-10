@@ -13,6 +13,7 @@ services:
       - NODE_ENV=dev
       - JWT_CHECK=true
       - JWT_SECRET_KEY=any_secret
+      - ACTUAL_TTL=7 day
     volumes:
       - init-db-bridge:/bridge/libs
     deploy:
