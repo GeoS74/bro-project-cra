@@ -2,8 +2,8 @@ version: '1.0'
 services:
   bridge_app:
     image: "geos74/bridge:0.0.2"
-    ports:
-      - "3100:3500"
+    # ports:
+    #   - "3100:3500"
     environment:
       - SERVER_PORT=3500
       - DB_USER=bridge
@@ -35,8 +35,8 @@ services:
           memory: 100M
   mauth_app:
     image: "geos74/mauth:1.0.0"
-    ports:
-      - "3001:3001"
+    # ports:
+    #   - "3001:3001"
     environment:
       - SERVER_PORT=3001
       - NODE_ENV=dev
@@ -54,7 +54,7 @@ services:
       - JWT_TTL=1800
       - JWT_SECRET_KEY=any_secret
       - VERIFICATION_TTL=10 minute
-      # - VERIFICATION_IGNORE=false
+      - VERIFICATION_IGNORE=true
       - SESSION_TTL=30 day
       - TPL_CONFIRM_PATH=/auth/confirm # /api/mauth/confirm
       # - TPL_RECOVERY_PATH=/api/mauth/forgot
@@ -79,8 +79,8 @@ services:
           memory: 100M
   informator:
     image: "geos74/informator:0.0.1"
-    ports:
-      - "3200:3200"
+    # ports:
+    #   - "3200:3200"
     environment:
       - SERVER_PORT=3200
       - NODE_ENV=dev
@@ -112,17 +112,18 @@ services:
         limits:
           memory: 500M
     
-  # react:
-  #   build: .
-  #   ports:
-  #     - "8080:80"
-  #   environment:
-  #     - HOST_BRIDGE=bridge_app
-  #     - PORT_BRIDGE=3500
-  #     - HOST_MAUTH=mauth_app
-  #     - PORT_MAUTH=3001
-  #     - HOST_INFORMATOR=informator
-  #     - PORT_INFORMATOR=3200
+  react:
+    image: "geos74/edo:0.0.1"
+    # build: .
+    ports:
+      - "8080:80"
+    environment:
+      - HOST_BRIDGE=bridge_app
+      - PORT_BRIDGE=3500
+      - HOST_MAUTH=mauth_app
+      - PORT_MAUTH=3001
+      - HOST_INFORMATOR=informator
+      - PORT_INFORMATOR=3200
 volumes:
   init-db-bridge:
   db-bridge:
