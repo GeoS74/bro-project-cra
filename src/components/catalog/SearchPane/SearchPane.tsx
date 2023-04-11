@@ -11,7 +11,7 @@ export default function SearchPane({ products }: Props) {
 
       <header className="border-light mt-4">
         <div>Наименование, артикул</div>
-        <div>Бренд</div>
+        <div></div>
         <div>Производитель</div>
         <div>Остаток</div>
         <div>Цена</div>
@@ -30,7 +30,7 @@ function _makeList(products: IProduct[]) {
         <p>{p.title}</p>
         <p>{p.article}</p>
       </div>
-      <div>{p.brantTitle}</div>
+      <div></div>
       <div>{p.manufacturer}</div>
       <div>{p.amount || "под заказ"}</div>
       <div>{p.price || <small>Уточняйте у менеджера</small>}</div>
