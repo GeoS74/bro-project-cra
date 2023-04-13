@@ -56,7 +56,7 @@ services:
       - VERIFICATION_TTL=10 minute
       - VERIFICATION_IGNORE=true
       - SESSION_TTL=30 day
-      - TPL_CONFIRM_PATH=/auth/confirm # /api/mauth/confirm
+      - TPL_CONFIRM_PATH=/auth/confirm # or use route mauth app: /api/mauth/confirm
       # - TPL_RECOVERY_PATH=/api/mauth/forgot
     volumes:
       - init-db-mauth:/mauth/libs
@@ -116,7 +116,7 @@ services:
     image: "geos74/edo:0.0.1"
     # build: .
     ports:
-      - "8080:80"
+      - "3000:80"
     environment:
       - HOST_BRIDGE=bridge_app
       - PORT_BRIDGE=3500

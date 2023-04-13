@@ -1,20 +1,21 @@
+const prod = true; 
 export default {
   catalog: {
     back: {
-      host: '',
-      port: 0,
+      host: prod ? '' : 'http://localhost',
+      port: prod ? 0 : 3100,
     }
   },
   auth: {
     back: {
-      host: '',
-      port: 0,
+      host: prod ? '' : 'http://localhost',
+      port: prod ? 0 : 3001,
     }
   },
   info: {
     back: {
-      host: '',
-      port: 0,
+      host: prod ? '' : 'http://localhost',
+      port: prod ? 0 : 3200,
     }
   }
 }
