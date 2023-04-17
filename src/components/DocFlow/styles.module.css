@@ -3,5 +3,5 @@
 }
 
 .root>h1 {
-  color: white;
+  color: var(--color);
 }

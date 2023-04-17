@@ -9,6 +9,8 @@ import fetchWrapper from "../../../libs/fetch.wrapper";
 import serviceHost from "../../../libs/service.host";
 import EditForm from "../EditForm/EditForm";
 import styles from "./styles.module.css"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 export default function DocPage() {
   session.subscribe('doc');
@@ -51,24 +53,33 @@ export default function DocPage() {
 
     <div className="mt-4 mb-4">
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
-        <button type="button"
-          className="btn btn-outline-light mt-2"
-          onClick={() => setShowForm(true)}
-        >Редактировать документ</button>
+        <ThemeContext.Consumer>
+          {({ theme }) => (
+            <button type="button"
+              className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
+              onClick={() => setShowForm(true)}
+            >Редактировать документ</button>
+          )}
+        </ThemeContext.Consumer>
         : <></>}
 
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
-        <button type="button"
-          className="btn btn-outline-light mt-2"
-          onClick={() => {
-            _delDoc(doc.id);
-            navigate('/docflow');
-          }}
-        >Удалить документ</button>
+        <ThemeContext.Consumer>
+          {({ theme }) => (
+            <button type="button"
+              className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
+              onClick={() => {
+                _delDoc(doc.id);
+                navigate('/docflow');
+              }}
+            >Удалить документ</button>
+          )}
+        </ThemeContext.Consumer>
         : <></>}
     </div>
   </div>
 }
+
 
 function _checkUpdateAction(idDirecting: number, idTask: number, action: string) {
   return session.getMe()?.roles[0]
@@ -94,5 +105,6 @@ function _delDoc(id: string) {
       }
       throw new Error(`response status: ${response.status}`)
     })
-    .catch(error => console.log(error.message));
+    .catch(error => console.log(error.message))
+    // .finally(() => navigate('/docflow'))
 }

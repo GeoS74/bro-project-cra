@@ -6,7 +6,8 @@ import Toggle from "./Toggle/Toggle";
 import Greet from "./Greet/Greet";
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import logo from "./image/logo.svg"
+// import logo from "./image/logo.svg"
+import SvgLogo from "./SvgLogo/SvgLogo";
 
 function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
   event.currentTarget.classList.toggle('collapsed')
@@ -29,7 +30,7 @@ export default function Navigate() {
       {({ theme }) => (
         <nav className={classNames(styles.root, `navbar navbar-expand-lg navbar-${theme === 'light' ? 'primary' : 'dark'}`)}>
           <div className="container-fluid">
-            <Link className="navbar-brand" to="/"><img src={logo} loading="lazy" /></Link>
+          <Link className={classNames("navbar-brand")} to="/"><SvgLogo theme={theme} /></Link>
 
             <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
               onClick={_toggleMenu}

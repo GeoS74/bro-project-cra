@@ -4,11 +4,13 @@ import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setDocs: (newDocs: IDoc[]) => void
   lastId: string
-  limit:number
+  limit: number
   showNextButton: boolean
   setShowNextButton: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -16,12 +18,19 @@ type Props = {
 export default function NextSearch({ setDocs, lastId, limit, showNextButton, setShowNextButton }: Props) {
   const [disabled, setDisabled] = useState(false)
 
-  return <button
-    hidden={!showNextButton}
-    disabled={disabled}
-    onClick={() => onSubmit(lastId, limit, setDisabled, setDocs, setShowNextButton)}
-    type="button" className="btn btn-outline-light mt-4">Загрузить ещё</button>
+  return <ThemeContext.Consumer>
+    {({ theme }) => (
+      <button
+        hidden={!showNextButton}
+        disabled={disabled}
+        onClick={() => onSubmit(lastId, limit, setDisabled, setDocs, setShowNextButton)}
+        type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}>Загрузить ещё</button>
+    )}
+  </ThemeContext.Consumer>
 }
+
+
+
 
 async function onSubmit(
   lastId: string,
@@ -46,7 +55,7 @@ async function onSubmit(
         const res = await response.json()
         setDocs(res)
 
-        if(!res.length){
+        if (!res.length) {
           setShowNextButton(false)
         }
         return;

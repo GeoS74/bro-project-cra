@@ -22,7 +22,6 @@ export default function DocRow(doc: IDoc) {
       })}
     </ul>
 
-
     <p>{doc.description}</p>
   </div>
 }

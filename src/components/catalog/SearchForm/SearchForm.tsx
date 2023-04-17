@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 import styles from "./styles.module.css"
 import fetcher from "../fetcher"
 
@@ -21,7 +23,12 @@ export default function SearchForm({setHiddenNextSearch, setSearchResult, offset
     
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control" placeholder="Поиск позиций" />
-      <input type="submit" className="btn btn-outline-light" value="Поиск" />
+
+      <ThemeContext.Consumer>
+      {({ theme }) => (
+        <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Поиск" />
+      )}
+    </ThemeContext.Consumer>
     </fieldset>
   </form>
 }

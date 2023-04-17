@@ -15,6 +15,7 @@
 
 .root fieldset>input[type=search] {
   flex: 0.7;
+  border: solid 2px var(--color);
 }
 
 .root fieldset>input[type=submit]{

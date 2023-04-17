@@ -3,9 +3,12 @@
   color: var(--color);
 }
 
+.root svg,
 .root img {
   height: 50px;
   overflow: hidden;
+  color: var(--color) !important;
+  fill: var(--color) !important;
 }
 
 .linker:hover{

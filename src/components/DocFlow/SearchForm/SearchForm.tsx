@@ -5,6 +5,8 @@ import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -13,20 +15,26 @@ type Props = {
   limit: number
 }
 
-export default function SearchForm({setShowNextButton, setShowForm, setDocs, limit }: Props) {
+export default function SearchForm({ setShowNextButton, setShowForm, setDocs, limit }: Props) {
   const [disabled, setDisabled] = useState(false)
 
   return <form id="searchForm" className={styles.root}
     onSubmit={(event) => {
       onSubmit(event, setDisabled, setDocs, setShowForm, setShowNextButton, limit)
     }}>
-    
+
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control" placeholder="Введите название документа" />
-      <input type="submit" className="btn btn-outline-light" value="Поиск" />
+      <ThemeContext.Consumer>
+        {({ theme }) => (
+          <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Поиск" />
+        )}
+      </ThemeContext.Consumer>
     </fieldset>
   </form>
 }
+
+
 
 async function onSubmit(
   event: React.FormEvent<HTMLFormElement>,
@@ -35,7 +43,7 @@ async function onSubmit(
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setShowNextButton: React.Dispatch<React.SetStateAction<boolean>>,
   limit: number
-  ) {
+) {
 
   event.preventDefault()
 
@@ -46,8 +54,8 @@ async function onSubmit(
   setDisabled(true)
   setShowForm(false)
 
-  const url = fd.get('query') ? `/api/informator/docflow/search/doc/?title=${fd.get('query')}&limit=${limit}&last=` 
-  : `/api/informator/docflow`
+  const url = fd.get('query') ? `/api/informator/docflow/search/doc/?title=${fd.get('query')}&limit=${limit}&last=`
+    : `/api/informator/docflow`
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}${url}`, {
     headers: {

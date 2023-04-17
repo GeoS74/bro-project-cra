@@ -13,6 +13,8 @@ import FileLinkList from "./FileLinkList/FileLinkList"
 import FileNameList from "./FileNameList/FileNameList"
 import HiddenInput from "./HiddenInput/HiddenInput";
 import styles from "./styles.module.css"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -33,7 +35,7 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   >
     <fieldset disabled={disabled} className="form-group">
 
-    <small>{typeDoc.directing.title} / {typeDoc.task?.title}</small>
+      <small>{typeDoc.directing.title} / {typeDoc.task?.title}</small>
 
 
       <legend className="mt-3">{addDoc ? "Создание документа" : "Изменение документа"}</legend>
@@ -57,14 +59,22 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
 
       <HiddenInput typeDoc={typeDoc} />
 
-      <input type="submit" className="btn btn-outline-light" value="Записать" />
+      <ThemeContext.Consumer>
+        {({ theme }) => (
+          <>
+            <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Записать" />
 
-      <span className="btn btn-outline-light" onClick={() => setShowForm(false)}>Отмена</span>
+            <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => setShowForm(false)}>Отмена</span>
+          </>
+        )}
+      </ThemeContext.Consumer>
 
       <input type="hidden" name="author" defaultValue={session.getMe()?.email} />
     </fieldset>
   </form>
 }
+
+
 
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
