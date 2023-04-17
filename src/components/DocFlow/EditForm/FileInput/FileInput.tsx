@@ -1,6 +1,6 @@
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 
-import uploadIcon from "./image/uploadScan.svg"
+import { ReactComponent as UploadIcon } from "./image/file-earmark-arrow-up.svg"
 import classNames from "classnames"
 import styles from "./styles.module.css"
 
@@ -21,7 +21,7 @@ export default function FileInput({ errorMessage, setFileList }: Props) {
   >
 
     <p className="mt-4">
-      <img src={uploadIcon} loading="lazy" />
+      <UploadIcon width="50" height="50" />
       <small>Добавить файл</small></p>
 
     <input type="file" onChange={event => _change(event, setFileList)} hidden />

@@ -5,6 +5,8 @@ import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   serviceName: ServiceName,
@@ -28,14 +30,22 @@ export default function EditForm({ serviceName, id, setValueRow, setIdActiveRow,
     <fieldset disabled={disabled}>
       <input type="text" name="title" className="form-control" placeholder={placeholder} defaultValue={value} autoFocus={true} />
 
-      <input type="submit" className="btn btn-outline-light" value="Добавить" />
+      <ThemeContext.Consumer>
+        {({ theme }) => (
+          <>
+            <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Добавить" />
 
-      <span className="btn btn-outline-light" onClick={() => setIdActiveRow(-1)}>Отмена</span>
-      
+            <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => setIdActiveRow(-1)}>Отмена</span>
+          </>
+        )}
+      </ThemeContext.Consumer>
+
     </fieldset>
     {error ? <strong>{error}</strong> : ''}
   </form>
 }
+
+
 
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,

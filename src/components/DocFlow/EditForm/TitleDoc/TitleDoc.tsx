@@ -1,6 +1,7 @@
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 // import classNames from "classnames";
 // import { ThemeContext } from "../../../../contexts/ThemeContext/ThemeContext";
+import styles from "./styles.module.css"
 
 type Props = {
   title: string | undefined
@@ -9,7 +10,7 @@ type Props = {
 
 export default function TitleDoc({ title, errorMessage }: Props) {
   return <>
-    <div>
+    <div className={styles.root}>
       <label htmlFor="titleInput" className="form-label mt-1">Название документа</label>
       <input 
         type="text" 

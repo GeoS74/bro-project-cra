@@ -1,6 +1,6 @@
 import classNames from "classnames"
 
-import addDescIcon from "./image/addDescIcon.svg"
+import { ReactComponent as AddDescIcon } from "./image/file-earmark-font.svg"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -13,7 +13,7 @@ export default function TextPane({ description }: Props) {
     {
       !description ?
         <p className="mt-4" onClick={_showTextarea}>
-          <img src={addDescIcon} loading="lazy" />
+          <AddDescIcon width="30" height="30" />
           <small>Добавить пояснительную записку</small></p>
         : <></>
     }
