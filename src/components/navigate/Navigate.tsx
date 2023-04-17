@@ -6,7 +6,7 @@ import Toggle from "./Toggle/Toggle";
 import Greet from "./Greet/Greet";
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import logo from "./image/logo.svg"
+import SvgLogo from "./SvgLogo/SvgLogo";
 
 function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
   event.currentTarget.classList.toggle('collapsed')
@@ -18,18 +18,15 @@ export default function Navigate() {
 
   return <div>
     <Toggle />
-
-
-   
-
-
     <div className={styles.root}>
       <div>
       <ThemeContext.Consumer>
       {({ theme }) => (
         <nav className={classNames(styles.root, `navbar navbar-expand-lg navbar-${theme === 'light' ? 'primary' : 'dark'}`)}>
-          <div className="container-fluid">
-            <Link className="navbar-brand" to="/"><img src={logo} loading="lazy" /></Link>
+          
+          <div className={classNames("container-fluid", styles.containerFluid)}>
+            <Link className={classNames("navbar-brand")} to="/"><SvgLogo theme={theme} /></Link>
+            
 
             <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
               onClick={_toggleMenu}
@@ -39,30 +36,30 @@ export default function Navigate() {
             <div className="collapse navbar-collapse" id="navbarColor01">
               <ul className="navbar-nav me-auto">
                 <li className="nav-item">
-                  <Link to="/" className="nav-link active">Home</Link>
+                  <Link to="/" className={classNames(styles.link,"nav-link active")}>Home</Link>
                 </li>
 
                 {session.getMe() ?
                   <li className="nav-item">
-                    <Link to="/docflow" className="nav-link">С.Э.Д.</Link>
+                    <Link to="/docflow" className={classNames(styles.link,"nav-link")}>С.Э.Д.</Link>
                   </li>
                   : <></>}
 
                 {session.getMe() ?
                   <li className="nav-item">
-                    <Link to="/catalog" className="nav-link">Каталог</Link>
+                    <Link to="/catalog" className={classNames(styles.link,"nav-link")}>Каталог</Link>
                   </li>
                   : <></>}
 
                 {session.getMe() ?
                   <li className="nav-item">
-                    <Link to="/catalog/download/price" className="nav-link">Скачать прайс</Link>
+                    <Link to="/catalog/download/price" className={classNames(styles.link,"nav-link")}>Скачать прайс</Link>
                   </li>
                   : <></>}
 
                 {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item dropdown">
-                    <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Прайс</span>
+                    <span className={classNames(styles.link,"nav-link dropdown-toggle")} onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Прайс</span>
                     <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
                       <Link to="/catalog/edit/brands" className="dropdown-item">Бренды</Link>
                       <Link to="/catalog/edit/providers" className="dropdown-item">Поставщики</Link>
@@ -73,19 +70,19 @@ export default function Navigate() {
                   : <></>}
 
                 <li className="nav-item">
-                  <Link to="/about" className="nav-link">О компании</Link>
+                  <Link to="/about" className={classNames(styles.link,"nav-link")}>О компании</Link>
                 </li>
 
 
                 {session.getMe() ? <li className="nav-item">
-                  <Link to="/user" className="nav-link">Кабинет</Link>
+                  <Link to="/user" className={classNames(styles.link,"nav-link")}>Кабинет</Link>
                 </li>
                   : <></>}
 
 
                 {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item dropdown">
-                    <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
+                    <span className={classNames(styles.link,"nav-link dropdown-toggle")} onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
                     <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
                       <Link to="/setting/edit/roles" className="dropdown-item">Роли</Link>
                       <Link to="/setting/edit/directings" className="dropdown-item">Направления</Link>

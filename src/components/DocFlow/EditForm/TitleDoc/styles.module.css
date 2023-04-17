@@ -1,0 +1,13 @@
+.root label {
+  color: var(--color);
+}
+
+.input {
+  color: var(--background-color) !important;
+  background-color: var(--color) !important;
+  caret-color: var(--background-color);
+}
+
+.input::placeholder {
+  color: var(--background-color);  
+}

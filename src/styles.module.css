@@ -1,12 +1,12 @@
 :root[data-theme="light"] {
-  /* filter: invert(1);
-   */
   --color: #1a1a1a;
-  --background-color: #ffffff;
+  --color-link: #1a1a1a;
+  --background-color: #f1f1f1;
 }
 
 :root[data-theme="dark"] {
   --color: #ffffff;
+  --color-link: #ffffff93;
   --background-color: #1a1a1a;
 }
 

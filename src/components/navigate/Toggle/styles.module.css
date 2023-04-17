@@ -68,11 +68,11 @@
   
   .model .checkbox label {
     background: none;
-    border: 1px solid #555;
+    border: 1px solid var(--color);
     height: 17px;
   }
   .model .checkbox label:after {
-    background: #555;
+    background: var(--color);
     box-shadow: none;
     top: 1px;
     left: 1px;

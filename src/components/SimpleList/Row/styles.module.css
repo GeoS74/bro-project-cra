@@ -9,5 +9,5 @@
 
 .li>span:hover {
   cursor: pointer;
-  color: white !important;
+  color: var(--color) !important;
 }

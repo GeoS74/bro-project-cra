@@ -9,5 +9,5 @@
 .root>h5,
 .root>h6,
 p {
-  color: white;
+  color: var(--color) !important;
 }

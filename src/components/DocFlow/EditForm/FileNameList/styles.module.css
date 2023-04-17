@@ -1,5 +1,5 @@
 .root li:hover{
-  color: white !important;
+  color: var(--color);
   cursor: pointer;
 }
 .root span{

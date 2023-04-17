@@ -1,3 +1,22 @@
 .root {
   max-width: 400px;
 }
+
+.root input {
+  background-color: var(--color);
+}
+
+.root input {
+  color: var(--background-color);
+  background-color: var(--color);
+}
+
+.root input:focus {
+  color: var(--background-color);
+  background-color: var(--color);
+  caret-color: var(--background-color);
+}
+
+.root input::placeholder {
+  color: var(--background-color);
+}

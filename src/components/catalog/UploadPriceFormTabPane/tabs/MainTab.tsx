@@ -1,4 +1,6 @@
 import { useLoaderData } from "react-router-dom";
+import styles from "./styles.module.css"
+import classNames from "classnames";
 
 export const MainTab = () => {
   /*
@@ -7,7 +9,7 @@ export const MainTab = () => {
   */
   const loaderData = useLoaderData() as ISimpleRow[][];
 
-  return <>
+  return <div className={styles.rootMain}>
     <div className="form-group col-sm-5">
       <label htmlFor="brandSelect" className="form-label mt-4">Бренды</label>
 
@@ -28,9 +30,9 @@ export const MainTab = () => {
 
     <div className="form-group col-sm-4">
       <label htmlFor="formFile" className="form-label mt-4">Прайс в формате Excel (.xls, .xlsx)</label>
-      <input className="form-control" name="file" type="file" id="formFile" />
+      <input className="form-control" name="file" type="file" id="formFile" placeholder="выберите файл"/>
     </div>
-  </>
+  </div>
 }
 
 function _makeOptions(brands: ISimpleRow[]) {

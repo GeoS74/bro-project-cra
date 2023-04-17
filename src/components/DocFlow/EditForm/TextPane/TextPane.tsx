@@ -1,7 +1,7 @@
 import classNames from "classnames"
 
-import addDescIcon from "./image/addDescIcon.svg"
 import styles from "./styles.module.css"
+import AddDescIcon from "./AddDescIcon/AddDescIcon"
 
 type Props = {
   description: string | undefined
@@ -13,7 +13,7 @@ export default function TextPane({ description }: Props) {
     {
       !description ?
         <p className="mt-4" onClick={_showTextarea}>
-          <img src={addDescIcon} loading="lazy" />
+          <AddDescIcon />
           <small>Добавить пояснительную записку</small></p>
         : <></>
     }

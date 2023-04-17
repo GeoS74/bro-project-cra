@@ -1,0 +1,15 @@
+.root {
+  color: var(--color);
+}
+
+.root textarea {
+  color: var(--background-color);
+  background-color: var(--color);
+  caret-color: var(--background-color);
+}
+
+.root textarea:focus {
+  color: var(--background-color);
+  background-color: var(--color);
+  caret-color: var(--background-color);
+}

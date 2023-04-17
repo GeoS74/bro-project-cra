@@ -5,7 +5,8 @@
 }
 .root h3,
 .root li,
-.root legend {
+.root legend,
+.root p{
   color: var(--color);
 }
 

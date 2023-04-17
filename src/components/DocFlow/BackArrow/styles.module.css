@@ -1,0 +1,5 @@
+.root {
+  fill: var(--color);
+  transform: rotate(270deg);
+  margin-right: 10px;
+}

@@ -1,6 +1,6 @@
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 
-import uploadIcon from "./image/uploadScan.svg"
+import UploadIcon from "./UploadIcon/UploadIcon"
 import classNames from "classnames"
 import styles from "./styles.module.css"
 
@@ -20,11 +20,11 @@ export default function FileInput({ errorMessage, setFileList }: Props) {
     onDragOver={event => event.preventDefault()}
   >
 
-    <p className="mt-4">
-      <img src={uploadIcon} loading="lazy" />
+    <p className="mt-2">
+      <UploadIcon />
       <small>Добавить файл</small></p>
 
-    <input type="file" onChange={event => _change(event, setFileList)} hidden />
+    <input type="file" onChange={event => _change(event, setFileList)} hidden/>
     {errorMessage?.field === "file" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </div>
 }
@@ -38,5 +38,6 @@ function _change(
   if (files) {
     setFileList(files);
   }
-
 }
+
+

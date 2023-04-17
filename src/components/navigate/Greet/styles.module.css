@@ -5,7 +5,8 @@
 }
 .root a{
   white-space: nowrap;
+  color: var(--color);
 }
 .root a:hover{
-  color: var(--color);
+  color: var(--color-link);
 }

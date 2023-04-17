@@ -1,3 +1,7 @@
+import styles from "./styles.module.css"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
+
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
@@ -10,15 +14,21 @@ type Props = {
 }
 
 export default function UploadPriceForm({ setError, setUploadState }: Props) {
-  return <form onSubmit={(event) => _onSubmit(event, setError, setUploadState)}>
+  return <form onSubmit={(event) => _onSubmit(event, setError, setUploadState)} className={styles.root}>
 
     <legend className="mt-3 mb-4">Настройки загрузки файла Excel</legend>
 
     <UploadPriceFormTabPane />
 
-    <input type="submit" value="Загрузить прайс" className="btn btn-outline-light mt-4" />
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <input type="submit" value="Загрузить прайс" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)} />
+      )}
+  </ThemeContext.Consumer>
   </form>
 }
+
+
 
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,

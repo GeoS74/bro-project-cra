@@ -17,6 +17,7 @@ export default function DocRow(doc: IDoc) {
             className="text-muted"
             href={`${serviceHost('informator')}/api/informator/docflow/scan/${file.fileName}`}
             download={true}
+            target="blank"
           >{file.originalName}</a>
         </li>
       })}

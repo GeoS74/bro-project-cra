@@ -1,3 +1,5 @@
+import styles from "./styles.module.css"
+
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
@@ -12,7 +14,7 @@ type Props = {
 }
 
 export default function EditForm({ about, setAbout, editMode, setEditMode }: Props) {
-  return <form
+  return <form className={styles.root}
     onSubmit={(event) => { _onSubmit(event, setEditMode, about, setAbout) }}>
 
     <EditButton editMode={editMode} />

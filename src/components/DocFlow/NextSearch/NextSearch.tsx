@@ -1,4 +1,6 @@
 import { useState } from "react"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
@@ -16,12 +18,17 @@ type Props = {
 export default function NextSearch({ setDocs, lastId, limit, showNextButton, setShowNextButton }: Props) {
   const [disabled, setDisabled] = useState(false)
 
-  return <button
-    hidden={!showNextButton}
-    disabled={disabled}
-    onClick={() => onSubmit(lastId, limit, setDisabled, setDocs, setShowNextButton)}
-    type="button" className="btn btn-outline-light mt-4">Загрузить ещё</button>
-}
+  return (
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <button
+        hidden={!showNextButton}
+        disabled={disabled}
+        onClick={() => onSubmit(lastId, limit, setDisabled, setDocs, setShowNextButton)}
+        type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}>Загрузить ещё</button>
+      )}
+    </ThemeContext.Consumer>
+)}
 
 async function onSubmit(
   lastId: string,

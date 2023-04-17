@@ -2,10 +2,12 @@ import { useState } from "react";
 
 import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
-import icon from "./image/filetype-xlsx.svg"
+// import icon from "./image/filetype-xlsx.svg"
+import {ReactComponent as Icon} from "./image/filetype-xlsx.svg"
+import Processed from "./Processed/Processed";
 
 export default function DownloadPrice() {
-    const [downloadState, setDownloadState] = useState("new");
+    const [downloadState, setDownloadState] = useState("new");    
 
     return <div className={styles.root}>
         <h3 className="mb-4">Скачать прайс</h3>
@@ -17,18 +19,20 @@ export default function DownloadPrice() {
 function DialogPane({ downloadState, setDownloadState }: {
     downloadState: string,
     setDownloadState: React.Dispatch<React.SetStateAction<string>>,
+
 }) {
     switch (downloadState) {
-        case 'processed': return <p>Формирование прайса, пожалуйста подождите...</p>
+        case 'processed': return <Processed />
         case 'complete': return <p>Скачивание прайса завершено. <span className={styles.linker} onClick={() => setDownloadState('new')}>Скачать ещё раз?</span> </p>
         case 'error': return <p>Что-то пошло не так, попробуем ещё?</p>
-        default: return <p onClick={event => _downloadPrice(event, setDownloadState)} className={styles.linker}> <img src={icon} loading="lazy" /> Скачать прайс в формате Excel</p>
+        default: return <p onClick={event => _downloadPrice(event, setDownloadState)} className={styles.linker}> <Icon width="50" height="50" className={styles.icon}/> Скачать прайс в формате Excel</p>
     }
 }
 
 async function _downloadPrice(
     event: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
     setDownloadState: React.Dispatch<React.SetStateAction<string>>
+
 ) {
     event.preventDefault();
     setDownloadState('processed');

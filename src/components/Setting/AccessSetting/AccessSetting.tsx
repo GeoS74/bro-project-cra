@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import classNames from "classnames";
+import styles from "./styles.module.css"
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 import tokenManager from "../../../libs/token.manager";
 import serviceHost from "../../../libs/service.host";
 import fetchWrapper from "../../../libs/fetch.wrapper";
 import { responseNotIsArray } from "../../../middleware/response.validator"
-import styles from "./styles.module.css"
-import classNames from "classnames";
 import Accordion from "../Accordion/Accordion";
 import Popup from "../../Popup/Popup";
 
@@ -31,11 +32,17 @@ export default function AccessSetting() {
       className={classNames(styles.content, "mt-4")}>
 
       <fieldset disabled={disabled}>
-        <input
-          type="submit"
-          className="btn btn-outline-light mt-4 mb-4"
-          value="Сохранить настройки"
-        />
+        <ThemeContext.Consumer>
+            {({ theme }) => (
+              <input
+              type="submit"
+              className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4 mb-4`)}
+              value="Сохранить настройки"
+            />
+            )}
+        </ThemeContext.Consumer>
+
+
 
         <Accordion roles={roles} directings={directings} tasks={tasks} actions={actions} accessSettings={accessSettings} />
 

@@ -12,3 +12,7 @@
   text-decoration: underline;
   cursor: pointer
 }
+
+.icon {
+  fill: var(--color);
+}

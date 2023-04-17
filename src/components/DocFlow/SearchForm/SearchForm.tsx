@@ -1,10 +1,13 @@
 import { useState } from "react"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
+import styles from "./styles.module.css"
 
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
-import styles from "./styles.module.css"
+
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -23,7 +26,11 @@ export default function SearchForm({setShowNextButton, setShowForm, setDocs, lim
     
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control" placeholder="Введите название документа" />
-      <input type="submit" className="btn btn-outline-light" value="Поиск" />
+      <ThemeContext.Consumer>
+        {({ theme }) => (
+          <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Поиск" />
+        )}
+      </ThemeContext.Consumer>
     </fieldset>
   </form>
 }

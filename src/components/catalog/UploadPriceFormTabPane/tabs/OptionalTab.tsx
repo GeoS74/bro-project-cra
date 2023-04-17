@@ -1,5 +1,7 @@
+import styles from "./styles.module.css"
+
 export const OptionalTab = () => {
-  return <>
+  return <div className={styles.rootOptionalTab}>
     <div className="form-group mt-4">
       <h5>Укажите номера соответствующих колонок файла Excel</h5>
     </div>
@@ -37,5 +39,5 @@ export const OptionalTab = () => {
       <label htmlFor="code" className="form-label mt-3">Код позиции</label>
       <input type="text" name="code" className="form-control" id="code" />
     </div>
-  </>
+  </div>
 }

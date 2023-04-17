@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import classNames from "classnames";
+import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext";
 
 import {simpleListConfig as dataList} from "./simplelist.config"
 import SearchForm from "../SimpleList/SearchForm/SearchForm"
@@ -24,9 +26,12 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
       setIdActiveRow={setIdActiveRow}
       setRows={setRows}
       placeholderSearch={dataList[typeList].placeholderSearch} />
-
-
-    <button type="button" className="btn btn-outline-light mt-4" onClick={() => setIdActiveRow(0)}>Новая запись</button>
+      
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <button type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)} onClick={() => setIdActiveRow(0)}>Новая запись</button>
+      )}
+    </ThemeContext.Consumer>
 
     <ul className="mt-4">
       {idActiveRow === 0 ? <Row

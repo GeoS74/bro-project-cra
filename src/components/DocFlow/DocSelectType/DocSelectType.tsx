@@ -1,8 +1,10 @@
 import { useState } from "react"
-import session from "../../../libs/token.manager"
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 import styles from "./styles.module.css"
-import classNames from "classnames"
+
 import EditForm from "../EditForm/EditForm"
+import session from "../../../libs/token.manager"
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -40,7 +42,11 @@ export default function DocSelectType({ setShowForm, addDoc }: Props) {
       })}
     </ul>
       : <></>}
-
-    <span className="btn btn-outline-light mt-2" onClick={() => setShowForm(false)}>Отмена</span>
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)} onClick={() => setShowForm(false)}>Отмена</span>
+      )}
+    </ThemeContext.Consumer>
+    
   </div>
 }

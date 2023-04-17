@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 import session from "../../../libs/token.manager"
 import finder from "../../../libs/deep.finder"
@@ -27,12 +29,18 @@ export default function DocList() {
       : <>
 
         {finder(session.getMe()?.roles, 'Создать') ?
-          <button type="button"
-            className="btn btn-outline-light mt-4 mb-4"
+          <ThemeContext.Consumer>
+          {({ theme }) => (
+            <button type="button"
+            className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4 mb-4`)}
             onClick={() => setShowForm(true)}
           >Создать документ</button>
+          )}
+        </ThemeContext.Consumer>
           : <></>
         }
+
+    
 
         {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
 

@@ -15,5 +15,5 @@
 }
 
 .root p {
-  color: #1a1a1a
+  color: var(--color);
 }

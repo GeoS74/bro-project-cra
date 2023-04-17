@@ -11,6 +11,12 @@
 
 .root fieldset>input[type=text] {
   flex: 4;
+  color: var(--background-color);
+  background-color: var(--color);
+}
+
+.root fieldset>input[type=text]::placeholder {
+  color: var(--background-color);
 }
 
 .root fieldset>input[type=submit],

@@ -1,9 +1,131 @@
-.root {
+@media (min-width: 300px) {
+  .root {
+    z-index: 100500;
+    display: flex;
+    flex-flow: column-reverse wrap !important;
+    justify-content: start;
+  }
+}
+@media (min-width: 992px) {
+  .root {
+    z-index: 100500;
+    display: flex;
+    flex-flow: column-reverse wrap !important;
+    justify-content: start;
+  }
+  .root span{
+    cursor: pointer !important;
+  }
+  
+  .root nav{
+    z-index: 100500;
+  }
+  .root div:nth-child(1){
+    flex: 12;
+  }
+  .root div:nth-child(2){
+    margin-top: 20px;
+    flex: 1;
+  }
+  .root img{
+    width: 8em;
+  }
+  
+  .root nav {
+    padding: 0 !important;
+  }
+  
+  .link {
+    color: var(--color) !important;
+  }
+  
+  .link:hover {
+    color: var(--color-link) !important;
+  }
+}
+
+
+@media (min-width: 1110px) {
+  .root {
+    z-index: 100500;
+    display: flex;
+    flex-flow: row wrap !important;
+    justify-content: start;
+  }
+  .root span{
+    cursor: pointer !important;
+  }
+  
+  .root nav{
+    z-index: 100500;
+  }
+  .root div:nth-child(1){
+    flex: 12;
+  }
+  .root div:nth-child(2){
+    margin-top: 20px;
+    flex: 1;
+  }
+  .root img{
+    width: 8em;
+  }
+  
+  .root nav {
+    padding: 0 !important;
+  }
+  
+  .link {
+    color: var(--color) !important;
+  }
+  
+  .link:hover {
+    color: var(--color-link) !important;
+  }
+}
+
+@media (min-width: 1300px) {
+  .root {
+    z-index: 100500;
+    display: flex;
+    flex-flow: row nowrap !important;
+    justify-content: center;
+  }
+  .root span{
+    cursor: pointer !important;
+  }
+  
+  .root nav{
+    z-index: 100500;
+  }
+  .root div:nth-child(1){
+    flex: 12;
+  }
+  .root div:nth-child(2){
+    margin-top: 20px;
+    flex: 1;
+  }
+  .root img{
+    width: 8em;
+  }
+  
+  .root nav {
+    padding: 0 !important;
+  }
+  
+  .link {
+    color: var(--color) !important;
+  }
+  
+  .link:hover {
+    color: var(--color-link) !important;
+  }
+}
+
+/* .root {
   z-index: 100500;
   display: flex;
   flex-flow: row nowrap !important;
   justify-content: center;
-  /* align-items: start; */
 }
 .root span{
   cursor: pointer !important;
@@ -26,3 +148,11 @@
 .root nav {
   padding: 0 !important;
 }
+
+.link {
+  color: var(--color) !important;
+}
+
+.link:hover {
+  color: var(--color-link) !important;
+} */

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 import session from "../../../libs/token.manager"
 import tokenManager from "../../../libs/token.manager"
@@ -28,43 +30,50 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
 
   const [fileList, setFileList] = useState<FileList[]>([])
 
-  return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
-  >
-    <fieldset disabled={disabled} className="form-group">
+  return (
+    <ThemeContext.Consumer> 
+      {({ theme }) => (<>
+    <form className={styles.root}
+      onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
+    >
+      <fieldset disabled={disabled} className="form-group">
 
-    <small>{typeDoc.directing.title} / {typeDoc.task?.title}</small>
+      <small>{typeDoc.directing.title} / {typeDoc.task?.title}</small>
 
 
-      <legend className="mt-3">{addDoc ? "Создание документа" : "Изменение документа"}</legend>
+        <legend className="mt-3">{addDoc ? "Создание документа" : "Изменение документа"}</legend>
 
-      {/* <SelectPane 
-    directingId={doc?.directing.id.toString()}
-    taskId={doc?.task.id.toString()}
-    errorMessage={errorMessage} 
-    mode={addDoc ? "create" : "update"} /> */}
+        {/* <SelectPane 
+      directingId={doc?.directing.id.toString()}
+      taskId={doc?.task.id.toString()}
+      errorMessage={errorMessage} 
+      mode={addDoc ? "create" : "update"} /> */}
 
-      <TitleDoc errorMessage={errorMessage} title={doc?.title} />
+        <TitleDoc errorMessage={errorMessage} title={doc?.title} />
 
-      <FileLinkList docId={doc?.id} files={doc?.files} />
+        <FileLinkList docId={doc?.id} files={doc?.files} />
 
-      <FileNameList fileList={fileList} setFileList={setFileList} errorMessage={errorMessage} />
+        <FileNameList fileList={fileList} setFileList={setFileList} errorMessage={errorMessage} />
 
-      <FileInput errorMessage={errorMessage}
-        setFileList={(file: FileList) => setFileList([...fileList, file])} />
+        <FileInput errorMessage={errorMessage}
+          setFileList={(file: FileList) => setFileList([...fileList, file])} />
 
-      <TextPane description={doc?.description} />
+        <TextPane description={doc?.description} />
 
-      <HiddenInput typeDoc={typeDoc} />
+        <HiddenInput typeDoc={typeDoc} />
 
-      <input type="submit" className="btn btn-outline-light" value="Записать" />
+        <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Записать" />
 
-      <span className="btn btn-outline-light" onClick={() => setShowForm(false)}>Отмена</span>
+        <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => setShowForm(false)}>Отмена</span>
 
-      <input type="hidden" name="author" defaultValue={session.getMe()?.email} />
-    </fieldset>
-  </form>
+        <input type="hidden" name="author" defaultValue={session.getMe()?.email} />
+      </fieldset>
+    </form>
+    </>)}
+    </ThemeContext.Consumer>
+  )
 }
+
 
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,

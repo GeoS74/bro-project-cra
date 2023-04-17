@@ -2,10 +2,12 @@
 .root>div {
   display: flex;
   flex-flow: row nowrap;
+  background-color: var(--color);
+  color: var(--background-color);
 }
 
 .root>div:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: var(--color-link);
 }
 
 .root>header>div,
@@ -17,13 +19,17 @@
 }
 
 /* title and article */
-.root div p {
-  color: #1a1a1a;
+/* .root {
+  color: var(--background-color);
 }
+.root div p {
+  color: var(--background-color);
+} */
 
 .root div p:nth-child(1) {
   font-weight: 900;
   cursor: pointer;
+  color: var(--background-color) !important;
 }
 .root div p:nth-child(1):hover {
   text-decoration: underline;
@@ -31,6 +37,7 @@
 
 .root div p:nth-child(2) {
   font-size: small;
+  color: var(--background-color) !important;
 }
 
 /* width columns */

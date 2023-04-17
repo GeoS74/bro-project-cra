@@ -1,5 +1,7 @@
+import styles from "./styles.module.css"
+
 export const PropertiesTab = () => {
-  return <>
+  return <div className={styles.rootPropertiesTab}>
     <div className="form-group mt-4">
       <h5>Укажите номера соответствующих колонок файла Excel</h5>
     </div>
@@ -17,5 +19,5 @@ export const PropertiesTab = () => {
       <label htmlFor="height" className="form-label mt-3">Высота, мм</label>
       <input type="text" name="height" className="form-control" id="height" />
     </div>
-  </>
+  </div>
 }

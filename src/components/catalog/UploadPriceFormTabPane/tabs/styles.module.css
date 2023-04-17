@@ -1,0 +1,44 @@
+.rootMain {
+    color: var(--color);
+}
+
+.rootMain select {
+    color: var(--background-color);
+    background-color: var(--color);
+}
+
+.rootOptionalTab {
+    color: var(--color);
+}
+
+.rootOptionalTab small {
+    color: var(--color) !important;
+}
+
+.rootOptionalTab label {
+    color: var(--color);
+}
+
+.rootOptionalTab input {
+    color: var(--background-color);
+    background-color: var(--color);
+}
+
+.rootOptionalTab input:focus {
+    color: var(--background-color) !important;
+    background-color: var(--color) !important;
+}
+
+.rootPropertiesTab {
+    color: var(--color);
+}
+
+.rootPropertiesTab input {
+    color: var(--background-color);
+    background-color: var(--color);
+}
+
+.rootPropertiesTab input:focus {
+    color: var(--background-color) !important;
+    background-color: var(--color) !important;
+}

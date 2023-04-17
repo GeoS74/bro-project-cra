@@ -8,7 +8,8 @@ type Props = {
   errorMessage: IErrorMessage | undefined
 }
 
-export default function FileInput({ fileList, setFileList, errorMessage }: Props) {
+export default function FileNameList({ fileList, setFileList, errorMessage }: Props) {
+  console.log(fileList)
   return <div className={classNames("mt-4", styles.root)}>
     {fileList.length ? <><legend>Файлы:</legend><hr></hr></> : <></>}
 

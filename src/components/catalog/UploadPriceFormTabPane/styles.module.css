@@ -1,9 +1,27 @@
-.root span,
+.root ul {
+  border-color: var(--color);
+}
+
+.root span {
+  color: var(--color);  
+}
+
 .root span:hover{
-  color: white;
-  cursor: pointer
+  color: var(--color-link);
+  cursor: pointer;
+  border-color: var(--color) !important;
+}
+
+.root .active {  
+  color: var(--background-color);
+  background-color: var(--color) !important;  
+}
+
+.root .active:hover {
+  color: var(--background-color);
+  background-color: var(--color) !important;
 }
 
 .root h5 {
-  color: white;
+  color: var(--color);
 }

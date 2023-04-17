@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import UploadPriceForm from "../UploadPriceForm/UploadPriceForm";
 import styles from "./styles.module.css"
+import Processed from "./Processed/Processed";
 
 export default function UploadPrice() {
   const [error, setError] = useState<string | undefined>(undefined);
@@ -16,7 +17,7 @@ export default function UploadPrice() {
     }}>Попробуем ещё?</span></p> :
 
       uploadState === "upload" ?
-        <p>файл загружается ...</p> :
+        <Processed /> :
 
         uploadState === "end" ?
           <p>файл успешно загружен.<span onClick={() => setUploadState("new")}>Загрузить ещё?</span></p> :

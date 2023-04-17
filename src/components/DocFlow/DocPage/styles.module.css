@@ -1,10 +1,19 @@
 .root>h3,
-.root>h5 {
-  color: white;
+.root>h5,
+.root p {
+  color: var(--color);
 }
 .root button{
   margin-right: 15px;
 }
 .root a:hover{
-  color: white !important;
+  color: var(--color) !important;
 }
+
+/* .link {
+  color: var(--color);
+  padding: 2px;
+  margin-left: 6px;
+  border: solid 2px;
+  border-color: var(--color);
+} */

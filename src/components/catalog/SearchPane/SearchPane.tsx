@@ -1,4 +1,5 @@
 import styles from "./styles.module.css"
+import classNames from "classnames";
 
 type Props = {
   products: IProduct[] | undefined
@@ -20,12 +21,12 @@ export default function SearchPane({ products }: Props) {
 
       {_makeList(products)}
 
-    </div> : <div>товары не найдены</div>
+    </div> : <div className={styles.root}>товары не найдены</div>
 }
 
 function _makeList(products: IProduct[]) {
   return products
-    .map((p, index) => <div key={index} className="card mt-2">
+    .map((p, index) => <div key={index} className={classNames(styles.makelist, "card mt-2")}>
       <div>
         <p>{p.title}</p>
         <p>{p.article}</p>

@@ -1,3 +1,5 @@
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 import fetcher from "../fetcher"
 
 type Props = {
@@ -9,10 +11,14 @@ type Props = {
 
 export default function NextSearch({hiddenNextSearch, setHiddenNextSearch, setSearchResult, searchResult}: Props) {
   return searchResult?.positions.length ?
+  <ThemeContext.Consumer>
+  {({ theme }) => (
     <button
-      hidden={hiddenNextSearch}
-      onClick={() => onSubmit(setHiddenNextSearch, searchResult, setSearchResult, searchResult.offset, searchResult.limit)}
-      type="button" className="btn btn-outline-light mt-4">Загрузить ещё</button>
+    hidden={hiddenNextSearch}
+    onClick={() => onSubmit(setHiddenNextSearch, searchResult, setSearchResult, searchResult.offset, searchResult.limit)}
+    type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}>Загрузить ещё</button>
+  )}
+</ThemeContext.Consumer>
     : <></>
 }
 

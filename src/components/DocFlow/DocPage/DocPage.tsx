@@ -1,6 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 import session from "../../../libs/token.manager"
 import tokenManager from "../../../libs/token.manager"
@@ -9,6 +11,7 @@ import fetchWrapper from "../../../libs/fetch.wrapper";
 import serviceHost from "../../../libs/service.host";
 import EditForm from "../EditForm/EditForm";
 import styles from "./styles.module.css"
+import BackArrow from "../BackArrow/BackArrow";
 
 export default function DocPage() {
   session.subscribe('doc');
@@ -27,8 +30,13 @@ export default function DocPage() {
     </div>
   }
 
-  return <div className={styles.root}>
-    <small>{doc.directing?.title} / {doc.task?.title}</small>
+  return <ThemeContext.Consumer>
+  {({ theme }) => (
+  <div className={styles.root}>
+    <div className={styles.linkAndTitle}>
+      <BackArrow />
+      <small>{doc.directing?.title} / {doc.task?.title}</small>      
+    </div>    
 
     <h3 className="mt-2">{doc.title}</h3>
 
@@ -51,23 +59,26 @@ export default function DocPage() {
 
     <div className="mt-4 mb-4">
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
-        <button type="button"
-          className="btn btn-outline-light mt-2"
-          onClick={() => setShowForm(true)}
-        >Редактировать документ</button>
-        : <></>}
+        
+            <button type="button"
+            className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
+            onClick={() => setShowForm(true)}
+          >Редактировать документ</button>
+        : <></>}       
 
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
-        <button type="button"
-          className="btn btn-outline-light mt-2"
-          onClick={() => {
-            _delDoc(doc.id);
-            navigate('/docflow');
-          }}
-        >Удалить документ</button>
+            <button type="button"
+            className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
+            onClick={() => {
+              _delDoc(doc.id);
+              navigate('/docflow');
+            }}
+          >Удалить документ</button>
         : <></>}
     </div>
   </div>
+  )}
+  </ThemeContext.Consumer>
 }
 
 function _checkUpdateAction(idDirecting: number, idTask: number, action: string) {
