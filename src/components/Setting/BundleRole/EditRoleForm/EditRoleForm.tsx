@@ -5,6 +5,8 @@ import serviceHost from "../../../../libs/service.host";
 import fetchWrapper from "../../../../libs/fetch.wrapper";
 import { responseNotIsArray } from "../../../../middleware/response.validator"
 import styles from "./styles.module.css"
+import classNames from "classnames";
+import { ThemeContext } from "../../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>
@@ -25,10 +27,18 @@ export default function EditRoleForm({ setEditMode, roles, setUser, user }: Prop
 
       <input type="hidden" value={user.email} name="email" />
 
-      <input type="submit" value="Установить роль" className="btn btn-outline-light mt-2" />
+      <ThemeContext.Consumer>
+        {({ theme }) => (
+          <input type="submit" value="Установить роль" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)} />
+        )}
+      </ThemeContext.Consumer>
     </fieldset>
   </form>
 }
+
+
+
+
 
 function _submit(
   event: React.FormEvent<HTMLFormElement>,

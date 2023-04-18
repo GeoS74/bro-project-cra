@@ -3,9 +3,10 @@
 }
 .root p,
 .root span {
-  color: white;
+  color: var(--color);
 }
 .root span:hover{
   cursor: pointer;
   text-decoration: underline;
+  color: var(--color) !important;
 }
