@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import serviceHost from "../../../libs/service.host";
 import classNames from "classnames"
 import styles from "./styles.module.css"
+import { Converter } from "md-conv";
+
+const converter = new Converter()
 
 export default function DocRow(doc: IDoc) {
   return <div className={classNames(styles.root, "mt-2")}>
@@ -22,6 +25,8 @@ export default function DocRow(doc: IDoc) {
       })}
     </ul>
 
-    <p>{doc.description}</p>
+    <p
+      dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
+    ></p>
   </div>
 }

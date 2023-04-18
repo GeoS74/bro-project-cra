@@ -11,6 +11,9 @@ import EditForm from "../EditForm/EditForm";
 import styles from "./styles.module.css"
 import classNames from "classnames";
 import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
+import { Converter } from "md-conv";
+
+const converter = new Converter()
 
 export default function DocPage() {
   session.subscribe('doc');
@@ -48,8 +51,10 @@ export default function DocPage() {
       })}
     </ul>
 
-
-    <p className="mt-2">{doc.description}</p>
+    <p
+      className="mt-2"
+      dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
+    ></p>
 
     <div className="mt-4 mb-4">
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
@@ -106,5 +111,5 @@ function _delDoc(id: string) {
       throw new Error(`response status: ${response.status}`)
     })
     .catch(error => console.log(error.message))
-    // .finally(() => navigate('/docflow'))
+  // .finally(() => navigate('/docflow'))
 }
