@@ -3,6 +3,8 @@ import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import { UploadPriceFormTabPane } from "../UploadPriceFormTabPane/UploadPriceFormTabPane";
+import classNames from "classnames";
+import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setError: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -16,7 +18,11 @@ export default function UploadPriceForm({ setError, setUploadState }: Props) {
 
     <UploadPriceFormTabPane />
 
-    <input type="submit" value="Загрузить прайс" className="btn btn-outline-light mt-4" />
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <input type="submit" value="Загрузить прайс" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)} />
+      )}
+    </ThemeContext.Consumer>
   </form>
 }
 

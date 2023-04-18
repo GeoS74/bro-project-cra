@@ -1,9 +1,14 @@
 .root span,
 .root span:hover{
-  color: white;
+  color: var(--color);
   cursor: pointer
 }
 
 .root h5 {
-  color: white;
+  color: var(--color);
+}
+
+.root select,
+.root input {
+  border: solid 1px var(--color) !important;
 }

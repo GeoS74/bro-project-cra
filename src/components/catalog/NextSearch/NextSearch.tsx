@@ -9,16 +9,16 @@ type Props = {
   setSearchResult: React.Dispatch<React.SetStateAction<ISearchResult | undefined>>
 }
 
-export default function NextSearch({hiddenNextSearch, setHiddenNextSearch, setSearchResult, searchResult}: Props) {
+export default function NextSearch({ hiddenNextSearch, setHiddenNextSearch, setSearchResult, searchResult }: Props) {
   return searchResult?.positions.length ?
-  <ThemeContext.Consumer>
-  {({ theme }) => (
-    <button
-    hidden={hiddenNextSearch}
-    onClick={() => onSubmit(setHiddenNextSearch, searchResult, setSearchResult, searchResult.offset, searchResult.limit)}
-    type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}>Загрузить ещё</button>
-  )}
-</ThemeContext.Consumer>
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <button
+          hidden={hiddenNextSearch}
+          onClick={() => onSubmit(setHiddenNextSearch, searchResult, setSearchResult, searchResult.offset, searchResult.limit)}
+          type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}>Загрузить ещё</button>
+      )}
+    </ThemeContext.Consumer>
     : <></>
 }
 
@@ -30,7 +30,7 @@ async function onSubmit(
   limit: number) {
 
   const query = sessionStorage.getItem('lastQuery') || "";
-  const lastId = searchResult?.positions[searchResult?.positions.length-1].id;
+  const lastId = searchResult?.positions[searchResult?.positions.length - 1].id;
 
   setHiddenNextSearch(true)
   const result = await fetcher(query, offset + limit, limit, lastId)

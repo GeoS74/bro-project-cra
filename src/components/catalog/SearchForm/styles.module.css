@@ -20,4 +20,9 @@
 
 .root fieldset>input[type=submit]{
   flex: 0.1;
+  background-color: var(--background-color);
+}
+.root fieldset>input[type=submit]:hover{
+  flex: 0.1;
+  background-color: var(--color);
 }

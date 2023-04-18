@@ -12,5 +12,10 @@
 
 body {
   background: var(--background-color) !important;
+  background-image: url("./img/tr.png") !important;
+  background-position: bottom right !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  background-size: 70% !important;
 }
 
