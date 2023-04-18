@@ -19,11 +19,7 @@ export default function Navigate() {
 
   return <div>
     <Toggle />
-
-
-   
-
-
+    
     <div className={styles.root}>
       <div>
       <ThemeContext.Consumer>

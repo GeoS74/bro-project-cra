@@ -1,7 +1,7 @@
 .root {
   z-index: 100500;
   display: flex;
-  flex-flow: row nowrap !important;
+  flex-flow: row wrap !important;
   justify-content: center;
   /* align-items: start; */
 }
