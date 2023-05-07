@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import session from "../../../libs/token.manager"
 import tokenManager from "../../../libs/token.manager"
@@ -14,7 +15,6 @@ import FileNameList from "./FileNameList/FileNameList"
 import HiddenInput from "./HiddenInput/HiddenInput";
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -27,8 +27,9 @@ type Props = {
 export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
-
   const [fileList, setFileList] = useState<FileList[]>([])
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  console.log(theme)
 
   return <form className={styles.root}
     onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
@@ -59,17 +60,13 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
 
       <HiddenInput typeDoc={typeDoc} />
 
-      <ThemeContext.Consumer>
-        {({ theme }) => (
-          <>
-            <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Записать" />
+      <>
+        <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Записать" />
 
-            <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => setShowForm(false)}>Отмена</span>
-          </>
-        )}
-      </ThemeContext.Consumer>
+        <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => setShowForm(false)}>Отмена</span>
+      </>
 
-      <input type="hidden" name="author" defaultValue={session.getMe()?.email} />
+      <input type="hidden" name="author" defaultValue={session.getMe()?.uid} />
     </fieldset>
   </form>
 }

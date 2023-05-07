@@ -29,12 +29,12 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
           <div className="accordion-body">
             <p>email: {user.email}</p>
             <p>ранг: {user.rank}</p>
-            <p>статус: {editMode ?
+            <p>Ф.И.О.: {editMode ?
               <input type="text"
                 autoFocus
                 // className="form-control"
-                name="status" defaultValue={user.status || ""} /> :
-              (user.status || "не указан")}
+                name="name" defaultValue={user.name || ""} /> :
+              (user.name || "укажите Ф.И.О.")}
             </p>
           </div>
         </div>

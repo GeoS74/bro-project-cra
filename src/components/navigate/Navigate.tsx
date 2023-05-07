@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext";
+import { useSelector } from "react-redux";
+
 import session from "../../libs/token.manager"
 
 import Toggle from "./Toggle/Toggle";
 import Greet from "./Greet/Greet";
 import styles from "./styles.module.css"
 import classNames from "classnames";
-// import logo from "./image/logo.svg"
 import SvgLogo from "./SvgLogo/SvgLogo";
 
 function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -16,14 +16,13 @@ function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 
 export default function Navigate() {
   session.subscribe('navigate')
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   return <div>
     <Toggle />
     
     <div className={styles.root}>
       <div>
-      <ThemeContext.Consumer>
-      {({ theme }) => (
         <nav className={classNames(styles.root, `navbar navbar-expand-lg navbar-${theme === 'light' ? 'primary' : 'dark'}`)}>
           <div className="container-fluid">
           <Link className={classNames("navbar-brand")} to="/"><SvgLogo theme={theme} /></Link>
@@ -96,6 +95,10 @@ export default function Navigate() {
                   : <></>
                 }
 
+                <li className="nav-item">
+                  <Link to="/userPage" className="nav-link">test</Link>
+                </li>
+
                 {/* <li className="nav-item">
 
             <Link to="/auth" className="nav-link">Sign in</Link>
@@ -107,8 +110,6 @@ export default function Navigate() {
             </div>
           </div>
         </nav>
-      )}
-    </ThemeContext.Consumer>
       </div>
       <Greet />
     </div>

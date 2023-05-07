@@ -1,6 +1,6 @@
 import fetcher from "../fetcher"
 import classNames from "classnames";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
+import { useSelector } from "react-redux";
 
 type Props = {
   hiddenNextSearch: boolean
@@ -10,16 +10,13 @@ type Props = {
 }
 
 export default function NextSearch({ hiddenNextSearch, setHiddenNextSearch, setSearchResult, searchResult }: Props) {
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
   return searchResult?.positions.length ?
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <button
+      <button
           hidden={hiddenNextSearch}
           onClick={() => onSubmit(setHiddenNextSearch, searchResult, setSearchResult, searchResult.offset, searchResult.limit)}
           type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}>Загрузить ещё</button>
-      )}
-    </ThemeContext.Consumer>
-    : <></>
+      : <></>
 }
 
 async function onSubmit(

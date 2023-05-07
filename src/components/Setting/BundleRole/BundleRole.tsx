@@ -18,8 +18,8 @@ export default function BundleRole() {
     {/* если в качестве key использовать index элемента, то при поиске роль будет сохраняться между элементами  */}
     {users.map(user => <div className="mt-2" key={user.email}>
 
-      <h5>Пользователь: {user.email}</h5>
-
+      <h5>Пользователь: {user.name}</h5>
+      <p>email: {user.email}</p>
       <RolePane currentUser={user} roles={roles} />
     </div>
     )}

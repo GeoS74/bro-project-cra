@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useSelector } from "react-redux";
 
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
@@ -6,7 +7,6 @@ import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,6 +17,8 @@ type Props = {
 
 export default function SearchForm({ setShowNextButton, setShowForm, setDocs, limit }: Props) {
   const [disabled, setDisabled] = useState(false)
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  
 
   return <form id="searchForm" className={styles.root}
     onSubmit={(event) => {
@@ -25,11 +27,7 @@ export default function SearchForm({ setShowNextButton, setShowForm, setDocs, li
 
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control" placeholder="Введите название документа" />
-      <ThemeContext.Consumer>
-        {({ theme }) => (
-          <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Поиск" />
-        )}
-      </ThemeContext.Consumer>
+      <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Поиск" />  
     </fieldset>
   </form>
 }

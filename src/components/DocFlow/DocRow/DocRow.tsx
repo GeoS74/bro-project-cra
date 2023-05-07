@@ -8,11 +8,14 @@ import { Converter } from "md-conv";
 const converter = new Converter()
 
 export default function DocRow(doc: IDoc) {
+  console.log(doc)
   return <div className={classNames(styles.root, "mt-2")}>
     <small>{doc.directing?.title} / {doc.task?.title}</small>
+    <small> № {doc.num || 'б/н'} от {_makeDate(doc.createdAt)}</small>
 
-    <h5 className="mt-2"><Link to={`/docflow/${doc.id}`} className="nav-link">{doc.title}</Link></h5>
+    <h4 className="mt-2"><Link to={`/docflow/${doc.id}`} className="nav-link">{doc.title}</Link></h4>
 
+   
     <ul>
       {doc.files.map(file => {
         return <li key={file.fileName + doc.id}>
@@ -28,5 +31,14 @@ export default function DocRow(doc: IDoc) {
     <p
       dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
     ></p>
+
+<small> автор: {doc.author.name}</small>
   </div>
+}
+
+function _makeDate(date: string){
+  const d = new Date(date);
+  const day = `0${d.getDate()}`.slice(-2);
+  const month = `0${d.getMonth()+1}`.slice(-2);
+  return `${day}.${month}.${d.getFullYear()}`
 }

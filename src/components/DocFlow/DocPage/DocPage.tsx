@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
+import { useNavigate, useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import session from "../../../libs/token.manager"
 import tokenManager from "../../../libs/token.manager"
@@ -10,7 +10,7 @@ import serviceHost from "../../../libs/service.host";
 import EditForm from "../EditForm/EditForm";
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
+import BackArrow from "../BackArrow/BackArrow";
 import { Converter } from "md-conv";
 
 const converter = new Converter()
@@ -20,6 +20,7 @@ export default function DocPage() {
   const navigate = useNavigate();
   const [doc, setDoc] = useState(useLoaderData() as IDoc);
   const [showForm, setShowForm] = useState(false);
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   if (showForm) {
     const typeDoc: DocType = {
@@ -32,8 +33,11 @@ export default function DocPage() {
     </div>
   }
 
-  return <div className={styles.root}>
-    <small>{doc.directing?.title} / {doc.task?.title}</small>
+  return  <div className={styles.root}>
+    <div className={styles.linkAndTitle}>
+      <BackArrow />
+      <small>{doc.directing?.title} / {doc.task?.title}</small>      
+    </div>
 
     <h3 className="mt-2">{doc.title}</h3>
 
@@ -58,19 +62,13 @@ export default function DocPage() {
 
     <div className="mt-4 mb-4">
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
-        <ThemeContext.Consumer>
-          {({ theme }) => (
             <button type="button"
               className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
               onClick={() => setShowForm(true)}
             >Редактировать документ</button>
-          )}
-        </ThemeContext.Consumer>
         : <></>}
 
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
-        <ThemeContext.Consumer>
-          {({ theme }) => (
             <button type="button"
               className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
               onClick={() => {
@@ -78,8 +76,6 @@ export default function DocPage() {
                 navigate('/docflow');
               }}
             >Удалить документ</button>
-          )}
-        </ThemeContext.Consumer>
         : <></>}
     </div>
   </div>

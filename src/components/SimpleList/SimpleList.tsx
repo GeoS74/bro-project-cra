@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import classNames from "classnames";
-import { ThemeContext } from "../../contexts/ThemeContext/ThemeContext";
 import { simpleListConfig as dataList } from "./simplelist.config"
 import SearchForm from "../SimpleList/SearchForm/SearchForm"
 import Row from "./Row/Row"
@@ -10,6 +10,7 @@ import styles from "./styles.module.css"
 
 export default function SimpleList({ typeList }: { typeList: keyof ISimpleListConf }) {
   const [idActiveRow, setIdActiveRow] = useState(-1)
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   let preloadData = useLoaderData();
   if (!Array.isArray(preloadData)) {
@@ -27,12 +28,8 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
       setRows={setRows}
       placeholderSearch={dataList[typeList].placeholderSearch} />
 
-    <ThemeContext.Consumer>
-      {({ theme }) => (
         <button type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}
           onClick={() => setIdActiveRow(0)}>Новая запись</button>
-      )}
-    </ThemeContext.Consumer>
 
     <ul className="mt-4">
       {idActiveRow === 0 ? <Row

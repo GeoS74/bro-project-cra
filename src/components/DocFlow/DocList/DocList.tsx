@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import session from "../../../libs/token.manager"
 import finder from "../../../libs/deep.finder"
@@ -9,7 +10,6 @@ import NextSearch from "../NextSearch/NextSearch";
 import DocSelectType from "../DocSelectType/DocSelectType"
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 const docsLimit = 25;
 
@@ -18,6 +18,7 @@ export default function DocList() {
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
   const [showForm, setShowForm] = useState(false);
   const [showNextButton, setShowNextButton] = useState(true)
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   return <div className={styles.root} >
     <h3>Мои документы</h3>
@@ -29,14 +30,10 @@ export default function DocList() {
       : <>
 
         {finder(session.getMe()?.roles, 'Создать') ?
-          <ThemeContext.Consumer>
-            {({ theme }) => (
-              <button type="button"
+        <button type="button"
                 className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}
                 onClick={() => setShowForm(true)}
               >Создать документ</button>
-            )}
-          </ThemeContext.Consumer>
           : <></>
         }
 

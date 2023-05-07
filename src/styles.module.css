@@ -1,6 +1,4 @@
 :root[data-theme="light"] {
-  /* filter: invert(1);
-   */
   --color: #1a1a1a;
   --background-color: #ffffff;
 }

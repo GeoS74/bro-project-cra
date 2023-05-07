@@ -1,6 +1,6 @@
 
 
-export default function SvgLogo({theme}: {theme: StyleTheme}) {
+export default function SvgLogo({theme}: {theme: string}) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="160px" height="53px" viewBox="0 0 90000 30000">
             <path fill="#FC0" d="m4189.2 21566.9-.3-13344.9 11557.5-6672.3V5998l-8002.6 4620.1v4448.4l8002.6-4620.2v4448.3z"/><path fill="#C93" d="m27303.3 21567.2-11556.9 6672-3852.5-2224.3 8002.6-4620.2-3852.5-2224.3-8002.3 4620.5-3852.5-2224.3 11557.2-6672z"/>

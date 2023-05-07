@@ -1,19 +1,21 @@
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./styles.module.css"
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
+
+import {setTheme} from "../../../store/slice/themeSlise"
+
 
 export default function Toggle() {
+  const dispatch = useDispatch(); 
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
   return (
     <div className={styles.root}>
       <section className={styles.model}>
         <div className={styles.checkbox}>
-          <ThemeContext.Consumer>
-            {({ theme, setTheme }) => (
               <input type="checkbox"
                 defaultChecked={theme !== "dark"}
-                onClick={() => (theme === "dark" ? setTheme("light") : setTheme("dark"))}
+                onClick={() => dispatch(setTheme())}
               />
-            )}
-          </ThemeContext.Consumer>
           <label></label>
         </div>
       </section>

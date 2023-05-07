@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+
 
 import tokenManager from "../../../../libs/token.manager";
 import serviceHost from "../../../../libs/service.host";
@@ -6,7 +8,6 @@ import fetchWrapper from "../../../../libs/fetch.wrapper";
 import { responseNotIsArray } from "../../../../middleware/response.validator"
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import { ThemeContext } from "../../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,6 +18,7 @@ type Props = {
 
 export default function EditRoleForm({ setEditMode, roles, setUser, user }: Props) {
   const [disabled, setDisabled] = useState(false);
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   return <form onSubmit={(event) => _submit(event, setEditMode, setDisabled, setUser)} className={styles.root}>
     <fieldset className="form-group" disabled={disabled}>
@@ -24,14 +26,8 @@ export default function EditRoleForm({ setEditMode, roles, setUser, user }: Prop
         <option value="">Выберите роль</option>
         {_mekeOptions(roles)}
       </select>
-
-      <input type="hidden" value={user.email} name="email" />
-
-      <ThemeContext.Consumer>
-        {({ theme }) => (
-          <input type="submit" value="Установить роль" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)} />
-        )}
-      </ThemeContext.Consumer>
+      <input type="hidden" value={user.email} name="email" />      
+      <input type="submit" value="Установить роль" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)} />        
     </fieldset>
   </form>
 }

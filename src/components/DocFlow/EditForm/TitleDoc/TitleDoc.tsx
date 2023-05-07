@@ -1,6 +1,4 @@
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
-// import classNames from "classnames";
-// import { ThemeContext } from "../../../../contexts/ThemeContext/ThemeContext";
 import styles from "./styles.module.css"
 
 type Props = {

@@ -72,22 +72,32 @@ interface IProduct {
   price: number
   amount: number
   manufacturer: string
-  weight: number
-  width: number
-  height: number
-  length: number
+  weight: string
+  width: string
+  height: string
+  length: string
   manufacturer: string
+  stock: string
   // storage: unknown
 }
 
 interface IDoc {
   id: string
+  num: number
   title: string
   description: string
   directing: ISimpleRow
   task: ISimpleRow
-  author: ISimpleRow
+  author: IDocUnit
   files: IDocFile[]
+  createdAt: string
+}
+
+interface IDocUnit {
+  uid: string
+  email: string
+  name: string
+  fullName: string
 }
 
 interface IDocFile {
@@ -129,6 +139,7 @@ interface IListConf {
 }
 
 interface IUser {
+  uid: string
   email: string
   rank: string
   roles: IRole[]

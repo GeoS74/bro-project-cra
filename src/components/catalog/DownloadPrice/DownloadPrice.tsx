@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
-// import icon from "./image/filetype-xlsx.svg"
 import { ReactComponent as Icon } from "./image/filetype-xlsx.svg"
+import Processed from "../Processed/Processed";
 
 export default function DownloadPrice() {
     const [downloadState, setDownloadState] = useState("new");
@@ -20,7 +20,7 @@ function DialogPane({ downloadState, setDownloadState }: {
     setDownloadState: React.Dispatch<React.SetStateAction<string>>,
 }) {
     switch (downloadState) {
-        case 'processed': return <p>Формирование прайса, пожалуйста подождите...</p>
+        case 'processed': return <Processed stateString={"Формирование прайса, пожалуйста подождите"}/>
         case 'complete': return <p>Скачивание прайса завершено. <span className={styles.linker} onClick={() => setDownloadState('new')}>Скачать ещё раз?</span> </p>
         case 'error': return <p>Что-то пошло не так, попробуем ещё?</p>
         default: return <p onClick={event => _downloadPrice(event, setDownloadState)} className={styles.linker}> <Icon width="50" height="50" /> Скачать прайс в формате Excel</p>

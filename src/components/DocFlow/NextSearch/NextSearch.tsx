@@ -1,11 +1,11 @@
 import { useState } from "react"
+import { useSelector } from "react-redux";
 
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import classNames from "classnames";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setDocs: (newDocs: IDoc[]) => void
@@ -17,16 +17,13 @@ type Props = {
 
 export default function NextSearch({ setDocs, lastId, limit, showNextButton, setShowNextButton }: Props) {
   const [disabled, setDisabled] = useState(false)
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
-  return <ThemeContext.Consumer>
-    {({ theme }) => (
-      <button
+  return <button
         hidden={!showNextButton}
         disabled={disabled}
         onClick={() => onSubmit(lastId, limit, setDisabled, setDocs, setShowNextButton)}
         type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}>Загрузить ещё</button>
-    )}
-  </ThemeContext.Consumer>
 }
 
 

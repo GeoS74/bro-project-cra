@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
@@ -6,7 +7,6 @@ import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   serviceName: ServiceName,
@@ -22,6 +22,7 @@ type Props = {
 export default function EditForm({ serviceName, id, setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
   const [error, setError] = useState<string | undefined>(undefined);
   const [disabled, setDisabled] = useState(false)
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   return <form
     onSubmit={(event) => { _onSubmit(event, serviceName, id, api, setValueRow, setIdActiveRow, setError, setDisabled, addRow) }}
@@ -30,15 +31,11 @@ export default function EditForm({ serviceName, id, setValueRow, setIdActiveRow,
     <fieldset disabled={disabled}>
       <input type="text" name="title" className="form-control" placeholder={placeholder} defaultValue={value} autoFocus={true} />
 
-      <ThemeContext.Consumer>
-        {({ theme }) => (
           <>
             <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Добавить" />
 
             <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => setIdActiveRow(-1)}>Отмена</span>
           </>
-        )}
-      </ThemeContext.Consumer>
 
     </fieldset>
     {error ? <strong>{error}</strong> : ''}

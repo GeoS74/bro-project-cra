@@ -1,7 +1,7 @@
 import { useState } from "react"
+import { useSelector } from "react-redux";
 
 import classNames from "classnames";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 import styles from "./styles.module.css"
 import fetcher from "../fetcher"
 
@@ -14,6 +14,7 @@ type Props = {
 
 export default function SearchForm({setHiddenNextSearch, setSearchResult, offset, limit }: Props) {
   const [disabled, setDisabled] = useState(false)
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   return <form id="searchForm" className={styles.root}
     onSubmit={(event) => {
@@ -24,11 +25,7 @@ export default function SearchForm({setHiddenNextSearch, setSearchResult, offset
     <fieldset disabled={disabled}>
       <input type="search" name="query" className="form-control" placeholder="Поиск позиций" />
 
-      <ThemeContext.Consumer>
-      {({ theme }) => (
-        <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Поиск" />
-      )}
-    </ThemeContext.Consumer>
+      <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Поиск" />
     </fieldset>
   </form>
 }

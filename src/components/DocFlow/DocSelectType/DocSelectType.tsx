@@ -1,9 +1,10 @@
 import { useState } from "react"
+import { useSelector } from "react-redux";
+  
 import session from "../../../libs/token.manager"
 import styles from "./styles.module.css"
 import classNames from "classnames"
 import EditForm from "../EditForm/EditForm"
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -12,10 +13,11 @@ type Props = {
 
 export default function DocSelectType({ setShowForm, addDoc }: Props) {
   const [typeDoc, setTypeDoc] = useState<DocType>()
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
-  if (typeDoc?.directing && typeDoc.task) {
+  if(typeDoc?.directing && typeDoc.task) {
     return <div className={classNames(styles.root, "mt-4")}>
-      <EditForm setShowForm={setShowForm} addDoc={addDoc} typeDoc={typeDoc} />
+      <EditForm setShowForm={setShowForm} addDoc={addDoc} typeDoc={typeDoc}/>
     </div>
   }
 
@@ -42,10 +44,6 @@ export default function DocSelectType({ setShowForm, addDoc }: Props) {
     </ul>
       : <></>}
 
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)} onClick={() => setShowForm(false)}>Отмена</span>
-      )}
-    </ThemeContext.Consumer>
+    <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}onClick={() => setShowForm(false)}>Отмена</span>
   </div>
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import tokenManager from "../../../libs/token.manager";
 import serviceHost from "../../../libs/service.host";
@@ -9,11 +10,11 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 import Accordion from "../Accordion/Accordion";
 import Popup from "../../Popup/Popup";
-import { ThemeContext } from "../../../contexts/ThemeContext/ThemeContext";
 
 export default function AccessSetting() {
   const [disabled, setDisabled] = useState(false);
   const [modePopup, setModePopup] = useState<PopupMode>();
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   /*
   * первый элемент массива исходных данных - роли
@@ -32,15 +33,11 @@ export default function AccessSetting() {
       className={classNames(styles.content, "mt-4")}>
 
       <fieldset disabled={disabled}>
-        <ThemeContext.Consumer>
-          {({ theme }) => (
             <input
               type="submit"
               className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4 mb-4`)}
               value="Сохранить настройки"
             />
-          )}
-        </ThemeContext.Consumer>
 
         <Accordion roles={roles} directings={directings} tasks={tasks} actions={actions} accessSettings={accessSettings} />
 
