@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom"
 import styles from "./styles.module.css"
+
+
 
 type Props = {
   products: IProduct[] | undefined
@@ -11,7 +14,7 @@ export default function SearchPane({ products }: Props) {
 
       <header className="border-light mt-4">
         <div>Наименование, артикул</div>
-        <div>Бренд</div>
+        <div></div>
         <div>Производитель</div>
         <div>Остаток</div>
         <div>Цена</div>
@@ -25,12 +28,12 @@ export default function SearchPane({ products }: Props) {
 
 function _makeList(products: IProduct[]) {
   return products
-    .map((p, index) => <div key={index} className="card mt-2">
+    .map((p, index) => <div key={index} className="card mt-0">
       <div>
-        <p>{p.title}</p>
+        <Link to={`/catalog/${p.id}`}><p>{p.title}</p></Link>
         <p>{p.article}</p>
       </div>
-      <div>{p.brantTitle}</div>
+      <div></div>
       <div>{p.manufacturer}</div>
       <div>{p.amount || "под заказ"}</div>
       <div>{p.price || <small>Уточняйте у менеджера</small>}</div>

@@ -4,8 +4,9 @@ export default async function fetcher(
   query: string,
   offset?: number,
   limit?: number,
+  last?: number,
 ) : Promise<ISearchResult | undefined> {
-  return fetch(`${serviceHost("bridge")}/api/bridge/search/?query=${query}&offset=${offset || ''}&limit=${limit || ''}`)
+  return fetch(`${serviceHost("bridge")}/api/bridge/search/?query=${query}&offset=${offset || ''}&limit=${limit || ''}&last=${last || ''}`)
     .then(async response => {
       if (response.ok) {
         const res = await response.json()

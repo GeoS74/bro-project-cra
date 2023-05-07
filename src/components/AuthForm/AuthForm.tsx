@@ -12,8 +12,8 @@ import { Footer } from "./Footer/Footer";
 import styles from "./styles.module.css"
 
 export const AuthForm = () => {
-  const [formMode, setFormMode] = useState<formMode>("signin");
-  const [errorMessage, setErrorResponse] = useState<IErrorAuthMessage | undefined>();
+  const [formMode, setFormMode] = useState<AuthFormMode>("signin");
+  const [errorMessage, setErrorResponse] = useState<IErrorMessage | undefined>();
   const [disabled, setDisabled] = useState(false)
   const navigate = useNavigate();
 
@@ -43,9 +43,9 @@ export const AuthForm = () => {
 
 function _query(
   event: React.FormEvent<HTMLFormElement>,
-  formMode: formMode,
-  setFormMode: React.Dispatch<React.SetStateAction<formMode>>,
-  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorAuthMessage | undefined>>,
+  formMode: AuthFormMode,
+  setFormMode: React.Dispatch<React.SetStateAction<AuthFormMode>>,
+  setErrorResponse: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: (path: string) => void) {
 
@@ -80,7 +80,7 @@ function _query(
     .finally(() => setDisabled(false));
 }
 
-function _getErrorResponse(error: string): IErrorAuthMessage {
+function _getErrorResponse(error: string): IErrorMessage {
   switch (error) {
     case "invalid email":
       return { field: "email", message: "Введите адрес электронной почты" }
@@ -99,7 +99,7 @@ function _getErrorResponse(error: string): IErrorAuthMessage {
   }
 }
 
-function _getLegend(formMode: formMode) {
+function _getLegend(formMode: AuthFormMode) {
   switch (formMode) {
     case "signin": return "Авторизация";
     case "signup": return "Создание аккаунта";

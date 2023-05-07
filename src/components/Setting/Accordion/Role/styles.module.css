@@ -1,14 +1,14 @@
 .root {
-  background-color: #1a1a1a !important;
+  background-color: var(--background-color) !important;
 }
 
 .root h2>span {
-  background-color: #272727 !important;
+  background-color: var(--background-color) !important;
 }
 
 .root,
 .root h2>span {
-  color: white !important;
+  color: var(--color) !important;
 }
 
 .root h2>span:hover {

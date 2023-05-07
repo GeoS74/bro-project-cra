@@ -27,7 +27,13 @@ async function _me(res: Response) {
 
 async function _user(res: Response) {
   if (res.ok) return await res.json()
-  if (res.status === 404) return await _createUser()
+  if (res.status === 404) {
+    /**
+     * перед созданием кабинета получить значение поля name из сервиса mAuth
+     */
+    const userMaut = await _getMe().then(_me).catch(console.log);
+    return await _createUser(userMaut?.name || '')
+  }
   throw new Error()
 }
 
@@ -47,12 +53,16 @@ function _getUser() {
   })
 }
 
-function _createUser() {
+function _createUser(name: string) {
+  const fd = new FormData();
+  fd.append('name', name);
+  
   return fetch(`${serviceHost("informator")}/api/informator/user/`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
-    }
+    },
+    body: fd
   })
     .then(async res => {
       if (res.ok) return await res.json()

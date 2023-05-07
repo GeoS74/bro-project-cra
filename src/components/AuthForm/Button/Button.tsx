@@ -1,13 +1,16 @@
 import styles from "./styles.module.css";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 
-export const Button = ({ formMode }: { formMode: formMode }) => {
+
+export const Button = ({ formMode }: { formMode: AuthFormMode }) => {
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
   return <div>
-    <button className={classNames(styles.root, "btn btn-outline-light mt-4")}>{_getTitle(formMode)}</button>
-  </div>
+    <button className={classNames(styles.root, `mt-4 btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)}>{_getTitle(formMode)}</button>
+      </div>
 };
 
-function _getTitle(formMode: formMode) {
+function _getTitle(formMode: AuthFormMode) {
   switch (formMode) {
     case "signin": return "Sign in";
     case "signup": return "Create an account";

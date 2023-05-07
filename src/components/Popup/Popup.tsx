@@ -4,12 +4,12 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 
 type Props = {
-  mode: popupMode
+  mode: PopupMode
   message: string
 }
 
 export default function Popup({ mode, message }: Props) {
-  const [popupMode, setPopupMode] = useState<popupMode>(mode);
+  const [popupMode, setPopupMode] = useState<PopupMode>(mode);
 
   if (!popupMode) {
     return <></>

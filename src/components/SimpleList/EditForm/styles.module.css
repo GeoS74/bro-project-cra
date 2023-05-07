@@ -11,6 +11,7 @@
 
 .root fieldset>input[type=text] {
   flex: 4;
+  border: solid 2px var(--color);
 }
 
 .root fieldset>input[type=submit],

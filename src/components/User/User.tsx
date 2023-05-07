@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Navigate from "../navigate/Navigate";
 import Avatar from "./Avatar/Avatar"
@@ -10,6 +11,7 @@ import classNames from "classnames"
 export default function User() {
   const [user, setUser] = useState(useLoaderData() as IUser)
   const [editMode, setEditMode] = useState(false)
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   return <>
     <Navigate />
@@ -22,12 +24,15 @@ export default function User() {
         <div>
           <Avatar userPhoto={user.photo} />
 
-          <input type="submit" className="btn btn-outline-light mt-4 mb-2"
-            value={editMode ? "Сохранить изменения" : "Редактировать профиль"}
-            onClick={event => {
-              (event.currentTarget.parentElement?.nextElementSibling?.querySelector('input[type=submit]') as HTMLInputElement).click()
-            }}
-          />
+         
+              <input type="submit" className={classNames(`btn mt-4 mb-2 btn-outline-${theme==='light'?'primary':'light'}`)}
+                value={editMode ? "Сохранить изменения" : "Редактировать профиль"}
+                onClick={event => {
+                  (event.currentTarget.parentElement?.nextElementSibling?.querySelector('input[type=submit]') as HTMLInputElement).click()
+                }}
+              />
+
+
         </div>
 
         <div><Accordion user={user} setUser={setUser} editMode={editMode} setEditMode={setEditMode} /></div>

@@ -3,6 +3,9 @@ import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import { UploadPriceFormTabPane } from "../UploadPriceFormTabPane/UploadPriceFormTabPane";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
+
 
 type Props = {
   setError: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -10,14 +13,15 @@ type Props = {
 }
 
 export default function UploadPriceForm({ setError, setUploadState }: Props) {
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
   return <form onSubmit={(event) => _onSubmit(event, setError, setUploadState)}>
 
     <legend className="mt-3 mb-4">Настройки загрузки файла Excel</legend>
 
     <UploadPriceFormTabPane />
 
-    <input type="submit" value="Загрузить прайс" className="btn btn-outline-light mt-4" />
-  </form>
+    <input type="submit" value="Загрузить прайс" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)} />
+    </form>
 }
 
 function _onSubmit(

@@ -2,11 +2,11 @@
   text-align: center;
 }
 
+.root p {
+  color: var(--color);
+}
+
 .root span {
   cursor: pointer;
   text-decoration: underline;
-}
-
-.root span:hover {
-  color: white;
 }

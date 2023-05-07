@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
 import styles from "./styles.module.css"
+import classNames from "classnames";
 
 type Props = {
   serviceName: ServiceName,
@@ -14,12 +16,13 @@ type Props = {
   setValueRow: React.Dispatch<React.SetStateAction<string | undefined>>,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   api: string,
-  addRow?: (row: IRow) => void,
+  addRow?: (row: ISimpleRow) => void,
 }
 
 export default function EditForm({ serviceName, id, setValueRow, setIdActiveRow, value, placeholder, api, addRow }: Props) {
   const [error, setError] = useState<string | undefined>(undefined);
   const [disabled, setDisabled] = useState(false)
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   return <form
     onSubmit={(event) => { _onSubmit(event, serviceName, id, api, setValueRow, setIdActiveRow, setError, setDisabled, addRow) }}
@@ -28,14 +31,18 @@ export default function EditForm({ serviceName, id, setValueRow, setIdActiveRow,
     <fieldset disabled={disabled}>
       <input type="text" name="title" className="form-control" placeholder={placeholder} defaultValue={value} autoFocus={true} />
 
-      <input type="submit" className="btn btn-outline-light" value="Добавить" />
+          <>
+            <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Добавить" />
 
-      <span className="btn btn-outline-light" onClick={() => setIdActiveRow(-1)}>Отмена</span>
-      
+            <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => setIdActiveRow(-1)}>Отмена</span>
+          </>
+
     </fieldset>
     {error ? <strong>{error}</strong> : ''}
   </form>
 }
+
+
 
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
@@ -46,7 +53,7 @@ function _onSubmit(
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   setError: React.Dispatch<React.SetStateAction<string | undefined>>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
-  addRow?: (row: IRow) => void) {
+  addRow?: (row: ISimpleRow) => void) {
 
   event.preventDefault()
   setDisabled(true)

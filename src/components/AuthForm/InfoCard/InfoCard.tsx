@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import styles from "./styles.module.css"
 
 type Props = {
-  mode: infoCardMode
+  mode: AuthInfoCardMode
 }
 
 export const InfoCard = ({ mode }: Props) => {
@@ -20,7 +20,7 @@ export const InfoCard = ({ mode }: Props) => {
   </div>
 }
 
-function _getMessage(mode: infoCardMode, status: number) {
+function _getMessage(mode: AuthInfoCardMode, status: number) {
   return mode === 'confirm' ? _getConfirmMessage(status) : _getRecoveryMessage(status)
 }
 

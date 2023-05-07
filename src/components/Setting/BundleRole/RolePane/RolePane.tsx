@@ -5,7 +5,7 @@ import styles from "./styles.module.css"
 
 type Props = {
   currentUser: IUser,
-  roles: IRow[]
+  roles: ISimpleRow[]
 }
 
 export default function RolePane({ currentUser, roles }: Props) {

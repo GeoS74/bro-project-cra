@@ -8,6 +8,6 @@
 .root>h4,
 .root>h5,
 .root>h6,
-p {
-  color: white;
+.root> p {
+  color: var(--color);
 }
