@@ -36,3 +36,7 @@
     font-size: 25px;
     color: var(--color);
 }
+
+.createElement {
+    font-size: 25px !important;
+}
