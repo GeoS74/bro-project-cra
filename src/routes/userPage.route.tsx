@@ -7,6 +7,8 @@ import TasksPage from "../components/UserPage/TasksPage/TasksPage"
 import ListTasks from "../components/UserPage/ListTasks/ListTasks"
 import DocPage from "../components/DocFlow/DocPage/DocPage";
 import { responseNotIsArray } from "../middleware/response.validator";
+import CreateTask from "../components/UserPage/CreateTask/CreateTask"
+import session from "../libs/token.manager"
 
 export default {
     path: "/userPage",
@@ -18,12 +20,19 @@ export default {
         loader: () => fetchWrapper(_getDocs).catch(() => redirect('/auth')),        
       },
       {
+        path: "/userPage/createTasks",
+        element: <CreateTask />,
+        loader: () => session.start(),
+      },
+      {
         path: "/userPage/listMeTasks",
-        element: <ListTasks/> 
+        element: <ListTasks/>,
+        loader: () => session.start(),
       },
       {
         path: "/userPage/listOtherTasks",
-        element: <ListTasks/>
+        element: <ListTasks/>,
+        loader: () => session.start(),
       },
       {
         path: "/userPage/listMeTasks/:id",
