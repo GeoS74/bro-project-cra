@@ -7,7 +7,9 @@ export default function deepFinder(haystack: unknown, needle: string): boolean {
             }
 
             if (typeof e !== 'string') {
-                return deepFinder(e, needle)
+                if (deepFinder(e, needle)) {
+                    return true;
+                }
             }
         }
     }

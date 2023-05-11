@@ -3,10 +3,10 @@ import AccordionCheckbox from "../AccordionCheckbox/AccordionCheckbox"
 import styles from "./styles.module.css"
 
 type Props = {
-  role: IRow,
-  directing: IRow,
-  task: IRow,
-  action: IRow,
+  role: ISimpleRow,
+  directing: ISimpleRow,
+  task: ISimpleRow,
+  action: ISimpleRow,
   accessSettings: IRole[]
 }
 

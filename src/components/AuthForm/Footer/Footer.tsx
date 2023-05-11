@@ -2,8 +2,8 @@ import styles from "./styles.module.css";
 import classNames from "classnames";
 
 type Props = {
-  formMode: formMode,
-  setFormMode: React.Dispatch<React.SetStateAction<formMode>>
+  formMode: AuthFormMode,
+  setFormMode: React.Dispatch<React.SetStateAction<AuthFormMode>>
 }
 
 export const Footer = ({ formMode, setFormMode }: Props) => {

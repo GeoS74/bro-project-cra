@@ -4,10 +4,10 @@ import styles from "./styles.module.css"
 import classNames from "classnames"
 
 type Props = {
-  roles: IRow[],
-  directings: IRow[],
-  tasks: IRow[],
-  actions: IRow[],
+  roles: ISimpleRow[],
+  directings: ISimpleRow[],
+  tasks: ISimpleRow[],
+  actions: ISimpleRow[],
   accessSettings: IRole[]
 }
 

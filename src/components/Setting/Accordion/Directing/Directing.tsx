@@ -4,10 +4,10 @@ import Task from "../Task/Task"
 import styles from "./styles.module.css"
 
 type Props = {
-  role: IRow,
-  directing: IRow,
-  tasks: IRow[],
-  actions: IRow[],
+  role: ISimpleRow,
+  directing: ISimpleRow,
+  tasks: ISimpleRow[],
+  actions: ISimpleRow[],
   accessSettings: IRole[]
 }
 

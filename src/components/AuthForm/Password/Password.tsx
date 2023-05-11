@@ -7,9 +7,9 @@ import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 import classNames from "classnames";
 
 type Props = {
-  formMode: formMode,
-  setFormMode: React.Dispatch<React.SetStateAction<formMode>>,
-  errorMessage: IErrorAuthMessage | undefined
+  formMode: AuthFormMode,
+  setFormMode: React.Dispatch<React.SetStateAction<AuthFormMode>>,
+  errorMessage: IErrorMessage | undefined
 }
 
 export const Password = ({ formMode, setFormMode, errorMessage }: Props) => {

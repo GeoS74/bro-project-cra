@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import {simpleListConfig as dataList} from "./simplelist.config"
+import classNames from "classnames";
+import { simpleListConfig as dataList } from "./simplelist.config"
 import SearchForm from "../SimpleList/SearchForm/SearchForm"
 import Row from "./Row/Row"
 import styles from "./styles.module.css"
 
 export default function SimpleList({ typeList }: { typeList: keyof ISimpleListConf }) {
   const [idActiveRow, setIdActiveRow] = useState(-1)
-  
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+
   let preloadData = useLoaderData();
-  if(!Array.isArray(preloadData)){
+  if (!Array.isArray(preloadData)) {
     preloadData = [];
   }
-  const [rows, setRows] = useState(preloadData as IRow[])
+  const [rows, setRows] = useState(preloadData as ISimpleRow[])
 
   return <div className={styles.root}>
     <h3>{dataList[typeList].title}</h3>
@@ -25,8 +28,8 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
       setRows={setRows}
       placeholderSearch={dataList[typeList].placeholderSearch} />
 
-
-    <button type="button" className="btn btn-outline-light mt-4" onClick={() => setIdActiveRow(0)}>Новая запись</button>
+        <button type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}
+          onClick={() => setIdActiveRow(0)}>Новая запись</button>
 
     <ul className="mt-4">
       {idActiveRow === 0 ? <Row
@@ -34,7 +37,7 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
         idActiveRow={idActiveRow}
         setIdActiveRow={setIdActiveRow}
         listConf={dataList[typeList]}
-        addRow={(newRow: IRow) => setRows([newRow, ...rows])}
+        addRow={(newRow: ISimpleRow) => setRows([newRow, ...rows])}
       /> : <></>}
 
       {_makeList(rows, idActiveRow, setIdActiveRow, dataList[typeList])}
@@ -45,7 +48,7 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
 }
 
 function _makeList(
-  rows: IRow[],
+  rows: ISimpleRow[],
   idActiveRow: number,
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   data: IListConf) {

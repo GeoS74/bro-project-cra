@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import styles from "./styles.module.css"
 
 export default function FrozenList() {
-    const preloadData = useLoaderData() as IRow[];
+    const preloadData = useLoaderData() as ISimpleRow[];
 
     return <div className={styles.root}>
         <h3>Список действий</h3>

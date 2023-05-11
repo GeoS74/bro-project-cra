@@ -1,9 +1,9 @@
 .root>h3 {
-  color: white;
+  color: var(--color);
 }
 
 .root > p span {
-  color: white;
+  color: var(--color);
   cursor: pointer;
 }
 

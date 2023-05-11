@@ -8,5 +8,5 @@
 .root>h1,
 .root>h3,
 p {
-  color: white;
+  color: var(--color);
 }

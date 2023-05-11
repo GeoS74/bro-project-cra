@@ -11,7 +11,7 @@ type Props = {
   setIdActiveRow: React.Dispatch<React.SetStateAction<number>>,
   listConf: IListConf,
   title?: string,
-  addRow?: (row: IRow) => void
+  addRow?: (row: ISimpleRow) => void
 }
 
 export default function Row({ id, title, idActiveRow, setIdActiveRow, listConf, addRow }: Props) {

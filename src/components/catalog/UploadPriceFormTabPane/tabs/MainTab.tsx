@@ -5,7 +5,7 @@ export const MainTab = () => {
   * первый элемент массива исходных данных - бренды
   * второй - поставщики
   */
-  const loaderData = useLoaderData() as IRow[][];
+  const loaderData = useLoaderData() as ISimpleRow[][];
 
   return <>
     <div className="form-group col-sm-5">
@@ -33,7 +33,7 @@ export const MainTab = () => {
   </>
 }
 
-function _makeOptions(brands: IRow[]) {
+function _makeOptions(brands: ISimpleRow[]) {
   return brands.map((value, index) => {
     return <option key={index} value={value.id} >
       {value.title}

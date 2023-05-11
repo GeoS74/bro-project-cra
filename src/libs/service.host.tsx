@@ -3,10 +3,14 @@ import config from "../config"
 export default function serviceHost(name: ServiceName): string {
   switch (name) {
     case "bridge":
-      return `${config.catalog.back.host || ''}${config.catalog.back.port ? ':' : ''}${config.catalog.back.port || ''}`;
+      return _makeURL(config.catalog.back.host, config.catalog.back.port);
     case "mauth":
-      return `${config.auth.back.host || ''}${config.auth.back.port ? ':' : ''}${config.auth.back.port || ''}`;
+      return _makeURL(config.auth.back.host, config.auth.back.port);
     case "informator":
-      return `${config.info.back.host || ''}${config.info.back.port ? ':' : ''}${config.info.back.port || ''}`;
+      return _makeURL(config.info.back.host, config.info.back.port);
   }
+}
+
+function _makeURL(host: string, port: number): string {
+  return `${host || ''}${port? ':' : ''}${port || ''}`
 }

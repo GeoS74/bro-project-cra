@@ -1,7 +1,7 @@
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 
 type Props = {
-  errorMessage: IErrorAuthMessage | undefined
+  errorMessage: IErrorMessage | undefined
 }
 
 export const Email = ({ errorMessage }: Props) => {

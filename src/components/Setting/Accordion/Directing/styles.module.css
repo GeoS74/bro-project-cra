@@ -7,6 +7,7 @@
 .root>span:hover{
   cursor: pointer;
   text-decoration: underline;
+  color: var(--color) !important;
 }
 
 .root .checkboxList{
@@ -18,4 +19,5 @@
 .root .checkboxList p:first-child:hover{
   cursor: pointer;
   text-decoration: underline;
+  color: var(--color) !important;
 }
