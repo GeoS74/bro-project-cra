@@ -8,18 +8,17 @@ import classNames from "classnames"
 import EditForm from "../EditForm/EditForm"
 
 type Props = {
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>
   addDoc?: ((row: IDoc) => void) | undefined
 }
 
-export default function DocSelectType({ setShowForm, addDoc }: Props) {
+export default function DocSelectType({ addDoc }: Props) {
   const [typeDoc, setTypeDoc] = useState<DocType>()
   const navigate = useNavigate();
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   if(typeDoc?.directing && typeDoc.task) {
     return <div className={classNames(styles.root, "mt-4")}>
-      <EditForm setShowForm={setShowForm} addDoc={addDoc} typeDoc={typeDoc}/>
+      <EditForm  addDoc={addDoc} typeDoc={typeDoc}/>
     </div>
   }
 

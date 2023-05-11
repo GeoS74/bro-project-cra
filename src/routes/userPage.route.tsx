@@ -1,14 +1,16 @@
-import tokenManager from "../libs/token.manager"
-import serviceHost from "../libs/service.host"
-import fetchWrapper from "../libs/fetch.wrapper"
-import UserPage from "../components/UserPage/UserPage"
-import { redirect, LoaderFunctionArgs } from "react-router-dom"
-import TasksPage from "../components/UserPage/TasksPage/TasksPage"
-import ListTasks from "../components/UserPage/ListTasks/ListTasks"
-import DocPage from "../components/DocFlow/DocPage/DocPage";
+import { redirect, LoaderFunctionArgs } from "react-router-dom";
+
+import tokenManager from "../libs/token.manager";
+import serviceHost from "../libs/service.host";
+import fetchWrapper from "../libs/fetch.wrapper";
+import session from "../libs/token.manager";
 import { responseNotIsArray } from "../middleware/response.validator";
-import CreateTask from "../components/UserPage/CreateTask/CreateTask"
-import session from "../libs/token.manager"
+
+import DocPage from "../components/DocFlow/DocPage/DocPage";
+import ListTasks from "../components/UserPage/ListTasks/ListTasks";
+import TasksPage from "../components/UserPage/TasksPage/TasksPage";
+import UserPage from "../components/UserPage/UserPage";
+import DocSelectType from "../components/UserPage/DocSelectType/DocSelectType";
 
 export default {
     path: "/userPage",
@@ -21,7 +23,7 @@ export default {
       },
       {
         path: "/userPage/createTasks",
-        element: <CreateTask />,
+        element: <DocSelectType />,
         loader: () => fetchWrapper([_getUsers, _getRoles])
         .then(response => {
           if (Array.isArray(response)) {

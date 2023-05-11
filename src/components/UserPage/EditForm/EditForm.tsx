@@ -19,14 +19,13 @@ import UsersInput from "./UsersInput/UsersInput";
 
 
 type Props = {
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>
   typeDoc: DocType
   doc?: IDoc
   addDoc?: (row: IDoc) => void
   updDoc?: (row: IDoc) => void
 }
 
-export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: Props) {
+export default function EditForm({ doc, addDoc, updDoc, typeDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
   const [fileList, setFileList] = useState<FileList[]>([])
@@ -35,7 +34,7 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   console.log(theme)
 
   return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
+    onSubmit={event => _onSubmit(event, setDisabled, setErrorResponse, fileList, doc, addDoc, updDoc)}
   >
     <fieldset disabled={disabled} className="form-group">
 
@@ -76,7 +75,6 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>,
   fileList: FileList[],
   doc?: IDoc,
@@ -101,7 +99,6 @@ function _onSubmit(
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
-        setShowForm(false)
 
         if (addDoc) {
           addDoc(res)

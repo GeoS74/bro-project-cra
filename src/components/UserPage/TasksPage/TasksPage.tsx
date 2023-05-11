@@ -4,20 +4,16 @@ import styles from "./styles.module.css"
 import TaskPage from "../TaskPage/TaskPage";
 import session from "../../../libs/token.manager"
 import finder from "../../../libs/deep.finder"
-import CreateTask from "../CreateTask/CreateTask";
 
 
 
 export default function TasksPage() {
-    const [docs, setDocs] = useState(useLoaderData() as IDoc[])
-    const [showForm, setShowForm] = useState(false);
-    const bar = session?._me?.email
-    const meTasks = docs.filter(user => user?.author.email === bar)
-    const notMeTasks = docs.filter(user => user?.author.email !== bar)
+    session.subscribe('userPageTask');
+    const [docs] = useState(useLoaderData() as IDoc[])
+    const meTasks = docs.filter(user => user?.author.email === session.getMe()?.email)
+    const notMeTasks = docs.filter(user => user?.author.email !== session.getMe()?.email)
     return (
         <div className={styles.root}>
-          {showForm ?
-          <CreateTask /> :
           <div className={styles.tasks}>            
               <div className={styles.task}>
                   <TaskPage value={"Мои поручения"} index={0} ListTasks={meTasks} Path={"/userPage/listMeTasks"}/>
@@ -25,10 +21,9 @@ export default function TasksPage() {
                   {finder(session.getMe()?.roles, 'Создать') ?
                     <TaskPage value={"Создать документ"} index={1} ListTasks={notMeTasks} Path={"/userPage/createTasks"}/>
                     : <></>
-        }
+                    }
               </div>
           </div> 
-          }      
                       
         </div>    
     )
