@@ -1,0 +1,14 @@
+.root {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.panel {
+    margin-right: 15px;
+    padding: 10px;
+    border: solid 2px;
+}
+.panel p {
+    margin: 0;
+}

@@ -22,7 +22,13 @@ export default {
       {
         path: "/userPage/createTasks",
         element: <CreateTask />,
-        loader: () => session.start(),
+        loader: () => fetchWrapper([_getUsers, _getRoles])
+        .then(response => {
+          if (Array.isArray(response)) {
+            return Promise.all(response.map(async r => await r.json()))
+          }
+        })
+        .catch(() => redirect('/auth')),
       },
       {
         path: "/userPage/listMeTasks",
@@ -73,6 +79,22 @@ function _getDocs() {
 
 function _getDoc(id?: string) {
   return fetch(`${serviceHost("informator")}/api/informator/docflow/${id}`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getUsers() {
+  return fetch(`${serviceHost("informator")}/api/informator/user/all`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getRoles() {
+  return fetch(`${serviceHost("informator")}/api/informator/role`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
