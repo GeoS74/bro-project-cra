@@ -29,7 +29,6 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
   const [fileList, setFileList] = useState<FileList[]>([])
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-  console.log(theme)
 
   return <form className={styles.root}
     onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
@@ -89,6 +88,11 @@ function _onSubmit(
   const fd = new FormData(event.currentTarget)
 
   fileList.map(f => fd.append('scans', f[0]))
+
+  // const test = fd.get('author') || ''
+  // fd.append(`acceptor[${test}1]`, '')
+  // fd.append(`acceptor[${test}2]`, '')
+  // fd.append(`recipient[${test}]`, 'on')
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc?.id || ''}`, {
     method: addDoc ? 'POST' : 'PATCH',

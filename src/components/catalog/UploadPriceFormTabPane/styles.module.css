@@ -12,3 +12,8 @@
 .root input {
   border: solid 1px var(--color) !important;
 }
+
+.labelCheckbox{
+  margin-left: 20px;
+  cursor: pointer;
+}
