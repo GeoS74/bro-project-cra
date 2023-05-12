@@ -14,12 +14,14 @@ type Props = {
 export default function DocSelectType({ setShowForm, addDoc }: Props) {
   const [typeDoc, setTypeDoc] = useState<DocType>()
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-
+  console.log(addDoc)
+  
   if(typeDoc?.directing && typeDoc.task) {
     return <div className={classNames(styles.root, "mt-4")}>
       <EditForm setShowForm={setShowForm} addDoc={addDoc} typeDoc={typeDoc}/>
     </div>
   }
+  
 
   return <div className={classNames(styles.root, "mt-4")}>
     <legend>Создание документа</legend>

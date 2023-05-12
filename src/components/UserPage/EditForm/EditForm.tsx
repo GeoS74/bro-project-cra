@@ -31,7 +31,7 @@ export default function EditForm({ doc, addDoc, updDoc, typeDoc }: Props) {
   const [fileList, setFileList] = useState<FileList[]>([])
   const navigate = useNavigate();
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-  console.log(theme)
+  console.log(doc)
 
   return <form className={styles.root}
     onSubmit={event => _onSubmit(event, setDisabled, setErrorResponse, fileList, doc, addDoc, updDoc)}

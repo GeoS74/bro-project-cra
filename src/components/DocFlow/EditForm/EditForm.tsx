@@ -29,7 +29,8 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
   const [fileList, setFileList] = useState<FileList[]>([])
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-  console.log(theme)
+  console.log(addDoc)
+  console.log(updDoc)
 
   return <form className={styles.root}
     onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}

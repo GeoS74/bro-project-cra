@@ -11,14 +11,14 @@ type Props = {
   addDoc?: ((row: IDoc) => void) | undefined
 }
 
-export default function DocSelectType({ addDoc }: Props) {
+export default function DocSelectType() {
   const [typeDoc, setTypeDoc] = useState<DocType>()
   const navigate = useNavigate();
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   if(typeDoc?.directing && typeDoc.task) {
     return <div className={classNames(styles.root, "mt-4")}>
-      <EditForm  addDoc={addDoc} typeDoc={typeDoc}/>
+      <EditForm  typeDoc={typeDoc}/>
     </div>
   }
 

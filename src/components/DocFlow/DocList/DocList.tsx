@@ -19,6 +19,7 @@ export default function DocList() {
   const [showForm, setShowForm] = useState(false);
   const [showNextButton, setShowNextButton] = useState(true)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  console.log(docs)
 
   return <div className={styles.root} >
     <h3>Мои документы</h3>
