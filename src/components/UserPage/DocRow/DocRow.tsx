@@ -31,12 +31,7 @@ export default function DocRow(doc: IDoc) {
       dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
     ></p>
 
-
-{doc.acceptor.map(e => <small key={e.uid}>подписывает: {e.name}</small>)}
-<br/>
-{doc.recipient.map(e => <small key={e.uid}>ознокамливается: {e.name}</small>)}
-<br/>
-<small> автор: {doc.author.fullName}</small>
+<small> автор: {doc.author.name}</small>
   </div>
 }
 
