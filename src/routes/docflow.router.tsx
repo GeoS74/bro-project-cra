@@ -10,6 +10,7 @@ import DocFlow from "../components/DocFlow/DocFlow"
 import DocList from "../components/DocFlow/DocList/DocList"
 import DocPage from "../components/DocFlow/DocPage/DocPage";
 import ListTasks from "../components/DocFlow/ListTasks/ListTasks";
+import ButtonCreateTask from "../components/DocFlow/ButtonCreateTask/ButtonCreateTask";
 import DocSelectType from "../components/DocFlow/DocSelectType/DocSelectType";
 
 export default {
@@ -21,17 +22,17 @@ export default {
       element: <DocList />,
       loader: () => fetchWrapper(_getDocs).catch(() => redirect('/auth'))
     },
-    // {
-    //   path: "/userPage/createTasks",
-    //   element: <DocSelectType />,
-    //   loader: () => fetchWrapper([_getUsers, _getRoles])
-    //   .then(response => {
-    //     if (Array.isArray(response)) {
-    //       return Promise.all(response.map(async r => await r.json()))
-    //     }
-    //   })
-    //   .catch(() => redirect('/auth')),
-    // },
+    {
+      path: "/docflow/createTasks",
+      element: <DocSelectType />,
+      loader: () => fetchWrapper([_getUsers, _getRoles])
+      .then(response => {
+        if (Array.isArray(response)) {
+          return Promise.all(response.map(async r => await r.json()))
+        }
+      })
+      .catch(() => redirect('/auth')),
+    },
     {
       path: "/docflow/listMeTasks",
       element: <ListTasks/>,
@@ -68,6 +69,22 @@ function _getDoc(id?: string) {
 
 function _getDocs() {
   return fetch(`${serviceHost("informator")}/api/informator/docflow`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getUsers() {
+  return fetch(`${serviceHost("informator")}/api/informator/user/all`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getRoles() {
+  return fetch(`${serviceHost("informator")}/api/informator/role`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }

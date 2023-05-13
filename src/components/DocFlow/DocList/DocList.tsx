@@ -3,12 +3,14 @@ import { useLoaderData } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.css";
 
+
 import session from "../../../libs/token.manager";
 import finder from "../../../libs/deep.finder";
 import DocRow from "../DocRow/DocRow";
 import SearchForm from "../SearchForm/SearchForm";
 import NextSearch from "../NextSearch/NextSearch";
 import TaskPage from "../TaskPage/TaskPage";
+import ButtonCreateTask from "../ButtonCreateTask/ButtonCreateTask";
 
 
 const docsLimit = 25;
@@ -20,8 +22,7 @@ export default function DocList() {
   const [showNextButton, setShowNextButton] = useState(true)
   const meTasks = docs.filter(user => user?.author.email === session.getMe()?.email)
   const notMeTasks = docs.filter(user => user?.author.email !== session.getMe()?.email)
-  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-  console.log(docs)
+  console.log(setShowForm)
 
   return <div className={styles.root} >
     <h3>Мои документы</h3>
@@ -33,7 +34,7 @@ export default function DocList() {
             <TaskPage value={"Мои поручения"} index={0} ListTasks={meTasks} Path={"/docflow/listMeTasks"}/>
             <TaskPage value={"Поручения мне"} index={1} ListTasks={notMeTasks} Path={"/docflow/listOtherTasks"}/>
             {finder(session.getMe()?.roles, 'Создать') ?
-                <TaskPage value={"Создать документ"} index={1} ListTasks={notMeTasks} Path={"/docflow/createTasks"}/>
+                <ButtonCreateTask setShowForm={setShowForm} addDoc={(newDoc: IDoc) => setDocs([newDoc, ...docs])}/>
                 : <></>
                 }
         </div>
