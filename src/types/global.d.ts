@@ -91,6 +91,8 @@ interface IDoc {
   author: IDocUnit
   files: IDocFile[]
   createdAt: string
+  acceptor: IDocSignatory[]
+  recipient: IDocSignatory[]
 }
 
 interface IDocUnit {
@@ -98,6 +100,10 @@ interface IDocUnit {
   email: string
   name: string
   fullName: string
+}
+
+interface IDocSignatory extends IDocUnit{
+  accept: boolean
 }
 
 interface IDocFile {
