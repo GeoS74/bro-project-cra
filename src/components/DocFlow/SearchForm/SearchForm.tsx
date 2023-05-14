@@ -9,20 +9,19 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 
 type Props = {
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>
   setDocs: React.Dispatch<React.SetStateAction<IDoc[]>>
   setShowNextButton: React.Dispatch<React.SetStateAction<boolean>>
   limit: number
 }
 
-export default function SearchForm({ setShowNextButton, setShowForm, setDocs, limit }: Props) {
+export default function SearchForm({ setShowNextButton, setDocs, limit }: Props) {
   const [disabled, setDisabled] = useState(false)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
   
 
   return <form id="searchForm" className={styles.root}
     onSubmit={(event) => {
-      onSubmit(event, setDisabled, setDocs, setShowForm, setShowNextButton, limit)
+      onSubmit(event, setDisabled, setDocs, setShowNextButton, limit)
     }}>
 
     <fieldset disabled={disabled}>
@@ -38,7 +37,6 @@ async function onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   setDocs: React.Dispatch<React.SetStateAction<IDoc[]>>,
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setShowNextButton: React.Dispatch<React.SetStateAction<boolean>>,
   limit: number
 ) {
@@ -50,7 +48,6 @@ async function onSubmit(
   sessionStorage.setItem('lastQuery', fd.get('query') as string)
 
   setDisabled(true)
-  setShowForm(false)
 
   const url = fd.get('query') ? `/api/informator/docflow/search/doc/?title=${fd.get('query')}&limit=${limit}&last=`
     : `/api/informator/docflow`

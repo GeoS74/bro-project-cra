@@ -19,7 +19,7 @@ export default {
       index: true,
       element: <DocList />,
       loader: () => fetchWrapper(_getDocs).catch(() => redirect('/auth'))
-    },    
+    },
     {
       path: "/docflow/listMeTasks",
       element: <ListTasks/>,
@@ -56,6 +56,22 @@ function _getDoc(id?: string) {
 
 function _getDocs() {
   return fetch(`${serviceHost("informator")}/api/informator/docflow`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getUsers() {
+  return fetch(`${serviceHost("informator")}/api/informator/user/all`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getRoles() {
+  return fetch(`${serviceHost("informator")}/api/informator/role`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }

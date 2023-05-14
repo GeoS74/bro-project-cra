@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./styles.module.css";
 import classNames from "classnames";
 
@@ -18,7 +18,11 @@ const docsLimit = 25;
 export default function DocList() {
   session.subscribe('DocList');
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
-  const [showForm, setShowForm] = useState(false);
+  const dispatch = useDispatch();
+  docs.map((value) => dispatch(setNewAddDoc(value)))
+  const state = (useSelector(state => state) as {docList: Array<IDoc>})
+  console.log(state.docList)
+
   const [showNextButton, setShowNextButton] = useState(true)
   const meTasks = docs.filter(user => user?.author.email === session.getMe()?.email)
   const notMeTasks = docs.filter(user => user?.author.email !== session.getMe()?.email)
