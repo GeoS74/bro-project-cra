@@ -1,11 +1,9 @@
 import { useState } from "react"
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom"
   
 import session from "../../../libs/token.manager"
 import styles from "./styles.module.css"
 import classNames from "classnames"
-import { useNavigate } from "react-router-dom"
 import EditForm from "../EditForm/EditForm"
 
 type Props = {
@@ -13,15 +11,14 @@ type Props = {
   addDoc?: ((row: IDoc) => void) | undefined
 }
 
-export default function DocSelectType() {
-  const addDoc = useLocation().state?.addDoc;
+export default function DocSelectType({ setShowForm, addDoc }: Props) {
   const [typeDoc, setTypeDoc] = useState<DocType>()
-  const navigate = useNavigate();
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  console.log(addDoc)
   
   if(typeDoc?.directing && typeDoc.task) {
     return <div className={classNames(styles.root, "mt-4")}>
-      <EditForm addDoc={addDoc} typeDoc={typeDoc}/>
+      <EditForm setShowForm={setShowForm} addDoc={addDoc} typeDoc={typeDoc}/>
     </div>
   }
   
@@ -49,6 +46,6 @@ export default function DocSelectType() {
     </ul>
       : <></>}
 
-    <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)} onClick={() => navigate(-1)}>Отмена</span>
+    <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}onClick={() => setShowForm(false)}>Отмена</span>
   </div>
 }

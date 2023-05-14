@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom"
 
 import session from "../../../libs/token.manager"
 import tokenManager from "../../../libs/token.manager"
@@ -19,21 +18,21 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 
 type Props = {
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>
   typeDoc: DocType
   doc?: IDoc
   addDoc?: (row: IDoc) => void
   updDoc?: (row: IDoc) => void
 }
 
-export default function EditForm({ doc, addDoc, updDoc, typeDoc }: Props) {
+export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
-  const navigate = useNavigate();
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
   const [fileList, setFileList] = useState<FileList[]>([])
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
   return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setErrorResponse, fileList, doc, addDoc, updDoc)}
+    onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
   >
     <fieldset disabled={disabled} className="form-group">
 
@@ -72,7 +71,7 @@ export default function EditForm({ doc, addDoc, updDoc, typeDoc }: Props) {
       <>
         <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Записать" />
 
-        <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => navigate(-1)}>Отмена</span>
+        <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} onClick={() => setShowForm(false)}>Отмена</span>
       </>
 
       <input type="hidden" name="author" defaultValue={session.getMe()?.uid} />
@@ -85,6 +84,7 @@ export default function EditForm({ doc, addDoc, updDoc, typeDoc }: Props) {
 function _onSubmit(
   event: React.FormEvent<HTMLFormElement>,
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>,
   fileList: FileList[],
   doc?: IDoc,
@@ -104,7 +104,7 @@ function _onSubmit(
   // fd.append(`recipient[${test}]`, 'on')
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc?.id || ''}`, {
-    method: addDoc ? 'PATCH' : 'POST',
+    method: addDoc ? 'POST' : 'PATCH',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
@@ -114,6 +114,7 @@ function _onSubmit(
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
+        setShowForm(false)
 
         if (addDoc) {
           addDoc(res)
