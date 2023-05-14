@@ -14,6 +14,7 @@ import FileInput from "./FileInput/FileInput";
 import FileLinkList from "./FileLinkList/FileLinkList"
 import FileNameList from "./FileNameList/FileNameList"
 import HiddenInput from "./HiddenInput/HiddenInput";
+import InputUser from "./InputUser/InputUser";
 import styles from "./styles.module.css"
 import classNames from "classnames";
 
@@ -59,6 +60,14 @@ export default function EditForm({ doc, addDoc, updDoc, typeDoc }: Props) {
       <TextPane description={doc?.description} />
 
       <HiddenInput typeDoc={typeDoc} />
+
+      <div className={styles.formUser}>
+        <InputUser />
+        <InputUser />
+      </div>
+
+      
+
 
       <>
         <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Записать" />

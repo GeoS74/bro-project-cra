@@ -12,6 +12,8 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 import BackArrow from "../BackArrow/BackArrow";
 import { Converter } from "md-conv";
+import {ReactComponent as IconCreate} from "./image/create.svg"
+import {ReactComponent as IconEdit} from "./image/edit.svg"
 
 const converter = new Converter()
 
@@ -60,22 +62,28 @@ export default function DocPage() {
       dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
     ></p>
 
-    <div className="mt-4 mb-4">
+    <div className={styles.buttons}>
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
-            <button type="button"
-              className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
-              onClick={() => setShowForm(true)}
-            >Редактировать документ</button>
+            <div
+              className={classNames(styles.button)}
+              onClick={() => setShowForm(true)}>
+              <IconEdit height="70px" width="70px" className={styles.svgButton}/>
+              <div>
+                Редактировать документ
+              </div>
+                           
+            </div>
         : <></>}
 
       {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
-            <button type="button"
-              className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
+              <div className={classNames(styles.button)}
               onClick={() => {
                 _delDoc(doc.id);
                 navigate('/docflow');
-              }}
-            >Удалить документ</button>
+              }}>
+                <IconCreate height="50px" width="50px" className={styles.svgButton}/>
+                <div>Удалить</div>                
+              </div>            
         : <></>}
     </div>
   </div>

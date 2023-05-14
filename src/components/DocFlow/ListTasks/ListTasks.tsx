@@ -23,7 +23,7 @@ export default function ListTasks (){
         {state?.map((doc: IDoc) => { return <div key={doc.id} className={classNames(styles.rootDoc, "mt-2")}>
         <small>{doc.directing?.title} / {doc.task?.title}</small>
 
-        <h5 className="mt-2"><Link to={`${path}/${doc.id}`} className="nav-link">{doc.title}</Link></h5>
+        <h5 className="mt-2"><Link to={`/docflow/${doc.id}`} className="nav-link">{doc.title}</Link></h5>
 
         <ul>
         {doc.files.map(file => {

@@ -8,3 +8,7 @@
   margin-right: 10px;
 }
 
+.formUser {
+  display: flex;
+  flex-direction: row;
+}

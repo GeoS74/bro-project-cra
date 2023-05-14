@@ -22,3 +22,43 @@
   display: flex;
   align-items: center;
 }
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: solid 5px;
+  border-radius: 10px;
+  margin: 5px 10px 0 0;
+  padding: 10px 10px 10px 10px;
+  color: var(--color);
+  background-color: var(--background-color);
+  width: 250px;
+  font-size: 18px;
+}
+
+.button div {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color);
+  transition: 0.5s;
+  color: var(--background-color)
+}
+
+.svgButton {
+  fill: var(--color);
+}
+
+.button:hover svg {
+  fill: var(--background-color);
+}
