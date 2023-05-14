@@ -1,22 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const docListSlice = createSlice({
     name: "docList",
     initialState: {
-        setShowForm: undefined,
-         addDoc: undefined
+        addDoc: [] as Array<IDoc>
     },
     reducers: {
-        setDocList: state => {
-            state.theme === "dark" ? state.theme = "light" : state.theme = "dark"
-            document.documentElement.dataset.theme = state.theme;
-            localStorage.setItem("theme", state.theme);
+        setNewAddDoc (state, action: PayloadAction<IDoc>) {
+            state.addDoc.unshift(action.payload)
         },
 
-        getDocList: state => {state}
+
+        setAddDoc (state, action: PayloadAction<IDoc>) {
+            state.addDoc.unshift(action.payload)
+        },
+
+        getAddDoc: state => {state}
     },
 });
 
-export const {setDocList} = docListSlice.actions
+export const {setAddDoc, setNewAddDoc} = docListSlice.actions
 
 export default docListSlice.reducer

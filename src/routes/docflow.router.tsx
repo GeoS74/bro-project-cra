@@ -10,7 +10,6 @@ import DocFlow from "../components/DocFlow/DocFlow"
 import DocList from "../components/DocFlow/DocList/DocList"
 import DocPage from "../components/DocFlow/DocPage/DocPage";
 import ListTasks from "../components/DocFlow/ListTasks/ListTasks";
-import ButtonCreateTask from "../components/DocFlow/ButtonCreateTask/ButtonCreateTask";
 import DocSelectType from "../components/DocFlow/DocSelectType/DocSelectType";
 
 export default {

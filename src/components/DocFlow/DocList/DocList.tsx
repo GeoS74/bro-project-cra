@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./styles.module.css";
+import {setNewAddDoc} from '../../../store/slice/docListSlise'
 
 
 import session from "../../../libs/token.manager";
@@ -18,23 +19,27 @@ const docsLimit = 25;
 export default function DocList() {
   session.subscribe('task');
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
-  const [showForm, setShowForm] = useState(false);
+  const dispatch = useDispatch();
+  docs.map((value) => dispatch(setNewAddDoc(value)))
+  const state = (useSelector(state => state) as {docList: Array<IDoc>})
+  console.log(state.docList)
+
   const [showNextButton, setShowNextButton] = useState(true)
   const meTasks = docs.filter(user => user?.author.email === session.getMe()?.email)
   const notMeTasks = docs.filter(user => user?.author.email !== session.getMe()?.email)
-  console.log(setShowForm)
+
 
   return <div className={styles.root} >
     <h3>Мои документы</h3>
 
-    <SearchForm setDocs={setDocs} limit={docsLimit} setShowForm={setShowForm} setShowNextButton={setShowNextButton} />
+    <SearchForm setDocs={setDocs} limit={docsLimit} setShowNextButton={setShowNextButton} />
 
     <div className={styles.tasks}>            
         <div className={styles.task}>
             <TaskPage value={"Мои поручения"} index={0} ListTasks={meTasks} Path={"/docflow/listMeTasks"}/>
             <TaskPage value={"Поручения мне"} index={1} ListTasks={notMeTasks} Path={"/docflow/listOtherTasks"}/>
             {finder(session.getMe()?.roles, 'Создать') ?
-                <ButtonCreateTask setShowForm={setShowForm} addDoc={(newDoc: IDoc) => setDocs([newDoc, ...docs])}/>
+                <ButtonCreateTask />
                 : <></>
                 }
         </div>
