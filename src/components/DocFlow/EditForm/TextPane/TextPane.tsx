@@ -17,6 +17,7 @@ export default function TextPane({ description }: Props) {
           <small>Добавить пояснительную записку</small></p>
         : <></>
     }
+    
 
     <div hidden={!description}>
       <label htmlFor="descTextarea" className="form-label mt-4">Пояснительная записка</label>
