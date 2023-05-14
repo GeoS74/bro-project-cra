@@ -10,7 +10,6 @@ import DocFlow from "../components/DocFlow/DocFlow"
 import DocList from "../components/DocFlow/DocList/DocList"
 import DocPage from "../components/DocFlow/DocPage/DocPage";
 import ListTasks from "../components/DocFlow/ListTasks/ListTasks";
-import DocSelectType from "../components/DocFlow/DocSelectType/DocSelectType";
 
 export default {
   path: "/docflow",
@@ -20,18 +19,7 @@ export default {
       index: true,
       element: <DocList />,
       loader: () => fetchWrapper(_getDocs).catch(() => redirect('/auth'))
-    },
-    // {
-    //   path: "/userPage/createTasks",
-    //   element: <DocSelectType />,
-    //   loader: () => fetchWrapper([_getUsers, _getRoles])
-    //   .then(response => {
-    //     if (Array.isArray(response)) {
-    //       return Promise.all(response.map(async r => await r.json()))
-    //     }
-    //   })
-    //   .catch(() => redirect('/auth')),
-    // },
+    },    
     {
       path: "/docflow/listMeTasks",
       element: <ListTasks/>,
@@ -41,7 +29,7 @@ export default {
       path: "/docflow/listOtherTasks",
       element: <ListTasks/>,
       loader: () => session.start(),
-    },
+    },    
     {
       path: "/docflow/:id",
       element: <DocPage />,
