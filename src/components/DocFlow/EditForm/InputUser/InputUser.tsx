@@ -1,5 +1,7 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
 import styles from './styles.module.css'
+import Select from 'react-select' 
 
 import serviceHost from "../../../../libs/service.host"
 import tokenManager from "../../../../libs/token.manager"
@@ -20,7 +22,7 @@ type Props = {
 
 export default function InputUser() {
     // список всех пользователей
-    const [userList, setUserList] = useState(Array<Props>)
+    const [userList, setUserList] = useState(Array<string>)
     const [currentUserList, setCurrentUserList] = useState(Array<string>)
     const fechDataUser = async () => {
         const response = await fetch(`${serviceHost("informator")}/api/informator/user/all`, {
@@ -38,27 +40,41 @@ export default function InputUser() {
     useEffect(() => {
         fechDataUser()
         .then((res) => {
-            res.map((value: Props, index: number) => {console.log(`${value.name} / ${value.roles[0].title}`)})
-            setUserList(res)
+            const tempListOfUser = [] as Array<string>
+            res.map((value: Props, index: number) => tempListOfUser.push(`${value.name} / ${value.roles[0].title}`))
+            setUserList(tempListOfUser)
+
         })
         .catch((e) => {
             console.log(e.message)
         })
     }, [])
     console.log(userList)
+    
 
-    return (
-        <div className={styles.root}>
-            {currentUserList.length !== 0 ? currentUserList.map((value, index) => <p key={index}>{value}</p>) : <></>}
-
-            <label htmlFor="inputDropBox">Список подписантов</label>
-            <select id="dropBox" 
-                    onChange={(e) =>clickDataList(e, currentUserList, setCurrentUserList, userList, setUserList)} >
-                <option value=""></option>
-                {userList?.map((value, index) => 
-                    <option value={value.name} key={index} >{value.name}</option>)}
-            </select>
+    return ( 
+        <div className={styles.searshForm}>
+            <input type="text" 
+                placeholder='Список подписантов'/>
+            <ul className={styles.autoComplite}>
+            {userList?.map((value, index) => 
+                    <li value={value} key={index} className={styles.autoCompliteItem}>{value}</li>)}
+            </ul>
         </div>
+        // <div className={styles.root}>
+        //     {currentUserList.length !== 0 ? currentUserList.map((value, index) => <p key={index}>{value}</p>) : <></>}
+
+        //     {/* <label htmlFor="inputDropBox">Список подписантов</label>
+        //     <select id="dropBox"
+        //             onInput={(e) => console.log(e)}
+        //             // onChange={(e) =>clickDataList(e, currentUserList, setCurrentUserList, userList, setUserList)} 
+        //             >
+        //         <option value=""></option>
+        //         {userList?.map((value, index) => 
+        //             <option value={value} key={index} >{value}</option>)}
+        //     </select> */}
+            
+        // </div>
     )
 }
 
@@ -67,9 +83,10 @@ function clickDataList(
     event: React.ChangeEvent<HTMLSelectElement>,
     currentUserList: string[],
     setCurrentUserList: React.Dispatch<React.SetStateAction<string[]>>,
-    userList: Props[],
-    setUserList: React.Dispatch<React.SetStateAction<Props[]>>
+    userList: string[],
+    setUserList: React.Dispatch<React.SetStateAction<string[]>>
     ) {
+    event.preventDefault;    
     if (event.target.value !== "") {
         if (!currentUserList.includes(event.target.value)) {
             setCurrentUserList([event.target.value, ...currentUserList])

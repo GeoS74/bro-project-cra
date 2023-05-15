@@ -12,7 +12,6 @@ const converter = new Converter()
 export default function ListTasks (){
     const state = useLocation().state.ListTasks;
     const path = useLocation().state.Path;
-    console.log(state)
     return <div className={styles.root}>
         <div className={styles.backArrow}>
             <BackArrow />
