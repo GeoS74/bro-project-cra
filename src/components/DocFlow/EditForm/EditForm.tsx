@@ -64,9 +64,9 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
           const tempListOfUser = [] as Array<string>
           const tempListOfUserSubscribers = [] as Array<string>
           res.map((value: PropsUserList) =>{ 
-            console.log(value)
-            tempListOfUser.push(`${value.name} / ${value.roles[0].title}`);
-            tempListOfUserSubscribers.push(`${value.name} / ${value.roles[0].title}`);
+            // console.log(value)
+            tempListOfUser.push(`${value.name} / ${value.roles[0]?.title}`);
+            tempListOfUserSubscribers.push(`${value.name} / ${value.roles[0]?.title}`);
         })
           setUserListFamiliarizer(tempListOfUser)
           setUserListSubscribers(tempListOfUserSubscribers)
@@ -151,13 +151,17 @@ function _onSubmit(
   if (currentUserList.length !== 0) {
     // fd.append(`acceptor`, `${arryayUserFD(currentUserList, userList)}`)
     arryayUserFD(currentUserList, userList).map((e) => {
-      fd.append(`acceptor[]`, e.uid)
+      // console.log(e.uid)
+      fd.append(`acceptor[${e.uid}]`, '')
     })
   }
   // перебирает список всех юзеров и сравнивает со списком ознокомителей и отдает массив совпадений
   if (currentUserListSubscribers.length !== 0) {
-    fd.append(`recipient`, `${arryayUserFD(currentUserListSubscribers, userList)}`)
-    console.log(arryayUserFD(currentUserListSubscribers, userList))
+    // fd.append(`recipient`, `${arryayUserFD(currentUserListSubscribers, userList)}`)
+    arryayUserFD(currentUserListSubscribers, userList).map((e) => {
+      // console.log(e.uid)
+      fd.append(`recipient[${e.uid}]`, 'on')
+    })
   }
   // fd.append(`recipient`, `${currentUserListSubscribers}`)
 
@@ -221,7 +225,7 @@ const fechDataUser = async () => {
       if (!response.ok) {
           throw new Error(`Что то пошло не так ${response.status}`)
       } else {
-          return response.json()
+          return await response.json()
       }
   }
 
@@ -230,7 +234,7 @@ function arryayUserFD(currentUserListSubscribers: string[], userList: PropsUserL
   const listKeyAndValue = Object.entries(userList)
   listKeyAndValue.map((value) => {
     currentUserListSubscribers.map((valueuser) => {
-      if (valueuser.includes(value[1].name) && valueuser.includes(value[1].roles[0].title))
+      if (valueuser.includes(value[1].name) && valueuser.includes(value[1]?.roles[0]?.title))
       // console.log(userList[Number(value[0])])
       tempUserRecipient.push(userList[Number(value[0])])
     })
