@@ -1,13 +1,7 @@
-/* .root {
-  display: flex;
-  flex-direction: column;
-  max-width: 350px;
-  margin: 0 10px 10px 0;
-} */
-
 .searshForm {
   position: relative;
   margin: 0 10px 10px 0;
+  width: 450px;
 }
 
 .searshForm input {

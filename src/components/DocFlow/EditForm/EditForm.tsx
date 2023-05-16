@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import styles from "./styles.module.css"
+import classNames from "classnames";
 
 import session from "../../../libs/token.manager"
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
-// import SelectPane from "./SelectPane/SelectPane";
 import TextPane from "./TextPane/TextPane";
 import TitleDoc from "./TitleDoc/TitleDoc";
 import FileInput from "./FileInput/FileInput";
@@ -14,8 +15,8 @@ import FileLinkList from "./FileLinkList/FileLinkList"
 import FileNameList from "./FileNameList/FileNameList"
 import HiddenInput from "./HiddenInput/HiddenInput";
 import InputUser from "./InputUser/InputUser";
-import styles from "./styles.module.css"
-import classNames from "classnames";
+import DisplayUser from "./DisplayUser/DiasplayUser";
+
 
 type Props = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -25,14 +26,57 @@ type Props = {
   updDoc?: (row: IDoc) => void
 }
 
+type PropsRoles = {
+  directings: [],
+  id: string,
+  title: string
+}
+
+type PropsUserList = {
+  uid: string,
+  email: string,
+  photo: string,
+  name: string
+  roles: Array<PropsRoles>,
+}
+
 export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
+  // список всех пользователей
+  const [userList, setUserList] = useState(Array<PropsUserList>)
   const [fileList, setFileList] = useState<FileList[]>([])
+  // список всех пользователей ознакомителей
+  const [userListFamiliarizer, setUserListFamiliarizer] = useState(Array<string>)
+  // список всех пользователей подписантов
+  const [userListSubscribers, setUserListSubscribers] = useState(Array<string>)
+  // список выбранных пользователей ознакомителей
+  const [currentUserList, setCurrentUserList] = useState(Array<string>)
+  // список выбранных пользователей подписантов
+  const [currentUserListSubscribers, setCurrentUserListSubscribers] = useState(Array<string>)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  
+
+  useEffect(() => {
+      fechDataUser()
+      .then((res) => {
+          setUserList(res)
+          const tempListOfUser = [] as Array<string>
+          const tempListOfUserSubscribers = [] as Array<string>
+          res.map((value: PropsUserList) =>{ 
+            console.log(value)
+            tempListOfUser.push(`${value.name} / ${value.roles[0].title}`);
+            tempListOfUserSubscribers.push(`${value.name} / ${value.roles[0].title}`);
+        })
+          setUserListFamiliarizer(tempListOfUser)
+          setUserListSubscribers(tempListOfUserSubscribers)
+
+      })
+      .catch((e) => {console.log(e.message)})
+  }, [])
 
   return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, doc, addDoc, updDoc)}
+    onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, currentUserList, currentUserListSubscribers, userList, doc, addDoc, updDoc)}
   >
     <fieldset disabled={disabled} className="form-group">
 
@@ -61,12 +105,14 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
       <HiddenInput typeDoc={typeDoc} />
 
       <div className={styles.formUser}>
-        <InputUser />
-        <InputUser />
+        <DisplayUser currentUserList={currentUserList} setCurrentUserList={setCurrentUserList} userList={userListFamiliarizer} setUserList={setUserListFamiliarizer}/>
+        <DisplayUser currentUserList={currentUserListSubscribers} setCurrentUserList={setCurrentUserListSubscribers} userList={userListSubscribers} setUserList={setUserListSubscribers}/>
       </div>
 
-      
-
+      <div className={styles.formUser}>
+        <InputUser currentUserList={currentUserList} setCurrentUserList={setCurrentUserList} userList={userListFamiliarizer} setUserList={setUserListFamiliarizer}/>
+        <InputUser currentUserList={currentUserListSubscribers} setCurrentUserList={setCurrentUserListSubscribers} userList={userListSubscribers} setUserList={setUserListSubscribers}/>
+      </div>
 
       <>
         <input type="submit" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)} value="Записать" />
@@ -87,9 +133,13 @@ function _onSubmit(
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>,
   fileList: FileList[],
+  currentUserList: string[],
+  currentUserListSubscribers: string[],
+  userList: PropsUserList[],
   doc?: IDoc,
   addDoc?: (row: IDoc) => void,
-  updDoc?: (row: IDoc) => void
+  updDoc?: (row: IDoc) => void,
+  
 ) {
   event.preventDefault();
   setDisabled(true);
@@ -97,6 +147,10 @@ function _onSubmit(
   const fd = new FormData(event.currentTarget)
 
   fileList.map(f => fd.append('scans', f[0]))
+  
+  const tempUserRecipient = []
+  currentUserList.map((value) => )
+  fd.append(`recipient`, `${currentUserListSubscribers}`)
 
   // const test = fd.get('author') || ''
   // fd.append(`acceptor[${test}1]`, '')
@@ -148,3 +202,16 @@ function _getErrorResponse(error: string): IErrorMessage {
     default: return { field: "", message: "" }
   }
 }
+
+const fechDataUser = async () => {
+  const response = await fetch(`${serviceHost("informator")}/api/informator/user/all`, {
+      headers: {
+        'Authorization': `Bearer ${tokenManager.getAccess()}`
+          }
+        })
+      if (!response.ok) {
+          throw new Error(`Что то пошло не так ${response.status}`)
+      } else {
+          return response.json()
+      }
+  }
