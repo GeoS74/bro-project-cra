@@ -148,12 +148,16 @@ function _onSubmit(
 
   fileList.map(f => fd.append('scans', f[0]))  
   // перебирает список всех юзеров и сравнивает со списком подписантов и отдает массив совпадений
-  if (currentUserListSubscribers.length !== 0) {
-    fd.append(`acceptor`, `${arryayUserFD(currentUserList, userList)}`)
+  if (currentUserList.length !== 0) {
+    // fd.append(`acceptor`, `${arryayUserFD(currentUserList, userList)}`)
+    arryayUserFD(currentUserList, userList).map((e) => {
+      fd.append(`acceptor[]`, e.uid)
+    })
   }
   // перебирает список всех юзеров и сравнивает со списком ознокомителей и отдает массив совпадений
   if (currentUserListSubscribers.length !== 0) {
     fd.append(`recipient`, `${arryayUserFD(currentUserListSubscribers, userList)}`)
+    console.log(arryayUserFD(currentUserListSubscribers, userList))
   }
   // fd.append(`recipient`, `${currentUserListSubscribers}`)
 
@@ -231,6 +235,5 @@ function arryayUserFD(currentUserListSubscribers: string[], userList: PropsUserL
       tempUserRecipient.push(userList[Number(value[0])])
     })
   })
-  console.log(tempUserRecipient)
   return tempUserRecipient
 }
