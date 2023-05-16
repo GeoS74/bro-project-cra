@@ -146,11 +146,13 @@ function _onSubmit(
 
   const fd = new FormData(event.currentTarget)
 
-  fileList.map(f => fd.append('scans', f[0]))
-  
-  const tempUserRecipient = []
-  currentUserList.map((value) => )
-  fd.append(`recipient`, `${currentUserListSubscribers}`)
+  fileList.map(f => fd.append('scans', f[0]))  
+
+  if (currentUserListSubscribers.length !== 0) {
+    // arryayUserFD(currentUserListSubscribers, userList)
+    fd.append(`recipient`, `${arryayUserFD(currentUserListSubscribers, userList)}`)
+  }
+  // fd.append(`recipient`, `${currentUserListSubscribers}`)
 
   // const test = fd.get('author') || ''
   // fd.append(`acceptor[${test}1]`, '')
@@ -215,3 +217,17 @@ const fechDataUser = async () => {
           return response.json()
       }
   }
+
+function arryayUserFD(currentUserListSubscribers: string[], userList: PropsUserList[]) {
+  const tempUserRecipient = [] as Array<PropsUserList>
+  const listKeyAndValue = Object.entries(userList)
+  listKeyAndValue.map((value) => {
+    currentUserListSubscribers.map((valueuser) => {
+      if (valueuser.includes(value[1].name) && valueuser.includes(value[1].roles[0].title))
+      // console.log(userList[Number(value[0])])
+      tempUserRecipient.push(userList[Number(value[0])])
+    })
+  })
+  console.log(tempUserRecipient)
+  return tempUserRecipient
+}
