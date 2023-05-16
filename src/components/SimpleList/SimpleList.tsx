@@ -32,13 +32,13 @@ export default function SimpleList({ typeList }: { typeList: keyof ISimpleListCo
           onClick={() => setIdActiveRow(0)}>Новая запись</button>
 
     <ul className="mt-4">
-      {/* {idActiveRow === 0 ? <Row
+      {idActiveRow === 0 ? <Row
         id={idActiveRow}
         idActiveRow={idActiveRow}
         setIdActiveRow={setIdActiveRow}
         listConf={dataList[typeList]}
         addRow={(newRow: ISimpleRow) => setRows([newRow, ...rows])}
-      /> : <></>} */}
+      /> : <></>}
 
       {_makeList(rows, idActiveRow, setIdActiveRow, dataList[typeList])}
 
