@@ -147,9 +147,12 @@ function _onSubmit(
   const fd = new FormData(event.currentTarget)
 
   fileList.map(f => fd.append('scans', f[0]))  
-
+  // перебирает список всех юзеров и сравнивает со списком подписантов и отдает массив совпадений
   if (currentUserListSubscribers.length !== 0) {
-    // arryayUserFD(currentUserListSubscribers, userList)
+    fd.append(`acceptor`, `${arryayUserFD(currentUserList, userList)}`)
+  }
+  // перебирает список всех юзеров и сравнивает со списком ознокомителей и отдает массив совпадений
+  if (currentUserListSubscribers.length !== 0) {
     fd.append(`recipient`, `${arryayUserFD(currentUserListSubscribers, userList)}`)
   }
   // fd.append(`recipient`, `${currentUserListSubscribers}`)
