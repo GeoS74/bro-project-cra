@@ -16,6 +16,7 @@ import FileNameList from "./FileNameList/FileNameList"
 import HiddenInput from "./HiddenInput/HiddenInput";
 import InputUser from "./InputUser/InputUser";
 import DisplayUser from "./DisplayUser/DiasplayUser";
+// import SelectPane from "./SelectPane/SelectPane";
 
 
 type Props = {
@@ -41,6 +42,7 @@ type PropsUserList = {
 }
 
 export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: Props) {
+  session.subscribe('DocFlow-EditList');
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
   // список всех пользователей
@@ -61,10 +63,10 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
       fechDataUser()
       .then((res) => {
           setUserList(res)
+          // console.log(res)
           const tempListOfUser = [] as Array<string>
           const tempListOfUserSubscribers = [] as Array<string>
           res.map((value: PropsUserList) =>{ 
-            // console.log(value)
             tempListOfUser.push(`${value.name} / ${value.roles[0]?.title}`);
             tempListOfUserSubscribers.push(`${value.name} / ${value.roles[0]?.title}`);
         })
@@ -110,8 +112,8 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
       </div>
 
       <div className={styles.formUser}>
-        <InputUser currentUserList={currentUserList} setCurrentUserList={setCurrentUserList} userList={userListFamiliarizer} setUserList={setUserListFamiliarizer}/>
-        <InputUser currentUserList={currentUserListSubscribers} setCurrentUserList={setCurrentUserListSubscribers} userList={userListSubscribers} setUserList={setUserListSubscribers}/>
+        <InputUser currentUserList={currentUserList} setCurrentUserList={setCurrentUserList}/>
+        <InputUser currentUserList={currentUserListSubscribers} setCurrentUserList={setCurrentUserListSubscribers}/>
       </div>
 
       <>
@@ -149,21 +151,16 @@ function _onSubmit(
   fileList.map(f => fd.append('scans', f[0]))  
   // перебирает список всех юзеров и сравнивает со списком подписантов и отдает массив совпадений
   if (currentUserList.length !== 0) {
-    // fd.append(`acceptor`, `${arryayUserFD(currentUserList, userList)}`)
     arryayUserFD(currentUserList, userList).map((e) => {
-      // console.log(e.uid)
       fd.append(`acceptor[${e.uid}]`, '')
     })
   }
   // перебирает список всех юзеров и сравнивает со списком ознокомителей и отдает массив совпадений
   if (currentUserListSubscribers.length !== 0) {
-    // fd.append(`recipient`, `${arryayUserFD(currentUserListSubscribers, userList)}`)
     arryayUserFD(currentUserListSubscribers, userList).map((e) => {
-      // console.log(e.uid)
-      fd.append(`recipient[${e.uid}]`, 'on')
+      fd.append(`recipient[${e.uid}]`, '')
     })
   }
-  // fd.append(`recipient`, `${currentUserListSubscribers}`)
 
   // const test = fd.get('author') || ''
   // fd.append(`acceptor[${test}1]`, '')
@@ -232,10 +229,11 @@ const fechDataUser = async () => {
 function arryayUserFD(currentUserListSubscribers: string[], userList: PropsUserList[]) {
   const tempUserRecipient = [] as Array<PropsUserList>
   const listKeyAndValue = Object.entries(userList)
+  // console.log(userList)
+  // console.log(`${userList[0]?.name} / ${userList[0]?.roles[0]?.title}`)
   listKeyAndValue.map((value) => {
     currentUserListSubscribers.map((valueuser) => {
       if (valueuser.includes(value[1].name) && valueuser.includes(value[1]?.roles[0]?.title))
-      // console.log(userList[Number(value[0])])
       tempUserRecipient.push(userList[Number(value[0])])
     })
   })

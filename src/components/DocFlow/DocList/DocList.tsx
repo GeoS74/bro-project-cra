@@ -27,7 +27,7 @@ export default function DocList() {
   return <div className={styles.root} >
     <h3>Мои документы</h3>
 
-    <SearchForm setDocs={setDocs} limit={docsLimit} setShowForm={setShowForm} setShowNextButton={setShowNextButton} />    
+    {/* <SearchForm setDocs={setDocs} limit={docsLimit} setShowForm={setShowForm} setShowNextButton={setShowNextButton} />     */}
     
     {showForm ?
       <DocSelectType setShowForm={setShowForm} addDoc={(newDoc: IDoc) => setDocs([newDoc, ...docs])} />
@@ -45,11 +45,13 @@ export default function DocList() {
         <div className={styles.tasks}>            
             <div className={styles.task}>
                 <TaskPage value={"Мои поручения"} index={0} ListTasks={meTasks} Path={"/docflow/listMeTasks"}/>
-                <TaskPage value={"Поручения мне"} index={1} ListTasks={notMeTasks} Path={"/docflow/listOtherTasks"}/>                
+                <TaskPage value={"На подпись"} index={1} ListTasks={notMeTasks} Path={"/docflow/listOtherTasks"}/>                
+                <TaskPage value={"На ознокомление"} index={2} ListTasks={notMeTasks} Path={"/docflow/listOtherTasks"}/>                
+                <TaskPage value={"Все Документы"} index={2} ListTasks={notMeTasks} Path={"/docflow/listOtherTasks"}/>                
             </div>
         </div>
 
-        {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
+        {/* {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
 
         {docs.length > 0 ? <NextSearch
           setDocs={(newDocs: IDoc[]) => setDocs([...docs, ...newDocs])}
@@ -58,7 +60,7 @@ export default function DocList() {
           showNextButton={showNextButton}
           setShowNextButton={setShowNextButton}
         />
-          : <></>}
+          : <></>} */}
 
       </>
       }

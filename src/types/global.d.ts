@@ -158,3 +158,17 @@ type DocType = {
   directing: IDirecting
   task?: ITask
 }
+// Получаем массив при запросе с /api/informator/user/all
+type PropsUserList = {
+  uid: string,
+  email: string,
+  photo: string,
+  name: string
+  roles: Array<PropsRoles>,
+}
+//  массив из type PropsUserList -> roles
+type PropsRoles = {
+  directings: [],
+  id: string,
+  title: string
+}
