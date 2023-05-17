@@ -33,6 +33,8 @@ export default function InputUser(
         .catch((e) => {console.log(e.message)})
     }, [valueInput])
 
+    // console.log(displayList)
+
     return (
         <div className={styles.searshForm}>
             <input type="text" 
@@ -43,8 +45,8 @@ export default function InputUser(
                 onClick={() => inputClick(setIsOpen, isOpen)}/>
             <ul className={styles.autoComplite}>
             { isOpen 
-                ? displayList?.map((value, index) => 
-                    <li value={value} 
+                ? displayList?.map((value, index) =>
+                    <li data-uid={value[0]}
                         key={index} 
                         className={styles.autoCompliteItem}
                         onClick={(event) => itemClick(event, setValueInput, setIsOpen, currentUserList, setCurrentUserList)}
@@ -62,7 +64,9 @@ function itemClick(
     currentUserList: string[],
     setCurrentUserList: React.Dispatch<React.SetStateAction<string[]>>
 ) {
-    if (event.currentTarget.textContent !== null) {        
+    if (event.currentTarget.textContent !== null) {
+        console.log(event.currentTarget.dataset.uid)
+        console.log(event.currentTarget.textContent)
         setCurrentUserList([event.currentTarget.textContent, ...currentUserList])
         setValueInput('')
         setIsOpen(false)

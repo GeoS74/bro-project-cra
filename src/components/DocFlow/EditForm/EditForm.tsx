@@ -57,6 +57,7 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   // список выбранных пользователей подписантов
   const [currentUserListSubscribers, setCurrentUserListSubscribers] = useState(Array<string>)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  console.log(currentUserList)
   
 
   useEffect(() => {
