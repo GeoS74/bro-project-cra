@@ -14,6 +14,8 @@ import BackArrow from "../BackArrow/BackArrow";
 import { Converter } from "md-conv";
 import {ReactComponent as IconCreate} from "./image/create.svg"
 import {ReactComponent as IconEdit} from "./image/edit.svg"
+import {ReactComponent as IconYes} from "./image/yes.svg"
+import {ReactComponent as IconNo} from "./image/no.svg"
 
 const converter = new Converter()
 
@@ -23,6 +25,7 @@ export default function DocPage() {
   const [doc, setDoc] = useState(useLoaderData() as IDoc);
   const [showForm, setShowForm] = useState(false);
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  console.log(doc)
 
   if (showForm) {
     const typeDoc: DocType = {
@@ -42,6 +45,28 @@ export default function DocPage() {
     </div>
 
     <h3 className="mt-2">{doc.title}</h3>
+
+    {doc.acceptor.length ? <p className="mt-4">Подписанты:</p> : <></>}
+
+    <ul>
+      {doc.acceptor.map(user => {
+        return <li key={user.uid}>
+          <span>{user.name}</span>
+          {user.accept ? <IconYes height="15px" width="15px" className={styles.svgButton}/> : <IconNo height="15px" width="15px" className={styles.svgButton}/>}
+        </li>
+      })}
+    </ul>
+
+    {doc.recipient.length ? <p className="mt-4">Подписанты:</p> : <></>}
+
+    <ul>
+      {doc.recipient.map(user => {
+        return <li key={user.uid}>
+          <span>{user.name}</span>
+          {user.accept ? <IconYes height="15px" width="15px" className={styles.svgButton}/> : <IconNo height="15px" width="15px" className={styles.svgButton}/>}
+        </li>
+      })}
+    </ul>
 
     {doc.files.length ? <p className="mt-4">Прикреплённые файлы:</p> : <></>}
 

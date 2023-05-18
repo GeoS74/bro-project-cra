@@ -58,15 +58,13 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   const [currentUserListSubscribers, setCurrentUserListSubscribers] = useState(Array<Array<string | undefined>>)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
-  console.log(currentUserList)
-  console.log(currentUserListSubscribers)
+  console.log(doc)
   
 
   useEffect(() => {
       fechDataUser()
       .then((res) => {
           setUserList(res)
-          // console.log(res)
           const tempListOfUser = [] as Array<string>
           const tempListOfUserSubscribers = [] as Array<string>
           res.map((value: PropsUserList) =>{ 
@@ -152,13 +150,13 @@ function _onSubmit(
   const fd = new FormData(event.currentTarget)
 
   fileList.map(f => fd.append('scans', f[0]))
-  // перебирает список всех юзеров и сравнивает со списком подписантов и отдает массив совпадений  
+  // перебирает список подписантов и записывет в fd  
   if (currentUserList.length !== 0) {
     currentUserList.map((e) => {
       fd.append(`acceptor[${e[1]}]`, '')
     })}
     
-  // перебирает список всех юзеров и сравнивает со списком ознокомителей и отдает массив совпадений
+  // перебирает список ознокомителей и записывет в fd  
   if (currentUserListSubscribers.length !== 0) {
     currentUserListSubscribers.map((e) => {
       fd.append(`recipient[${e[1]}]`, '')
@@ -228,15 +226,3 @@ const fechDataUser = async () => {
           return await response.json()
       }
   }
-
-function arryayUserFD(currentUserListSubscribers: (string | undefined)[][], userList: PropsUserList[]) {
-  const tempUserRecipient = [] as Array<PropsUserList>
-  const listKeyAndValue = Object.entries(userList)
-  listKeyAndValue.map((value) => {
-    currentUserListSubscribers.map((valueuser) => {
-      if (valueuser.includes(value[1].name) && valueuser.includes(value[1]?.roles[0]?.title))
-      tempUserRecipient.push(userList[Number(value[0])])
-    })
-  })
-  return tempUserRecipient
-}

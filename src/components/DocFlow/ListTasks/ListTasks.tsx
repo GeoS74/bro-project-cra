@@ -1,44 +1,27 @@
-import { useLocation } from "react-router-dom"
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom"
+import { Converter } from "md-conv";
 import classNames from "classnames"
 import styles from "./styles.module.css"
 import serviceHost from "../../../libs/service.host";
-import { Converter } from "md-conv";
 import BackArrow from "../../DocFlow/BackArrow/BackArrow";
+import SearchForm from "../SearchForm/SearchForm";
+import DocRow from "../DocRow/DocRow";
 
 const converter = new Converter()
+const docsLimit = 25;
 
 
 export default function ListTasks (){
-    const state = useLocation().state.ListTasks;
+    const docs = useLocation().state.ListTasks as IDoc[];
     const path = useLocation().state.Path;
-    return <div className={styles.root}>
+    console.log(path)
+    return (
+    <div className={styles.root}>
         <div className={styles.backArrow}>
             <BackArrow />
             <small>Назад</small> 
         </div>
-                     
-        {state?.map((doc: IDoc) => { return <div key={doc.id} className={classNames(styles.rootDoc, "mt-2")}>
-        <small>{doc.directing?.title} / {doc.task?.title}</small>
 
-        <h5 className="mt-2"><Link to={`/docflow/${doc.id}`} className="nav-link">{doc.title}</Link></h5>
-
-        <ul>
-        {doc.files.map(file => {
-            return <li key={file.fileName + doc.id}>
-            <a
-                className="text-muted"
-                href={`${serviceHost('informator')}/api/informator/docflow/scan/${file.fileName}`}
-                download={true}
-            >{file.originalName}</a>
-            </li>
-        })}
-        </ul>
-
-        <p
-        dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
-        ></p>
-        </div>
-        })}
+        {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
     </div>
-}
+)}

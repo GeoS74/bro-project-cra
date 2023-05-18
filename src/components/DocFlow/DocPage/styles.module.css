@@ -62,3 +62,12 @@
 .button:hover svg {
   fill: var(--background-color);
 }
+
+.root li {
+  display: flex;
+}
+
+.root span {
+  color: var(--color);
+  margin-right: 10px;
+}

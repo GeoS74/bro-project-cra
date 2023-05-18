@@ -19,7 +19,6 @@ export default function DocList() {
   session.subscribe('DocList');
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
   const [showForm, setShowForm] = useState(false);
-  const [showNextButton, setShowNextButton] = useState(true)
   const meTasks = docs.filter(user => user?.author.email === session.getMe()?.email)
   const notMeTasks = docs.filter(user => user?.author.email !== session.getMe()?.email)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
