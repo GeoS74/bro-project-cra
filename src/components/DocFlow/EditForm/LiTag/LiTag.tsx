@@ -2,7 +2,13 @@ import { useState } from 'react'
 
 export default function LiTag(
     {value, index, setCurrentUserList, currentUserList, userList, setUserList}: 
-    {value: string, index: number, setCurrentUserList: React.Dispatch<React.SetStateAction<string[]>>, currentUserList: string[], userList: string[], setUserList: React.Dispatch<React.SetStateAction<string[]>>}) {
+    {value: (string | undefined), 
+     index: number, 
+     setCurrentUserList: React.Dispatch<React.SetStateAction<(string | undefined)[][]>>, 
+     currentUserList: (string | undefined)[][], 
+     userList: string[], 
+     setUserList: React.Dispatch<React.SetStateAction<string[]>>}) {
+
 
     const [activSpan, setActivSpan] = useState(false)
     return (
@@ -20,8 +26,8 @@ export default function LiTag(
 
 function deleteUser(
     index: number,
-    currentUserList: string[],
-    setCurrentUserList: React.Dispatch<React.SetStateAction<string[]>>,
+    currentUserList: (string | undefined)[][],
+    setCurrentUserList: React.Dispatch<React.SetStateAction<(string | undefined)[][]>>,
     userList: string[],
     setUserList: React.Dispatch<React.SetStateAction<string[]>>
 ) {
@@ -30,7 +36,7 @@ function deleteUser(
         if (i !== index) {
             tempArr.push(currentUserList[i])
         } else {
-            setUserList([currentUserList[i], ...userList])
+            // setUserList([currentUserList[i], ...userList])
         }
     } 
     setCurrentUserList(tempArr)    

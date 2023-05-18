@@ -8,7 +8,7 @@ import session from "../../../../libs/token.manager";
 
 export default function InputUser(
     {currentUserList, setCurrentUserList}: 
-    {currentUserList: string[], setCurrentUserList: React.Dispatch<React.SetStateAction<string[]>>}) {
+    {currentUserList: (string | undefined)[][], setCurrentUserList: React.Dispatch<React.SetStateAction<(string | undefined)[][]>>}) {
     session.subscribe('DocFlow/InputUser');    
 
     // Проверка что в input что то ввели
@@ -22,18 +22,37 @@ export default function InputUser(
         fechInput(valueInput)
         .then((res) => {
             const tempArray = [] as Array<Array<string>>
-            res.map((value: PropsUserList) =>{
-                const temp = []
-                temp.push(value.uid)
-                temp.push(value.name)
-                tempArray.push(temp)
-          })
-          setDisplayList(tempArray)
+            
+            if (currentUserList.length !== 0) {
+                const tempArrayDisplayUser = [] as Array<string | undefined>
+                for (let i = 0; i < currentUserList.length; i++) {
+                    tempArrayDisplayUser.push(currentUserList[i][1])
+                }
+                res.map((value: PropsUserList) =>{   
+                    if (!tempArrayDisplayUser.includes(value.uid)) {
+                        const temp = []
+                        temp.push(value.uid)
+                        temp.push(value.name)
+                        tempArray.push(temp)                            
+                    } else {
+                        setDisplayList(displayList)
+                    }             
+                    })
+                setDisplayList(tempArray)
+            } else {
+                res.map((value: PropsUserList) =>{                      
+                    const temp = []
+                    temp.push(value.uid)
+                    temp.push(value.name)
+                    tempArray.push(temp)
+                        })
+                setDisplayList(tempArray)
+            }
+            
         })
         .catch((e) => {console.log(e.message)})
-    }, [valueInput])
+    }, [valueInput, currentUserList])
 
-    // console.log(displayList)
 
     return (
         <div className={styles.searshForm}>
@@ -61,18 +80,18 @@ function itemClick(
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     setValueInput: React.Dispatch<React.SetStateAction<string>>,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    currentUserList: string[],
-    setCurrentUserList: React.Dispatch<React.SetStateAction<string[]>>
+    currentUserList: (string | undefined)[][],
+    setCurrentUserList: React.Dispatch<React.SetStateAction<(string | undefined)[][]>>
 ) {
     if (event.currentTarget.textContent !== null) {
-        console.log(event.currentTarget.dataset.uid)
-        console.log(event.currentTarget.textContent)
-        setCurrentUserList([event.currentTarget.textContent, ...currentUserList])
-        setValueInput('')
-        setIsOpen(false)
+                const tempArrayUserTarget = [] as Array<string | undefined>
+                tempArrayUserTarget.push(event.currentTarget.textContent, event.currentTarget.dataset.uid)
+                setCurrentUserList([tempArrayUserTarget, ...currentUserList])
+                setValueInput('')
+                setIsOpen(false)
+            }               
     }
-        
-}
+
 
 function inputClick(
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,

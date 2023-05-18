@@ -53,11 +53,13 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   // список всех пользователей подписантов
   const [userListSubscribers, setUserListSubscribers] = useState(Array<string>)
   // список выбранных пользователей ознакомителей
-  const [currentUserList, setCurrentUserList] = useState(Array<string>)
+  const [currentUserList, setCurrentUserList] = useState(Array<Array<string | undefined>>)
   // список выбранных пользователей подписантов
-  const [currentUserListSubscribers, setCurrentUserListSubscribers] = useState(Array<string>)
+  const [currentUserListSubscribers, setCurrentUserListSubscribers] = useState(Array<Array<string | undefined>>)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+
   console.log(currentUserList)
+  console.log(currentUserListSubscribers)
   
 
   useEffect(() => {
@@ -136,8 +138,8 @@ function _onSubmit(
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>,
   fileList: FileList[],
-  currentUserList: string[],
-  currentUserListSubscribers: string[],
+  currentUserList: (string | undefined)[][],
+  currentUserListSubscribers: (string | undefined)[][],
   userList: PropsUserList[],
   doc?: IDoc,
   addDoc?: (row: IDoc) => void,
@@ -149,17 +151,17 @@ function _onSubmit(
 
   const fd = new FormData(event.currentTarget)
 
-  fileList.map(f => fd.append('scans', f[0]))  
-  // перебирает список всех юзеров и сравнивает со списком подписантов и отдает массив совпадений
+  fileList.map(f => fd.append('scans', f[0]))
+  // перебирает список всех юзеров и сравнивает со списком подписантов и отдает массив совпадений  
   if (currentUserList.length !== 0) {
-    arryayUserFD(currentUserList, userList).map((e) => {
-      fd.append(`acceptor[${e.uid}]`, '')
-    })
-  }
+    currentUserList.map((e) => {
+      fd.append(`acceptor[${e[1]}]`, '')
+    })}
+    
   // перебирает список всех юзеров и сравнивает со списком ознокомителей и отдает массив совпадений
   if (currentUserListSubscribers.length !== 0) {
-    arryayUserFD(currentUserListSubscribers, userList).map((e) => {
-      fd.append(`recipient[${e.uid}]`, '')
+    currentUserListSubscribers.map((e) => {
+      fd.append(`recipient[${e[1]}]`, '')
     })
   }
 
@@ -227,11 +229,9 @@ const fechDataUser = async () => {
       }
   }
 
-function arryayUserFD(currentUserListSubscribers: string[], userList: PropsUserList[]) {
+function arryayUserFD(currentUserListSubscribers: (string | undefined)[][], userList: PropsUserList[]) {
   const tempUserRecipient = [] as Array<PropsUserList>
   const listKeyAndValue = Object.entries(userList)
-  // console.log(userList)
-  // console.log(`${userList[0]?.name} / ${userList[0]?.roles[0]?.title}`)
   listKeyAndValue.map((value) => {
     currentUserListSubscribers.map((valueuser) => {
       if (valueuser.includes(value[1].name) && valueuser.includes(value[1]?.roles[0]?.title))

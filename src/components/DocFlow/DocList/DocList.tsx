@@ -23,7 +23,6 @@ export default function DocList() {
   const meTasks = docs.filter(user => user?.author.email === session.getMe()?.email)
   const notMeTasks = docs.filter(user => user?.author.email !== session.getMe()?.email)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-  console.log(docs)
 
   return <div className={styles.root} >
     <h3>Мои документы</h3>

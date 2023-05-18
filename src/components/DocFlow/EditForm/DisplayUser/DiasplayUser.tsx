@@ -18,12 +18,12 @@ type PropsUserList = {
 
 export default function DisplayUser(
     {currentUserList, setCurrentUserList, userList, setUserList}: 
-    {currentUserList: string[], setCurrentUserList: React.Dispatch<React.SetStateAction<string[]>>, userList: string[], setUserList: React.Dispatch<React.SetStateAction<string[]>>}) {
+    {currentUserList: (string | undefined)[][], setCurrentUserList: React.Dispatch<React.SetStateAction<(string | undefined)[][]>>, userList: string[], setUserList: React.Dispatch<React.SetStateAction<string[]>>}) {
     return (
         <ul className={styles.userList}>
             {currentUserList.length !== 0
                 ? currentUserList.map((value, index) =>
-                    <LiTag value={value} key={index} index={index} setCurrentUserList={setCurrentUserList} currentUserList={currentUserList} userList={userList} setUserList={setUserList}/>
+                    <LiTag value={value[0]} key={value[1]} index={index} setCurrentUserList={setCurrentUserList} currentUserList={currentUserList} userList={userList} setUserList={setUserList}/>
                 )
                 : <></>}
         </ul>
