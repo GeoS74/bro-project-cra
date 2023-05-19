@@ -4,6 +4,8 @@ import serviceHost from "../../../libs/service.host";
 import classNames from "classnames"
 import styles from "./styles.module.css"
 import { Converter } from "md-conv";
+import {ReactComponent as IconYes} from "../../../img/SVG/yes.svg"
+import {ReactComponent as IconNo} from "../../../img/SVG/no.svg"
 
 const converter = new Converter()
 
@@ -30,12 +32,29 @@ export default function DocRow(doc: IDoc) {
     <p
       dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
     ></p>
+    
+    <div className={styles.condition}>
+      <div className={styles.userCondition}>
+        <span>Подписанты</span>
+        {doc.acceptor.map(e => 
+              <div key={e.uid}>
+                {e.accept ? <IconYes width="15px" height="15px" className={styles.svgButton}/> : <IconNo width="15px" height="15px" className={styles.svgButton}/>}
+                <small >{e.name}</small>
+              </div>)}
+        <br/>
+      </div>
+      <div className={styles.userCondition}>
+        <span>Ознакомители</span>
+        {doc.recipient.map(e => 
+              <div key={e.uid}>
+                {e.accept ? <IconYes width="15px" height="15px" className={styles.svgButton}/> : <IconNo width="15px" height="15px" className={styles.svgButton}/>}
+                <small >{e.name}</small>
+              </div>)}
+        <br/>
+      </div>
+    </div>
 
 
-{doc.acceptor.map(e => <small key={e.uid}>подписывает: {e.name}</small>)}
-<br/>
-{doc.recipient.map(e => <small key={e.uid}>ознокамливается: {e.name}</small>)}
-<br/>
 <small> автор: {doc.author.fullName}</small>
   </div>
 }

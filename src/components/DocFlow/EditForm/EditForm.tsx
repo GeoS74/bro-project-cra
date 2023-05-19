@@ -60,6 +60,7 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
 
   console.log(doc)
   
+  
 
   useEffect(() => {
       fechDataUser()
@@ -70,13 +71,33 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
           res.map((value: PropsUserList) =>{ 
             tempListOfUser.push(`${value.name} / ${value.roles[0]?.title}`);
             tempListOfUserSubscribers.push(`${value.name} / ${value.roles[0]?.title}`);
-        })
+        })          
           setUserListFamiliarizer(tempListOfUser)
           setUserListSubscribers(tempListOfUserSubscribers)
-
       })
       .catch((e) => {console.log(e.message)})
+      if (updDoc !== undefined && doc?.acceptor.length !== 0) { 
+        const tempDocUserAcceptors = [] as Array<Array<string | undefined>>       
+        doc?.acceptor.map((user) => {    
+          const tempDocUserAcceptor = [] as Array<string | undefined>      
+          tempDocUserAcceptor.push(user.name, user.uid)
+          tempDocUserAcceptors.push(tempDocUserAcceptor)
+          })
+          setCurrentUserList(tempDocUserAcceptors)    
+      }
+      if (updDoc !== undefined && doc?.recipient.length !== 0) {  
+        const tempDocUserRecipients = [] as Array<Array<string | undefined>>      
+        doc?.recipient.map((user) => {          
+          const tempDocUserRecipient = [] as Array<string | undefined>
+          tempDocUserRecipient.push(user.name, user.uid)
+          tempDocUserRecipients.push(tempDocUserRecipient)
+          })
+      setCurrentUserListSubscribers(tempDocUserRecipients)     
+      }
+      
   }, [])
+
+  console.log(currentUserList)
 
   return <form className={styles.root}
     onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, currentUserList, currentUserListSubscribers, userList, doc, addDoc, updDoc)}

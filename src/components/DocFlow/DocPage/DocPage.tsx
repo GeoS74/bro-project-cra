@@ -25,7 +25,6 @@ export default function DocPage() {
   const [doc, setDoc] = useState(useLoaderData() as IDoc);
   const [showForm, setShowForm] = useState(false);
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-  console.log(doc)
 
   if (showForm) {
     const typeDoc: DocType = {

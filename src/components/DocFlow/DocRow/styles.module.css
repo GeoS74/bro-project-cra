@@ -22,3 +22,27 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+.condition {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.userCondition {
+  display: flex;
+  flex-direction: column;
+}
+
+.userCondition span {
+  margin-right: 100px;
+  color: var(--color);
+}
+
+.userCondition small {
+  color: var(--color);
+}
+
+.svgButton {
+  margin-right: 10px;
+  fill: var(--color);
+}
