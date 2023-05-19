@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate, NavigateFunction } from "react-router-dom"
 import styles from "./styles.module.css"
 import classNames from "classnames";
 
@@ -57,8 +58,7 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   // список выбранных пользователей подписантов
   const [currentUserListSubscribers, setCurrentUserListSubscribers] = useState(Array<Array<string | undefined>>)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-
-  console.log(doc)
+  const navigate = useNavigate();
   
   
 
@@ -100,7 +100,7 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
   console.log(currentUserList)
 
   return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, currentUserList, currentUserListSubscribers, userList, doc, addDoc, updDoc)}
+    onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, currentUserList, currentUserListSubscribers, userList, navigate, doc,  addDoc, updDoc)}
   >
     <fieldset disabled={disabled} className="form-group">
 
@@ -160,6 +160,7 @@ function _onSubmit(
   currentUserList: (string | undefined)[][],
   currentUserListSubscribers: (string | undefined)[][],
   userList: PropsUserList[],
+  navigate: NavigateFunction,
   doc?: IDoc,
   addDoc?: (row: IDoc) => void,
   updDoc?: (row: IDoc) => void,
@@ -207,6 +208,7 @@ function _onSubmit(
         }
         if (updDoc) {
           updDoc(res)
+          navigate("/docflow")
         }
         return;
       }
