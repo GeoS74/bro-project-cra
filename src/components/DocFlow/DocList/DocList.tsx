@@ -6,9 +6,9 @@ import classNames from "classnames";
 
 import session from "../../../libs/token.manager";
 import finder from "../../../libs/deep.finder";
-import DocRow from "../DocRow/DocRow";
-import SearchForm from "../SearchForm/SearchForm";
-import NextSearch from "../NextSearch/NextSearch";
+// import DocRow from "../DocRow/DocRow";
+// import SearchForm from "../SearchForm/SearchForm";
+// import NextSearch from "../NextSearch/NextSearch";
 import TaskPage from "../TaskPage/TaskPage";
 import DocSelectType from "../DocSelectType/DocSelectType";
 

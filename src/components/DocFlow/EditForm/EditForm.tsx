@@ -97,7 +97,6 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
       
   }, [])
 
-  console.log(currentUserList)
 
   return <form className={styles.root}
     onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, currentUserList, currentUserListSubscribers, userList, navigate, doc,  addDoc, updDoc)}
