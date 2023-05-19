@@ -11,21 +11,18 @@ export default function DocBarPanel() {
 
   return <div className={styles.root}>
     <DocBar
-      path="/docflow/"
       title="На утверждение"
       Icon={IconFoo}
       mode="meAcceptor"
     />
 
     <DocBar
-      path="/docflow/"
       title="На рассмотрение"
       Icon={IconFoo}
       mode="meRecipient"
     />
 
     <DocBar
-      path="/docflow/"
       title="Исходящие"
       Icon={IconFoo}
       mode="meAuthor"

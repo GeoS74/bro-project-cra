@@ -10,18 +10,18 @@ import session from "../../../../libs/token.manager"
 import styles from "./styles.module.css";
 
 type Props = {
-  path: string
   title: string
   Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & { title?: string | undefined }>
   mode: DocBarMode
 };
 
-export default function DocBar({ path, title, Icon, mode }: Props) {
+export default function DocBar({ title, Icon, mode }: Props) {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
 
+  const queryString = makeQueryString(mode, session.getMe()?.uid || "")
+
   if (session.getMe() && !count) {
-    const queryString = makeQueryString(mode, session.getMe()?.uid || "")
     getCountDocs(queryString, setCount)
   }
 
@@ -32,7 +32,7 @@ export default function DocBar({ path, title, Icon, mode }: Props) {
   // </Link>
 
   return <div className={styles.root}
-    onClick={() => navigate(path)}
+    onClick={() => navigate(`/dockflow/list/${queryString}`)}
   >
     <h5>{title}</h5>
     <Icon />
