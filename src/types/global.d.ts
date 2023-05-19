@@ -158,6 +158,19 @@ type DocType = {
   directing: IDirecting
   task?: ITask
 }
+
+type DocBarMode = "meAuthor" | "meAcceptor" | "meRecipient"
+
+
+
+
+
+
+
+
+
+
+
 // Получаем массив при запросе с /api/informator/user/all
 type PropsUserList = {
   uid: string,
