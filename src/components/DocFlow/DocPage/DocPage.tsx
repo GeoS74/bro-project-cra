@@ -204,13 +204,32 @@ function _recipientDoc (doc: IDoc) {
       tempDoc.recipient[index].accept = true
     }
   })
-  const foo = JSON.stringify(tempDoc)
+
+  const fd = new FormData();
+
+  // Object.entries(tempDoc).map(([key, value]) => console.log(`${key}: ${typeof value}`) )
+  Object.entries(tempDoc).map(([key, value]) => {
+    if (typeof value === "object") {
+      if (key === "directing") {
+        fd.append(`directing[${value.id}]`, `${value.title}`)
+      }      
+      // if (Array.isArray(value)) {
+      //   console.log("Array", key, value)
+      // } else {
+      //   console.log("dont Array", key, value)
+      // }
+    } else {
+      console.log(2)
+      fd.append(`${key}`, `${value}`)
+    }
+  })
+
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc.id}`, {
     method: 'PATCH',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
-    body: foo
+    body: fd
   })).catch(error => console.log(error.message))
 }
