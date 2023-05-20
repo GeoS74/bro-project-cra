@@ -17,6 +17,15 @@ import {ReactComponent as IconEdit} from "./image/edit.svg"
 import {ReactComponent as IconYes} from "./image/yes.svg"
 import {ReactComponent as IconNo} from "./image/no.svg"
 
+
+type propsAcceptor = {
+  accept: string | boolean,
+  email: string,
+  fullName: string,
+  name: string,
+  uid: string,
+}
+
 const converter = new Converter()
 
 export default function DocPage() {
@@ -211,13 +220,22 @@ function _recipientDoc (doc: IDoc) {
   Object.entries(tempDoc).map(([key, value]) => {
     if (typeof value === "object") {
       if (key === "directing") {
-        fd.append(`directing[${value.id}]`, `${value.title}`)
-      }      
-      // if (Array.isArray(value)) {
-      //   console.log("Array", key, value)
-      // } else {
-      //   console.log("dont Array", key, value)
-      // }
+        fd.append(`directingId`, `${value.id}`)
+      }
+      if (key === "task") {
+        fd.append(`taskId`, `${value.id}`)
+      }
+      if (key === "author") {
+        fd.append(`author`, `${value.uid}`)
+      }
+      if (key === "acceptor") {
+        value.map((e: propsAcceptor) => {
+          if (e.accept === false) {
+            fd.append(`acceptor[${e.uid}]`, '')
+          } else {fd.append(`acceptor[${e.uid}]`, 'true')}          
+        })
+      }
+      
     } else {
       console.log(2)
       fd.append(`${key}`, `${value}`)
@@ -225,11 +243,11 @@ function _recipientDoc (doc: IDoc) {
   })
 
 
-  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc.id}`, {
-    method: 'PATCH',
-    headers: {
-      'Authorization': `Bearer ${tokenManager.getAccess()}`
-    },
-    body: fd
-  })).catch(error => console.log(error.message))
+  // fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc.id}`, {
+  //   method: 'PATCH',
+  //   headers: {
+  //     'Authorization': `Bearer ${tokenManager.getAccess()}`
+  //   },
+  //   body: fd
+  // })).catch(error => console.log(error.message))
 }
