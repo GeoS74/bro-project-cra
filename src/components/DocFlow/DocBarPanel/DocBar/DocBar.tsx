@@ -32,7 +32,7 @@ export default function DocBar({ title, Icon, mode }: Props) {
   // </Link>
 
   return <div className={styles.root}
-    onClick={() => navigate(`/dockflow/list/${queryString}`)}
+    onClick={() => navigate(`/docflow/list/${queryString}`)}
   >
     <h5>{title}</h5>
     <Icon />
@@ -53,6 +53,7 @@ function getCountDocs(
     .then(async (response) => {
       if (response.ok) {
         const res = await response.json()
+        console.log(res)
         setCount(res.count);
       }
 
@@ -65,9 +66,9 @@ function getCountDocs(
 function makeQueryString(mode: DocBarMode, uid: string) {
   switch (mode) {
     case "meAcceptor":
-      return `?user=${uid}&acceptor=1`
+      return `?user=${uid}&acceptor=2`
     case "meRecipient":
-      return `?user=${uid}&recipient=1`
+      return `?user=${uid}&recipient=2`
     case "meAuthor":
       return `?user=${uid}&author=1`
   }
