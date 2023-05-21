@@ -1,4 +1,4 @@
-import { useNavigate, useLoaderData } from "react-router-dom";
+import { useNavigate, useLoaderData, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -17,6 +17,15 @@ import {ReactComponent as IconEdit} from "./image/edit.svg"
 import {ReactComponent as IconYes} from "./image/yes.svg"
 import {ReactComponent as IconNo} from "./image/no.svg"
 
+
+type propsAcceptor = {
+  accept: string | boolean,
+  email: string,
+  fullName: string,
+  name: string,
+  uid: string,
+}
+
 const converter = new Converter()
 
 export default function DocPage() {
@@ -24,7 +33,9 @@ export default function DocPage() {
   const navigate = useNavigate();
   const [doc, setDoc] = useState(useLoaderData() as IDoc);
   const [showForm, setShowForm] = useState(false);
+  const path = useLocation().state;
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  console.log(doc)
 
   if (showForm) {
     const typeDoc: DocType = {
@@ -86,30 +97,65 @@ export default function DocPage() {
       dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
     ></p>
 
-    <div className={styles.buttons}>
-      {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
-            <div
-              className={classNames(styles.button)}
-              onClick={() => setShowForm(true)}>
-              <IconEdit height="70px" width="70px" className={styles.svgButton}/>
-              <div>
-                Редактировать документ
-              </div>
-                           
+    {path === "/docflow/listMeTasks" 
+    ? <div className={styles.buttons}>
+    {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
+          <div
+            className={classNames(styles.button)}
+            onClick={() => setShowForm(true)}>
+            <IconEdit height="70px" width="70px" className={styles.svgButton}/>
+            <div>
+              Редактировать документ
             </div>
-        : <></>}
+                         
+          </div>
+      : <></>}
 
-      {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
-              <div className={classNames(styles.button)}
-              onClick={() => {
-                _delDoc(doc.id);
-                navigate('/docflow');
-              }}>
-                <IconCreate height="50px" width="50px" className={styles.svgButton}/>
-                <div>Удалить</div>                
-              </div>            
-        : <></>}
-    </div>
+    {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
+            <div className={classNames(styles.button)}
+            onClick={() => {
+              _delDoc(doc.id);
+              navigate('/docflow');
+            }}>
+              <IconCreate height="50px" width="50px" className={styles.svgButton}/>
+              <div>Удалить</div>                
+            </div>            
+      : <></>}
+  </div>
+  : <></>
+  }
+
+{path === "/docflow/listOtherTasks" 
+    ? <div className={styles.buttons}>
+    {_checkUpdateAction(doc.directing.id, doc.task.id, 'Редактировать') ?
+          <div
+            className={classNames(styles.button)}
+            onClick={() => {
+              _acceptDoc(doc);
+              // navigate('/docflow');
+            }}>
+            <IconEdit height="70px" width="70px" className={styles.svgButton}/>
+            <div>
+              Согласовать документ
+            </div>
+                         
+          </div>
+      : <></>}
+
+    {_checkUpdateAction(doc.directing.id, doc.task.id, 'Удалить') ?
+            <div className={classNames(styles.button)}
+            onClick={() => {
+              _recipientDoc(doc);
+              // navigate('/docflow');
+            }}>
+              <IconCreate height="50px" width="50px" className={styles.svgButton}/>
+              <div>Ознакомлен</div>                
+            </div>            
+      : <></>}
+  </div>
+  : <></>
+  }
+    
   </div>
 }
 
@@ -140,4 +186,68 @@ function _delDoc(id: string) {
     })
     .catch(error => console.log(error.message))
   // .finally(() => navigate('/docflow'))
+}
+
+function _acceptDoc (doc: IDoc) {
+  const tempDoc = doc
+  doc.acceptor.map((acceptor, index) => {
+    if(session.getMe()?.email === acceptor.email) {
+      tempDoc.acceptor[index].accept = true
+    }
+  })
+  const foo = JSON.stringify(tempDoc)
+
+  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
+    body: foo
+  })).catch(error => console.log(error.message))
+}
+
+function _recipientDoc (doc: IDoc) {
+  const tempDoc = doc
+  doc.recipient.map((recipient, index) => {
+    if(session.getMe()?.email === recipient.email) {
+      tempDoc.recipient[index].accept = true
+    }
+  })
+
+  const fd = new FormData();
+
+  // Object.entries(tempDoc).map(([key, value]) => console.log(`${key}: ${typeof value}`) )
+  Object.entries(tempDoc).map(([key, value]) => {
+    if (typeof value === "object") {
+      if (key === "directing") {
+        fd.append(`directingId`, `${value.id}`)
+      }
+      if (key === "task") {
+        fd.append(`taskId`, `${value.id}`)
+      }
+      if (key === "author") {
+        fd.append(`author`, `${value.uid}`)
+      }
+      if (key === "acceptor") {
+        value.map((e: propsAcceptor) => {
+          if (e.accept === false) {
+            fd.append(`acceptor[${e.uid}]`, '')
+          } else {fd.append(`acceptor[${e.uid}]`, 'true')}          
+        })
+      }
+      
+    } else {
+      console.log(2)
+      fd.append(`${key}`, `${value}`)
+    }
+  })
+
+
+  // fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc.id}`, {
+  //   method: 'PATCH',
+  //   headers: {
+  //     'Authorization': `Bearer ${tokenManager.getAccess()}`
+  //   },
+  //   body: fd
+  // })).catch(error => console.log(error.message))
 }

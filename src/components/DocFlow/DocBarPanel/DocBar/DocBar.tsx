@@ -35,7 +35,7 @@ export default function DocBar({ title, Icon, mode }: Props) {
     onClick={() => navigate(`/docflow/list/${queryString}`)}
   >
     <h5>{title}</h5>
-    <Icon />
+    <Icon className={styles.svg}/>
     <p>{count}</p>
   </div>
 }
