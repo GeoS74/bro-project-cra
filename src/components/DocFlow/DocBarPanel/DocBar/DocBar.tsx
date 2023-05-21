@@ -35,7 +35,7 @@ export default function DocBar({ path, title, Icon, mode }: Props) {
     onClick={() => navigate(path)}
   >
     <h5>{title}</h5>
-    <Icon />
+    <Icon className={styles.svg}/>
     <p>{count}</p>
   </div>
 }
