@@ -17,16 +17,16 @@ export default {
   path: "/docflow",
   element: <DocFlow />,
   children: [
-    // {
-    //   index: true,
-    //   element: <DocList />,
-    //   loader: () => fetchWrapper(_getDocs).catch(() => redirect('/auth'))
-    // },    
-     {
+    {
       index: true,
-      element: <DocBarPanel />,
-      loader: () => session.start(),
-    }, 
+      element: <DocList />,
+      loader: () => fetchWrapper(_getDocs).catch(() => redirect('/auth'))
+    },    
+    //  {
+    //   index: true,
+    //   element: <DocBarPanel />,
+    //   loader: () => session.start(),
+    // }, 
     {
       path: "/docflow/listMeTasks",
       element: <ListTasks/>,

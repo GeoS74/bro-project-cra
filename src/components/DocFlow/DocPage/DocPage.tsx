@@ -243,11 +243,11 @@ function _recipientDoc (doc: IDoc) {
   })
 
 
-  // fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc.id}`, {
-  //   method: 'PATCH',
-  //   headers: {
-  //     'Authorization': `Bearer ${tokenManager.getAccess()}`
-  //   },
-  //   body: fd
-  // })).catch(error => console.log(error.message))
+  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    },
+    body: fd
+  })).catch(error => console.log(error.message))
 }
