@@ -21,6 +21,6 @@ export default function ListTasks (){
             <small>Назад</small> 
         </div>
 
-        {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
+        {docs?.map(doc => <DocRow key={doc.id} doc={doc} path={path}/>)}
     </div>
 )}
