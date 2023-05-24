@@ -34,7 +34,7 @@ function _searchUser(
 
   const fd = new FormData(event.currentTarget)
   
-  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/user/search/?email=${fd.get('email')}`, {
+  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/user/search/?search=${fd.get('email')}`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },

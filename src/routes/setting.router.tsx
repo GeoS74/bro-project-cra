@@ -72,7 +72,7 @@ export default {
 }
 
 function _getUsers() {
-  return fetch(`${serviceHost("informator")}/api/informator/user/all`, {
+  return fetch(`${serviceHost("informator")}/api/informator/user/search/?limit=100`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
