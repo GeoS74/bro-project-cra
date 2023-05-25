@@ -12,24 +12,16 @@ import styles from "./styles.module.css";
 type Props = {
   title: string
   Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & { title?: string | undefined }>
-  mode: DocBarMode
+  queryString: string
 };
 
-export default function DocBar({ title, Icon, mode }: Props) {
+export default function DocBar({ title, Icon, queryString }: Props) {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-
-  const queryString = makeQueryString(mode, session.getMe()?.uid || "")
 
   if (session.getMe() && !count) {
     getCountDocs(queryString, setCount)
   }
-
-  // <Link to={path} className={styles.root} >
-  //   <h5>{title}</h5>
-  //   <Icon />
-  //   <p>{count}</p>
-  // </Link>
 
   return <div className={styles.root}
     onClick={() => navigate(`/docflow/list/${queryString}`)}
@@ -53,23 +45,10 @@ function getCountDocs(
     .then(async (response) => {
       if (response.ok) {
         const res = await response.json()
-        console.log(res)
         setCount(res.count);
       }
 
       throw new Error(`response status: ${response.status}`)
     })
     .catch(error => console.log(error.message))
-}
-
-
-function makeQueryString(mode: DocBarMode, uid: string) {
-  switch (mode) {
-    case "meAcceptor":
-      return `?user=${uid}&acceptor=2`
-    case "meRecipient":
-      return `?user=${uid}&recipient=2`
-    case "meAuthor":
-      return `?user=${uid}&author=1`
-  }
 }

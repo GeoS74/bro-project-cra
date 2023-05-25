@@ -13,19 +13,19 @@ export default function DocBarPanel() {
     <DocBar
       title="На утверждение"
       Icon={IconFoo}
-      mode="meAcceptor"
+      queryString="?acceptor=0"
     />
 
     <DocBar
       title="На рассмотрение"
       Icon={IconFoo}
-      mode="meRecipient"
+      queryString="?recipient=0"
     />
 
     <DocBar
       title="Исходящие"
       Icon={IconFoo}
-      mode="meAuthor"
+      queryString="?author=1"
     />
 
   </div>

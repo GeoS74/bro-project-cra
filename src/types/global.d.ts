@@ -159,9 +159,6 @@ type DocType = {
   task?: ITask
 }
 
-type DocBarMode = "meAuthor" | "meAcceptor" | "meRecipient"
-
-
 
 
 
