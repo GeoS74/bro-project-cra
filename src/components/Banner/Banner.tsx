@@ -11,17 +11,22 @@ export default function Banner() {
 
   // session.subscribe('about')
 
-  const photo = ['efa8da88aadfdebc83d1b9801.png', 'efa8da88aadfdebc83d1b9802.jpg', 'efa8da88aadfdebc83d1b9800.jpg']
+  const photo = [
+    '2ef4417463d41785932017001.jpg', 
+    'ada536217d9765d010ecb3900.jpg', 
+    '2ef4417463d41785932017000.jpg',
+  ]
   const prev = active - 1 < 0 ? photo.length-1 : active - 1;
   const next = active + 1 > photo.length-1 ? 0 : active + 1;
 
   return <div className={styles.root}>
     <div className={styles.slider}>
-      {photo.map((e, i) => {
-         
-
+    
+    <div className={styles.sl} style={{left: `${active*-180}px`}}>
+    {photo.map((e, i) => {
         return <B image={e} key={i} curr={active===i} prev={prev===i} next={next===i}/>
       })}
+    </div>
 
 {/* <B image={photo[0]} active={active===0} />
 <B image={photo[1]} active={active===1} />
@@ -45,7 +50,7 @@ type Props = {
 }
 
 function B({ image, curr, prev, next }: Props) {
-  return <div className={classNames(styles.curr, next ? styles.next : "", prev ? styles.prev : "")}
+  return <div className={classNames(styles.slide, curr ? styles.target : "")}
     >
       <div>{image}</div>
     <img src={`${serviceHost('informator')}/api/informator/user/photo/${image}`}  />

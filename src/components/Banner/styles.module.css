@@ -4,31 +4,41 @@
 
 
 .slider {
-  position: relative;
-  /* background-color: green; */
-  padding: 10px;
+  border: solid 1px green;
+  /* padding: 10px; */
   width: 180px;
   height: 280px;
-  overflow: hidden;
-  display: flex;
-  flex-flow: row nowrap;
+  /* overflow: hidden; */
+  /* display: flex;
+  flex-flow: row nowrap; */
 }
 
-.curr{
-  z-index: 100;
+.sl{
   position: absolute;
-  left: 0px;
+  display: flex;
+  flex-flow: row nowrap;
+  border: solid 3px red;
+  /* left: -180px; */
+  transition: all 0.5s ease-out;
+}
+
+.slide{
+  width: 180px;
+  border: solid 1px yellow;
+  /* z-index: 100; */
+  position: relative;
+  /* left: 0px; */
   transition: all  0.5s ease-out;
   background-color: var(--background-color);
 }
-.prev{
-  z-index: 0;
-  position: absolute;
-  left: -280px;
+.target{
+  /* z-index: 0; */
+  left: 0px;
+  /* margin: 15px; */
 }
 .next{
-  z-index: 0;
-  position: absolute;
+  /* z-index: 0;
+  position: absolute; */
   left: 280px;
 }
 
