@@ -1,59 +1,24 @@
 .root {
-
 }
 
+:root{
+  --slide-width: 180px;
+}
 
 .slider {
+  position: relative;
   border: solid 1px green;
-  /* padding: 10px; */
-  width: 180px;
+  width: var(--slide-width);
   height: 280px;
-  /* overflow: hidden; */
+  overflow: hidden;
   /* display: flex;
   flex-flow: row nowrap; */
 }
 
-.sl{
+.slidesWrapper{
   position: absolute;
   display: flex;
   flex-flow: row nowrap;
   border: solid 3px red;
-  /* left: -180px; */
-  transition: all 0.5s ease-out;
-}
-
-.slide{
-  width: 180px;
-  border: solid 1px yellow;
-  /* z-index: 100; */
-  position: relative;
-  /* left: 0px; */
-  transition: all  0.5s ease-out;
-  background-color: var(--background-color);
-}
-.target{
-  /* z-index: 0; */
-  left: 0px;
-  /* margin: 15px; */
-}
-.next{
-  /* z-index: 0;
-  position: absolute; */
-  left: 280px;
-}
-
-
-.bar {
-  /* padding:3px; */
-  /* position: absolute; */
-  /* background-color: greenyellow; */
-  opacity: 1;
-  /* transition: all 0.5s ease-in; */
-}
-
-.foo {
-   /* z-index:100; */
-  opacity: 1;
-  /* background-color: red; */
   transition: all 0.5s ease-out;
 }
