@@ -13,9 +13,9 @@ export default function Banner() {
   // session.subscribe('about')
 
   const photo = [
-    '2ef4417463d41785932017001.jpg',
-    'ada536217d9765d010ecb3900.jpg',
-    '2ef4417463d41785932017000.jpg',
+    'efa8da88aadfdebc83d1b9801.png',
+    'efa8da88aadfdebc83d1b9802.jpg',
+    'efa8da88aadfdebc83d1b9800.jpg',
   ]
   const prev = active - 1 < 0 ? photo.length - 1 : active - 1;
   const next = active + 1 > photo.length - 1 ? 0 : active + 1;

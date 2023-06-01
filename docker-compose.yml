@@ -111,7 +111,7 @@ services:
       resources:
         limits:
           memory: 500M
-  db_mblog:
+  db_mnote:
     image: "mongo"
     volumes:
       - db-mnote:/data/db
