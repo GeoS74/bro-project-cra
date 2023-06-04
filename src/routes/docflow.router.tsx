@@ -29,8 +29,8 @@ export default {
     {
       path: "/docflow/list",
       element: <DocList />,
-      loader: ({ request }: LoaderFunctionArgs) => new Promise(res => res(new URL(request.url)))
-        .then(url => fetchWrapper(() => _getDocs((url as URL).search)))
+      loader: ({ request }: LoaderFunctionArgs) => new Promise<URL>(res => res(new URL(request.url)))
+        .then(url => fetchWrapper(() => _getDocs(url.search)))
         .then(responseNotIsArray)
         .then(async res => {
           if (res.status === 403) {
