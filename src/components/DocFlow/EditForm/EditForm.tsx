@@ -28,26 +28,12 @@ type Props = {
   updDoc?: (row: IDoc) => void
 }
 
-type PropsRoles = {
-  directings: [],
-  id: string,
-  title: string
-}
-
-type PropsUserList = {
-  uid: string,
-  email: string,
-  photo: string,
-  name: string
-  roles: Array<PropsRoles>,
-}
-
 export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: Props) {
   session.subscribe('DocFlow-EditList');
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
   // список всех пользователей
-  const [userList, setUserList] = useState(Array<PropsUserList>)
+  const [userList, setUserList] = useState<IUser[]>([])
   const [fileList, setFileList] = useState<FileList[]>([])
   // список всех пользователей ознакомителей
   const [userListFamiliarizer, setUserListFamiliarizer] = useState(Array<string>)
@@ -99,7 +85,19 @@ export default function EditForm({ setShowForm, doc, addDoc, updDoc, typeDoc }: 
 
 
   return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setShowForm, setErrorResponse, fileList, currentUserList, currentUserListSubscribers, userList, navigate, doc,  addDoc, updDoc)}
+    onSubmit={event => _onSubmit(
+      event, 
+      setDisabled, 
+      setShowForm, 
+      setErrorResponse, 
+      fileList, 
+      currentUserList, 
+      currentUserListSubscribers, 
+      userList, 
+      navigate, 
+      doc,  
+      addDoc, 
+      updDoc)}
   >
     <fieldset disabled={disabled} className="form-group">
 
@@ -158,7 +156,7 @@ function _onSubmit(
   fileList: FileList[],
   currentUserList: (string | undefined)[][],
   currentUserListSubscribers: (string | undefined)[][],
-  userList: PropsUserList[],
+  userList: IUser[],
   navigate: NavigateFunction,
   doc?: IDoc,
   addDoc?: (row: IDoc) => void,
