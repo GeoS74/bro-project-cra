@@ -9,12 +9,13 @@ import {ReactComponent as IconNo} from "../../../img/SVG/no.svg"
 
 const converter = new Converter()
 
-export default function DocRow({doc, path}: {doc: IDoc, path: string}) {
+
+export default function DocRow({...doc}: IDoc) {
   return <div className={classNames(styles.root, "mt-2")}>
     <small>{doc.directing?.title} / {doc.task?.title}</small>
     <small> № {doc.num || 'б/н'} от {_makeDate(doc.createdAt)}</small>
 
-    <h4 className="mt-2"><Link to={`/docflow/${doc.id}`} className="nav-link" state={path}>{doc.title}</Link></h4>
+    <h4 className="mt-2"><Link to={`/docflow/${doc.id}`} className="nav-link">{doc.title}</Link></h4>
 
    
     <ul>

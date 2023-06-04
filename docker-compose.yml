@@ -111,18 +111,18 @@ services:
       resources:
         limits:
           memory: 500M
-  db_mnote:
-    image: "mongo"
-    volumes:
-      - db-mnote:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
-      - MONGO_INITDB_DATABASE=admin
-    deploy:
-      resources:
-        limits:
-          memory: 500M
+  # db_mnote:
+  #   image: "mongo"
+  #   volumes:
+  #     - db-mnote:/data/db
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=passwordXXX
+  #     - MONGO_INITDB_DATABASE=admin
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 500M
   mnone_app:
     image: "geos74/mnote:0.0.1"
     ports:
@@ -132,7 +132,7 @@ services:
       - NODE_ENV=dev
       - DB_USER=root
       - DB_PASS=passwordXXX
-      - DB_HOST=db_mnote
+      - DB_HOST=db_info
       - DB_PORT=27017
       - DB_NAME=admin
       - JWT_CHECK=true

@@ -25,6 +25,7 @@ const router = createBrowserRouter([
     element: <Main />,
     loader: () => fetchWrapper(_getSlider)
       .catch(() => [])
+      .finally(() => session.start()),
   },
   catalogRouter,
   authRouter,

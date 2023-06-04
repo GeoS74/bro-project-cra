@@ -46,6 +46,7 @@ function getCountDocs(
       if (response.ok) {
         const res = await response.json()
         setCount(res.count);
+        return;
       }
 
       throw new Error(`response status: ${response.status}`)
