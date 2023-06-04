@@ -33,10 +33,12 @@ export default {
         .then(url => fetchWrapper(() => _getDocs(url.search)))
         .then(responseNotIsArray)
         .then(async res => {
-          if (res.status === 403) {
-            return redirect('/docflow')
+          switch(res.status){
+            case 403:
+              return redirect('/docflow')
+            default:
+              return res;
           }
-          return res;
         })
         .catch(() => redirect('/auth'))
     },
@@ -46,10 +48,13 @@ export default {
       loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
         .then(responseNotIsArray)
         .then(res => {
-          if (res.status === 404) {
-            return redirect('/docflow')
+          switch(res.status){
+            case 404:
+            case 403:
+              return redirect('/docflow')
+            default:
+              return res;
           }
-          return res;
         })
         .catch(() => redirect('/auth'))
     },
