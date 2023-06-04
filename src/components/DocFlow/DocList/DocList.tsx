@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.css";
 import classNames from "classnames";
@@ -16,10 +16,11 @@ const docsLimit = 25;
 
 export default function DocList() {
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
+  const {titleDocList} = useLocation().state;
 
-// console.log(docs)
+console.log(useLocation())
   return <div className={styles.root} >
-    <h3>Мои документы</h3>
+    <h3>Документы {titleDocList}</h3>
 
     {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
 

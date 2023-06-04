@@ -24,7 +24,9 @@ export default function DocBar({ title, Icon, queryString }: Props) {
   }
 
   return <div className={styles.root}
-    onClick={() => navigate(`/docflow/list/${queryString}`)}
+    onClick={() => navigate(`/docflow/list/${queryString}`, {
+      state: {titleDocList: title}
+    })}
   >
     <h5>{title}</h5>
     <Icon className={styles.svg}/>
