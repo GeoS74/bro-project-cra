@@ -1,6 +1,6 @@
 import Navigate from "../navigate/Navigate"
 import styles from "./styles.module.css"
-import logo from "../navigate/image/logo.svg"
+// import logo from "../navigate/image/logo.svg"
 import Banner from "../Banner/Banner"
 
 export default function Main() {

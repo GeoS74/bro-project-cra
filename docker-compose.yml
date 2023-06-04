@@ -136,7 +136,7 @@ services:
       - DB_PORT=27017
       - DB_NAME=admin
       - JWT_CHECK=true
-      - JWT_SECRET_KEY=any secret phrase
+      - JWT_SECRET_KEY=any_secret
     volumes:
       - files-mnote:/mnote/files/images
 

@@ -8,7 +8,7 @@ import classNames from "classnames";
 
 type Props = {
   docId?: string
-  files?: IDocFile[]
+  files?: IStaticFile[]
 }
 
 export default function FileLinkList({ docId, files }: Props) {

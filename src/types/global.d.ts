@@ -8,7 +8,7 @@ interface IThemeContext {
     setTheme: Dispatch<SetStateAction<StyleTheme>>;
 }
 
-type ServiceName = "bridge" | "mauth" | "informator"
+type ServiceName = "bridge" | "mauth" | "informator" | "mnote"
 type PopupMode = "success" | "danger" | undefined
 type AuthFormMode = "signin" | "signup" | "forgot"
 /*
@@ -31,6 +31,16 @@ interface ISimpleRow {
 interface IAbout {
   alias: string
   mdInfo: string
+}
+
+/*
+* интерфейс объекта ответа, возвращаемого микросервисом "mnote"
+*/
+interface ISlider {
+  files: IStaticFile[] | [],
+  id: string,
+  isPublic: boolean,
+  title: string, message: string,
 }
 
 /*
@@ -89,7 +99,7 @@ interface IDoc {
   directing: ISimpleRow
   task: ISimpleRow
   author: IDocUnit
-  files: IDocFile[]
+  files: IStaticFile[]
   createdAt: string
   acceptor: IDocSignatory[]
   recipient: IDocSignatory[]
@@ -106,7 +116,7 @@ interface IDocSignatory extends IDocUnit{
   accept: boolean
 }
 
-interface IDocFile {
+interface IStaticFile {
   originalName: string
   fileName: string
 }

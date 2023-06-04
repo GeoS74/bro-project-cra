@@ -3,12 +3,15 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 
 type Props = {
-  image: string
+  image: string | undefined
+  title: string
+  message: string
 }
 
-export default function Slider({ image }: Props) {
+export default function Slider({ image, title, message }: Props) {
   return <div className={classNames(styles.root)}>
-      <div>{image}</div>
-    <img src={`${serviceHost('informator')}/api/informator/user/photo/${image}`}  />
+    <div>{title}</div>
+    {image ? <img src={`${serviceHost('mnote')}/api/mnote/static/images/${image}`} />: <></>}
+    <div>{message}</div>
   </div>
 }
