@@ -18,7 +18,6 @@ export default function DocList() {
   const [docs, setDocs] = useState(useLoaderData() as IDoc[])
   const {titleDocList} = useLocation().state;
 
-console.log(useLocation())
   return <div className={styles.root} >
     <h3>Документы {titleDocList}</h3>
 

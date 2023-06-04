@@ -32,15 +32,13 @@ export default {
       loader: ({ request }: LoaderFunctionArgs) => new Promise(res => res(new URL(request.url)))
         .then(url => fetchWrapper(() => _getDocs((url as URL).search)))
         .then(responseNotIsArray)
-        .then(async response => {
-          if(response.status === 200) {
-            const res = await response.json();
-            return res;
+        .then(async res => {
+          if (res.status === 403) {
+            return redirect('/docflow')
           }
-          throw new Error();
+          return res;
         })
         .catch(() => redirect('/auth'))
-        .finally(() => session.start())
     },
     {
       path: "/docflow/:id",
@@ -54,6 +52,19 @@ export default {
           return res;
         })
         .catch(() => redirect('/auth'))
+    },
+    {
+      path: "/docflow/create/doc",
+      element: <DocPage />,
+      // loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
+      //   .then(responseNotIsArray)
+      //   .then(res => {
+      //     if (res.status === 404) {
+      //       return redirect('/docflow')
+      //     }
+      //     return res;
+      //   })
+      //   .catch(() => redirect('/auth'))
     }
   ]
 }
