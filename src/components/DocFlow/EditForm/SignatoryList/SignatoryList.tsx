@@ -7,17 +7,30 @@ import { responseNotIsArray } from "../../../../middleware/response.validator"
 import classNames from "classnames";
 import styles from "./styles.module.css"
 
+type Props = {
+  typeDoc: DocType
+  acceptor?: IDocSignatory[]
+}
 
-export default function SignatoryList() {
+function signatoryStateConverter(acceptor?: IDocSignatory[]) {
+  const result: { [key: string]: IDocSignatory } = {};
+  acceptor?.map(e => result[e.uid] = e)
+  return result;
+}
+
+export default function SignatoryList({ typeDoc, acceptor }: Props) {
   const [signSearchList, setSignSearchList] = useState<IDocSignatory[]>([]);
-  const [signatory, setSignatory] = useState<{[key: string]: IDocSignatory}>({});
+
+  const [signatory, setSignatory] = useState(signatoryStateConverter(acceptor));
 
   return <div className={classNames(styles.root, "mt-4")}>
     <ul>
-      {Object.values(signatory)?.map(s => <li
-        key={s.uid}
-        >{`${s.name} ${s.email}`}
-      </li>)}
+      {signatory && Object.values(signatory)?.map(s => (
+        <li key={s.uid}>{`${s.name} ${s.email}`}
+          <input type="hidden" name={`acceptor[${s.uid}]`} defaultValue={""} />
+        </li>
+      )
+      )}
     </ul>
 
     <label htmlFor="signatoryInput" className="form-label mt-1">Подписывает</label>
@@ -28,30 +41,36 @@ export default function SignatoryList() {
       className="form-control"
       placeholder="Введите Ф.И.О. или должность"
       onKeyUp={(event) => {
-        _searchUser(event.currentTarget.value, setSignSearchList)
+        _searchUser(event.currentTarget.value, setSignSearchList, typeDoc)
       }}
-      // onBlur={() => setSignSearchList(undefined)}
+    // onBlur={() => setSignSearchList(undefined)}
     />
 
     <div className={styles.dataList}>
       {signSearchList?.map(s => <div
         key={s.uid}
         onClick={() => {
-          setSignatory({...signatory, [s.uid]: s});
+          setSignatory({ ...signatory, [s.uid]: s });
           const foo = signSearchList.filter(e => e.uid !== s.uid);
           setSignSearchList(foo)
         }}
       >{`${s.name} ${s.email}`}
       </div>)}
     </div>
+
+
   </div>
 }
 
 function _searchUser(
   value: string,
   setSignSearchList: React.Dispatch<React.SetStateAction<IDocSignatory[]>>,
+  typeDoc: DocType,
 ) {
-  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/user/search/?search=${value}&limit=5`, {
+  if (!value) {
+    return setSignSearchList([])
+  }
+  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/user/search/?search=${value}&directing=${typeDoc.directing.id}&task=${typeDoc.task?.id}&limit=5&acceptor=1`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },

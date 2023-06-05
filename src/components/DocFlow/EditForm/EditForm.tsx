@@ -63,7 +63,7 @@ export default function EditForm({ doc, typeDoc }: Props) {
       <FileInput errorMessage={errorMessage}
         setFileList={(file: FileList) => setFileList([...fileList, file])} />
 
-      <SignatoryList />
+      <SignatoryList typeDoc={typeDoc} acceptor={doc?.acceptor}/>
       
       <HiddenInput typeDoc={typeDoc} />
 
