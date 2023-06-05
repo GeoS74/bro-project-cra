@@ -22,19 +22,19 @@ export default function DocBarPanel() {
       <DocBar
         title="На утверждение"
         Icon={IconFoo}
-        queryString="?acceptor=0"
+        queryString="?acceptor=0&limit=50"
       />
 
       <DocBar
         title="На рассмотрение"
         Icon={IconFoo}
-        queryString="?recipient=0"
+        queryString="?recipient=0&limit=50"
       />
 
       <DocBar
         title="Исходящие"
         Icon={IconFoo}
-        queryString="?author=1&limit=1"
+        queryString="?author=1&limit=50"
       />
     </div>
   </div>
