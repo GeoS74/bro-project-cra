@@ -12,6 +12,7 @@ import styles from "./styles.module.css"
 import classNames from "classnames";
 import BackArrow from "../BackArrow/BackArrow";
 import { Converter } from "md-conv";
+import OptionalHeader from "./OptionalHeader/OptionalHeader";
 import {ReactComponent as IconCreate} from "./image/create.svg"
 import {ReactComponent as IconEdit} from "./image/edit.svg"
 import {ReactComponent as IconYes} from "./image/yes.svg"
@@ -29,13 +30,12 @@ type propsAcceptor = {
 const converter = new Converter()
 
 export default function DocPage() {
-  session.subscribe('doc');
+  session.subscribe('DocPage');
   const navigate = useNavigate();
   const [doc, setDoc] = useState(useLoaderData() as IDoc);
   const [showForm, setShowForm] = useState(false);
   const path = useLocation().state;
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-  console.log(doc)
 
   if (showForm) {
     const typeDoc: DocType = {
@@ -49,12 +49,25 @@ export default function DocPage() {
   }
 
   return  <div className={styles.root}>
-    <div className={styles.linkAndTitle}>
-      <BackArrow />
-      <small>{doc.directing?.title} / {doc.task?.title}</small>      
-    </div>
 
-    <h3 className="mt-2">{doc.title}</h3>
+    <OptionalHeader {...doc}/>
+
+    {/* <div className={styles.linkAndTitle}>
+      <BackArrow />
+      <small>{doc.directing.title} / {doc.task.title}</small>      
+    </div> */}
+
+    <h3 className="mt-4">{doc.title}</h3>
+
+    <div className="mt-4"
+      dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
+    ></div>
+
+
+
+
+
+
 
     {doc.acceptor.length ? <p className="mt-4">Подписанты:</p> : <></>}
 
@@ -92,10 +105,7 @@ export default function DocPage() {
       })}
     </ul>
 
-    <p
-      className="mt-2"
-      dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
-    ></p>
+    
 
     {path === "/docflow/listMeTasks" 
     ? <div className={styles.buttons}>

@@ -82,10 +82,9 @@ function _onSubmit(
   doc?: IDoc,
   updDoc?: (row: IDoc) => void
 ) {
+
   event.preventDefault();
   setDisabled(true);
-
-  // const navigate = useNavigate()
 
   const fd = new FormData(event.currentTarget)
 
@@ -99,7 +98,7 @@ function _onSubmit(
     body: fd
   }))
     .then(responseNotIsArray)
-    .then(async response => {
+    .then(async response => {      
       if (response.ok) {
         const res = await response.json()
 
