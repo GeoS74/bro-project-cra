@@ -21,11 +21,9 @@ export default function NextSearch({ setDocs, lastId, querySearch, setShowNextBu
   return <button
         disabled={disabled}
         onClick={() => onSubmit(querySearch, lastId, setDisabled, setDocs, setShowNextButton)}
-        type="button" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}>Загрузить ещё</button>
+        className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)}
+        >Загрузить ещё</button>
 }
-
-
-
 
 async function onSubmit(
   querySearch: string,
