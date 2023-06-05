@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-  
+import finder from "../../../libs/deep.finder"
 import session from "../../../libs/token.manager"
 import styles from "./styles.module.css"
 import classNames from "classnames"
@@ -13,9 +11,7 @@ type Props = {
 }
 
 export default function DocSelectType({ setTypeDoc, typeDoc }: Props) {
-  const navigate = useNavigate();
-  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme;
-  
+
   return <div className={classNames(styles.root, "mt-4")}>
     <legend>Создание документа</legend>
     <p>{!typeDoc?.directing ? 'Выберите направление' : 'Выберите тип документа'}</p>
@@ -30,14 +26,15 @@ export default function DocSelectType({ setTypeDoc, typeDoc }: Props) {
       : <></>}
 
 
-    {typeDoc?.directing ? <ul>
+    <ul>
       {typeDoc?.directing.tasks.map(e => {
-        return <li key={e.id}
-          onClick={() => setTypeDoc({ directing: typeDoc.directing, task: e })}
-        >{e.title}</li>
+        if (finder(e.actions, 'Создать')) {
+          return <li key={e.id}
+            onClick={() => setTypeDoc({ directing: typeDoc.directing, task: e })}
+          >{e.title}</li>
+        }
       })}
     </ul>
-      : <></>}
 
     <CancelButton />
   </div>

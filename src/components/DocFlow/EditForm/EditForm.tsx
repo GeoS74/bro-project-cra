@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate, NavigateFunction } from "react-router-dom";
 
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
@@ -19,18 +20,26 @@ type Props = {
   typeDoc: DocType
   doc?: IDoc
 
-  addDoc?: (row: IDoc) => void
   updDoc?: (row: IDoc) => void
 }
 
-export default function EditForm({ doc, addDoc, updDoc, typeDoc }: Props) {
+export default function EditForm({ doc, updDoc, typeDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
+
+  const navigate = useNavigate()
 
   const [fileList, setFileList] = useState<FileList[]>([])
 
   return <form className={styles.root}
-    onSubmit={event => _onSubmit(event, setDisabled, setErrorResponse, fileList, doc, addDoc, updDoc)}
+    onSubmit={event => _onSubmit(
+      event,
+      setDisabled,
+      setErrorResponse,
+      fileList,
+      navigate,
+      doc,
+      updDoc)}
   >
     <fieldset disabled={disabled} className="form-group">
 
@@ -42,7 +51,7 @@ export default function EditForm({ doc, addDoc, updDoc, typeDoc }: Props) {
       directingId={doc?.directing.id.toString()}
       taskId={doc?.task.id.toString()}
       errorMessage={errorMessage} 
-      mode={addDoc ? "create" : "update"} /> */}
+      mode={!doc ? "create" : "update"} /> */}
 
       <TitleDoc errorMessage={errorMessage} title={doc?.title} />
 
@@ -69,19 +78,21 @@ function _onSubmit(
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>,
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>,
   fileList: FileList[],
+  navigate: NavigateFunction,
   doc?: IDoc,
-  addDoc?: (row: IDoc) => void,
   updDoc?: (row: IDoc) => void
 ) {
   event.preventDefault();
   setDisabled(true);
+
+  // const navigate = useNavigate()
 
   const fd = new FormData(event.currentTarget)
 
   fileList.map(f => fd.append('scans', f[0]))
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc?.id || ''}`, {
-    method: addDoc ? 'POST' : 'PATCH',
+    method: doc ? 'PATCH' : 'POST',
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },
@@ -92,9 +103,10 @@ function _onSubmit(
       if (response.ok) {
         const res = await response.json()
 
-        if (addDoc) {
-          addDoc(res)
+        if (response.status === 201) {
+          return navigate(`/docflow/${res.id}`)
         }
+
         if (updDoc) {
           updDoc(res)
         }
