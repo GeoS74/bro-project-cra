@@ -1,10 +1,16 @@
 import { useState } from "react";
 import DocSelectType from "../DocSelectType/DocSelectType";
-
-import styles from "./styles.module.css"
+import EditForm from "../EditForm/EditForm";
+import session from "../../../libs/token.manager"
 
 export default function DocCreatePage(){
-  const [showForm, setShowForm] = useState(false);
+  session.subscribe('DocCreatePage');
 
-  return <DocSelectType setShowForm={setShowForm}/>
+  const [typeDoc, setTypeDoc] = useState<DocType>();
+
+  if(typeDoc?.directing && typeDoc.task) {
+    return <EditForm typeDoc={typeDoc}/>
+  }
+
+  return <DocSelectType setTypeDoc={setTypeDoc} typeDoc={typeDoc}/>
 }

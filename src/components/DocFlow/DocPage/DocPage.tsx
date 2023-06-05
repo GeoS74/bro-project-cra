@@ -44,7 +44,7 @@ export default function DocPage() {
     }
 
     return <div className={styles.root}>
-      <EditForm setShowForm={setShowForm} updDoc={setDoc} doc={doc} typeDoc={typeDoc} />
+      <EditForm updDoc={setDoc} doc={doc} typeDoc={typeDoc} />
     </div>
   }
 

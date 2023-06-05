@@ -1,3 +1,7 @@
+.root {
+  max-width: 800px;
+}
+
 .root h3,
 .root li,
 .root legend {

@@ -1,31 +1,21 @@
-import { useState } from "react"
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
   
 import session from "../../../libs/token.manager"
 import styles from "./styles.module.css"
 import classNames from "classnames"
-import EditForm from "../EditForm/EditForm"
+import CancelButton from "../EditForm/CancelButton/CancelButton";
 
 type Props = {
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>
+  setTypeDoc: React.Dispatch<React.SetStateAction<DocType | undefined>>
+  typeDoc: DocType | undefined
   addDoc?: ((row: IDoc) => void) | undefined
 }
 
-export default function DocSelectType({ setShowForm, addDoc }: Props) {
-  session.subscribe('DocSelectType');
+export default function DocSelectType({ setTypeDoc, typeDoc }: Props) {
   const navigate = useNavigate();
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme;
-
-  const [typeDoc, setTypeDoc] = useState<DocType>()
   
-  if(typeDoc?.directing && typeDoc.task) {
-    return <div className={classNames(styles.root, "mt-4")}>
-      <EditForm setShowForm={setShowForm} addDoc={addDoc} typeDoc={typeDoc}/>
-    </div>
-  }
-  
-
   return <div className={classNames(styles.root, "mt-4")}>
     <legend>Создание документа</legend>
     <p>{!typeDoc?.directing ? 'Выберите направление' : 'Выберите тип документа'}</p>
@@ -49,8 +39,6 @@ export default function DocSelectType({ setShowForm, addDoc }: Props) {
     </ul>
       : <></>}
 
-    <span 
-      className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
-      onClick={() => navigate(-1)}>Отмена</span>
+    <CancelButton />
   </div>
 }
