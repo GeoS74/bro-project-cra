@@ -34,7 +34,7 @@ export default function DocBarPanel() {
       <DocBar
         title="Исходящие"
         Icon={IconFoo}
-        queryString="?author=1"
+        queryString="?author=1&limit=1"
       />
     </div>
   </div>

@@ -16,8 +16,8 @@ type Props = {
 }
 
 export default function NextSearch({ setDocs, lastId, limit, showNextButton, setShowNextButton }: Props) {
-  const [disabled, setDisabled] = useState(false)
-  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  const [disabled, setDisabled] = useState(false);
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme;
 
   return <button
         hidden={!showNextButton}
