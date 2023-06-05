@@ -7,7 +7,7 @@ export default function CancelButton() {
   const theme = (useSelector((state) => state) as { theme: { theme: string } }).theme.theme;
 
   return <span
-    className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)}
+    className={classNames(`mt-4 btn btn-outline-${theme === 'light' ? 'primary' : 'light'}`)}
     onClick={() => navigate(-1)}
   >Отмена</span>
 }
