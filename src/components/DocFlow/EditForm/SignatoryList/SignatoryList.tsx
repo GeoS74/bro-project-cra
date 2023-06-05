@@ -12,20 +12,14 @@ type Props = {
   acceptor?: IDocSignatory[]
 }
 
-function signatoryStateConverter(acceptor?: IDocSignatory[]) {
-  const result: { [key: string]: IDocSignatory } = {};
-  acceptor?.map(e => result[e.uid] = e)
-  return result;
-}
-
 export default function SignatoryList({ typeDoc, acceptor }: Props) {
   const [signSearchList, setSignSearchList] = useState<IDocSignatory[]>([]);
 
-  const [signatory, setSignatory] = useState(signatoryStateConverter(acceptor));
+  const [signatory, setSignatory] = useState(acceptor || []);
 
   return <div className={classNames(styles.root, "mt-4")}>
     <ul>
-      {signatory && Object.values(signatory)?.map(s => (
+      {signatory?.map(s => (
         <li key={s.uid}>{`${s.name} ${s.email}`}
           <input type="hidden" name={`acceptor[${s.uid}]`} defaultValue={""} />
         </li>
@@ -50,9 +44,10 @@ export default function SignatoryList({ typeDoc, acceptor }: Props) {
       {signSearchList?.map(s => <div
         key={s.uid}
         onClick={() => {
-          setSignatory({ ...signatory, [s.uid]: s });
-          const foo = signSearchList.filter(e => e.uid !== s.uid);
-          setSignSearchList(foo)
+          if(!signatory.find(e => e.uid === s.uid)){
+            setSignatory([...signatory, s])
+          }
+          setSignSearchList(signSearchList.filter(e => e.uid !== s.uid))
         }}
       >{`${s.name} ${s.email}`}
       </div>)}
