@@ -3,6 +3,8 @@ import tokenManager from "../../../../libs/token.manager"
 import serviceHost from "../../../../libs/service.host"
 import fetchWrapper from "../../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../../middleware/response.validator"
+import SignatoryPane from "./SignatoryPane/SignatoryPane"
+import SignatorySearchInput from "./SignatorySearchInput/SignatorySearchInput";
 
 import classNames from "classnames";
 import styles from "./styles.module.css"
@@ -18,27 +20,12 @@ export default function SignatoryList({ typeDoc, acceptor }: Props) {
   const [signatory, setSignatory] = useState(acceptor || []);
 
   return <div className={classNames(styles.root, "mt-4")}>
-    <ul>
-      {signatory?.map(s => (
-        <li key={s.uid}>{`${s.name} ${s.email}`}
-          <input type="hidden" name={`acceptor[${s.uid}]`} defaultValue={""} />
-        </li>
-      )
-      )}
-    </ul>
 
-    <label htmlFor="signatoryInput" className="form-label mt-1">Подписывает</label>
-    <input
-      autoComplete="off"
-      type="text"
-      id="signatoryInput"
-      className="form-control"
-      placeholder="Введите Ф.И.О. или должность"
-      onKeyUp={(event) => {
-        _searchUser(event.currentTarget.value, setSignSearchList, typeDoc)
-      }}
-    // onBlur={() => setSignSearchList(undefined)}
-    />
+    <h4>Список подписанмтов</h4>
+    
+    <SignatoryPane signatory={signatory}/>
+
+    <SignatorySearchInput setSignSearchList={setSignSearchList} typeDoc={typeDoc} />
 
     <div className={styles.dataList}>
       {signSearchList?.map(s => <div
@@ -55,29 +42,4 @@ export default function SignatoryList({ typeDoc, acceptor }: Props) {
 
 
   </div>
-}
-
-function _searchUser(
-  value: string,
-  setSignSearchList: React.Dispatch<React.SetStateAction<IDocSignatory[]>>,
-  typeDoc: DocType,
-) {
-  if (!value) {
-    return setSignSearchList([])
-  }
-  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/user/search/?search=${value}&directing=${typeDoc.directing.id}&task=${typeDoc.task?.id}&limit=5&acceptor=1`, {
-    headers: {
-      'Authorization': `Bearer ${tokenManager.getAccess()}`
-    },
-  }))
-    .then(responseNotIsArray)
-    .then(async response => {
-      if (response.ok) {
-        const res = await response.json();
-        setSignSearchList(res)
-        return
-      }
-      throw new Error(`response status: ${response.status}`)
-    })
-    .catch(error => console.log(error.message));
 }
