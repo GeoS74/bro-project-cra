@@ -1,21 +1,9 @@
-import { useState } from "react";
 import { useLoaderData, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import styles from "./styles.module.css";
-import classNames from "classnames";
-
-import session from "../../../libs/token.manager";
-import finder from "../../../libs/deep.finder";
 import DocRow from "../DocRow/DocRow";
-// import SearchForm from "../SearchForm/SearchForm";
-import NextSearch from "../NextSearch/NextSearch";
-import DocSelectType from "../DocSelectType/DocSelectType";
-
-
-const docsLimit = 25;
+import styles from "./styles.module.css";
 
 export default function DocList() {
-  const [docs, setDocs] = useState(useLoaderData() as IDoc[])
+  const docs = useLoaderData() as IDoc[];
   const {titleDocList} = useLocation().state;
 
   return <div className={styles.root} >

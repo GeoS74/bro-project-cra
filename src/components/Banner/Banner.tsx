@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
-import serviceHost from "../../libs/service.host"
 import styles from "./styles.module.css"
-import classNames from "classnames";
+// import classNames from "classnames";
 import Slide from "./Slide/Slide"
 
 export default function Banner() {
@@ -13,9 +12,6 @@ export default function Banner() {
   }
 
   const [active, setActive] = useState(0)
-
-  const prev = active - 1 < 0 ? slides.length - 1 : active - 1;
-  const next = active + 1 > slides.length - 1 ? 0 : active + 1;
 
   return <div className={styles.root}>
     <div className={styles.slider}>

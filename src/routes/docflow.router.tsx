@@ -10,7 +10,7 @@ import DocFlow from "../components/DocFlow/DocFlow"
 import DocList from "../components/DocFlow/DocList/DocList"
 import DocPage from "../components/DocFlow/DocPage/DocPage";
 import DocBarPanel from "../components/DocFlow/DocBarPanel/DocBarPanel";
-// import DocRow from "../components/DocFlow/DocRow/DocRow";
+import DocCreatePage from "../components/DocFlow/DocCreatePage/DocCreatePage";
 
 export default {
   path: "/docflow",
@@ -30,16 +30,7 @@ export default {
       path: "/docflow/list",
       element: <DocList />,
       loader: ({ request }: LoaderFunctionArgs) => new Promise<URL>(res => res(new URL(request.url)))
-        .then(url => fetchWrapper(() => _getDocs(url.search)))
-        .then(responseNotIsArray)
-        .then(async res => {
-          switch(res.status){
-            case 403:
-              return redirect('/docflow')
-            default:
-              return res;
-          }
-        })
+        .then(url => fetchWrapper(() => _searchDocs(url.search)))
         .catch(() => redirect('/auth'))
     },
     {
@@ -48,28 +39,17 @@ export default {
       loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
         .then(responseNotIsArray)
         .then(res => {
-          switch(res.status){
-            case 404:
-            case 403:
-              return redirect('/docflow')
-            default:
-              return res;
+          if (res.status === 404) {
+            return redirect('/docflow')
           }
+          return res;
         })
         .catch(() => redirect('/auth'))
     },
     {
       path: "/docflow/create/doc",
-      element: <DocPage />,
-      // loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
-      //   .then(responseNotIsArray)
-      //   .then(res => {
-      //     if (res.status === 404) {
-      //       return redirect('/docflow')
-      //     }
-      //     return res;
-      //   })
-      //   .catch(() => redirect('/auth'))
+      element: <DocCreatePage />,
+      loader: () => session.start(),
     }
   ]
 }
@@ -82,7 +62,7 @@ function _getDoc(id?: string) {
   })
 }
 
-function _getDocs(queryParams: string) {
+function _searchDocs(queryParams: string) {
   return fetch(`${serviceHost("informator")}/api/informator/docflow/search/doc/${queryParams}`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`

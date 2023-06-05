@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
   
 import session from "../../../libs/token.manager"
 import styles from "./styles.module.css"
@@ -12,8 +13,11 @@ type Props = {
 }
 
 export default function DocSelectType({ setShowForm, addDoc }: Props) {
+  session.subscribe('DocSelectType');
+  const navigate = useNavigate();
+  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme;
+
   const [typeDoc, setTypeDoc] = useState<DocType>()
-  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
   
   if(typeDoc?.directing && typeDoc.task) {
     return <div className={classNames(styles.root, "mt-4")}>
@@ -45,6 +49,8 @@ export default function DocSelectType({ setShowForm, addDoc }: Props) {
     </ul>
       : <></>}
 
-    <span className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}onClick={() => setShowForm(false)}>Отмена</span>
+    <span 
+      className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-2`)}
+      onClick={() => navigate(-1)}>Отмена</span>
   </div>
 }

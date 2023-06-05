@@ -6,7 +6,6 @@ import {
 
 import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
-import tokenManager from "../libs/token.manager"
 import session from "../libs/token.manager"
 import Main from "../components/Main/Main"
 import catalogRouter from "./catalog.router"
