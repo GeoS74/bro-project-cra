@@ -19,11 +19,9 @@ import SubmitButton from "./SubmitButton/SubmitButton";
 type Props = {
   typeDoc: DocType
   doc?: IDoc
-
-  updDoc?: (row: IDoc) => void
 }
 
-export default function EditForm({ doc, updDoc, typeDoc }: Props) {
+export default function EditForm({ doc, typeDoc }: Props) {
   const [disabled, setDisabled] = useState(false)
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
 
@@ -38,8 +36,8 @@ export default function EditForm({ doc, updDoc, typeDoc }: Props) {
       setErrorResponse,
       fileList,
       navigate,
-      doc,
-      updDoc)}
+      doc
+      )}
   >
     <fieldset disabled={disabled} className="form-group">
 
@@ -79,8 +77,7 @@ function _onSubmit(
   setErrorResponse: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>,
   fileList: FileList[],
   navigate: NavigateFunction,
-  doc?: IDoc,
-  updDoc?: (row: IDoc) => void
+  doc?: IDoc
 ) {
 
   event.preventDefault();
@@ -100,16 +97,8 @@ function _onSubmit(
     .then(responseNotIsArray)
     .then(async response => {      
       if (response.ok) {
-        const res = await response.json()
-
-        if (response.status === 201) {
-          return navigate(`/docflow/${res.id}`)
-        }
-
-        if (updDoc) {
-          updDoc(res)
-        }
-        return;
+        const res = await response.json();
+        return navigate(`/docflow/${res.id}`)
       }
       else if (response.status === 400) {
         const res = await response.json()

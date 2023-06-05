@@ -11,6 +11,7 @@ import DocList from "../components/DocFlow/DocList/DocList"
 import DocPage from "../components/DocFlow/DocPage/DocPage";
 import DocBarPanel from "../components/DocFlow/DocBarPanel/DocBarPanel";
 import DocCreatePage from "../components/DocFlow/DocCreatePage/DocCreatePage";
+import DocEditPage from "../components/DocFlow/DocEditPage/DocEditPage";
 
 export default {
   path: "/docflow",
@@ -50,6 +51,19 @@ export default {
       path: "/docflow/create/doc",
       element: <DocCreatePage />,
       loader: () => session.start(),
+    },
+    {
+      path: "/docflow/edit/doc/:id",
+      element: <DocEditPage />,
+      loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
+        .then(responseNotIsArray)
+        .then(res => {
+          if (res.status === 404) {
+            return redirect('/docflow')
+          }
+          return res;
+        })
+        .catch(() => redirect('/auth'))
     }
   ]
 }
