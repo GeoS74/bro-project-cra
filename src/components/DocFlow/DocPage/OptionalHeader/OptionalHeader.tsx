@@ -23,8 +23,8 @@ export default function OptionalHeader({ id, directing, task }: IDoc) {
       {_checkUpdateAction(directing.id, task.id, 'Удалить') ?
         <IconDelete className={styles.svg}
           onClick={async () => {
-            await _deleteDoc(id);
-            navigate(-1);
+            // ninja code ;)
+            await _deleteDoc(id) ? navigate(-1) : null;
           }} /> : <></>}
     </div>
   </div>
@@ -32,7 +32,7 @@ export default function OptionalHeader({ id, directing, task }: IDoc) {
 
 async function _deleteDoc(id: string) {
   if (!confirm('Удалить этот документ?')) {
-    return;
+    return false;
   }
 
   return fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${id}`, {

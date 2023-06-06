@@ -1,3 +1,5 @@
+.root>h1,
+.root>h2,
 .root>h3 {
   color: var(--color);
 }

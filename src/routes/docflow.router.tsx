@@ -16,12 +16,7 @@ import DocEditPage from "../components/DocFlow/DocEditPage/DocEditPage";
 export default {
   path: "/docflow",
   element: <DocFlow />,
-  children: [
-    // {
-    //   index: true,
-    //   element: <DocList />,
-    //   loader: () => fetchWrapper(_getDocs).catch(() => redirect('/auth'))
-    // },    
+  children: [  
     {
       index: true,
       element: <DocBarPanel />,
