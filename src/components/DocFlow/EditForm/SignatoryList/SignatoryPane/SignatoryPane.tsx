@@ -2,9 +2,10 @@ import styles from "./styles.module.css"
 
 type Props = {
   signatory: IDocSignatory[]
+  signatoryMode: "acceptor" | "recipient"
 }
 
-export default function SignatoryPane({ signatory }: Props) {
+export default function SignatoryPane({ signatory, signatoryMode }: Props) {
   return <ul className={styles.root}>
     {signatory.map(s => (
       <li
@@ -18,14 +19,13 @@ export default function SignatoryPane({ signatory }: Props) {
             if (!confirm('Удалить?')) {
               return;
             }
+            // достаточно удалить элемент li, имеющий скрытое поле hidden
+            // это обновит данные о подписантах при запросе на редактирование к бэку
             event.currentTarget.parentElement?.remove();
-            // if (docId) {
-            //   _delFile(docId, f.fileName)
-            // }
           }}
         ><small>удалить</small></span>
 
-        <input type="hidden" name={`acceptor[${s.uid}]`} defaultValue={""} />
+        <input type="hidden" name={`${signatoryMode}[${s.uid}]`} defaultValue={""} />
       </li>
     ))}
   </ul>

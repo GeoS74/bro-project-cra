@@ -7,17 +7,17 @@ type Props = {
   setSignSearchList: (value: React.SetStateAction<IDocSignatory[]>) => void
 }
 
-export default function SignatoryDataList({signatory, setSignatory, signSearchList, setSignSearchList}: Props) {
+export default function SignatoryDataList({ signatory, setSignatory, signSearchList, setSignSearchList }: Props) {
   return <div className={styles.dataList}>
-  {signSearchList?.map(s => <div
-    key={s.uid}
-    onClick={() => {
-      if(!signatory.find(e => e.uid === s.uid)){
-        setSignatory([...signatory, s])
-      }
-      setSignSearchList(signSearchList.filter(e => e.uid !== s.uid))
-    }}
-  >{`${s.name} ${s.email}`}
-  </div>)}
-</div>
+    {signSearchList?.map(s => <div
+      key={s.uid}
+      onClick={() => { // ninja code :)
+        if (!signatory.find(e => e.uid === s.uid)) {
+          setSignatory([...signatory, s])
+        }
+        setSignSearchList(signSearchList.filter(e => e.uid !== s.uid))
+      }}
+    >{`${s.name} ${s.email}`}
+    </div>)}
+  </div>
 }

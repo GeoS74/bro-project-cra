@@ -8,22 +8,28 @@ import styles from "./styles.module.css"
 
 type Props = {
   typeDoc: DocType
-  acceptor?: IDocSignatory[]
+  signatoryMode: "acceptor" | "recipient"
+  signUnits?: IDocSignatory[]
+  title?: string
 }
 
-export default function SignatoryList({ typeDoc, acceptor }: Props) {
+export default function SignatoryList({ typeDoc, signUnits, title, signatoryMode }: Props) {
   const [signSearchList, setSignSearchList] = useState<IDocSignatory[]>([]);
-  const [signatory, setSignatory] = useState(acceptor || []);
+  const [signatory, setSignatory] = useState(signUnits || []);
 
   return <div className={classNames(styles.root, "mt-4")}>
 
-    <h4>Список подписантов</h4>
+    <h4>{title || ""}</h4>
     
-    <SignatoryPane signatory={signatory}/>
+    <SignatoryPane 
+      signatory={signatory}
+      signatoryMode={signatoryMode}
+    />
 
     <SignatorySearchInput 
       setSignSearchList={setSignSearchList} 
-      typeDoc={typeDoc} 
+      typeDoc={typeDoc}
+      signatoryMode={signatoryMode}
     />
 
     <SignatoryDataList 

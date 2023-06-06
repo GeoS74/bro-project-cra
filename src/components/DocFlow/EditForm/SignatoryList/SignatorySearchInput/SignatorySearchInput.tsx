@@ -6,11 +6,12 @@ import { responseNotIsArray } from "../../../../../middleware/response.validator
 type Props = {
   setSignSearchList: React.Dispatch<React.SetStateAction<IDocSignatory[]>>
   typeDoc: DocType
+  signatoryMode?: string
 }
 
-export default function SignatorySearchInput({setSignSearchList, typeDoc}: Props) {
+export default function SignatorySearchInput({setSignSearchList, typeDoc, signatoryMode}: Props) {
   return <>
-    <label htmlFor="signatoryInput" className="form-label mt-1">Подписывает</label>
+    <label htmlFor="signatoryInput" className="form-label mt-1"></label>
     <input
       autoComplete="off"
       type="text"
@@ -18,23 +19,36 @@ export default function SignatorySearchInput({setSignSearchList, typeDoc}: Props
       className="form-control"
       placeholder="введите Ф.И.О. или должность"
       onKeyUp={(event) => {
-        _searchUser(event.currentTarget.value, setSignSearchList, typeDoc)
+        _searchUser(event.currentTarget.value, setSignSearchList, typeDoc, signatoryMode)
       }}
     // onBlur={() => setSignSearchList(undefined)}
     />
   </>
 }
 
-
 function _searchUser(
   value: string,
   setSignSearchList: React.Dispatch<React.SetStateAction<IDocSignatory[]>>,
   typeDoc: DocType,
+  signatoryMode?: string,
 ) {
   if (!value) {
     return setSignSearchList([])
   }
-  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/user/search/?search=${value}&directing=${typeDoc.directing.id}&task=${typeDoc.task?.id}&limit=5&acceptor=1`, {
+  
+  const q = [
+    `search=${value}`,
+    `directing=${typeDoc.directing.id}`,
+    `task=${typeDoc.task?.id}`,
+    `limit=5`,
+  ];
+  if(signatoryMode === 'acceptor'){
+    q.push(`acceptor=1`)
+  }
+  if(signatoryMode === 'recipient'){
+    q.push(`recipient=1`)
+  }
+  fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/user/search/?${q.join('&')}`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     },

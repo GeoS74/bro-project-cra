@@ -38,7 +38,7 @@ export default function EditForm({ doc, typeDoc }: Props) {
       fileList,
       navigate,
       doc
-      )}
+    )}
   >
     <fieldset disabled={disabled} className="form-group">
 
@@ -59,12 +59,24 @@ export default function EditForm({ doc, typeDoc }: Props) {
       <FileNameList fileList={fileList} setFileList={setFileList} errorMessage={errorMessage} />
 
       <TextPane description={doc?.description} />
-      
+
       <FileInput errorMessage={errorMessage}
         setFileList={(file: FileList) => setFileList([...fileList, file])} />
 
-      <SignatoryList typeDoc={typeDoc} acceptor={doc?.acceptor}/>
-      
+      <SignatoryList
+        typeDoc={typeDoc}
+        signUnits={doc?.acceptor}
+        title="На утверждении:"
+        signatoryMode="acceptor"
+      />
+
+      <SignatoryList
+        typeDoc={typeDoc}
+        signUnits={doc?.recipient}
+        title="Ознакомиться:"
+        signatoryMode="recipient"
+      />
+
       <HiddenInput typeDoc={typeDoc} />
 
       <SubmitButton />
@@ -98,7 +110,7 @@ function _onSubmit(
     body: fd
   }))
     .then(responseNotIsArray)
-    .then(async response => {      
+    .then(async response => {
       if (response.ok) {
         const res = await response.json();
         return navigate(`/docflow/${res.id}`)
