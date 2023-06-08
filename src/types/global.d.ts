@@ -11,6 +11,8 @@ interface IThemeContext {
 type ServiceName = "bridge" | "mauth" | "informator" | "mnote"
 type PopupMode = "success" | "danger" | undefined
 type AuthFormMode = "signin" | "signup" | "forgot"
+type SignatoryMode = "acceptor" | "recipient"
+type ActionMode = "Создать" | "Редактировать" | "Удалить" | "Согласовать" | "Ознакомиться"
 /*
 * тип, устанавливающий возможные значения режима информационного сообщения (подтверждение email, сброс пароля)
 */

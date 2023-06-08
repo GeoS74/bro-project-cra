@@ -6,7 +6,7 @@ import { responseNotIsArray } from "../../../../../middleware/response.validator
 type Props = {
   setSignSearchList: React.Dispatch<React.SetStateAction<IDocSignatory[]>>
   typeDoc: DocType
-  signatoryMode?: string
+  signatoryMode?: SignatoryMode
 }
 
 export default function SignatorySearchInput({setSignSearchList, typeDoc, signatoryMode}: Props) {
@@ -30,7 +30,7 @@ function _searchUser(
   value: string,
   setSignSearchList: React.Dispatch<React.SetStateAction<IDocSignatory[]>>,
   typeDoc: DocType,
-  signatoryMode?: string,
+  signatoryMode?: SignatoryMode,
 ) {
   if (!value) {
     return setSignSearchList([])

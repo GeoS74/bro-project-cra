@@ -2,7 +2,7 @@ import styles from "./styles.module.css"
 
 type Props = {
   signatory: IDocSignatory[]
-  signatoryMode: "acceptor" | "recipient"
+  signatoryMode: SignatoryMode
 }
 
 export default function SignatoryPane({ signatory, signatoryMode }: Props) {

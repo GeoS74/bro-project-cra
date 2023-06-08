@@ -15,7 +15,7 @@ import HiddenInput from "./HiddenInput/HiddenInput";
 import CancelButton from "./CancelButton/CancelButton";
 import styles from "./styles.module.css"
 import SubmitButton from "./SubmitButton/SubmitButton";
-import SignatoryList from "./SignatoryList/SignatoryList";
+import Signatory from "./Signatory/Signatory";
 
 type Props = {
   typeDoc: DocType
@@ -63,14 +63,14 @@ export default function EditForm({ doc, typeDoc }: Props) {
       <FileInput errorMessage={errorMessage}
         setFileList={(file: FileList) => setFileList([...fileList, file])} />
 
-      <SignatoryList
+      <Signatory
         typeDoc={typeDoc}
         signUnits={doc?.acceptor}
         title="На утверждении:"
         signatoryMode="acceptor"
       />
 
-      <SignatoryList
+      <Signatory
         typeDoc={typeDoc}
         signUnits={doc?.recipient}
         title="Ознакомиться:"

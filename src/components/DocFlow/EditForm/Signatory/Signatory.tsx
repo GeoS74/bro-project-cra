@@ -8,7 +8,7 @@ import styles from "./styles.module.css"
 
 type Props = {
   typeDoc: DocType
-  signatoryMode: "acceptor" | "recipient"
+  signatoryMode: SignatoryMode
   signUnits?: IDocSignatory[]
   title?: string
 }
