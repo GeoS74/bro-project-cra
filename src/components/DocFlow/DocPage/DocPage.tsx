@@ -17,8 +17,9 @@ import { ReactComponent as IconCreate } from "./image/create.svg"
 import { ReactComponent as IconEdit } from "./image/edit.svg"
 import { ReactComponent as IconYes } from "./image/yes.svg"
 import { ReactComponent as IconNo } from "./image/no.svg"
-import actionFinder from "../../../libs/action.finder";
 import AcceptButton from "./AcceptButton/AcceptButton";
+import FileLinkedList from "./FileLinkedList/FileLinkedList";
+import Description from "./Description/Description";
 
 
 // type propsAcceptor = {
@@ -33,9 +34,9 @@ const converter = new Converter()
 
 export default function DocPage() {
   session.subscribe('DocPage');
-  const doc = useLoaderData() as IDoc;
   // const path = useLocation().state;
-
+  const [doc, setDoc] = useState(useLoaderData() as IDoc)
+  
   return <div className={styles.root}>
 
     <OptionalHeader {...doc} />
@@ -47,25 +48,12 @@ export default function DocPage() {
 
     <h3 className="mt-4">{doc.title}</h3>
 
-    <div className="mt-4"
-      dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(doc.description) }}
-    ></div>
+    <Description {...doc} />
 
-    {doc.files.length ? <p className="mt-4">Прикреплённые файлы:</p> : <></>}
-    <ul>
-      {doc.files.map(file => {
-        return <li key={file.fileName + doc.id}>
-          <a
-            className="text-muted"
-            href={`${serviceHost('informator')}/api/informator/docflow/scan/${file.fileName}`}
-            download={true}
-          >{file.originalName}</a>
-        </li>
-      })}
-    </ul>
+    <FileLinkedList files={doc.files} />
 
-      {actionFinder(session.getMe()?.roles[0], doc.directing.id, doc.task.id, 'Согласовать') ?
-       <AcceptButton /> : <></>}
+    <AcceptButton {...doc} signatoryMode={"acceptor"} setDoc={setDoc} />
+    <AcceptButton {...doc} signatoryMode={"recipient"} setDoc={setDoc} />
 
 
 
@@ -131,6 +119,12 @@ export default function DocPage() {
 
   </div>
 }
+
+ 
+
+
+
+
 
 
 // function _checkUpdateAction(idDirecting: number, idTask: number, action: string) {

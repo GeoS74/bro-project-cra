@@ -25,7 +25,7 @@ export default function SignatoryPane({ signatory, signatoryMode }: Props) {
           }}
         ><small>удалить</small></span>
 
-        <input type="hidden" name={`${signatoryMode}[${s.uid}]`} defaultValue={""} />
+        <input type="hidden" name={`${signatoryMode}[${s.uid}]`} defaultValue={s.accept ? "on" : ""} />
       </li>
     ))}
   </ul>

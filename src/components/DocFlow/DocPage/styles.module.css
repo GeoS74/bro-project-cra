@@ -15,6 +15,10 @@
   color: var(--color);
 }
 
+.root button {
+  margin-right: 10px;
+}
+
 /* 
 
 .root button{

@@ -7,7 +7,6 @@ import { ReactComponent as IconDelete } from "./icons/trash.svg";
 import fetchWrapper from "../../../../libs/fetch.wrapper";
 import serviceHost from "../../../../libs/service.host";
 import { responseNotIsArray } from "../../../../middleware/response.validator";
-import actionFinder from "../../../../libs/action.finder";
 
 export default function OptionalHeader({ id, directing, task }: IDoc) {
   const navigate = useNavigate();
@@ -15,12 +14,12 @@ export default function OptionalHeader({ id, directing, task }: IDoc) {
   return <div className={styles.root}>
     <div><small>{directing.title} / {task.title}</small></div>
     <div>
-      {actionFinder(session.getMe()?.roles[0], directing.id, task.id, 'Редактировать') ?
+      {_actionFinder(session.getMe()?.roles[0], directing.id, task.id, 'Редактировать') ?
         <IconEdit className={styles.svg} 
         onClick={() => navigate(`/docflow/edit/doc/${id}`)}
         /> : <></>}
 
-      {actionFinder(session.getMe()?.roles[0], directing.id, task.id, 'Удалить') ?
+      {_actionFinder(session.getMe()?.roles[0], directing.id, task.id, 'Удалить') ?
         <IconDelete className={styles.svg}
           onClick={async () => {
             // ninja code ;)
@@ -52,4 +51,16 @@ async function _deleteDoc(id: string) {
       console.log(error.message);
       return false;
     })
+}
+
+function _actionFinder(
+  role?: IRole, 
+  idDirecting?: number, 
+  idTask?: number, 
+  action?: ActionMode,
+  ): boolean {
+  return !!role
+    ?.directings.find(e => e.id === idDirecting)
+    ?.tasks.find(e => e.id === idTask)
+    ?.actions.find(e => e.title === action);
 }
