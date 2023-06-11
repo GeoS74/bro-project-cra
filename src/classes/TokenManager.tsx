@@ -6,7 +6,7 @@ export default class TokenManager implements ITokenManager {
   _refresh = ""
   _access = ""
   _subscribe: Map<string, (value: boolean) => void> = new Map()
-  // Map<string, React.Dispatch<React.SetStateAction<IUser | undefined>>> = new Map()
+
   constructor() {
     this.setRefresh(localStorage.getItem(`session_id`) || "")
 
@@ -31,6 +31,12 @@ export default class TokenManager implements ITokenManager {
       return false
     }
 
+    /**
+     * если токен рефрешиться, то отправляем запрос в массив подписчиков
+     * иначе выполняем fetch запрос
+     * при этом чтобы создать первого подписчика - записываем в this._subscribe
+     * простую функцию, которая возвращает полученный аргумент с типом boolean
+     */
     if(this._subscribe.size > 0) {
       return new Promise(res => {
         this._subscribe.set(Date.now().toString(), b => res(b))
@@ -63,7 +69,7 @@ export default class TokenManager implements ITokenManager {
       })
       .finally(() => {
         this._subscribe.forEach(res => res(true));
-        this._subscribe = new Map()
+        this._subscribe = new Map();
       })
   }
 }
