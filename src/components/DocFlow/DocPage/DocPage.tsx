@@ -21,15 +21,6 @@ import AcceptButton from "./AcceptButton/AcceptButton";
 import FileLinkedList from "./FileLinkedList/FileLinkedList";
 import Description from "./Description/Description";
 
-
-// type propsAcceptor = {
-//   accept: string | boolean,
-//   email: string,
-//   fullName: string,
-//   name: string,
-//   uid: string,
-// }
-
 const converter = new Converter()
 
 export default function DocPage() {

@@ -5,7 +5,8 @@ export default class TokenManager implements ITokenManager {
 
   _refresh = ""
   _access = ""
-
+  _subscribe: Map<string, (value: boolean) => void> = new Map()
+  // Map<string, React.Dispatch<React.SetStateAction<IUser | undefined>>> = new Map()
   constructor() {
     this.setRefresh(localStorage.getItem(`session_id`) || "")
 
@@ -30,6 +31,15 @@ export default class TokenManager implements ITokenManager {
       return false
     }
 
+    if(this._subscribe.size > 0) {
+      return new Promise(res => {
+        this._subscribe.set(Date.now().toString(), b => res(b))
+      })
+    }
+    else {
+      this._subscribe.set(Date.now().toString(), b => b)
+    }
+
     return fetch(`${serviceHost("mauth")}/api/mauth/refresh`, {
       method: "GET",
       headers: {
@@ -50,6 +60,10 @@ export default class TokenManager implements ITokenManager {
         this.setAccess("");
         this.setRefresh("");
         return false
+      })
+      .finally(() => {
+        this._subscribe.forEach(res => res(true));
+        this._subscribe = new Map()
       })
   }
 }
