@@ -7,8 +7,8 @@ export default function RecipientList({ recipient }: IDoc) {
     <ul>
     {recipient.map(e => {
       return <li key={e.uid} className="mt-2">
-        {e.name}
         {e.accept ? <IconSign className={styles.svg}/> : <></>}
+        {e.name}
       </li>
     })}
     </ul>

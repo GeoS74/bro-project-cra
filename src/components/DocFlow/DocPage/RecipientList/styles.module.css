@@ -3,7 +3,10 @@
 }
 
 .svg {
-  margin-left: 15px;
+  position: relative;
+  left: -25px;
+  background-color: var(--background-color);
+  opacity: 1 !important;
   /* fill: var(--color); */
   fill: rgb(45, 115, 69); 
   opacity: 0.6;
