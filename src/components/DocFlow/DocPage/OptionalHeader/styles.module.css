@@ -11,7 +11,9 @@
 .root>div:nth-child(2) {
   text-align: right;
 }
-
+.root>div:nth-child(2) small {
+  margin-right: 25px;
+}
 .svg {
   margin-right: 15px;
   fill: var(--color);

@@ -14,46 +14,8 @@
   color: var(--color)
 }
 
-.root a:hover{
-  color: var(--color) !important;
-}
-
-.header{
-  display: flex;
-  flex-flow: row nowrap;
-}
-.header>small{
-  flex: 2;
-}
-.header>small:nth-child(2) {
-  text-align: right;
-}
-
+.root a:hover,
 .root h4:hover {
   text-decoration: underline;
   cursor: pointer;
-}
-
-.condition {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.userCondition {
-  display: flex;
-  flex-direction: column;
-}
-
-.userCondition span {
-  margin-right: 100px;
-  color: var(--color);
-}
-
-.userCondition small {
-  color: var(--color);
-}
-
-.svgButton {
-  margin-right: 10px;
-  fill: var(--color);
 }

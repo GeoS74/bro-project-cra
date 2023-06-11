@@ -54,11 +54,11 @@ export default function EditForm({ doc, typeDoc }: Props) {
 
       <TitleDoc errorMessage={errorMessage} title={doc?.title} />
 
+      <TextPane description={doc?.description} />
+
       <FileLinkList docId={doc?.id} files={doc?.files} />
 
       <FileNameList fileList={fileList} setFileList={setFileList} errorMessage={errorMessage} />
-
-      <TextPane description={doc?.description} />
 
       <FileInput errorMessage={errorMessage}
         setFileList={(file: FileList) => setFileList([...fileList, file])} />
