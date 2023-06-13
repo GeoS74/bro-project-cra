@@ -28,7 +28,7 @@ export default function DocBar({ title, Icon, queryString }: Props) {
     })}
   >
     <h5>{title}</h5>
-    <Icon className={styles.svg}/>
+    <div className="mt-3"><Icon className={styles.svg}/></div>
     <p>{count}</p>
   </div>
 }

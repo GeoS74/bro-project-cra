@@ -12,7 +12,7 @@ export default function SignatoryPane({ signatory, signatoryMode }: Props) {
         key={s.uid}
         onMouseEnter={_showOptionalButton}
         onMouseLeave={_showOptionalButton}
-      >{`${s.name} ${s.email}`}
+      >{`${s.position} ${s.name}`}
 
         <span hidden
           onClick={(event) => {

@@ -17,7 +17,7 @@ export default function SignatoryDataList({ signatory, setSignatory, signSearchL
         }
         setSignSearchList(signSearchList.filter(e => e.uid !== s.uid))
       }}
-    >{`${s.name} ${s.email}`}
+    >{`${s.position} ${s.name}`}
     </div>)}
   </div>
 }

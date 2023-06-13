@@ -4,6 +4,11 @@
   background-color: var(--background-color);
   max-width: 1000px;
 }
+
+.root:hover{
+  box-shadow: 2px 2px 5px 1px grey;
+}
+
 .root p,
 .root h1,
 .root h2,

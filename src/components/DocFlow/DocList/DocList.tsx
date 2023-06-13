@@ -19,7 +19,7 @@ export default function DocList() {
  */
 
   return <div className={styles.root} >
-    <h3>Документы {state?.titleDocList || ""}</h3>
+    <h3 className="mb-4">Документы {state?.titleDocList || ""}</h3>
 
     {docs?.map(doc => <DocRow key={doc.id} {...doc} />)}
 
