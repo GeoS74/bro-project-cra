@@ -171,6 +171,18 @@ type DocType = {
   task?: ITask
 }
 
+// интерфейс настроек компоненты NewsLine
+
+interface INews {
+  createdAt: string
+  files: IDocFile[]
+  id: string
+  isPublic: boolean
+  message: string
+  title: string
+  updatedAt: string    
+}
+
 
 
 

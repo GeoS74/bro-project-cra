@@ -16,16 +16,16 @@ function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 
 export default function Navigate() {
   session.subscribe('navigate')
-  const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
+  const theme = (useSelector((state) => state) as { theme: { theme: string } }).theme.theme
 
   return <div>
     <Toggle />
-    
+
     <div className={styles.root}>
       <div>
         <nav className={classNames(styles.root, `navbar navbar-expand-lg navbar-${theme === 'light' ? 'primary' : 'dark'}`)}>
           <div className="container-fluid">
-          <Link className={classNames("navbar-brand")} to="/"><SvgLogo theme={theme} /></Link>
+            <Link className={classNames("navbar-brand")} to="/"><SvgLogo theme={theme} /></Link>
 
             <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
               onClick={_toggleMenu}
@@ -67,6 +67,10 @@ export default function Navigate() {
                     </div>
                   </li>
                   : <></>}
+
+                <li className="nav-item">
+                  <Link to="/newsLine" className="nav-link">Слайды</Link>
+                </li>
 
                 <li className="nav-item">
                   <Link to="/about" className="nav-link">О компании</Link>
