@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import classNames from "classnames"
-import styles from "./styles.module.css"
 import OptionalHeader from "./OptionalHeader/OptionalHeader";
 import FileLinkedList from "../DocPage/FileLinkedList/FileLinkedList";
 import Description from "../DocPage/Description/Description";
 import Author from "../DocPage/Author/Author";
 import RequiredToSign from "./RequiredToSign/RequiredToSign";
+import classNames from "classnames"
+import styles from "./styles.module.css"
 
 export default function DocRow({ ...doc }: IDoc) {
   return <div className={classNames(styles.root, "mt-2")}>

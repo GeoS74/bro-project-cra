@@ -16,6 +16,7 @@ import CancelButton from "./CancelButton/CancelButton";
 import styles from "./styles.module.css"
 import SubmitButton from "./SubmitButton/SubmitButton";
 import Signatory from "./Signatory/Signatory";
+import OptionalHeader from "./OptionalHeader/OptionalHeader";
 
 type Props = {
   typeDoc: DocType
@@ -42,7 +43,7 @@ export default function EditForm({ doc, typeDoc }: Props) {
   >
     <fieldset disabled={disabled} className="form-group">
 
-      <small>{typeDoc.directing.title} / {typeDoc.task?.title}</small>
+      <OptionalHeader directing={typeDoc.directing} task={typeDoc.task} {...doc} />
 
       <legend className="mt-3">{!doc ? "Создание документа" : "Изменение документа"}</legend>
 

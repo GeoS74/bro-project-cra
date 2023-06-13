@@ -111,7 +111,7 @@ interface IDocUnit {
   uid: string
   email: string
   name: string
-  fullName: string
+  position: string
 }
 
 interface IDocSignatory extends IDocUnit{
