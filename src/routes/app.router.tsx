@@ -1,7 +1,7 @@
 import {
   createBrowserRouter,
   RouterProvider,
-  // redirect,
+  redirect,
 } from "react-router-dom";
 
 import serviceHost from "../libs/service.host"
@@ -20,12 +20,12 @@ import newsLineRouter from "./newsLine.router"
 const router = createBrowserRouter([
   {
     path: "/",
-    // loader: () => redirect('/catalog'),
+    loader: () => redirect('/docflow'),
     // loader: () => session.start(),
-    element: <Main />,
-    loader: () => fetchWrapper(_getSlider)
-      .catch(() => [])
-      .finally(() => session.start()),
+    // element: <Main />,
+    // loader: () => fetchWrapper(_getSlider)
+    //   .catch(() => [])
+    //   .finally(() => session.start()),
   },
   catalogRouter,
   authRouter,

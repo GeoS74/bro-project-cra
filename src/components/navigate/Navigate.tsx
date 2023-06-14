@@ -34,29 +34,29 @@ export default function Navigate() {
             </button>
             <div className="collapse navbar-collapse" id="navbarColor01">
               <ul className="navbar-nav me-auto">
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/" className="nav-link active">Home</Link>
-                </li>
+                </li> */}
 
-                {session.getMe() ?
+                {/* {session.getMe() ? */}
                   <li className="nav-item">
                     <Link to="/docflow" className="nav-link">С.Э.Д.</Link>
                   </li>
-                  : <></>}
+                  {/* : <></>} */}
 
-                {session.getMe() ?
+                {/* {session.getMe() ?
                   <li className="nav-item">
                     <Link to="/catalog" className="nav-link">Каталог</Link>
                   </li>
-                  : <></>}
+                  : <></>} */}
 
-                {session.getMe() ?
+                {/* {session.getMe() ?
                   <li className="nav-item">
                     <Link to="/catalog/download/price" className="nav-link">Скачать прайс</Link>
                   </li>
-                  : <></>}
+                  : <></>} */}
 
-                {session.getMe()?.rank === 'admin' ?
+                {/* {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item dropdown">
                     <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Прайс</span>
                     <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
@@ -66,15 +66,15 @@ export default function Navigate() {
                       <Link to="/catalog/edit/upload" className="dropdown-item">Загрузка прайса</Link>
                     </div>
                   </li>
-                  : <></>}
+                  : <></>} */}
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/newsLine" className="nav-link">Слайды</Link>
-                </li>
+                </li> */}
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/about" className="nav-link">О компании</Link>
-                </li>
+                </li> */}
 
 
                 {session.getMe() ? <li className="nav-item">
@@ -99,9 +99,9 @@ export default function Navigate() {
                   : <></>
                 }
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/userPage" className="nav-link">test</Link>
-                </li>
+                </li> */}
 
                 {/* <li className="nav-item">
 
