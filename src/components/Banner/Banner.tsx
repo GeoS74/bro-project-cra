@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import styles from "./styles.module.css"
@@ -11,12 +11,14 @@ export default function Banner() {
     return <></>
   }
 
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(0);
+
+  const foo = useRef<HTMLDivElement>(null);
 
   return <div className={styles.root}>
-    <div className={styles.slider}>
+    <div className={styles.slider} ref={foo}>
 
-      <div className={styles.slidesWrapper} style={{ left: `${active * -180}px` }}>
+      <div className={styles.slidesWrapper} style={{ left: `${active * -(foo.current?.offsetWidth || 0)}px` }}>
         {slides.map((e, i) => (
           <Slide
             key={i}

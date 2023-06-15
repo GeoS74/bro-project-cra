@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     // loader: () => redirect('/catalog'),
     // loader: () => session.start(),
     element: <Main />,
-    loader: () => fetchWrapper(_getSlider)
+    loader: () => fetch(`${serviceHost("mnote")}/api/mnote/search/note/?isPublic=1` )
       .catch(() => [])
       .finally(() => session.start()),
   },
@@ -38,7 +38,3 @@ const router = createBrowserRouter([
 ])
 
 export default <RouterProvider router={router} />
-
-async function _getSlider() {
-  return fetch(`${serviceHost("mnote")}/api/mnote/search/note/?isPublic=1` )
-}
