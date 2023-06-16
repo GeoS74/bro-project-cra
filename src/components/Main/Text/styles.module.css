@@ -1,7 +1,9 @@
 .root {
-  margin: 20px;
+  margin: 50px 20px 20px 20px;
+  column-count: 1;
 }
 
+.root>p,
 .root>h1,
 .root>h2,
 .root>h3,

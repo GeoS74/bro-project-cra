@@ -44,17 +44,13 @@ export default function Navigate() {
                   </li>
                   : <></>}
 
-                {session.getMe() ?
-                  <li className="nav-item">
-                    <Link to="/catalog" className="nav-link">Каталог</Link>
-                  </li>
-                  : <></>}
+                <li className="nav-item">
+                  <Link to="/catalog" className="nav-link">Каталог</Link>
+                </li>
 
-                {session.getMe() ?
-                  <li className="nav-item">
-                    <Link to="/catalog/download/price" className="nav-link">Скачать прайс</Link>
-                  </li>
-                  : <></>}
+                <li className="nav-item">
+                  <Link to="/catalog/download/price" className="nav-link">Скачать прайс</Link>
+                </li>
 
                 {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item dropdown">
@@ -68,9 +64,12 @@ export default function Navigate() {
                   </li>
                   : <></>}
 
-                <li className="nav-item">
-                  <Link to="/newsLine" className="nav-link">Слайды</Link>
-                </li>
+                {session.getMe()?.rank === 'admin' ?
+                  <li className="nav-item">
+                    <Link to="/newsLine" className="nav-link">Слайды</Link>
+                  </li>
+                  : <></>
+                }
 
                 <li className="nav-item">
                   <Link to="/about" className="nav-link">О компании</Link>
@@ -99,17 +98,6 @@ export default function Navigate() {
                   : <></>
                 }
 
-                <li className="nav-item">
-                  <Link to="/userPage" className="nav-link">test</Link>
-                </li>
-
-                {/* <li className="nav-item">
-
-            <Link to="/auth" className="nav-link">Sign in</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/auth/signout" className="nav-link">Sign out</Link>
-          </li> */}
               </ul>
             </div>
           </div>

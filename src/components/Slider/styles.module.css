@@ -1,3 +1,8 @@
+/* :root{
+  --slide-width: 550px;
+  --slide-height: 550px;
+} */
+
 .root {
   display: flex;
   flex-flow: column wrap;
@@ -6,22 +11,14 @@
   margin-top: 80px;
 }
 
-:root{
-  --slide-width: 550px;
-  --slide-height: 550px;
-}
-
-.header{
-  width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-}
-.header>div{
-  flex:2;
-}
-
-.header>div:nth-child(2) {
-  text-align: right;
+.root p,
+.root h1,
+.root h2,
+.root h3,
+.root h4,
+.root h5,
+.root h6 {
+  color: var(--color);
 }
 
 .pane {
@@ -41,15 +38,4 @@
   flex-flow: row nowrap;
   /* border: solid 3px red; */
   transition: all 0.5s ease-out;
-}
-
-.svg {
-  fill: var(--color);
-  opacity: 0.8;
-  width: 25px;
-}
-
-.svg:hover{
-  cursor: pointer;
-  opacity: 1;
 }
