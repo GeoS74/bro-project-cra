@@ -12,28 +12,32 @@ export default {
     {
       path: "/about/company",
       element: <About alias="company" />,
-      loader: () => fetchWrapper(_getAboutCompany)
+      loader: () => fetchWrapper(() => _getAbout("company"))
         .catch(() => [])
     },
     {
       path: "/about/credential",
       element: <><></><About alias="credential"/></>,
-      loader: () => fetchWrapper(_getAboutCredential)
+      loader: () => fetchWrapper(() => _getAbout("credential"))
+        .catch(() => [])
+    },
+    {
+      path: "/about/garanty",
+      element: <><></><></><About alias="garanty"/></>,
+      loader: () => fetchWrapper(() => _getAbout("garanty"))
+        .catch(() => [])
+    },
+    {
+      path: "/about/contact",
+      element: <><></><></><></><About alias="contact"/></>,
+      loader: () => fetchWrapper(() => _getAbout("contact"))
         .catch(() => [])
     },
   ]
 }
 
-function _getAboutCompany() {
-  return fetch(`${serviceHost("informator")}/api/informator/about/company`, {
-    headers: {
-      'Authorization': `Bearer ${tokenManager.getAccess()}`
-    }
-  })
-}
-
-function _getAboutCredential() {
-  return fetch(`${serviceHost("informator")}/api/informator/about/credential`, {
+function _getAbout(alias: string) {
+  return fetch(`${serviceHost("informator")}/api/informator/about/${alias}`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
