@@ -72,7 +72,11 @@ export default function Navigate() {
                 }
 
                 <li className="nav-item">
-                  <Link to="/about" className="nav-link">О компании</Link>
+                  <Link to="/about/company" className="nav-link">О компании</Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to="/about/credential" className="nav-link">Реквизиты</Link>
                 </li>
 
 

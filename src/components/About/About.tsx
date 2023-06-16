@@ -9,7 +9,11 @@ import session from "../../libs/token.manager"
 import Footer from "../Footer/Footer"
 import styles from "./styles.module.css"
 
-export default function About() {
+type Props = {
+  alias: string
+}
+
+export default function About({ alias }: Props) {
   const [about, setAbout] = useState(useLoaderData() as IAbout | undefined)
   const [editMode, setEditMode] = useState(false)
 
@@ -18,12 +22,10 @@ export default function About() {
   return <>
     <Navigate />
 
-    <div className={styles.root} style={{ minHeight: `${window.innerHeight-200}px` }}>
+    <div className={styles.root} style={{ minHeight: `${window.innerHeight - 200}px` }}>
       {editMode ?
-        <EditForm about={about} setAbout={setAbout} editMode={editMode} setEditMode={setEditMode} />
+        <EditForm alias={alias} about={about} setAbout={setAbout} editMode={editMode} setEditMode={setEditMode} />
         : <>
-           
-
           <Content about={about} />
 
           {/* эта кнопка должна быть доступна только админу */}
