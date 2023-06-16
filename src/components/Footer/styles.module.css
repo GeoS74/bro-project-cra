@@ -14,12 +14,16 @@
   margin: 50px;
 }
 
-.root>h1,
-.root>h2,
-.root>h3,
-.root>h4,
-.root>h5,
-.root>h6,
+.root > div:nth-child(2) li {
+  list-style-type: none;
+}
+
+.root h1,
+.root h2,
+.root h3,
+.root h4,
+.root h5,
+.root h6,
 .root p,
 .root li,
 .root a {

@@ -34,9 +34,9 @@ export default function Navigate() {
             </button>
             <div className="collapse navbar-collapse" id="navbarColor01">
               <ul className="navbar-nav me-auto">
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/" className="nav-link active">Home</Link>
-                </li>
+                </li> */}
 
                 {session.getMe() ?
                   <li className="nav-item">
