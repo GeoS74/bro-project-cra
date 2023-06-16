@@ -12,7 +12,7 @@ export default function Search() {
   const [hiddenNextSearch, setHiddenNextSearch] = useState(false)
 
   return <div className={styles.root}>
-    <h3>Поиск позиций</h3>
+    {/* <h3>Поиск позиций</h3> */}
 
     <SearchForm
       offset={0}

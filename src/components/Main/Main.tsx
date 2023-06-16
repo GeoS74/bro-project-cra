@@ -11,8 +11,11 @@ export default function Main() {
         <div className={styles.root}>
             <h1>автозапчасти</h1>
             <hr />
+             
             <SearchForm />
+
             <Slider />
+             
             {/* <img src={logo} loading="lazy" />
             <h3>Поиск позиций</h3> */}
         </div>

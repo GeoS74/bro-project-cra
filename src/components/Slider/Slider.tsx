@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import { useLoaderData } from "react-router-dom";
+import { ReactComponent as Left } from "./icons/arrow-left-circle-fill.svg";
+import { ReactComponent as Right } from "./icons/arrow-right-circle-fill.svg";
 
 import styles from "./styles.module.css"
 // import classNames from "classnames";
@@ -13,15 +15,23 @@ export default function Slider() {
 
   const [active, setActive] = useState(0);
 
-  const sliderWidth = document.body.clientWidth*0.8
+  const sliderWidth = document.body.clientWidth*0.6
   const countSlides = 3;
    
   return <div className={styles.root}>
 
-    <div className={styles.header}>
+    <div className={styles.header} style={{ width: `${sliderWidth}px` }}>
 
-      <div>Специальное предложение</div>
-      <div>Специальное предложение</div>
+      <div><h4>специальное предложение</h4></div>
+      <div>
+      <Left className={styles.svg} 
+        onClick={() => setActive(active === 0 ? slides.length - countSlides : active - 1)}
+        />
+      <Right className={styles.svg} 
+        onClick={() => setActive(active === slides.length - countSlides ? 0 : active + 1)}
+        />
+
+      </div>
     </div>
 
     <div className={styles.pane} style={{ width: `${sliderWidth}px` }} >
@@ -40,10 +50,10 @@ export default function Slider() {
 
     </div>
 
-    <div>
+    {/* <div>
       <p onClick={() => setActive(active === 0 ? slides.length - countSlides : active - 1)}>back</p>
       <p onClick={() => setActive(active === slides.length - countSlides ? 0 : active + 1)}>forward</p>
-    </div>
+    </div> */}
   </div>
 
 }

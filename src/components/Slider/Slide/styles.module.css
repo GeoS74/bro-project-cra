@@ -10,9 +10,10 @@
   border: solid 1px var(--color);
   height: 19em;
   overflow: hidden;
+  padding: 10px;
 }
 
 .root img{
-  height: 15em
+  height: 9em;
   /* width: 80%; */
 }

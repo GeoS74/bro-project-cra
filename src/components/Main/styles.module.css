@@ -1,5 +1,6 @@
 .root {
   margin: 20px;
+  min-height: 1000px;
 }
 
 .root>h1,
