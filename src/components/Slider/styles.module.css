@@ -1,0 +1,39 @@
+.root {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+:root{
+  --slide-width: 550px;
+  --slide-height: 550px;
+}
+
+.header{
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.header>div{
+  flex:2;
+}
+
+.pane {
+  position: relative;
+  /* border: solid 3px green; */
+  /* width: var(--slide-width);
+  height: var(--slide-height); */
+  height: 20em;
+  overflow: hidden;
+  /* display: flex;
+  flex-flow: row nowrap; */
+}
+
+.slidesWrapper{
+  position: absolute;
+  display: flex;
+  flex-flow: row nowrap;
+  /* border: solid 3px red; */
+  transition: all 0.5s ease-out;
+}

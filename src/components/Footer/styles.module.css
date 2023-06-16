@@ -1,0 +1,33 @@
+.root {
+  background-color: #1a1a1a;
+  bottom: 0px;
+  min-height: 250px;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.root > div {
+  flex: 0.5 200px;
+  margin: 50px;
+}
+
+.root>h1,
+.root>h2,
+.root>h3,
+.root>h4,
+.root>h5,
+.root>h6,
+.root p,
+.root li,
+.root a {
+  color: rgb(235, 235, 235);
+  opacity: 0.8;
+}
+
+.root a:hover {
+  color: rgb(235, 235, 235);
+  opacity: 1;
+}

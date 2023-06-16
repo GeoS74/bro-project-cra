@@ -19,7 +19,25 @@ export default {
     {
       index: true,
       element: <Search />,
-      loader: () => session.start(),
+      // loader: () => session.start(),
+      loader: ({ request }: LoaderFunctionArgs) => new Promise<URL>(res => res(new URL(request.url)))
+        .then(url => {
+          if(url.searchParams.get('query')) {
+            return url;
+          }
+          throw new Error()
+        })
+        .then(url => fetch(`${serviceHost("bridge")}/api/bridge/search/?query=${url.searchParams.get('query')}`))
+        .then(async response => {
+          if (response.ok) {
+            const res = await response.json();
+            return res;
+          }
+          throw new Error(`response status: ${response.status}`)
+        })
+        // .catch(() => redirect('/auth'))
+        .catch(() => null)
+        .finally(() => session.start())
     },
     {
       path: "/catalog/:id",
