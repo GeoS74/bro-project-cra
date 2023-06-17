@@ -20,6 +20,11 @@ export default function Slider({ width }: Props) {
   const prev = () => setActive(active === 0 ? slides.length - countSlides : active - 1);
   const next = () => setActive(active === slides.length - countSlides ? 0 : active + 1)
 
+  setTimeout(() => {
+    console.log(active)
+    next()
+  }, 5000)
+
   return <div className={styles.root} >
 
     <div style={{ width: `${width}px` }}>
