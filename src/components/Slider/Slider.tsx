@@ -1,52 +1,45 @@
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Header from "./Header/Header";
-
+import Pane from "./Pane/Pane";
 import styles from "./styles.module.css"
-import Slide from "./Slide/Slide"
 
 type Props = {
   width: number
 }
 
-export default function Slider({width}: Props) {
+export default function Slider({ width }: Props) {
   const slides = useLoaderData() as ISlider[];
-  if(!slides.length) {
+  if (!slides.length) {
     return <></>
   }
 
   const [active, setActive] = useState(0);
   const countSlides = _getCountSlides(width);
-  console.log(countSlides)
-  return <div className={styles.root}>
 
-    <Header 
-      title="Специальное предложение"
-      width={width}
-      active={active}
-      setActive={setActive}
-      countSlides={slides.length}
-      countVisibleSlides={countSlides}
-    />
+  const prev = () => setActive(active === 0 ? slides.length - countSlides : active - 1);
+  const next = () => setActive(active === slides.length - countSlides ? 0 : active + 1)
 
-    <div className={styles.pane} style={{ width: `${width}px` }} >
+  return <div className={styles.root} >
 
-      <div className={styles.slidesWrapper} style={{ left: `${active * -width/countSlides}px` }}>
-        {slides.map((e, i) => (
-          <Slide
-            key={i}
-            image={e.files[0]?.fileName}
-            title={e.title}
-            message={e.message}
-            width={width/countSlides}
-          />
-        ))}
-      </div>
+    <div style={{ width: `${width}px` }}>
+      <Header
+        title="Специальное предложение"
+        prev={prev}
+        next={next}
+        showButton={slides.length > countSlides}
+      />
 
+      <Pane
+        slides={slides}
+        active={active}
+        width={width}
+        countSlides={countSlides}
+      />
     </div>
   </div>
 }
 
 function _getCountSlides(width: number) {
-  return width/250 > 5 ? 5 : Math.floor(width/250)
+  return width / 250 > 5 ? 5 : Math.floor(width / 250)
 }

@@ -5,28 +5,26 @@ import styles from "./styles.module.css"
 
 type Props = {
   title: string
-  width: number
-  active: number
-  setActive: React.Dispatch<React.SetStateAction<number>>
-  countSlides: number
-  countVisibleSlides: number
+  prev: () => void
+  next: () => void
+  showButton: boolean
 }
 
-export default function Header({ title, width, active, setActive, countSlides, countVisibleSlides }: Props) {
-  return <div className={styles.root} style={{ width: `${width}px` }}>
+export default function Header({ title, prev, next, showButton }: Props) {
+  return <div className={styles.root} >
 
     <div>
       <h4>{title}</h4>
     </div>
 
     <div>
-      {countSlides > countVisibleSlides ?
+      {showButton ?
           <>
             <Left className={styles.svg}
-              onClick={() => setActive(active === 0 ? countSlides - countVisibleSlides : active - 1)}
+              onClick={prev}
             />
             <Right className={styles.svg}
-              onClick={() => setActive(active === countSlides - countVisibleSlides ? 0 : active + 1)}
+              onClick={next}
             />
           </>
           : <></>
