@@ -18,7 +18,7 @@ const autoPlay = function(time) {
     }
     timerId = setTimeout(() => func(), time)
   }
-}(3000);
+}(5000);
 
 export default function Slider({ width }: Props) {
   const slides = useLoaderData() as ISlider[];
@@ -31,7 +31,7 @@ export default function Slider({ width }: Props) {
   const countPaginations = _getCountPaginations(countVisibleSlides, slides.length);
 
   const prev = () => setActive(active === 0 ? slides.length - countVisibleSlides : active - 1);
-  const next = () => setActive(active === slides.length - countVisibleSlides ? 0 : active + 1)
+  const next = () => setActive(active === slides.length - countVisibleSlides ? 0 : active + 1);
 
   autoPlay(next);
 
@@ -55,8 +55,9 @@ export default function Slider({ width }: Props) {
       <Pagination
         countVisibleSlides={countVisibleSlides}
         countPaginations={countPaginations}
-        setActive={setActive}
         countSlides={slides.length}
+        active={active}
+        setActive={setActive}
       />
 
     </div>
