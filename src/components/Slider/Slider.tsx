@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Header from "./Header/Header";
 import Pane from "./Pane/Pane";
+import Pagination from "./Pagination/Pagination"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -26,10 +27,11 @@ export default function Slider({ width }: Props) {
   }
 
   const [active, setActive] = useState(0);
-  const countSlides = _getCountSlides(width);
+  const countVisibleSlides = _getCountVisibleSlides(width);
+  const countPaginations = _getCountPaginations(countVisibleSlides, slides.length);
 
-  const prev = () => setActive(active === 0 ? slides.length - countSlides : active - 1);
-  const next = () => setActive(active === slides.length - countSlides ? 0 : active + 1)
+  const prev = () => setActive(active === 0 ? slides.length - countVisibleSlides : active - 1);
+  const next = () => setActive(active === slides.length - countVisibleSlides ? 0 : active + 1)
 
   autoPlay(next);
 
@@ -40,19 +42,31 @@ export default function Slider({ width }: Props) {
         title="Специальное предложение"
         prev={prev}
         next={next}
-        showButton={slides.length > countSlides}
+        showButton={slides.length > countVisibleSlides}
       />
 
       <Pane
         slides={slides}
         active={active}
         width={width}
-        countSlides={countSlides}
+        countVisibleSlides={countVisibleSlides}
       />
+
+      <Pagination
+        countVisibleSlides={countVisibleSlides}
+        countPaginations={countPaginations}
+        setActive={setActive}
+        countSlides={slides.length}
+      />
+
     </div>
   </div>
 }
 
-function _getCountSlides(width: number) {
+function _getCountVisibleSlides(width: number) {
   return width / 250 > 5 ? 5 : Math.floor(width / 250)
+}
+
+function _getCountPaginations(countVisibleSlides: number, countSlides: number) {
+  return Math.ceil(countSlides/countVisibleSlides)
 }
