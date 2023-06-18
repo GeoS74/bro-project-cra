@@ -15,9 +15,9 @@ export default function Main() {
              
             <SearchForm />
 
-            {/* <Text /> */}
-
             <Slider width={Math.floor(window.innerWidth*0.8)}/>
+
+            <Text />
              
             {/* <img src={logo} loading="lazy" />
             <h3>Поиск позиций</h3> */}

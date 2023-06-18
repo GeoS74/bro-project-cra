@@ -1,11 +1,12 @@
+import { useLoaderData } from "react-router-dom";
+import { Converter } from "md-conv"
 import styles from "./styles.module.css"
 
+const converter = new Converter()
+
 export default function Text() {
-  return <div className={styles.root}>
-    <h5>СИГНАЛ</h5>
-    <p>Компания СИГНАЛ - это комплексные поставки запасных частей на автомобильную и специальную технику. Приоритетом нашей компании является нефтегазовая отрасль,
-      а также мунцицпальные и гос. заказчики.
-    </p>
-   
-   </div>
+  const about = (useLoaderData() as IAbout[])[1];
+  return <div dangerouslySetInnerHTML={{ __html: converter.markdownToHTML(about?.mdInfo) }}
+    className={styles.root}>
+  </div>
 }

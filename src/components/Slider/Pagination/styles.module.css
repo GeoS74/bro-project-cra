@@ -8,3 +8,7 @@
 .root>input{
   margin: 5px
 }
+
+.root>input:hover{
+  cursor: pointer;
+}

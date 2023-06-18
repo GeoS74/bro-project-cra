@@ -21,7 +21,7 @@ const autoPlay = function(time) {
 }(5000);
 
 export default function Slider({ width }: Props) {
-  const slides = useLoaderData() as ISlider[];
+  const slides = (useLoaderData() as ISlider[][])[0];
   if (!slides.length) {
     return <></>
   }
