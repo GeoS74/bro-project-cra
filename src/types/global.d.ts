@@ -163,8 +163,9 @@ interface IUser {
   email: string
   rank: string
   roles: IRole[]
-  name?: string
-  photo?: string
+  name: string
+  photo: string
+  createdAt: string
   status?: string
 }
 

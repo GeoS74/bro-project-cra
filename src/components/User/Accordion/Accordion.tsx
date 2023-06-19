@@ -14,6 +14,7 @@ type Props = {
 }
 
 export default function Accordion({ user, setUser, editMode, setEditMode }: Props) {
+  console.log(user)
   return <form onSubmit={event => _updateUserData(event, editMode, setEditMode, (editData) => setUser({ ...user, ...editData }))}
     className={classNames(styles.content, "mt-4")}>
 
@@ -36,6 +37,7 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
                 name="name" defaultValue={user.name || ""} /> :
               (user.name || "укажите Ф.И.О.")}
             </p>
+            <p>регистрация: {user.createdAt}</p>
           </div>
         </div>
       </div>
