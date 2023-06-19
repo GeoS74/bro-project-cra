@@ -30,7 +30,7 @@ function _makeList(products: IProduct[]) {
   return products
     .map((p, index) => <div key={index} className="card mt-0">
       <div>
-        <Link to={`/catalog/${p.id}`}><p>{p.title}</p></Link>
+        <Link to={`/catalog/product/${p.alias}`}><p>{p.title}</p></Link>
         <p>{p.article}</p>
       </div>
       <div></div>

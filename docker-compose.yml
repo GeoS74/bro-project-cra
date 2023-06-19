@@ -16,6 +16,7 @@ services:
       - ACTUAL_TTL=7 day
     volumes:
       - init-db-bridge:/bridge/libs
+      - card-photo-bridge:/bridge/files/photo
     deploy:
       resources:
         limits:
@@ -155,6 +156,7 @@ services:
 volumes:
   init-db-bridge:
   db-bridge:
+  card-photo-bridge:
   init-db-mauth:
   db-mauth:
   db-informator:

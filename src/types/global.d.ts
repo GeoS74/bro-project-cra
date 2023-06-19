@@ -90,6 +90,8 @@ interface IProduct {
   length: string
   manufacturer: string
   stock: string
+  photo: string
+  alias: string
   // storage: unknown
 }
 
