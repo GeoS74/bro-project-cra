@@ -6,6 +6,7 @@ import Pagination from "./Pagination/Pagination"
 import styles from "./styles.module.css"
 
 type Props = {
+  slides: ISlider[]
   width: number
 }
 
@@ -20,8 +21,7 @@ const autoPlay = function(time) {
   }
 }(5000);
 
-export default function Slider({ width }: Props) {
-  const slides = (useLoaderData() as ISlider[][])[0];
+export default function Slider({ width, slides }: Props) {
   if (!slides.length) {
     return <></>
   }

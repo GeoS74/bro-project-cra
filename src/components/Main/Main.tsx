@@ -1,4 +1,5 @@
 import Navigate from "../navigate/Navigate"
+import { useLoaderData } from "react-router-dom";
 // import logo from "../navigate/image/logo.svg"
 import Slider from "../Slider/Slider"
 import SearchForm from "./SearchForm/SearchForm"
@@ -7,21 +8,25 @@ import Footer from "../Footer/Footer"
 import styles from "./styles.module.css"
 
 export default function Main() {
-    return <>
-        <Navigate />
-        <div className={styles.root} style={{ minHeight: `${window.innerHeight-200}px` }}>
-            <h1>автозапчасти</h1>
-            <hr />
-             
-            <SearchForm />
+  const [slides, about] = useLoaderData() as [ISlider[], IAbout];
+  return <>
+    <Navigate />
+    <div className={styles.root} style={{ minHeight: `${window.innerHeight - 200}px` }}>
+      <h1>автозапчасти</h1>
+      <hr />
 
-            <Slider width={Math.floor(window.innerWidth*0.8)}/>
+      <SearchForm />
 
-            <Text />
-             
-            {/* <img src={logo} loading="lazy" />
+      <Slider 
+        slides={slides}
+        width={Math.floor(window.innerWidth * 0.8)} 
+      />
+
+      <Text about={about}/>
+
+      {/* <img src={logo} loading="lazy" />
             <h3>Поиск позиций</h3> */}
-        </div>
-        <Footer />
-    </>
+    </div>
+    <Footer />
+  </>
 }
