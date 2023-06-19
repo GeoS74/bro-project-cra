@@ -42,7 +42,7 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
         </div>
       </div>
 
-      <div className="accordion-item">
+      {/* <div className="accordion-item">
         <h2 className="accordion-header" onClick={(event) => collapser(event)}>
           <span className="accordion-button collapsed">
             система эл. документооборота
@@ -53,7 +53,7 @@ export default function Accordion({ user, setUser, editMode, setEditMode }: Prop
             <p>роль: {user.roles[0]?.title || "не назначена"}</p>
           </div>
         </div>
-      </div>
+      </div> */}
 
     </div>
     <input type="submit" hidden />

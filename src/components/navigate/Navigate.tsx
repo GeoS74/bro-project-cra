@@ -38,18 +38,18 @@ export default function Navigate() {
                   <Link to="/" className="nav-link active">Home</Link>
                 </li> */}
 
-                {session.getMe() ?
+                {/* {session.getMe() ?
                   <li className="nav-item">
                     <Link to="/docflow" className="nav-link">С.Э.Д.</Link>
                   </li>
-                  : <></>}
+                  : <></>} */}
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/catalog" className="nav-link">Каталог</Link>
-                </li>
+                </li> */}
 
                 <li className="nav-item">
-                  <Link to="/catalog/download/price" className="nav-link">Скачать прайс</Link>
+                  <Link to="/catalog/download/price" className="nav-link">Прайс-лист</Link>
                 </li>
 
                 {session.getMe()?.rank === 'admin' ?
@@ -86,7 +86,7 @@ export default function Navigate() {
                   : <></>}
 
 
-                {session.getMe()?.rank === 'admin' ?
+                {/* {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item dropdown">
                     <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
                     <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
@@ -100,7 +100,7 @@ export default function Navigate() {
                     </div>
                   </li>
                   : <></>
-                }
+                } */}
 
               </ul>
             </div>
