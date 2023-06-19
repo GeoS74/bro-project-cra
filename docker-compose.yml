@@ -1,7 +1,7 @@
 version: '1.0'
 services:
   bridge_app:
-    image: "geos74/bridge:0.0.2"
+    image: "geos74/bridge:0.0.3"
     ports:
       - "3100:3500"
     environment:
@@ -13,7 +13,7 @@ services:
       - NODE_ENV=dev
       - JWT_CHECK=true
       - JWT_SECRET_KEY=any_secret
-      - ACTUAL_TTL=7 day
+      - ACTUAL_TTL=30 day
     volumes:
       - init-db-bridge:/bridge/libs
       - card-photo-bridge:/bridge/files/photo
@@ -124,7 +124,7 @@ services:
   #     resources:
   #       limits:
   #         memory: 500M
-  mnone_app:
+  mnote_app:
     image: "geos74/mnote:0.0.1"
     ports:
       - "3300:3300"
@@ -142,7 +142,7 @@ services:
       - files-mnote:/mnote/files/images
 
   # react:
-  #   image: "geos74/edo:0.0.1"
+  #   image: "geos74/signal:0.0.1"
   #   # build: .
   #   ports:
   #     - "3000:80"
@@ -153,6 +153,8 @@ services:
   #     - PORT_MAUTH=3001
   #     - HOST_INFORMATOR=informator
   #     - PORT_INFORMATOR=3200
+  #     - HOST_MNOTE=mnote_app
+  #     - PORT_MNOTE=3300
 volumes:
   init-db-bridge:
   db-bridge:

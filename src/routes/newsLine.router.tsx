@@ -29,12 +29,12 @@ export default {
         },
         {
           path: "/newsLine/editNews/:id",
-          element: <EditForm />,
+          element: <><></><EditForm /></>,
           loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getOneNews(params.id))
             .then(responseNotIsArray)
             .then(res => {
               if (res.status === 404) {
-                return redirect('/docflow')
+                return redirect('/newsLine')
               }
               return res;
             })
@@ -47,7 +47,7 @@ export default {
             .then(responseNotIsArray)
             .then(res => {
               if (res.status === 404) {
-                return redirect('/docflow')
+                return redirect('/newsLine')
               }
               return res;
             })

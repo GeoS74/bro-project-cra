@@ -33,7 +33,9 @@ export default function Slider({ width, slides }: Props) {
   const prev = () => setActive(active === 0 ? slides.length - countVisibleSlides : active - 1);
   const next = () => setActive(active === slides.length - countVisibleSlides ? 0 : active + 1);
 
-  autoPlay(next);
+  if(slides.length > countVisibleSlides) {
+    autoPlay(next);
+  }
 
   return <div className={styles.root} >
 
