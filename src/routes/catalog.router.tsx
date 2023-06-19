@@ -19,7 +19,6 @@ export default {
     {
       index: true,
       element: <Search />,
-      // loader: () => session.start(),
       loader: ({ request }: LoaderFunctionArgs) => new Promise<URL>(res => res(new URL(request.url)))
         .then(url => {
           if(url.searchParams.get('query')) {

@@ -1,29 +1,30 @@
 import { useLoaderData } from "react-router-dom"
-import {ReactComponent as Icon} from "./image/icon.svg"
+import { ReactComponent as NotImage } from "./icons/tools.svg";
 import classNames from "classnames";
 import styles from "./styles.module.css"
 
-
-
 export default function ProductPage() {
     const product = useLoaderData() as IProduct;
+    console.log(product)
     return (
     <div className={classNames(styles.root)}>
         <div>
-            <h2>{product.title}</h2>
-            <p>Артикль: {product.article}</p>
-            <p>Производитель: {product.manufacturer}</p>
-            <p>Количество: {product.amount}</p>
-            <p>Цена за штуку: {product.price}</p>            
-            <p hidden={product.width === "0.00"}>Ширина: {product.width}</p>
-            <p hidden={product.height === "0.00"}>Высота: {product.height}</p>
-            <p hidden={product.length === "0.00"}>Длинна: {product.length}</p>
-            <p hidden={product.weight === "0.00"}>Вес: {product.weight}</p>
-            <p>{product.stock}</p>
+            <NotImage className={styles.svg}/>
+            <p>Товар на фотосессии</p>
         </div>
         <div>
-            <Icon width="150px" height="150px" className={styles.icon}/>
-            <p>Фото отсутствуе</p>
+            <h2>{product.title}</h2>
+            <p><span className="text-muted">Артикл:</span> {product.article}</p>
+            <p><span className="text-muted">Производитель:</span> {product.manufacturer}</p>
+            <p><span className="text-muted">Количество:</span> {+product.amount || "под заказ"}</p>
+            <p><span className="text-muted">Цена за ед.:</span> {+product.price || <small>Уточняйте у менеджера</small>}</p>
+                
+            <p hidden={product.width === "0.00"}><span className="text-muted">Ширина:</span> {product.width}</p>
+            <p hidden={product.height === "0.00"}><span className="text-muted">Высота:</span> {product.height}</p>
+            <p hidden={product.length === "0.00"}><span className="text-muted">Длина:</span> {product.length}</p>
+            <p hidden={product.weight === "0.00"}><span className="text-muted">Вес:</span> {product.weight}</p>
+
+            {/* <p><span className="text-muted">{product.stock}</span></p> */}
         </div>
     </div>
 )}

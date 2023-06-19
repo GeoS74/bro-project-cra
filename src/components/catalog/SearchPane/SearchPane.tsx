@@ -35,8 +35,8 @@ function _makeList(products: IProduct[]) {
       </div>
       <div></div>
       <div>{p.manufacturer}</div>
-      <div>{p.amount || "под заказ"}</div>
-      <div>{p.price || <small>Уточняйте у менеджера</small>}</div>
+      <div>{+p.amount || "под заказ"}</div>
+      <div>{+p.price || <small>Уточняйте у менеджера</small>}</div>
       <div></div>
     </div>)
 }
