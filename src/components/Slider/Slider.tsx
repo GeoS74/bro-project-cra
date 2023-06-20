@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
 import Header from "./Header/Header";
 import Pane from "./Pane/Pane";
 import Pagination from "./Pagination/Pagination"
