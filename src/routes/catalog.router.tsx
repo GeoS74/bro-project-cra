@@ -54,7 +54,7 @@ export default {
     },
     {
       path: "/catalog/product/:alias",
-      element: <ProductPage />,
+      element: <><></><ProductPage /></>,
       loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDocByAlias(params.alias))
         .then(responseNotIsArray)
         .then(res => {

@@ -79,7 +79,7 @@ function _onSubmit(
   fileList.map(f => fd.append('images', f.fileList[0]))
 
   // если пользователь пришел не по нажатию кнопки редактировать, тогда stateNews будет undefined 
-  fetchWrapper(() => fetch(`${serviceHost('mnote')}${stateNews ? `/api/mnote/${stateNews?.id}` : `/api/mnote`}`, {
+  fetchWrapper(() => fetch(`${serviceHost('mnote')}/api/mnote/${stateNews?.id || ""}`, {
       method: `${stateNews ? 'PATCH' : 'POST'}`,
       headers: {
         'Authorization': `Bearer ${tokenManager.getAccess()}`

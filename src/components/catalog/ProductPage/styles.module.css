@@ -1,4 +1,5 @@
 .root {
+  margin-top: 70px;
   display: flex;
   flex-flow: row wrap;
 }
