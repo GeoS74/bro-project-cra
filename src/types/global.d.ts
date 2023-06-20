@@ -178,7 +178,7 @@ type DocType = {
 
 interface INews {
   createdAt: string
-  files: IDocFile[]
+  files: IStaticFile[]
   id: string
   isPublic: boolean
   message: string
