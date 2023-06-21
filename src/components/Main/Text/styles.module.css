@@ -6,11 +6,11 @@
   align-items: center;
 }
 
-.root > div {
-  width: 80%; 
+.root>div {
+  width: 80%;
   column-count: 2;
-    column-width: 400px;
-    column-gap: 2em;
+  column-width: 400px;
+  column-gap: 2em;
 }
 
 .root a,
