@@ -8,18 +8,12 @@
 
 .root > div {
   width: 80%; 
-  display: flex;
-  flex-flow: row wrap;
-  /* justify-content: center;
-  align-items: center; */
+  column-count: 2;
+    column-width: 400px;
+    column-gap: 2em;
 }
 
-.root> div p {
-  flex: 2;
-  min-width: 800px;
-  margin: 10px;
-}
-
+.root a,
 .root p,
 .root h1,
 .root h2,
