@@ -12,7 +12,7 @@ export default function Main() {
   return <>
     <Navigate />
     <div className={styles.root} style={{ minHeight: `${window.innerHeight - 200}px` }}>
-      <h1>автозапчасти</h1>
+      <h1>подшипники</h1>
       <hr />
 
       <SearchForm />

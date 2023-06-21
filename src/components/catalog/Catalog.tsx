@@ -8,7 +8,7 @@ export default function Catalog() {
   return <>
     <Navigate />
     <div className={styles.root} style={{ minHeight: `${window.innerHeight-200}px` }}>
-      <h1>Каталог запчастей</h1>
+      <h1>Каталог подшипников</h1>
       <hr />
       <Outlet />
     </div>

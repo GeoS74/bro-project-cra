@@ -3,8 +3,6 @@ import { useState } from "react";
 
 import session from "../../../libs/token.manager"
 import OptionalHeader from "./OptionalHeader/OptionalHeader";
-import { ReactComponent as IconYes } from "./image/yes.svg"
-import { ReactComponent as IconNo } from "./image/no.svg"
 import AcceptButton from "./AcceptButton/AcceptButton";
 import FileLinkedList from "./FileLinkedList/FileLinkedList";
 import Description from "./Description/Description";

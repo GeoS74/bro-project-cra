@@ -16,9 +16,10 @@ export default function Main() {
     <div>
       <h5 className="mb-3">Контакты:</h5>
       <ul>
-        <li>Тел.: +7 (951) 445-67-20</li>
-        <li>email: info@sgn74.ru</li>
-        <li>г. Челябинск, Копейское шоссе, д. 48 помещение 1</li>
+        <li>Тел.: +7 (351) 777-67-49</li>
+        <li>Факс: +7 (951) 259-39-56</li>
+        <li>email: redial-trade@yandex.ru</li>
+        <li>г. Челябинск, ул. Енисейская, 12</li>
       </ul>
     </div>
   </div>

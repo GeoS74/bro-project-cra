@@ -10,10 +10,10 @@
 
 body {
   background: var(--background-color) !important;
-  background-image: url("./img/tr.png") !important;
+  background-image: url("./img/bearing3.png") !important;
   background-position: bottom right !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
-  background-size: 50% !important;
+  background-size: 45% !important;
 }
 
