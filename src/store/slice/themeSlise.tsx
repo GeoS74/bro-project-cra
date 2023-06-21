@@ -5,7 +5,7 @@ const themeSlice = createSlice({
     initialState: {
         
         theme: window.localStorage?.getItem('theme') || 'light',
-        initaialTheme: document.documentElement.dataset.theme = window.localStorage?.getItem('theme') || 'dark'
+        initaialTheme: document.documentElement.dataset.theme = window.localStorage?.getItem('theme') || 'light'
     },
     reducers: {
         setTheme: state => {
