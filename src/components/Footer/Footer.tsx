@@ -5,7 +5,7 @@ import styles from "./styles.module.css"
 export default function Main() {
   return <div className={styles.root}>
     <div>
-      <h5 className="mb-3">Страницы сайта:</h5>
+      <h5>Страницы сайта:</h5>
       <ul>
         <li><Link to="/about/contact">Контакты</Link></li>
         <li><Link to="/about/company">О компании</Link></li>
@@ -14,7 +14,7 @@ export default function Main() {
       </ul>
     </div>
     <div>
-      <h5 className="mb-3">Контакты:</h5>
+      <h5>Контакты:</h5>
       <ul>
         <li>Тел.: +7 (951) 445-67-20</li>
         <li>email: info@sgn74.ru</li>
