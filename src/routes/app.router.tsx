@@ -27,7 +27,7 @@ const router = createBrowserRouter([
           return Promise.all(response.map(async r => await r.json()))
         }
       })
-      .catch(() => [])
+      .catch(() => [[], undefined])
       .finally(() => session.start()),
       errorElement: < ErrorBoundary />,
   },
