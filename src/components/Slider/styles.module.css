@@ -23,3 +23,7 @@
 .root h6 {
   color: var(--color);
 }
+
+.root a:hover {
+  text-decoration: none;
+}
