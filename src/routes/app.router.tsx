@@ -15,6 +15,7 @@ import userRouter from "./user.router"
 import settingRouter from "./setting.router"
 import docFlowRouter from "./docflow.router"
 import newsLineRouter from "./newsLine.router"
+import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary"
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       })
       .catch(() => [[], undefined])
       .finally(() => session.start()),
+      errorElement: < ErrorBoundary />,
   },
   catalogRouter,
   authRouter,
