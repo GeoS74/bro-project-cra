@@ -42,7 +42,6 @@ const router = createBrowserRouter([
 
 export default <RouterProvider router={router} />
 
-
 async function _getSlides() {
   return fetch(`${serviceHost("mnote")}/api/mnote/search/note/?isPublic=1`);
 }
