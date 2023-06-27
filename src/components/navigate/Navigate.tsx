@@ -25,7 +25,7 @@ export default function Navigate() {
       <div>
         <nav className={classNames(styles.root, `navbar navbar-expand-lg navbar-${theme === 'light' ? 'primary' : 'dark'}`)}>
           <div className="container-fluid">
-            <Link className={classNames("navbar-brand")} to="/"><SvgLogo theme={theme} /></Link>
+            <Link className={classNames("navbar-brand")} to="/docflow"><SvgLogo theme={theme} /></Link>
 
             <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
               onClick={_toggleMenu}
@@ -38,21 +38,21 @@ export default function Navigate() {
                   <Link to="/" className="nav-link active">Home</Link>
                 </li> */}
 
-                {/* {session.getMe() ?
+                {session.getMe() ?
                   <li className="nav-item">
                     <Link to="/docflow" className="nav-link">С.Э.Д.</Link>
                   </li>
-                  : <></>} */}
+                  : <></>}
 
                 {/* <li className="nav-item">
                   <Link to="/catalog" className="nav-link">Каталог</Link>
                 </li> */}
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/catalog/download/price" className="nav-link">Прайс-лист</Link>
-                </li>
+                </li> */}
 
-                {session.getMe()?.rank === 'admin' ?
+                {/* {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item dropdown">
                     <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Прайс</span>
                     <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
@@ -62,22 +62,22 @@ export default function Navigate() {
                       <Link to="/catalog/edit/upload" className="dropdown-item">Загрузка прайса</Link>
                     </div>
                   </li>
-                  : <></>}
+                  : <></>} */}
 
-                {session.getMe()?.rank === 'admin' ?
+                {/* {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item">
                     <Link to="/newsLine" className="nav-link">Слайды</Link>
                   </li>
                   : <></>
-                }
+                } */}
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/about/contact" className="nav-link">Контакты</Link>
                 </li>
 
                 <li className="nav-item">
                   <Link to="/about/company" className="nav-link">О компании</Link>
-                </li>
+                </li> */}
 
 
                 {session.getMe() ? <li className="nav-item">
@@ -86,7 +86,7 @@ export default function Navigate() {
                   : <></>}
 
 
-                {/* {session.getMe()?.rank === 'admin' ?
+                {session.getMe()?.rank === 'admin' ?
                   <li className="nav-item dropdown">
                     <span className="nav-link dropdown-toggle" onClick={(event) => event.currentTarget.nextElementSibling?.classList.toggle("show")}>Настройки</span>
                     <div className="dropdown-menu" onClick={(event) => event.currentTarget.classList.toggle("show")}>
@@ -100,7 +100,7 @@ export default function Navigate() {
                     </div>
                   </li>
                   : <></>
-                } */}
+                }
 
               </ul>
             </div>
