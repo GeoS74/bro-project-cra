@@ -2,8 +2,8 @@ version: '1.0'
 services:
   bridge_app:
     image: "geos74/bridge:0.0.3"
-    # ports:
-    #   - "3100:3500"
+    ports:
+      - "3100:3500"
     environment:
       - SERVER_PORT=3500
       - DB_USER=bridge
@@ -38,8 +38,8 @@ services:
     restart: on-failure
   mauth_app:
     image: "geos74/mauth:1.0.0"
-    # ports:
-    #   - "3001:3001"
+    ports:
+      - "3001:3001"
     environment:
       - SERVER_PORT=3001
       - NODE_ENV=dev
@@ -84,8 +84,8 @@ services:
     restart: on-failure
   informator:
     image: "geos74/informator:0.0.1"
-    # ports:
-    #   - "3200:3200"
+    ports:
+      - "3200:3200"
     environment:
       - SERVER_PORT=3200
       - NODE_ENV=dev
@@ -133,8 +133,8 @@ services:
   #   restart: on-failure
   mnote_app:
     image: "geos74/mnote:0.0.1"
-    # ports:
-    #   - "3300:3300"
+    ports:
+      - "3300:3300"
     environment:
       - SERVER_PORT=3300
       - NODE_ENV=dev
@@ -152,22 +152,22 @@ services:
     volumes:
       - files-mnote:/mnote/files/images
     restart: on-failure
-  react:
-    image: "geos74/signal:0.0.1"
-    # build: .
-    ports:
-      - "3000:80"
-      - "443:443"
-    environment:
-      - HOST_BRIDGE=bridge_app
-      - PORT_BRIDGE=3500
-      - HOST_MAUTH=mauth_app
-      - PORT_MAUTH=3001
-      - HOST_INFORMATOR=informator
-      - PORT_INFORMATOR=3200
-      - HOST_MNOTE=mnote_app
-      - PORT_MNOTE=3300
-    restart: on-failure
+  # react:
+  #   image: "geos74/signal:0.0.1"
+  #   # build: .
+  #   ports:
+  #     - "3000:80"
+  #     - "443:443"
+  #   environment:
+  #     - HOST_BRIDGE=bridge_app
+  #     - PORT_BRIDGE=3500
+  #     - HOST_MAUTH=mauth_app
+  #     - PORT_MAUTH=3001
+  #     - HOST_INFORMATOR=informator
+  #     - PORT_INFORMATOR=3200
+  #     - HOST_MNOTE=mnote_app
+  #     - PORT_MNOTE=3300
+  #   restart: on-failure
 volumes:
   init-db-bridge:
   db-bridge:

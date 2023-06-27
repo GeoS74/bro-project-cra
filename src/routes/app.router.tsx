@@ -1,7 +1,7 @@
 import {
   createBrowserRouter,
   RouterProvider,
-  // redirect,
+  redirect,
 } from "react-router-dom";
 
 import serviceHost from "../libs/service.host"
@@ -21,14 +21,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    loader: () => fetchWrapper([_getSlides, _getMainText])
-      .then(response => {
-        if (Array.isArray(response)) {
-          return Promise.all(response.map(async r => await r.json()))
-        }
-      })
-      .catch(() => [[], undefined])
-      .finally(() => session.start()),
+    loader: () => redirect("/docflow"),
+    // loader: () => fetchWrapper([_getSlides, _getMainText])
+    //   .then(response => {
+    //     if (Array.isArray(response)) {
+    //       return Promise.all(response.map(async r => await r.json()))
+    //     }
+    //   })
+    //   .catch(() => [[], undefined])
+    //   .finally(() => session.start()),
       errorElement: < ErrorBoundary />,
   },
   catalogRouter,

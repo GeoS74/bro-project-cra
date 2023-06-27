@@ -7,7 +7,6 @@ import CancelButton from "../EditForm/CancelButton/CancelButton";
 type Props = {
   setTypeDoc: React.Dispatch<React.SetStateAction<DocType | undefined>>
   typeDoc: DocType | undefined
-  addDoc?: ((row: IDoc) => void) | undefined
 }
 
 export default function DocSelectType({ setTypeDoc, typeDoc }: Props) {
@@ -18,9 +17,14 @@ export default function DocSelectType({ setTypeDoc, typeDoc }: Props) {
 
     {!typeDoc?.directing ? <ul>
       {session.getMe()?.roles[0].directings.map(e => {
-        return <li key={e.id}
-          onClick={() => setTypeDoc({ directing: e })}
-        >{e.title}</li>
+
+        // надо проверять на возможность создавать документы в рамках направления
+        // иначе после выбора направления не будет отображён тип документа
+        if (finder(e.tasks, 'Создать')) {
+          return <li key={e.id}
+            onClick={() => setTypeDoc({ directing: e })}
+          >{e.title}</li>
+        }
       })}
     </ul>
       : <></>}
