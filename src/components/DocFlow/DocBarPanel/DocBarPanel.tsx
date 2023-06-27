@@ -9,7 +9,8 @@ import { ReactComponent as IconFilter } from "./icons/filter-square.svg";
 import { ReactComponent as IconFire } from "./icons/fire.svg";
 import { ReactComponent as IconFolder } from "./icons/folder.svg";
 import AddDocButton from "./AddDocButton/AddDocButton";
-import DocBarInvoiceForDirector from "../dependentComponents/DocBarInvoiceForDirector";
+import DocBarInvoiceForDirector from "../dependentComponents/DocBarInvoiceForDirector/DocBarInvoiceForDirector";
+import DocBarInvoiceForAll from "../dependentComponents/DocBarInvoiceForAll/DocBarInvoiceForAll"
 import styles from "./styles.module.css";
 
 export default function DocBarPanel() {
@@ -49,6 +50,8 @@ export default function DocBarPanel() {
         Icon={IconFolder}
         queryString="?limit=50"
       />
+
+      <DocBarInvoiceForAll />
     </div>
   </div>
 }

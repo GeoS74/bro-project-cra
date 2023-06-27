@@ -1,6 +1,6 @@
-import DocBar from "../DocBarPanel/DocBar/DocBar";
-import { ReactComponent as IconFoo } from "../DocBarPanel/icons/foo.svg";
-import session from "../../../libs/token.manager";
+import DocBarLink from "../../DocBarPanel/DocBarLink/DocBarLink";
+import { ReactComponent as IconFoo } from "../../DocBarPanel/icons/building-add.svg";
+import session from "../../../../libs/token.manager";
 
 /**
  * отрисовывает только счета и только для директора
@@ -9,23 +9,23 @@ import session from "../../../libs/token.manager";
 export default function DocBarInvoiceForDirecto() {
   const invoiceId = _getInvoiseId();
 
-  if (_isDirector() && invoiceId) {
-    return <DocBar
-      title="Счета"
+  if (!_isDirector() && invoiceId) {
+    return <DocBarLink
+      title="Создать счёт"
       Icon={IconFoo}
-      queryString={`?task=${invoiceId}&acceptor=0&limit=50`}
+      queryString={`/docflow/create/invoice`}
     />
   }
 
   return <></>
 }
 
-// ЗАВИСИМОСТЬ!!!
+// ЗАВИСИМОСТЬ от названия роли!!!
 function _isDirector() {
   return session.getMe()?.roles.find(r => r.title === 'Директор');
 }
 
-// ЗАВИСИМОСТЬ!!!
+// ЗАВИСИМОСТЬ от названия типа документа!!!
 function _getInvoiseId() {
   let invoiceId = 0;
 
