@@ -3,35 +3,68 @@ import session from "../../../../libs/token.manager"
 import styles from "../../DocSelectType/styles.module.css"
 import classNames from "classnames"
 import CancelButton from "../../EditForm/CancelButton/CancelButton";
+import { useEffect } from "react";
 
 type Props = {
-  directings: IDirecting[]
   setTypeDoc: React.Dispatch<React.SetStateAction<DocType | undefined>>
-  typeDoc: DocType | undefined
 }
 
-export default function DocSelectDirectingForInvoice({ setTypeDoc, typeDoc, directings }: Props) {
+export default function DocSelectDirectingForInvoice({ setTypeDoc }: Props) {
 
+  const directings = _getDirectingsWithInvoice();
+  const invoice = _getInvoiсe();
 
+  useEffect(() => {
+    if (directings.length === 1) {
+      setTypeDoc({ directing: directings[0], task: invoice });
+    }
+  })
 
   return <div className={classNames(styles.root, "mt-4")}>
     <legend>Создание счёта</legend>
     <p>Выберите направление</p>
 
-    {!typeDoc?.directing ? <ul>
-      {session.getMe()?.roles[0].directings.map(e => {
-
-        // надо проверять на возможность создавать документы в рамках направления
-        // иначе после выбора направления не будет отображён тип документа
-        if (finder(e.tasks, 'Создать')) {
-          return <li key={e.id}
-            onClick={() => setTypeDoc({ directing: e })}
-          >{e.title}</li>
-        }
+    <ul>
+      {directings.map(d => {
+        return <li key={d.id}
+          onClick={() => setTypeDoc({ directing: d, task: invoice })}
+        >{d.title}</li>
       })}
     </ul>
-      : <></>}
 
     <CancelButton />
   </div>
+}
+
+// ЗАВИСИМОСТЬ от названия типа документа!!!
+function _getInvoiсe() {
+  let task: ITask | undefined;
+
+  session.getMe()?.roles.map(r => {
+    r.directings.map(d => {
+      d.tasks.map(t => {
+        if (t.title === 'Счёт') {
+          task = t;
+        }
+      })
+    })
+  });
+  return task;
+}
+
+// ЗАВИСИМОСТЬ от названия типа документа!!!
+function _getDirectingsWithInvoice() {
+  const arr: IDirecting[] = [];
+  session.getMe()?.roles.map(r => {
+    r.directings.map(d => {
+      d.tasks.map(t => {
+        if (t.title === 'Счёт') {
+          if (finder(t.actions, 'Создать')) {
+            arr.push(d);
+          }
+        }
+      })
+    })
+  });
+  return arr;
 }
