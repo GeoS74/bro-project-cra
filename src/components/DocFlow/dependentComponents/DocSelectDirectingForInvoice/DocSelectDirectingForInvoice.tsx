@@ -5,15 +5,18 @@ import classNames from "classnames"
 import CancelButton from "../../EditForm/CancelButton/CancelButton";
 
 type Props = {
+  directings: IDirecting[]
   setTypeDoc: React.Dispatch<React.SetStateAction<DocType | undefined>>
   typeDoc: DocType | undefined
 }
 
-export default function DocSelectDirectingForInvoice({ setTypeDoc, typeDoc }: Props) {
+export default function DocSelectDirectingForInvoice({ setTypeDoc, typeDoc, directings }: Props) {
+
+
 
   return <div className={classNames(styles.root, "mt-4")}>
-    <legend>Создание документа</legend>
-    <p>{!typeDoc?.directing ? 'Выберите направление' : 'Выберите тип документа'}</p>
+    <legend>Создание счёта</legend>
+    <p>Выберите направление</p>
 
     {!typeDoc?.directing ? <ul>
       {session.getMe()?.roles[0].directings.map(e => {
@@ -28,17 +31,6 @@ export default function DocSelectDirectingForInvoice({ setTypeDoc, typeDoc }: Pr
       })}
     </ul>
       : <></>}
-
-
-    <ul>
-      {typeDoc?.directing.tasks.map(e => {
-        if (finder(e.actions, 'Создать')) {
-          return <li key={e.id}
-            onClick={() => setTypeDoc({ directing: typeDoc.directing, task: e })}
-          >{e.title}</li>
-        }
-      })}
-    </ul>
 
     <CancelButton />
   </div>

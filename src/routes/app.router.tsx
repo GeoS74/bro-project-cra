@@ -4,9 +4,9 @@ import {
   redirect,
 } from "react-router-dom";
 
-import serviceHost from "../libs/service.host"
-import fetchWrapper from "../libs/fetch.wrapper"
-import session from "../libs/token.manager"
+// import serviceHost from "../libs/service.host"
+// import fetchWrapper from "../libs/fetch.wrapper"
+// import session from "../libs/token.manager"
 import Main from "../components/Main/Main"
 import catalogRouter from "./catalog.router"
 import authRouter from "./auth.router"
@@ -43,10 +43,10 @@ const router = createBrowserRouter([
 
 export default <RouterProvider router={router} />
 
-async function _getSlides() {
-  return fetch(`${serviceHost("mnote")}/api/mnote/search/note/?isPublic=1`);
-}
+// async function _getSlides() {
+//   return fetch(`${serviceHost("mnote")}/api/mnote/search/note/?isPublic=1`);
+// }
 
-async function _getMainText() {
-  return fetch(`${serviceHost("informator")}/api/informator/about/mainPage`);
-}
+// async function _getMainText() {
+//   return fetch(`${serviceHost("informator")}/api/informator/about/mainPage`);
+// }

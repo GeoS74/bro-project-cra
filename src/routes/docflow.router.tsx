@@ -13,6 +13,7 @@ import DocBarPanel from "../components/DocFlow/DocBarPanel/DocBarPanel";
 import DocCreatePage from "../components/DocFlow/DocCreatePage/DocCreatePage";
 import DocEditPage from "../components/DocFlow/DocEditPage/DocEditPage";
 import DocCreateInvoice from "../components/DocFlow/dependentComponents/DocCreateInvoice/DocCreateInvoice";
+import WrapCreateDoc from "../components/DocFlow/dependentComponents/Wrappers/WrapCreateDoc/WrapCreateDoc";
 
 export default {
   path: "/docflow",
@@ -45,7 +46,7 @@ export default {
     },
     {
       path: "/docflow/create/doc",
-      element: <DocCreatePage />,
+      element: <WrapCreateDoc />,
       loader: () => session.start(),
     },
     {
@@ -66,30 +67,8 @@ export default {
     //
     {
       path: "/docflow/create/invoice",
-      element: <DocCreateInvoice />,
-      loader: () => new Promise(res => {
-          res(session.start());
-        })
-          .then(_ => {
-            let invoiceId = 0;
-
-            session.getMe()?.roles.map(r => {
-              r.directings.map(d => {
-                d.tasks.map(t => {
-                  if (t.title === 'Счёт') {
-                    invoiceId = t.id;
-                  }
-                })
-              })
-            });
-
-            if (invoiceId) {
-              return invoiceId;
-            }
-
-            throw new Error()
-          })
-          .catch(() => redirect('/docflow'))
+      element: <WrapCreateDoc tpl="invoice" />,
+      loader: () => session.start(),
     },
   ]
 }
