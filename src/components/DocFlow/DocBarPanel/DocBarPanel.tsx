@@ -9,8 +9,8 @@ import { ReactComponent as IconFilter } from "./icons/filter-square.svg";
 import { ReactComponent as IconFire } from "./icons/fire.svg";
 import { ReactComponent as IconFolder } from "./icons/folder.svg";
 import AddDocButton from "./AddDocButton/AddDocButton";
-import DocBarInvoiceForDirector from "../dependentComponents/DocBarInvoiceForDirector/DocBarInvoiceForDirector";
-import DocBarInvoiceForAll from "../dependentComponents/DocBarInvoiceForAll/DocBarInvoiceForAll"
+import DepAddInvoice from "./DepAddInvoice/DepAddInvoice";
+import DepInvocesForDirector from "./DepInvocesForDirector/DepInvocesForDirector";
 import styles from "./styles.module.css";
 
 export default function DocBarPanel() {
@@ -25,7 +25,7 @@ export default function DocBarPanel() {
 
     <div className={styles.root}>
 
-      <DocBarInvoiceForDirector />
+      <DepInvocesForDirector />
 
       <DocBar
         title="На утверждение"
@@ -51,7 +51,7 @@ export default function DocBarPanel() {
         queryString="?limit=50"
       />
 
-      <DocBarInvoiceForAll />
+      <DepAddInvoice />
     </div>
   </div>
 }

@@ -1,8 +1,8 @@
 import { useLoaderData } from "react-router-dom";
-import EditForm from "../EditForm/EditForm";
-import session from "../../../libs/token.manager"
+import session from "../../../libs/token.manager";
+import EditForm from "../EditForm/Wrapper";
 
-export default function DocEditPage(){
+export default function EditDefaultPage(){
   session.subscribe('DocEditPage');
 
   const doc = useLoaderData() as IDoc;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import DocSelectType from "../DocSelectType/DocSelectType";
-import EditForm from "../EditForm/EditForm";
 import session from "../../../libs/token.manager"
+import DocSelectType from "../DocSelectType/Wrapper";
+import EditForm from "../EditForm/Wrapper";
 
 export default function DocCreatePage(){
   session.subscribe('DocCreatePage');

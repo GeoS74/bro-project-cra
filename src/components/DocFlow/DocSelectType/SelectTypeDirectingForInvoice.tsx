@@ -1,15 +1,15 @@
-import finder from "../../../../libs/deep.finder"
-import session from "../../../../libs/token.manager"
-import styles from "../../DocSelectType/styles.module.css"
-import classNames from "classnames"
-import CancelButton from "../../EditForm/CancelButton/CancelButton";
 import { useEffect } from "react";
+import finder from "../../../libs/deep.finder"
+import session from "../../../libs/token.manager"
+import classNames from "classnames"
+import CancelButton from "../EditForm/CancelButton/CancelButton";
+import styles from "./styles.module.css"
 
 type Props = {
   setTypeDoc: React.Dispatch<React.SetStateAction<DocType | undefined>>
 }
 
-export default function DocSelectDirectingForInvoice({ setTypeDoc }: Props) {
+export default function SelectTypeDirectingForInvoice({ setTypeDoc }: Props) {
 
   const directings = _getDirectingsWithInvoice();
   const invoice = _getInvoiсe();

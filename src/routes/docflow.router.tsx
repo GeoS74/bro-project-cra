@@ -10,8 +10,8 @@ import DocFlow from "../components/DocFlow/DocFlow"
 import DocList from "../components/DocFlow/DocList/DocList"
 import DocPage from "../components/DocFlow/DocPage/DocPage";
 import DocBarPanel from "../components/DocFlow/DocBarPanel/DocBarPanel";
-import DocEditPage from "../components/DocFlow/DocEditPage/DocEditPage";
-import WrapCreateDoc from "../components/DocFlow/dependentComponents/Wrappers/WrapCreateDoc/WrapCreateDoc";
+import CreateDoc from "../components/DocFlow/DocCreatePage/Wrapper";
+import EditDoc from "../components/DocFlow/DocEditPage/Wrapper";
 
 export default {
   path: "/docflow",
@@ -44,12 +44,17 @@ export default {
     },
     {
       path: "/docflow/create/doc",
-      element: <WrapCreateDoc />,
+      element: <CreateDoc />,
+      loader: () => session.start(),
+    },
+    { // dependent routes
+      path: "/docflow/create/invoice",
+      element: <CreateDoc tpl="invoice" />,
       loader: () => session.start(),
     },
     {
       path: "/docflow/edit/doc/:id",
-      element: <DocEditPage />,
+      element: <EditDoc />,
       loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
         .then(responseNotIsArray)
         .then(res => {
@@ -59,14 +64,6 @@ export default {
           return res;
         })
         .catch(() => redirect('/auth'))
-    },
-    //
-    // dependent routes
-    //
-    {
-      path: "/docflow/create/invoice",
-      element: <WrapCreateDoc tpl="invoice" />,
-      loader: () => session.start(),
     },
   ]
 }

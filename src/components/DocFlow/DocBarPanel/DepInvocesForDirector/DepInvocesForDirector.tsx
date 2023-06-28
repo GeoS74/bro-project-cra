@@ -1,12 +1,12 @@
-import DocBar from "../../DocBarPanel/DocBar/DocBar";
-import { ReactComponent as IconFoo } from "../../DocBarPanel/icons/foo.svg";
+import DocBar from "../DocBar/DocBar";
+import { ReactComponent as IconFoo } from "../icons/foo.svg";
 import session from "../../../../libs/token.manager";
 
 /**
  * отрисовывает только счета и только для директора
  */
 
-export default function DocBarInvoiceForDirecto() {
+export default function DepInvocesForDirector() {
   const invoiceId = _getInvoiseId();
 
   if (_isDirector() && invoiceId) {

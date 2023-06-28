@@ -1,20 +1,19 @@
-import finder from "../../../../libs/deep.finder";
-import DocBarLink from "../../DocBarPanel/DocBarLink/DocBarLink";
-import { ReactComponent as IconFoo } from "../../DocBarPanel/icons/building-add.svg";
+import DocBar from "../DocBar/DocBar";
+import { ReactComponent as IconFoo } from "../../DocBarPanel/icons/foo.svg";
 import session from "../../../../libs/token.manager";
 
 /**
  * отрисовывает только счета и только для директора
  */
 
-export default function DocBarInvoiceForAll() {
+export default function DocBarInvoiceForDirecto() {
   const invoiceId = _getInvoiseId();
 
-  if (!_isDirector() && invoiceId) {
-    return <DocBarLink
-      title="Создать счёт"
+  if (_isDirector() && invoiceId) {
+    return <DocBar
+      title="Счета на подпись"
       Icon={IconFoo}
-      queryString={`/docflow/create/invoice`}
+      queryString={`?task=${invoiceId}&acceptor=0&limit=50`}
     />
   }
 
@@ -34,9 +33,7 @@ function _getInvoiseId() {
     r.directings.map(d => {
       d.tasks.map(t => {
         if (t.title === 'Счёт') {
-          if (finder(t.actions, 'Создать')) {
-            invoiceId = t.id;
-          }
+          invoiceId = t.id;
         }
       })
     })

@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { useNavigate, NavigateFunction } from "react-router-dom";
 
-import tokenManager from "../../../../libs/token.manager"
-import serviceHost from "../../../../libs/service.host"
-import fetchWrapper from "../../../../libs/fetch.wrapper"
-import { responseNotIsArray } from "../../../../middleware/response.validator"
+import tokenManager from "../../../libs/token.manager"
+import serviceHost from "../../../libs/service.host"
+import fetchWrapper from "../../../libs/fetch.wrapper"
+import { responseNotIsArray } from "../../../middleware/response.validator"
 
-import TitleDoc from "../../EditForm/TitleDoc/TitleDoc";
-import FileInput from "../../EditForm/FileInput/FileInput";
-import FileLinkList from "../../EditForm/FileLinkList/FileLinkList"
-import FileNameList from "../../EditForm/FileNameList/FileNameList"
-import HiddenInput from "../../EditForm/HiddenInput/HiddenInput";
-import CancelButton from "../../EditForm/CancelButton/CancelButton";
-import SubmitButton from "../../EditForm/SubmitButton/SubmitButton";
-import OptionalHeader from "../../EditForm/OptionalHeader/OptionalHeader";
-import SignatoryPaneInvoice from "./SignatoryPaneInvoice/SignatoryPaneInvoice";
-import styles from "../../EditForm/styles.module.css"
+import TitleDoc from "./TitleDoc/TitleDoc";
+import FileInput from "./FileInput/FileInput";
+import FileLinkList from "./FileLinkList/FileLinkList"
+import FileNameList from "./FileNameList/FileNameList"
+import HiddenInput from "./HiddenInput/HiddenInput";
+import CancelButton from "./CancelButton/CancelButton";
+import SubmitButton from "./SubmitButton/SubmitButton";
+import OptionalHeader from "./OptionalHeader/OptionalHeader";
+import SignatoryPaneInvoice from "./Signatory/SignatoryPane/DepSignatoryPaneInvoice";
+import styles from "./styles.module.css"
 
 type Props = {
   typeDoc: DocType

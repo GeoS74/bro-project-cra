@@ -11,7 +11,7 @@ type Props = {
   typeDoc: DocType
 }
 
-export default function SignatoryPaneInvoice({ typeDoc }: Props) {
+export default function DepSignatoryPaneInvoice({ typeDoc }: Props) {
   const [director, setDirector] = useState<IDocSignatory>();
 
   if (!director) {
@@ -22,7 +22,10 @@ export default function SignatoryPaneInvoice({ typeDoc }: Props) {
   return <>
   <h4 className="mt-4">На утверждении:</h4>
   <ul className={styles.root}>
-    <li>{`${director.position} ${director.name}`}</li>
+    <li>{`${director.position} ${director.name}`}
+    
+    <input type="hidden" name={`acceptor[${director.uid}]`} defaultValue={director.accept ? "on" : ""} />
+    </li>
   </ul>
   </>
 }
