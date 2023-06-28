@@ -1,4 +1,3 @@
-import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 
 import session from "../../../libs/token.manager"
@@ -11,11 +10,10 @@ import styles from "./styles.module.css"
 import AcceptorList from "./AcceptorList/AcceptorList";
 import RecipientList from "./RecipientList/RecipientList";
 
-
-export default function DocPage() {
-  session.subscribe('DocPage');
+export default function DocPageDefault({...loaderDoc}: IDoc) {
+  session.subscribe('DocPageDefault');
   // const path = useLocation().state;
-  const [doc, setDoc] = useState(useLoaderData() as IDoc)
+  const [doc, setDoc] = useState({...loaderDoc})
 
   return <div className={styles.root}>
     {/* <div className={styles.linkAndTitle}>

@@ -13,7 +13,7 @@ import FileNameList from "./FileNameList/FileNameList"
 import HiddenInput from "./HiddenInput/HiddenInput";
 import CancelButton from "./CancelButton/CancelButton";
 import SubmitButton from "./SubmitButton/SubmitButton";
-import OptionalHeader from "./OptionalHeader/OptionalHeader";
+import OptionalHeaderOnlyTypeDoc from "./OptionalHeader/OptionalHeaderOnlyTypeDoc";
 import SignatoryPaneInvoice from "./Signatory/SignatoryPane/DepSignatoryPaneInvoice";
 import styles from "./styles.module.css"
 
@@ -42,13 +42,11 @@ export default function EditForm({ doc, typeDoc }: Props) {
   >
     <fieldset disabled={disabled} className="form-group">
 
-      <OptionalHeader directing={typeDoc.directing} task={typeDoc.task} {...doc} />
+      <OptionalHeaderOnlyTypeDoc directing={typeDoc.directing} task={typeDoc.task} />
 
       <legend className="mt-3">{!doc ? "Создание счёта" : "Изменение счёта"}</legend>
 
       <TitleDoc errorMessage={errorMessage} title={doc?.title} />
-
-  
 
       <FileLinkList docId={doc?.id} files={doc?.files} />
 

@@ -29,6 +29,7 @@ export default function DocRow({ ...doc }: IDoc) {
     <RequiredToSign {...row} signatoryMode={"recipient"}/>
 
     <AcceptButton {...row} signatoryMode={"acceptor"} setDoc={setRow}/>
+    <AcceptButton {...doc} signatoryMode={"recipient"} setDoc={setRow} />
 
     <Author {...doc} />
   </div>

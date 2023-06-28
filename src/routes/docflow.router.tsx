@@ -8,10 +8,10 @@ import session from "../libs/token.manager";
 import { responseNotIsArray } from "../middleware/response.validator";
 import DocFlow from "../components/DocFlow/DocFlow"
 import DocList from "../components/DocFlow/DocList/DocList"
-import DocPage from "../components/DocFlow/DocPage/DocPage";
+import DocPage from "../components/DocFlow/DocPage/Wrapper";
 import DocBarPanel from "../components/DocFlow/DocBarPanel/DocBarPanel";
 import CreateDoc from "../components/DocFlow/DocCreatePage/Wrapper";
-import EditDoc from "../components/DocFlow/DocEditPage/Wrapper";
+import EditDoc from "../components/DocFlow/DocEditPage/EditDoc";
 
 export default {
   path: "/docflow",
