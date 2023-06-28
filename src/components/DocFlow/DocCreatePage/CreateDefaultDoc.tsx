@@ -9,6 +9,10 @@ export default function DocCreatePage(){
   const [typeDoc, setTypeDoc] = useState<DocType>();
 
   if(typeDoc?.directing && typeDoc.task) {
+    
+    if(typeDoc.task.title === 'Счёт') {
+      return <EditForm tpl="invoice" typeDoc={typeDoc}/>
+    }
     return <EditForm typeDoc={typeDoc}/>
   }
 
