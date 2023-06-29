@@ -138,6 +138,8 @@ function _getErrorResponse(error: string): IErrorMessage {
       return { field: "fileUpload", message: "Не поддерживаемый тип файлов" }
     case "invalid sum":
       return { field: "sum", message: "Не корректный формат суммы" }
+    case "invalid deadLine":
+      return { field: "deadLine", message: "Не корректный формат даты" }
     default: return { field: "", message: "" }
   }
 }
