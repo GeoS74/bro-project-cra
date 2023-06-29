@@ -1,4 +1,4 @@
-client_max_body_size 5m;
+client_max_body_size 10m;
 
 server {
   listen 80;

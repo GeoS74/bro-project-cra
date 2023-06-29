@@ -4,7 +4,7 @@ import tokenManager from "../../../../libs/token.manager"
 import fetchWrapper from "../../../../libs/fetch.wrapper";
 import serviceHost from "../../../../libs/service.host";
 import { responseNotIsArray } from "../../../../middleware/response.validator";
-import date from "../../../../libs/date.formatter";
+import { date } from "../../../../libs/formatter";
 
 import { ReactComponent as IconEdit } from "./icons/wrench.svg";
 import { ReactComponent as IconDelete } from "./icons/trash.svg";
@@ -16,11 +16,11 @@ export default function OptionalHeader({ id, directing, task, num, createdAt }: 
   return <div className={styles.root}>
     <div><small> № {num || 'б/н'} от {date(createdAt)}</small></div>
     <div>
-    <small>{directing.title} / {task.title}</small>
-    
+      <small>{directing.title} / {task.title}</small>
+
       {_actionFinder(session.getMe()?.roles[0], directing.id, task.id, 'Редактировать') ?
-        <IconEdit className={styles.svg} 
-        onClick={() => navigate(`/docflow/edit/doc/${id}`)}
+        <IconEdit className={styles.svg}
+          onClick={() => navigate(`/docflow/edit/doc/${id}`)}
         /> : <></>}
 
       {_actionFinder(session.getMe()?.roles[0], directing.id, task.id, 'Удалить') ?
@@ -58,11 +58,11 @@ async function _deleteDoc(id: string) {
 }
 
 function _actionFinder(
-  role?: IRole, 
-  idDirecting?: number, 
-  idTask?: number, 
+  role?: IRole,
+  idDirecting?: number,
+  idTask?: number,
   action?: ActionMode,
-  ): boolean {
+): boolean {
   return !!role
     ?.directings.find(e => e.id === idDirecting)
     ?.tasks.find(e => e.id === idTask)

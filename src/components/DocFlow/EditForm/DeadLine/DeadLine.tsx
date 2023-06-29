@@ -1,4 +1,4 @@
-import date from "../../../../libs/date.formatter"
+import { date } from "../../../../libs/formatter"
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 import styles from "./styles.module.css"
 
@@ -14,7 +14,7 @@ export default function DeadLine({ deadLine, errorMessage }: Props) {
       <input
         type="text"
         id="deadLineInput"
-        defaultValue={date(deadLine || (new Date(Date.now() + 1000*60*60*24*3).toString()))}
+        defaultValue={date(deadLine || (new Date(Date.now() + 1000 * 60 * 60 * 24 * 3).toString()))}
         name="deadLine"
         className="form-control"
         placeholder="Укажите дату оплаты" />

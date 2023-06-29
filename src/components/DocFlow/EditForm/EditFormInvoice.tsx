@@ -5,6 +5,7 @@ import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
 import fetchWrapper from "../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../middleware/response.validator"
+import { toNumber } from "../../../libs/formatter";
 
 import TitleDoc from "./TitleDoc/TitleDoc";
 import FileInput from "./FileInput/FileInput";
@@ -96,7 +97,10 @@ function _onSubmit(
 
   const fd = new FormData(event.currentTarget)
 
-  fileList.map(f => fd.append('scans', f[0]))
+  fileList.map(f => fd.append('scans', f[0]));
+
+  // корректировка ввода ссуммы
+  fd.set('sum', toNumber(fd.get('sum') as string).toString() || "");
 
   fetchWrapper(() => fetch(`${serviceHost('informator')}/api/informator/docflow/${doc?.id || ''}`, {
     method: doc ? 'PATCH' : 'POST',

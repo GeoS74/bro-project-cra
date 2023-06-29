@@ -1,4 +1,4 @@
-import date from "../../../../libs/date.formatter";
+import { date } from "../../../../libs/formatter";
 import styles from "./styles.module.css";
 
 type Props = {
