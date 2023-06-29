@@ -4,8 +4,9 @@ import OptionalHeaderForInvoice from "./OptionalHeader/OptionalHeaderForInvoice"
 import AcceptButton from "./AcceptButton/AcceptButton";
 import FileLinkedList from "./FileLinkedList/FileLinkedList";
 import Author from "./Author/Author";
-import styles from "./styles.module.css"
 import AcceptorList from "./AcceptorList/AcceptorList";
+import Sum from "./Sum/Sum";
+import styles from "./styles.module.css"
 
 export default function DocPageInvoice({...loaderDoc}: IDoc) {
   const [doc, setDoc] = useState({...loaderDoc})
@@ -15,6 +16,8 @@ export default function DocPageInvoice({...loaderDoc}: IDoc) {
     <OptionalHeaderForInvoice {...doc} />
 
     <h3 className="mt-4">{doc.title}</h3>
+
+    <Sum {...doc} />
 
     <AcceptorList {...doc}/>
 

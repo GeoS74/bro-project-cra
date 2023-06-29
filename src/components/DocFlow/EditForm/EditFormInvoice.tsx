@@ -15,6 +15,8 @@ import CancelButton from "./CancelButton/CancelButton";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import OptionalHeaderForInvoice from "./OptionalHeader/OptionalHeaderForInvoice";
 import SignatoryPanePresetDirector from "./Signatory/SignatoryPane/SignatoryPanePresetDirector";
+import DeadLine from "./DeadLine/DeadLine";
+import Sum from "./Sum/Sum";
 import styles from "./styles.module.css"
 
 type Props = {
@@ -46,10 +48,20 @@ export default function EditForm({ doc, typeDoc }: Props) {
 
       <legend className="mt-3">{!doc ? "Создание счёта" : "Изменение счёта"}</legend>
 
-      <TitleDoc 
-        errorMessage={errorMessage} 
-        title={doc?.title} 
+      <TitleDoc
+        errorMessage={errorMessage}
+        title={doc?.title}
         label="Номер и дата счёта"
+      />
+
+      <DeadLine
+        deadLine={doc?.deadLine}
+        errorMessage={errorMessage}
+      />
+
+      <Sum
+        sum={doc?.sum}
+        errorMessage={errorMessage}
       />
 
       <FileLinkList docId={doc?.id} files={doc?.files} />
@@ -120,6 +132,8 @@ function _getErrorResponse(error: string): IErrorMessage {
       return { field: "taskSelect", message: "Не выбран тип документа" }
     case "bad mime type":
       return { field: "fileUpload", message: "Не поддерживаемый тип файлов" }
+    case "invalid sum":
+      return { field: "sum", message: "Не корректный формат суммы" }
     default: return { field: "", message: "" }
   }
 }

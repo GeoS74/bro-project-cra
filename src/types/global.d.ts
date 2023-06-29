@@ -108,6 +108,9 @@ interface IDoc {
   createdAt: string
   acceptor: IDocSignatory[]
   recipient: IDocSignatory[]
+
+  deadLine?: string
+  sum?: number
 }
 
 interface IDocUnit {

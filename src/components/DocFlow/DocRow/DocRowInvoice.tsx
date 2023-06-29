@@ -7,6 +7,7 @@ import Description from "../DocPage/Description/Description";
 import Author from "../DocPage/Author/Author";
 import RequiredToSign from "./RequiredToSign/RequiredToSign";
 import AcceptButton from "../DocPage/AcceptButton/AcceptButton";
+import Sum from "../DocPage/Sum/Sum";
 import classNames from "classnames"
 import styles from "./styles.module.css"
 
@@ -20,6 +21,8 @@ export default function DocRow({ ...doc }: IDoc) {
     <OptionalHeaderForInvoice {...doc} />
 
     <h4 className="mt-2"><Link to={`/docflow/${doc.id}`} className="nav-link">{doc.title}</Link></h4>
+
+    <Sum {...doc} />
 
     <Description {...doc} limit={350} />
 

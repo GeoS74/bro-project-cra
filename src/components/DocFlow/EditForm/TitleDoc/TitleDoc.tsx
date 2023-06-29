@@ -2,8 +2,8 @@ import { ErrorMessage } from "../ErrorMessage/ErrorMessage"
 import styles from "./styles.module.css"
 
 type Props = {
-  title: string | undefined
-  errorMessage: IErrorMessage | undefined
+  title?: string
+  errorMessage?: IErrorMessage
   label?: string
 }
 
