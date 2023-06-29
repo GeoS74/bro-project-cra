@@ -47,7 +47,7 @@ export default {
       element: <CreateDoc />,
       loader: () => session.start(),
     },
-    { // dependent routes
+    {
       path: "/docflow/create/invoice",
       element: <CreateDoc tpl="invoice" />,
       loader: () => session.start(),
