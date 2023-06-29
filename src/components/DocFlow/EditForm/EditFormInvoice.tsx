@@ -13,7 +13,7 @@ import FileNameList from "./FileNameList/FileNameList"
 import HiddenInput from "./HiddenInput/HiddenInput";
 import CancelButton from "./CancelButton/CancelButton";
 import SubmitButton from "./SubmitButton/SubmitButton";
-import OptionalHeaderOnlyTypeDoc from "./OptionalHeader/OptionalHeaderOnlyTypeDoc";
+import OptionalHeaderForInvoice from "./OptionalHeader/OptionalHeaderForInvoice";
 import SignatoryPanePresetDirector from "./Signatory/SignatoryPane/SignatoryPanePresetDirector";
 import styles from "./styles.module.css"
 
@@ -42,11 +42,15 @@ export default function EditForm({ doc, typeDoc }: Props) {
   >
     <fieldset disabled={disabled} className="form-group">
 
-      <OptionalHeaderOnlyTypeDoc directing={typeDoc.directing} task={typeDoc.task} />
+      <OptionalHeaderForInvoice directing={typeDoc.directing} task={typeDoc.task} />
 
       <legend className="mt-3">{!doc ? "Создание счёта" : "Изменение счёта"}</legend>
 
-      <TitleDoc errorMessage={errorMessage} title={doc?.title} />
+      <TitleDoc 
+        errorMessage={errorMessage} 
+        title={doc?.title} 
+        label="Номер и дата счёта"
+      />
 
       <FileLinkList docId={doc?.id} files={doc?.files} />
 
@@ -109,7 +113,7 @@ function _onSubmit(
 function _getErrorResponse(error: string): IErrorMessage {
   switch (error) {
     case "invalid title":
-      return { field: "title", message: "Введите название документа" }
+      return { field: "title", message: "Поле не заполнено" }
     case "invalid directing id":
       return { field: "directSelect", message: "Не выбрано направление" }
     case "invalid task id":

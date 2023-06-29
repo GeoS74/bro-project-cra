@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import OptionalHeader from "./OptionalHeader/OptionalHeaderWithoutDate";
+import OptionalHeaderForInvoice from "./OptionalHeader/OptionalHeaderForInvoice";
 import AcceptButton from "./AcceptButton/AcceptButton";
 import FileLinkedList from "./FileLinkedList/FileLinkedList";
 import Author from "./Author/Author";
@@ -12,7 +12,7 @@ export default function DocPageInvoice({...loaderDoc}: IDoc) {
 
   return <div className={styles.root}>
     
-    <OptionalHeader {...doc} />
+    <OptionalHeaderForInvoice {...doc} />
 
     <h3 className="mt-4">{doc.title}</h3>
 

@@ -8,11 +8,11 @@ import fetchWrapper from "../../../../libs/fetch.wrapper";
 import serviceHost from "../../../../libs/service.host";
 import { responseNotIsArray } from "../../../../middleware/response.validator";
 
-export default function OptionalHeader({ id, directing, task, num, createdAt }: IDoc) {
+export default function OptionalHeaderForInvoice({ id, directing, task }: IDoc) {
   const navigate = useNavigate();
 
   return <div className={styles.root}>
-    <div><small> № {num || 'б/н'} от {_makeDate(createdAt)}</small></div>
+    <div><small>Входящий счёт</small></div>
     <div>
     <small>{directing.title} / {task.title}</small>
     
@@ -65,11 +65,4 @@ function _actionFinder(
     ?.directings.find(e => e.id === idDirecting)
     ?.tasks.find(e => e.id === idTask)
     ?.actions.find(e => e.title === action);
-}
-
-function _makeDate(date: string) {
-  const d = new Date(date);
-  const day = `0${d.getDate()}`.slice(-2);
-  const month = `0${d.getMonth() + 1}`.slice(-2);
-  return `${day}.${month}.${d.getFullYear()}`
 }

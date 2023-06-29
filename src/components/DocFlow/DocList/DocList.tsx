@@ -1,6 +1,6 @@
 import { useLoaderData, useLocation } from "react-router-dom";
 import session from "../../../libs/token.manager";
-import DocRow from "../DocRow/DocRow";
+import DocRow from "../DocRow/Wrapper";
 import NextSearch from "../NextSearch/NextSearch";
 import styles from "./styles.module.css";
 import { useState } from "react";

@@ -5,9 +5,9 @@ type Props = {
   task?: ISimpleRow
 }
 
-export default function OptionalHeader({ directing, task }: Props) {
+export default function OptionalHeaderForInvoice({ directing, task }: Props) {
   return <div className={styles.root}>
-    <div></div>
+    <div><small>Входящий счёт</small></div>
     <div>
       <small>{directing.title} / {task?.title}</small>
     </div>
