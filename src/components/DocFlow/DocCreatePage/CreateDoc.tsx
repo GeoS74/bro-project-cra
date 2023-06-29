@@ -1,10 +1,15 @@
 import { useState } from "react";
+
 import session from "../../../libs/token.manager"
 import DocSelectType from "../DocSelectType/Wrapper";
 import EditForm from "../EditForm/Wrapper";
 
-export default function DocCreatePage(){
-  session.subscribe('DocCreatePage');
+type Props = {
+  tpl?: DocTemplateName
+}
+
+export default function CreateDoc({ tpl }: Props) {
+  session.subscribe('CreateInvoice');
 
   const [typeDoc, setTypeDoc] = useState<DocType>();
 
@@ -16,5 +21,8 @@ export default function DocCreatePage(){
     return <EditForm typeDoc={typeDoc}/>
   }
 
+  if(tpl === 'invoice') {
+    return <DocSelectType tpl="invoice" setTypeDoc={setTypeDoc} typeDoc={typeDoc} />
+  }
   return <DocSelectType setTypeDoc={setTypeDoc} typeDoc={typeDoc}/>
 }

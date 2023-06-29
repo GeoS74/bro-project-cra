@@ -10,7 +10,7 @@ import DocFlow from "../components/DocFlow/DocFlow"
 import DocList from "../components/DocFlow/DocList/DocList"
 import DocPage from "../components/DocFlow/DocPage/Wrapper";
 import DocBarPanel from "../components/DocFlow/DocBarPanel/DocBarPanel";
-import CreateDoc from "../components/DocFlow/DocCreatePage/Wrapper";
+import CreateDoc from "../components/DocFlow/DocCreatePage/CreateDoc";
 import EditDoc from "../components/DocFlow/DocEditPage/EditDoc";
 
 export default {

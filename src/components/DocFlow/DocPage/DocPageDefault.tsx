@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import session from "../../../libs/token.manager"
 import OptionalHeader from "./OptionalHeader/OptionalHeader";
 import AcceptButton from "./AcceptButton/AcceptButton";
 import FileLinkedList from "./FileLinkedList/FileLinkedList";
@@ -11,8 +10,6 @@ import AcceptorList from "./AcceptorList/AcceptorList";
 import RecipientList from "./RecipientList/RecipientList";
 
 export default function DocPageDefault({...loaderDoc}: IDoc) {
-  session.subscribe('DocPageDefault');
-  // const path = useLocation().state;
   const [doc, setDoc] = useState({...loaderDoc})
 
   return <div className={styles.root}>
