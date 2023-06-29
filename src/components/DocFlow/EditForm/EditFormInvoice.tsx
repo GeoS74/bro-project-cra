@@ -14,7 +14,7 @@ import HiddenInput from "./HiddenInput/HiddenInput";
 import CancelButton from "./CancelButton/CancelButton";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import OptionalHeaderOnlyTypeDoc from "./OptionalHeader/OptionalHeaderOnlyTypeDoc";
-import SignatoryPaneInvoice from "./Signatory/SignatoryPane/DepSignatoryPaneInvoice";
+import SignatoryPanePresetDirector from "./Signatory/SignatoryPane/SignatoryPanePresetDirector";
 import styles from "./styles.module.css"
 
 type Props = {
@@ -55,7 +55,7 @@ export default function EditForm({ doc, typeDoc }: Props) {
       <FileInput errorMessage={errorMessage}
         setFileList={(file: FileList) => setFileList([...fileList, file])} />
 
-      <SignatoryPaneInvoice typeDoc={typeDoc} />
+      <SignatoryPanePresetDirector typeDoc={typeDoc} />
 
       <HiddenInput typeDoc={typeDoc} />
 

@@ -20,13 +20,13 @@ export default function DepSignatoryPaneInvoice({ typeDoc }: Props) {
   }
 
   return <>
-  <h4 className="mt-4">На утверждении:</h4>
-  <ul className={styles.root}>
-    <li>{`${director.position} ${director.name}`}
-    
-    <input type="hidden" name={`acceptor[${director.uid}]`} defaultValue={director.accept ? "on" : ""} />
-    </li>
-  </ul>
+    <h4 className="mt-4">На утверждении:</h4>
+    <ul className={styles.root}>
+      <li>{`${director.position} ${director.name}`}
+
+        <input type="hidden" name={`acceptor[${director.uid}]`} defaultValue={director.accept ? "on" : ""} />
+      </li>
+    </ul>
   </>
 }
 
