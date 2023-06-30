@@ -8,6 +8,7 @@ import Author from "../DocPage/Author/Author";
 import RequiredToSign from "./RequiredToSign/RequiredToSign";
 import AcceptButton from "../DocPage/AcceptButton/AcceptButton";
 import Sum from "../DocPage/Sum/Sum";
+import DeadLine from "../DocPage/DeadLine/DeadLine";
 import classNames from "classnames"
 import styles from "./styles.module.css"
 
@@ -22,6 +23,8 @@ export default function DocRow({ ...doc }: IDoc) {
 
     <h4 className="mt-2"><Link to={`/docflow/${doc.id}`} className="nav-link">{doc.title}</Link></h4>
 
+    <DeadLine {...doc} />
+    
     <Sum {...doc} />
 
     <Description {...doc} limit={350} />

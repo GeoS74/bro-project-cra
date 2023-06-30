@@ -12,6 +12,7 @@ export default function DeadLine({ deadLine, errorMessage }: Props) {
     <div className={styles.root}>
       <label htmlFor="deadLineInput" className="form-label mt-4">Дата оплаты</label>
       <input
+        required={true}
         type="text"
         id="deadLineInput"
         defaultValue={date(deadLine || (new Date(Date.now() + 1000 * 60 * 60 * 24 * 3).toString()))}
