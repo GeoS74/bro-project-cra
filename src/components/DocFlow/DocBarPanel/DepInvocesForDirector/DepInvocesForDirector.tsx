@@ -22,16 +22,16 @@ export default function DepInvocesForDirector() {
 
 // ЗАВИСИМОСТЬ от названия роли!!!
 function _isDirector() {
-  return session.getMe()?.roles.find(r => r.title === 'Директор');
+  return session.getMe()?.roles?.find(r => r.title === 'Директор');
 }
 
 // ЗАВИСИМОСТЬ от названия типа документа!!!
 function _getInvoiseId() {
   let invoiceId = 0;
 
-  session.getMe()?.roles.map(r => {
-    r.directings.map(d => {
-      d.tasks.map(t => {
+  session.getMe()?.roles?.map(r => {
+    r.directings?.map(d => {
+      d.tasks?.map(t => {
         if (t.title === 'Счёт') {
           invoiceId = t.id;
         }
