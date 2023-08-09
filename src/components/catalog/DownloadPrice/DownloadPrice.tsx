@@ -20,7 +20,7 @@ function DialogPane({ downloadState, setDownloadState }: {
     setDownloadState: React.Dispatch<React.SetStateAction<string>>,
 }) {
     switch (downloadState) {
-        case 'processed': return <Processed stateString={"Формирование прайса, пожалуйста подождите"}/>
+        case 'processed': return <Processed stateString={"Формирование прайса, пожалуйста подождите"} />
         case 'complete': return <p>Скачивание прайса завершено. <span className={styles.linker} onClick={() => setDownloadState('new')}>Скачать ещё раз?</span> </p>
         case 'error': return <p>Что-то пошло не так, попробуем ещё?</p>
         default: return <p onClick={event => _downloadPrice(event, setDownloadState)} className={styles.linker}> <Icon width="50" height="50" /> Скачать прайс в формате Excel</p>
@@ -36,14 +36,18 @@ async function _downloadPrice(
 
     await new Promise(res => setTimeout(() => res(1), 2000));
 
-    fetch(`${serviceHost("bridge")}/api/bridge/file/download`)
+    fetch(`${serviceHost("bridge")}/api/bridge/file/download/redial-trade`)
         .then(async response => {
             if (response.ok) {
-                const res = await response.blob()
-                const file = new Blob([res], { type: 'application/vnd.ms-excel' });
+                console.log(response.headers.get('content-type'));
+
+                const contentType = response.headers.get('content-type') || undefined;
+
+                const res = await response.blob();
+                const file = new Blob([res], { type: contentType });
                 const a = document.createElement("a");
                 a.href = URL.createObjectURL(file);
-                a.download = _makePriceName();
+                a.download = _makePriceName(contentType);
                 a.click();
                 setDownloadState('complete');
                 return;
@@ -56,11 +60,20 @@ async function _downloadPrice(
         })
 }
 
-function _makePriceName() {
+function _makePriceName(contentType?: string) {
     const date = new Date();
     let month: number | string = (date.getMonth() + 1);
     if (month < 10) {
         month = '0' + month;
     }
-    return `Прайс от ${date.getFullYear()}-${month}-${date.getDate()}.xlsx`
+
+    const fname = `Прайс от ${date.getFullYear()}-${month}-${date.getDate()}`;
+    switch (contentType) {
+        case 'application/vnd.ms-excel':
+            return `${fname}.xls`
+        case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            return `${fname}.xlsx`
+        default:
+            throw new Error('bad content-type');
+    }
 }
