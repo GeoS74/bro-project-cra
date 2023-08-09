@@ -39,8 +39,6 @@ async function _downloadPrice(
     fetch(`${serviceHost("bridge")}/api/bridge/file/download/redial-trade`)
         .then(async response => {
             if (response.ok) {
-                console.log(response.headers.get('content-type'));
-
                 const contentType = response.headers.get('content-type') || undefined;
 
                 const res = await response.blob();
