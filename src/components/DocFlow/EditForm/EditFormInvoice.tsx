@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, NavigateFunction } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import tokenManager from "../../../libs/token.manager"
 import serviceHost from "../../../libs/service.host"
@@ -17,6 +18,7 @@ import SubmitButton from "./SubmitButton/SubmitButton";
 import OptionalHeaderForInvoice from "./OptionalHeader/OptionalHeaderForInvoice";
 import SignatoryPanePresetDirector from "./Signatory/SignatoryPane/SignatoryPanePresetDirector";
 import DeadLine from "./DeadLine/DeadLine";
+import Calendar from "../Calendar/Calendar";
 import Sum from "./Sum/Sum";
 import styles from "./styles.module.css"
 
@@ -31,7 +33,9 @@ export default function EditForm({ doc, typeDoc }: Props) {
 
   const navigate = useNavigate()
 
-  const [fileList, setFileList] = useState<FileList[]>([])
+  const [fileList, setFileList] = useState<FileList[]>([]);
+  const theme = (useSelector((state) => state) as { theme: { theme: string } }).theme.theme;
+
 
   return <form className={styles.root}
     onSubmit={event => _onSubmit(
@@ -54,10 +58,15 @@ export default function EditForm({ doc, typeDoc }: Props) {
         title={doc?.title}
         label="Номер и дата счёта"
       />
-
+      {/* 
       <DeadLine
         deadLine={doc?.deadLine}
         errorMessage={errorMessage}
+      /> */}
+
+      <Calendar
+        stylesCalendar={theme}
+        deadLine={doc?.deadLine}
       />
 
       <Sum

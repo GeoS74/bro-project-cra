@@ -8,6 +8,7 @@ type Props = {
 }
 
 export default function DeadLine({ deadLine, errorMessage }: Props) {
+
   return <>
     <div className={styles.root}>
       <label htmlFor="deadLineInput" className="form-label mt-4">Дата оплаты</label>

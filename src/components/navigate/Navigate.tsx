@@ -25,7 +25,7 @@ export default function Navigate() {
       <div>
         <nav className={classNames(styles.root, `navbar navbar-expand-lg navbar-${theme === 'light' ? 'primary' : 'dark'}`)}>
           <div className="container-fluid">
-            <Link className={classNames("navbar-brand")} to="/docflow"><SvgLogo theme={theme} /></Link>
+            <Link className={classNames("navbar-brand")} to="/docflow"><h1>ZDP</h1></Link>
 
             <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
               onClick={_toggleMenu}
