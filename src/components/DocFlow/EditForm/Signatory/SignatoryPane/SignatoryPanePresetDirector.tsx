@@ -5,7 +5,7 @@ import serviceHost from "../../../../../libs/service.host"
 import fetchWrapper from "../../../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../../../middleware/response.validator"
 
-import styles from "../../../EditForm/SelectPane/styles.module.css"
+import styles from "./styles.module.css"
 
 type Props = {
   typeDoc: DocType
@@ -19,15 +19,15 @@ export default function DepSignatoryPaneInvoice({ typeDoc }: Props) {
     return <></>
   }
 
-  return <>
+  return <div className={styles.root}>
     <h4 className="mt-4">На утверждении:</h4>
-    <ul className={styles.root}>
+    <ul>
       <li>{`${director.position} ${director.name}`}
 
         <input type="hidden" name={`acceptor[${director.uid}]`} defaultValue={director.accept ? "on" : ""} />
       </li>
     </ul>
-  </>
+  </div>
 }
 
 function _searchDirector(
