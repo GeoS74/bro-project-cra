@@ -17,7 +17,7 @@ export default function Main() {
       <h5>Контакты:</h5>
       <ul>
         <li>Тел.: +7 (351) 777-67-49</li>
-        <li>Факс: +7 (951) 259-39-56</li>
+        <li>Факс: +7 (351) 259-39-56</li>
         <li>email: redial-trade@yandex.ru</li>
         <li>г. Челябинск, ул. Енисейская, 12</li>
       </ul>
