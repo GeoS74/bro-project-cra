@@ -22,7 +22,7 @@ services:
         limits:
           memory: 500M
     restart: on-failure
-  db_bridge:
+  db_bridgke:
     image: "postgres"
     volumes:
       - init-db-bridge:/docker-entrypoint-initdb.d
@@ -180,6 +180,20 @@ services:
       - ./certbot/conf:/etc/letsencrypt/:rw
       - ./certbot/www:/var/www/certbot/:rw
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  sitemap_maker:
+    image: "geos74/sitemap-maker:0.0.1"
+    environment:
+      - BASE_URL=https://sgn74.ru
+      - API_PAGES=https://sgn74.ru/api/bridge/card
+      - SITEMAP_PATH_PREFIX=html
+    volumes:
+      - ./static.url:/sitemap-maker/static.url
+      - sitemap:/sitemap-maker/sitemap
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+    restart: on-failure
 volumes:
   init-db-bridge:
   db-bridge:
@@ -191,3 +205,4 @@ volumes:
   init-db-informator:
   db-mnote:
   files-mnote:
+  sitemap:
