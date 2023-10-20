@@ -36,7 +36,6 @@ services:
     environment:
       - BASE_URL=https://sgn74.ru
       - API_PAGES=https://sgn74.ru/api/bridge/card
-      - SITEMAP_PATH_PREFIX=html
     volumes:
       - ./static.url:/sitemap-maker/static.url
       - sitemap:/sitemap-maker/sitemap
