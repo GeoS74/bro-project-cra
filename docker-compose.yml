@@ -34,8 +34,14 @@ services:
   sitemap_maker:
     image: "geos74/sitemap-maker:0.0.1"
     environment:
+      - SERVER_PORT=3150
       - BASE_URL=https://sgn74.ru
       - API_PAGES=https://sgn74.ru/api/bridge/card
+      - API_PREFIX=/catalog/product
+      - API_PAGES_LIMIT=50
+      - API_PAGES_FETCH_LIMIT=3
+      - MAX_URLS_FOR_SITEMAP=20000
+      - PAUSE_MS=3000
     volumes:
       - ./static.url:/sitemap-maker/static.url
       - sitemap:/sitemap-maker/sitemap
