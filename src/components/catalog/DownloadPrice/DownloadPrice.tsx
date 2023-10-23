@@ -4,15 +4,22 @@ import serviceHost from "../../../libs/service.host"
 import styles from "./styles.module.css"
 import { ReactComponent as Icon } from "./image/filetype-xlsx.svg"
 import Processed from "../Processed/Processed";
+import Head from "../../Head/Head";
 
 export default function DownloadPrice() {
     const [downloadState, setDownloadState] = useState("new");
 
-    return <div className={styles.root}>
-        <h3 className="mb-4">Скачать прайс</h3>
+    return <>
+        <Head 
+            title={`Cкачать прайс компании SIGNAL`}
+            description={`Cкачать прайс компании SIGNAL на автомобильные запчасти и запасные части к спецтехнике`}
+        />
+        <div className={styles.root}>
+            <h3 className="mb-4">Скачать прайс</h3>
 
-        <DialogPane downloadState={downloadState} setDownloadState={setDownloadState} />
-    </div>
+            <DialogPane downloadState={downloadState} setDownloadState={setDownloadState} />
+        </div>
+    </>
 }
 
 function DialogPane({ downloadState, setDownloadState }: {

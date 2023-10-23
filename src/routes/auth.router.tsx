@@ -6,10 +6,12 @@ import { AuthForm } from "../components/AuthForm/AuthForm"
 import { InfoCard } from "../components/AuthForm/InfoCard/InfoCard"
 import serviceHost from "../libs/service.host"
 import session from "../libs/token.manager"
+import Head from "../components/Head/Head"
 
 export default {
   path: "/auth",
   element: <>
+    <Head title="SIGNAL - авторизация/регистрация пользователя"/>
     <Navigate />
     <Outlet />
   </>,

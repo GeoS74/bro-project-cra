@@ -7,6 +7,7 @@ import Avatar from "./Avatar/Avatar"
 import Accordion from "./Accordion/Accordion"
 import styles from "./styles.module.css"
 import classNames from "classnames"
+import Head from "../Head/Head";
 
 export default function User() {
   const [user, setUser] = useState(useLoaderData() as IUser)
@@ -14,6 +15,7 @@ export default function User() {
   const theme = (useSelector((state) => state) as { theme: { theme: string } }).theme.theme
 
   return <>
+    <Head title="SIGNAL - Личный кабнет"/>
     <Navigate />
 
     <div className={styles.root} >

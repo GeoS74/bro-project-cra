@@ -3,6 +3,7 @@ import session from "../libs/token.manager"
 import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
 
+import Head from "../components/Head/Head"
 import About from "../components/About/About"
 
 export default {
@@ -10,28 +11,52 @@ export default {
   children: [
     {
       path: "/about/company",
-      element: <About alias="company" />,
+      element: <>
+        <Head 
+          title="О компании SIGNAL"
+          description="О компании SIGNAL"
+        />
+        <About alias="company" />
+      </>,
       loader: () => fetchWrapper(() => _getAbout("company"))
         .catch(() => [])
         .finally(() => session.start())
     },
     {
       path: "/about/credential",
-      element: <><></><About alias="credential"/></>,
+      element: <><></><>
+        <Head 
+          title="Реквизиты компании SIGNAL"
+          description="Реквизиты компании SIGNAL"
+        />
+        <About alias="credential"/>
+      </></>,
       loader: () => fetchWrapper(() => _getAbout("credential"))
         .catch(() => [])
         .finally(() => session.start())
     },
     {
       path: "/about/garanty",
-      element: <><></><></><About alias="garanty"/></>,
+      element: <><></><></><>
+        <Head 
+          title="Условия гарантии SIGNAL"
+          description="Условия гарантии SIGNAL"
+        />
+        <About alias="garanty"/>
+      </></>,
       loader: () => fetchWrapper(() => _getAbout("garanty"))
         .catch(() => [])
         .finally(() => session.start())
     },
     {
       path: "/about/contact",
-      element: <><></><></><></><About alias="contact"/></>,
+      element: <><></><></><></><>
+        <Head 
+          title="Контакты SIGNAL"
+          description="Контакты SIGNAL"
+        />
+        <About alias="contact"/>
+      </></>,
       loader: () => fetchWrapper(() => _getAbout("contact"))
         .catch(() => [])
         .finally(() => session.start())
