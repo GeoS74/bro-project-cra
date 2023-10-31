@@ -5,14 +5,12 @@ type Props = {
   description?: string,
 }
 
-const defaultTitle = 'SIGNAL - поставщик автомобильных запчастей и запасных частей к спецтехнике';
-const defaultDescription = 'SIGNAL - поставщик автомобильных запчастей и запасных частей к спецтехнике';
+const defaultTitle = 'SIGNAL - автозапчасти и запасные части к спецтехнике';
+const defaultDescription = 'SIGNAL - поставщик автозапчастей и запасных частей к спецтехнике';
 
 export default function Head({title, description}: Props) {
   document.title = title || defaultTitle;
   document.querySelector('meta[name="description"]')?.setAttribute('content', description || defaultDescription);
-  console.log(document.title);
-
   return <></>
 
   // return <Helmet onChangeClientState={() => {

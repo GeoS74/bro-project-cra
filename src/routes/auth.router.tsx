@@ -11,7 +11,10 @@ import Head from "../components/Head/Head"
 export default {
   path: "/auth",
   element: <>
-    <Head title="SIGNAL - авторизация/регистрация пользователя"/>
+    <Head 
+      title="SIGNAL - авторизация/регистрация пользователя"
+      description="SIGNAL - авторизация/регистрация пользователя"
+    />
     <Navigate />
     <Outlet />
   </>,

@@ -8,8 +8,8 @@ import styles from "./styles.module.css"
 export default function Catalog() {
   return <>
     <Head 
-      title="Каталог запчастей компании SIGNAL"
-      description="Каталог автомобильных запчастей и запасных частей к спецтехнике компании SIGNAL"
+      title="Каталог автозапчастей компании SIGNAL"
+      description="Каталог автозапчастей и запасных частей к спецтехнике компании SIGNAL"
     />
     <Navigate />
     <div className={styles.root} style={{ minHeight: `${window.innerHeight-200}px` }}>

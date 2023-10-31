@@ -11,8 +11,8 @@ export default function ProductPage() {
 
     return <>
     <Head 
-        title={`${product.title} купить в SIGNAL, низкая цена`}
-        description={`${product.title} купить в магазине автомобильных запчастей и запасных частей к спецтехнике SIGNAL, низкая цена`}
+        title={`${product.title} купить в Челябинске по низкой цене - компания SIGNAL`}
+        description={`${product.title} купить в магазине автозапчастей и запасных частей к спецтехнике в Челябинске по низкой цене - компания SIGNAL`}
     />
     <SearchForm />
 

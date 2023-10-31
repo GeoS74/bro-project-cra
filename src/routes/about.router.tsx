@@ -52,8 +52,8 @@ export default {
       path: "/about/contact",
       element: <><></><></><></><>
         <Head 
-          title="Контакты SIGNAL"
-          description="Контакты SIGNAL"
+          title="Контакты компании SIGNAL"
+          description="Контакты компании SIGNAL"
         />
         <About alias="contact"/>
       </></>,

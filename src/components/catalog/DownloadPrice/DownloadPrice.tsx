@@ -11,8 +11,8 @@ export default function DownloadPrice() {
 
     return <>
         <Head 
-            title={`Cкачать прайс компании SIGNAL`}
-            description={`Cкачать прайс компании SIGNAL на автомобильные запчасти и запасные части к спецтехнике`}
+            title={`Cкачать прайс на автозапчасти компании SIGNAL`}
+            description={`Cкачать прайс компании SIGNAL на автозапчасти и запасные части к спецтехнике`}
         />
         <div className={styles.root}>
             <h3 className="mb-4">Скачать прайс</h3>
