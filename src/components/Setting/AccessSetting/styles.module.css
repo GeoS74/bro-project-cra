@@ -7,6 +7,6 @@
 
 .root>h1,
 .root>h3,
-p {
+.root p {
   color: var(--color);
 }

@@ -6,11 +6,11 @@
 
 .root>div:nth-child(1) {
   flex: 2 300px;
-  max-width: 300px; /* ограничить растяжение блока */
+  max-width: 280px; /* ограничить растяжение блока */
 }
 
 .root>div:nth-child(2) {
-  flex: 2 300px;
+  flex: 2 500px;
   max-width: 800px; /* ограничить растяжение блока */
 }
 
@@ -19,6 +19,14 @@
 .root h3,
 .root h4,
 .root h5,
-.root h6 {
+.root h6,
+.root p,
+.root a,
+.root b {
   color: var(--color);
+}
+
+.root a:hover{
+  color: var(--color);
+  text-decoration: none;
 }

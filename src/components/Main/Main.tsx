@@ -4,14 +4,12 @@ import { useLoaderData } from "react-router-dom";
 import Slider from "../Slider/Slider"
 import SearchForm from "./SearchForm/SearchForm"
 import Text from "./Text/Text"
-import Head from "../Head/Head";
 import Footer from "../Footer/Footer"
 import styles from "./styles.module.css"
 
 export default function Main() {
   const [slides, about] = useLoaderData() as [ISlider[], IAbout];
   return <>
-    <Head />
     <Navigate />
     <div className={styles.root} style={{ minHeight: `${window.innerHeight - 200}px` }}>
       <h1>автозапчасти</h1>

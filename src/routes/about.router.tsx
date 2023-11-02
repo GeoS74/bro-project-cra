@@ -63,8 +63,21 @@ export default {
     },
     {
       path: "/about/mainPage",
-      element: <><></><></><></><About alias="mainPage"/></>,
+      element: <><></><></><></><></><><About alias="mainPage"/></></>,
       loader: () => fetchWrapper(() => _getAbout("mainPage"))
+        .catch(() => [])
+        .finally(() => session.start())
+    },
+    {
+      path: "/about/delivery",
+      element: <><></><></><></><></><></><>
+        <Head 
+          title="Доставка запчастей от компании SIGNAL"
+          description="Доставка запчастей от компании SIGNAL"
+        />
+        <About alias="delivery"/>
+      </></>,
+      loader: () => fetchWrapper(() => _getAbout("delivery"))
         .catch(() => [])
         .finally(() => session.start())
     },

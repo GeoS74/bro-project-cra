@@ -10,6 +10,7 @@ export default function Main() {
         <li><Link to="/about/contact">Контакты</Link></li>
         <li><Link to="/about/company">О компании</Link></li>
         <li><Link to="/about/credential">Реквизиты</Link></li>
+        <li><Link to="/about/delivery">Доставка</Link></li>
         <li><Link to="/about/garanty">Условия гарантии</Link></li>
       </ul>
     </div>
