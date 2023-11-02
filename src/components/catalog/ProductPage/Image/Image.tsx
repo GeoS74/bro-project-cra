@@ -7,7 +7,7 @@ import fetchWrapper from "../../../../libs/fetch.wrapper"
 import { responseNotIsArray } from "../../../../middleware/response.validator"
 import styles from "./styles.module.css"
 
-export default function Image({ id, photo }: IProduct) {
+export default function Image({ id, photo, article, title }: IProduct) {
   session.subscribe('ProductImage');
   const [photoCard, setPhoto] = useState(photo);
 
@@ -17,10 +17,15 @@ export default function Image({ id, photo }: IProduct) {
         <div onClick={_fileSelection}>
           {!photoCard ?
             <>
-              <NotImage className={styles.svg} />
-              <p>товар на фотосесии</p>
+              <noindex>
+                <NotImage className={styles.svg} />
+                <p>товар на фотосесии</p>
+              </noindex>
             </>
-            : <img src={`${serviceHost('bridge')}/api/bridge/card/photo/${photoCard}`} loading="lazy" onClick={_fileSelection} />
+            : <img src={`${serviceHost('bridge')}/api/bridge/card/photo/${photoCard}`} 
+                loading="lazy" 
+                alt={[article || "", title || ""].join(" ")}
+                onClick={_fileSelection} />
           }
         </div>
 
