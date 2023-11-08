@@ -3,21 +3,43 @@ import { redirect } from "react-router-dom";
 import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
 import User from "../components/User/User"
+import UserPage from "../components/User/UserPage/UserPage";
+import ChangePassword from "../components/User/ChangePassword/ChangePassword";
 import tokenManager from "../libs/token.manager"
 
 export default {
   path: "/user",
   element: <User />,
-  loader: () => fetchWrapper([_getMe, _getUser])
-    .then(async res => {
-      if (Array.isArray(res)) {
-        return {
-          ...await _me(res[0]),
-          ...await _user(res[1]),
-        }
-      }
-    })
-    .catch(() => redirect('/auth'))
+  children: [
+    {
+      index: true,
+      element: <UserPage />,
+      loader: () => fetchWrapper([_getMe, _getUser])
+        .then(async res => {
+          if (Array.isArray(res)) {
+            return {
+              ...await _me(res[0]),
+              ...await _user(res[1]),
+            }
+          }
+        })
+        .catch(() => redirect('/auth')),
+    },
+    {
+      path: '/user/changePassword',
+      element: <ChangePassword />,
+      loader: () => fetchWrapper([_getMe, _getUser])
+        .then(async res => {
+          if (Array.isArray(res)) {
+            return {
+              ...await _me(res[0]),
+              ...await _user(res[1]),
+            }
+          }
+        })
+        .catch(() => redirect('/auth')),
+    },
+  ]
 }
 
 async function _me(res: Response) {
