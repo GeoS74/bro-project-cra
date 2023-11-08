@@ -46,15 +46,31 @@ export default {
 
         if (typeof params === 'object' && params !== null) {
           if ("token" in params) {
-            return fetch(`${serviceHost("mauth")}/api/mauth/confirm/${params.token}`)
-              .then(res => res.status)
-              .catch(error => {
-                console.log(error.message);
-                return 500;
-              })
+            return _requestAPI(`${serviceHost("mauth")}/api/mauth/confirm/${params.token}`);
+          }
+        }
+      }
+    },
+    {
+      path: "/auth/forgot/:token",
+      element: <InfoCard mode="recovery"/>,
+      loader: ({ params }: { params: unknown }) => {
+
+        if (typeof params === 'object' && params !== null) {
+          if ("token" in params) {
+            return _requestAPI(`${serviceHost("mauth")}/api/mauth/forgot/${params.token}`);
           }
         }
       }
     },
   ]
+}
+
+function _requestAPI(url: string) {
+  return fetch(url)
+  .then(res => res.status)
+  .catch(error => {
+    console.log(error.message);
+    return 500;
+  })
 }
