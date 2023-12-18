@@ -17,7 +17,7 @@ import CancelButton from "./CancelButton/CancelButton";
 import SubmitButton from "./SubmitButton/SubmitButton";
 import OptionalHeaderForInvoice from "./OptionalHeader/OptionalHeaderForInvoice";
 import SignatoryPanePresetDirector from "./Signatory/SignatoryPane/SignatoryPanePresetDirector";
-import DeadLine from "./DeadLine/DeadLine";
+// import DeadLine from "./DeadLine/DeadLine";
 import Calendar from "../Calendar/Calendar";
 import Sum from "./Sum/Sum";
 import styles from "./styles.module.css"

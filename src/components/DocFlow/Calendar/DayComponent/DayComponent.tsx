@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 import styles from "./styles.module.css";
 
@@ -13,8 +13,8 @@ const listDay = [
 ];
 
 export default function DayComponent() {
-  const newDate = new Date();
-  const [day, setDay] = useState(newDate.getDay());
+  // const newDate = new Date();
+  // const [day, setDay] = useState(newDate.getDay());
 
   return (
     <div className={styles.root}>

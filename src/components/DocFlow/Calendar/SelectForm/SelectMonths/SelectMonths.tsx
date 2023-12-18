@@ -14,7 +14,7 @@ type SelectForm = {
 
 const months = ["янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"]
 
-export default function SelectMonths({month, setMonth, year, setYear, showSelectForm, setShowSelectForm, showMonthForm, setShowMonthForm}: SelectForm) {    
+export default function SelectMonths({setMonth, year, showSelectForm, setShowSelectForm, showMonthForm, setShowMonthForm}: SelectForm) {    
     return (
         <div className={styles.root}>
             <div className={styles.year} onClick={() => setShowMonthForm(!showMonthForm)}>{year}</div>

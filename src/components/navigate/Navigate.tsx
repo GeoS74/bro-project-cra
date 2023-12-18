@@ -7,7 +7,6 @@ import Toggle from "./Toggle/Toggle";
 import Greet from "./Greet/Greet";
 import styles from "./styles.module.css"
 import classNames from "classnames";
-import SvgLogo from "./SvgLogo/SvgLogo";
 
 function _toggleMenu(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
   event.currentTarget.classList.toggle('collapsed')
