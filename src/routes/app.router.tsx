@@ -15,6 +15,7 @@ import userRouter from "./user.router"
 import settingRouter from "./setting.router"
 import docFlowRouter from "./docflow.router"
 import newsLineRouter from "./newsLine.router"
+import contactRouter from "./contact.router"
 import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary"
 
 const router = createBrowserRouter([
@@ -38,7 +39,8 @@ const router = createBrowserRouter([
   userRouter,
   settingRouter,
   docFlowRouter,
-  newsLineRouter
+  newsLineRouter,
+  contactRouter
 ])
 
 export default <RouterProvider router={router} />

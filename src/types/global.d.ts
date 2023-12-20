@@ -8,7 +8,7 @@ interface IThemeContext {
     setTheme: Dispatch<SetStateAction<StyleTheme>>;
 }
 
-type ServiceName = "bridge" | "mauth" | "informator" | "mnote"
+type ServiceName = "bridge" | "mauth" | "informator" | "mnote" | "signum"
 type PopupMode = "success" | "danger" | undefined
 type AuthFormMode = "signin" | "signup" | "forgot"
 type SignatoryMode = "acceptor" | "recipient"
@@ -94,6 +94,19 @@ interface IProduct {
   photo: string
   alias: string
   // storage: unknown
+}
+
+interface IContact {
+  id: string
+  title: string
+  products: string
+  directing: string
+  contract: boolean
+  payment: string
+  site: string
+  email: string
+  name: string
+  info: string
 }
 
 interface IDoc {

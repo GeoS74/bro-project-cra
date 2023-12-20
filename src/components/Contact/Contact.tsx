@@ -3,11 +3,11 @@ import { Outlet } from "react-router-dom";
 import Navigate from "../navigate/Navigate";
 import styles from "./styles.module.css"
 
-export default function DocFlow() {
+export default function Cintact() {
     return <>
         <Navigate />
         <div className={styles.root} >
-            <h1></h1>
+            <h1>Чек-лист</h1>
             <hr />
             <Outlet />
         </div>

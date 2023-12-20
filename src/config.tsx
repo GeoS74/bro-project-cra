@@ -24,4 +24,10 @@ export default {
       port: prod ? 0 : 3300,
     }
   },
+  signum: {
+    back: {
+      host: prod ? '' : 'http://localhost',
+      port: prod ? 0 : 3535,
+    }
+  },
 }

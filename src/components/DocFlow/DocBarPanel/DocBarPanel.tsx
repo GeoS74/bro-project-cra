@@ -2,12 +2,14 @@
  * представление документов в виде плитки
  */
 import DocBar from "./DocBar/DocBar";
+import DocBarLink from "./DocBarLink/DocBarLink";
 import session from "../../../libs/token.manager";
 import finder from "../../../libs/deep.finder";
 import { ReactComponent as IconFoo } from "./icons/foo.svg";
 import { ReactComponent as IconFilter } from "./icons/filter-square.svg";
 import { ReactComponent as IconFire } from "./icons/fire.svg";
 import { ReactComponent as IconFolder } from "./icons/folder.svg";
+import { ReactComponent as IconPhone } from "./icons/telephone-outbound.svg";
 import AddDocButton from "./AddDocButton/AddDocButton";
 import DepAddInvoice from "./DepAddInvoice/DepAddInvoice";
 import DepInvocesForDirector from "./DepInvocesForDirector/DepInvocesForDirector";
@@ -18,14 +20,19 @@ export default function DocBarPanel() {
 
   return <div>
 
-    {finder(session.getMe()?.roles, 'Создать') ?
+    {/* {finder(session.getMe()?.roles, 'Создать') ?
       <AddDocButton />
       : <></>
-    }
+    } */}
 
     <div className={styles.root}>
+      <DocBarLink
+        title="Поставщики"
+        Icon={IconPhone}
+        queryString="/contacts"
+      />
 
-      <DepInvocesForDirector />
+      {/* <DepInvocesForDirector />
 
       <DocBar
         title="На утверждение"
@@ -51,7 +58,7 @@ export default function DocBarPanel() {
         queryString="?limit=50"
       />
 
-      <DepAddInvoice />
+      <DepAddInvoice /> */}
     </div>
   </div>
 }
