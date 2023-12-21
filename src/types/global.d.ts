@@ -100,7 +100,6 @@ interface IContact {
   id: string
   title: string
   products: string
-  directing: string
   contract: boolean
   payment: string
   site: string

@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { useLoaderData, useLocation } from "react-router-dom";
 import session from "../../../libs/token.manager";
+import ContactSearchForm from "../ContactSearchForm/ContactSearchForm";
+import ContactPane from "../ContactPane/ContactPane";
 import styles from "./styles.module.css";
-import { useState } from "react";
 
 export default function ContactList() {
-  session.refreshTokens();
-  session.refreshTokens();
   session.subscribe('ContactList');
 
   const [contacts, setContacts] = useState(useLoaderData() as IContact[])
@@ -13,7 +13,11 @@ export default function ContactList() {
   console.log(contacts)
 
   return <div className={styles.root} >
-    <h3 className="mb-4">foo</h3>
+    <ContactSearchForm 
+      setContacts={setContacts}
+    />
+
+    <ContactPane contacts={contacts}/>
   </div>
 }
 

@@ -19,18 +19,10 @@ export default {
       element: <ContactList />,
       loader: () => fetchWrapper(() => _getContacts())
         .then(responseNotIsArray)
-        .catch(() => redirect('/'))
-        .finally(() => session.start()),
+        .catch(() => redirect('/auth'))
     },
     // {
-    //   path: "/docflow/list",
-    //   element: <DocList />,
-    //   loader: ({ request }: LoaderFunctionArgs) => new Promise<URL>(res => res(new URL(request.url)))
-    //     .then(url => fetchWrapper(() => _searchDocs(url.search)))
-    //     .catch(() => redirect('/auth'))
-    // },
-    // {
-    //   path: "/docflow/:id",
+    //   path: "/contacts/:id",
     //   element: <DocPage />,
     //   loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
     //     .then(responseNotIsArray)
@@ -43,7 +35,7 @@ export default {
     //     .catch(() => redirect('/auth'))
     // },
     // {
-    //   path: "/docflow/create/doc",
+    //   path: "/contacts/create/doc",
     //   element: <CreateDoc />,
     //   loader: () => session.start(),
     // },
@@ -53,7 +45,7 @@ export default {
     //   loader: () => session.start(),
     // },
     // {
-    //   path: "/docflow/edit/doc/:id",
+    //   path: "/contacts/edit/doc/:id",
     //   element: <EditDoc />,
     //   loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
     //     .then(responseNotIsArray)
