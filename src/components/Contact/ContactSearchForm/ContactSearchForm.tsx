@@ -16,7 +16,7 @@ export default function ContactSearchForm({setContacts}: Props) {
   const [disabled, setDisabled] = useState(false)
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
 
-  const defaultValue = new URL(location.href).searchParams.get('query') || "";
+  const defaultValue = new URL(location.href).searchParams.get('search') || "";
 
   return <form id="searchForm" className={styles.root}
     onSubmit={(event) => {

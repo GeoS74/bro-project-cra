@@ -106,6 +106,7 @@ interface IContact {
   email: string
   name: string
   info: string
+  phone: string
 }
 
 interface IDoc {

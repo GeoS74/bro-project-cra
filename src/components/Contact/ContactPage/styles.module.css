@@ -1,0 +1,23 @@
+.root {
+  margin-top: 70px;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+
+.root h1,
+.root h2,
+.root h3,
+.root h4,
+.root h5,
+.root h6,
+.root p,
+.root a,
+.root b {
+  color: var(--color);
+}
+
+.root a:hover{
+  color: var(--color);
+  text-decoration: none;
+}

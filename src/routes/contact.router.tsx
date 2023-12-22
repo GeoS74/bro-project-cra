@@ -4,10 +4,11 @@ import serviceHost from "../libs/service.host"
 import fetchWrapper from "../libs/fetch.wrapper"
 import tokenManager from "../libs/token.manager"
 import { responseNotIsArray } from "../middleware/response.validator";
-import session from "../libs/token.manager";
+// import session from "../libs/token.manager";
 
 import Contact from "../components/Contact/Contact";
 import ContactList from "../components/Contact/ContactList/ContactList";
+import ContactPage from "../components/Contact/ContactPage/ContactPage";
 
 
 export default {
@@ -17,23 +18,25 @@ export default {
     {
       index: true,
       element: <ContactList />,
-      loader: () => fetchWrapper(() => _getContacts())
+      loader: ({ request }: LoaderFunctionArgs) => new Promise<URL>(res => res(new URL(request.url)))
+        .then(url => url.searchParams.get('search') || '')
+        .then(search => fetchWrapper(() => _getSearch(search)))
         .then(responseNotIsArray)
         .catch(() => redirect('/auth'))
     },
-    // {
-    //   path: "/contacts/:id",
-    //   element: <DocPage />,
-    //   loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getDoc(params.id))
-    //     .then(responseNotIsArray)
-    //     .then(res => {
-    //       if (res.status === 404) {
-    //         return redirect('/docflow')
-    //       }
-    //       return res;
-    //     })
-    //     .catch(() => redirect('/auth'))
-    // },
+    {
+      path: "/contacts/page/:id",
+      element: <ContactPage />,
+      loader: ({ params }: LoaderFunctionArgs) => fetchWrapper(() => _getContact(params.id))
+        .then(responseNotIsArray)
+        .then(res => {
+          if (res.status === 404) {
+            return redirect('/contacts')
+          }
+          return res;
+        })
+        .catch(() => redirect('/auth'))
+    },
     // {
     //   path: "/contacts/create/doc",
     //   element: <CreateDoc />,
@@ -60,8 +63,16 @@ export default {
   ]
 }
 
-function _getContacts() {
-  return fetch(`${serviceHost("signum")}/api/contact`, {
+function _getSearch(query: string) {
+  return fetch(`${serviceHost("signum")}/api/contact/?search=${query || ''}`, {
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  })
+}
+
+function _getContact(id?: string) {
+  return fetch(`${serviceHost("signum")}/api/contact/${id || ''}`, {
     headers: {
       'Authorization': `Bearer ${tokenManager.getAccess()}`
     }
