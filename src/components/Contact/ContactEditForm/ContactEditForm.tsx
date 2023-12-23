@@ -11,6 +11,8 @@ import styles from "./styles.module.css"
 import SubmitButton from "./SubmitButton/SubmitButton";
 import OptionalHeader from "./OptionalHeader/OptionalHeader";
 import TitleDoc from "./TitleDoc/TitleDoc";
+import ContactSearchFormSimple from "../ContactSearchForm/ContactSearchFormSimple";
+import BackArrow from "../../DocFlow/BackArrow/BackArrow";
 
 
 export default function ContactEditForm() {
@@ -23,28 +25,32 @@ export default function ContactEditForm() {
 
   const [fileList, setFileList] = useState<FileList[]>([])
 
-  return <form className={styles.root}
-    onSubmit={event => _onSubmit(
-      event,
-      setDisabled,
-      setErrorResponse,
-      navigate,
-      contact
-    )}
-  >
-    <fieldset disabled={disabled} className="form-group">
+  return <>
+    <ContactSearchFormSimple />
+    <BackArrow />
+    <form className={styles.root}
+      onSubmit={event => _onSubmit(
+        event,
+        setDisabled,
+        setErrorResponse,
+        navigate,
+        contact
+      )}
+    >
+      <fieldset disabled={disabled} className="form-group">
 
-      <OptionalHeader {...contact} />
+        <OptionalHeader {...contact} />
 
-      <legend className="mt-3">{!contact ? "Добавление нового поставщика" : "Изменение данных поставщика"}</legend>
+        <legend className="mt-3">{!contact ? "Добавление нового поставщика" : "Изменение данных поставщика"}</legend>
 
-      <TitleDoc errorMessage={errorMessage} title={contact?.title} />
+        <TitleDoc errorMessage={errorMessage} title={contact?.title} />
 
-      <SubmitButton />
+        <SubmitButton />
 
-      <CancelButton />
-    </fieldset>
-  </form>
+        <CancelButton />
+      </fieldset>
+    </form>
+  </>
 }
 
 function _onSubmit(

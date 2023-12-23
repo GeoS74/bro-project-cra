@@ -12,7 +12,7 @@ export default function ContactPage() {
 
     return <>
     <ContactSearchFormSimple />
-    <BackArrow />
+    <BackArrow path={"/contacts"}  />
     <div className={classNames(styles.root)}>
     <OptionalHeader {...p} />
       <h3 className="mt-4">{p.title}</h3>

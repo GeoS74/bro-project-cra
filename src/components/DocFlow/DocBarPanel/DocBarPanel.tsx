@@ -27,13 +27,13 @@ export default function DocBarPanel() {
 
     <div className={styles.root}>
 
-    {_actionFinder(session.getMe()?.roles[0], 'Поставщики') ?
+    {/* {_actionFinder(session.getMe()?.roles[0], 'Поставщики') ? */}
         <DocBarLink
         title="Поставщики"
         Icon={IconPhone}
         queryString="/contacts"
       />
-        : <></>}
+        {/* : <></>} */}
 
       {_actionFinder(session.getMe()?.roles[0], 'Поставщики', 'Справочник', 'Создать') ?
         <DocBarLink

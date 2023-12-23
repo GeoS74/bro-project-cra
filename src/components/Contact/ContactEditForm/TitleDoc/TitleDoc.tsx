@@ -10,14 +10,14 @@ type Props = {
 export default function TitleDoc({ title, errorMessage, label }: Props) {
   return <>
     <div className={styles.root}>
-      <label htmlFor="titleInput" className="form-label mt-1">{label || "Название документа"}</label>
+      <label htmlFor="titleInput" className="form-label mt-1">{label || "Название организации"}</label>
       <input 
         type="text" 
         id="titleInput" 
         defaultValue={title}
         name="title" 
         className="form-control" 
-        placeholder={label || "Введите название документа"} />
+        placeholder={label || "Введите название организации"} />
     </div>
     {errorMessage?.field === "title" ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
   </>
