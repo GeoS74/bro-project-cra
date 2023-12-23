@@ -1,5 +1,5 @@
 .root>header,
-.root>div {
+.root>div>section {
   display: flex;
   flex-flow: row nowrap;
 }
@@ -9,8 +9,8 @@
 }
 
 .root>header>div,
-.root>div>div {
-  padding: 10px;
+.root>div{
+  padding: 16px;
 }
 .root>header{
   cursor: default;
@@ -35,7 +35,7 @@
 
 /* width columns */
 .root>header>div:nth-child(1),
-.root>div>div:nth-child(1) {
+.root>div>section>div:nth-child(1) {
   flex: 1;
 }
 
@@ -43,14 +43,9 @@
 .root>header>div:nth-child(3),
 .root>header>div:nth-child(4),
 .root>header>div:nth-child(5),
-.root>div>div:nth-child(2),
-.root>div>div:nth-child(3),
-.root>div>div:nth-child(4),
-.root>div>div:nth-child(5) {
+.root>div>section>div:nth-child(2),
+.root>div>section>div:nth-child(3),
+.root>div>section>div:nth-child(4),
+.root>div>section>div:nth-child(5) {
   flex: 1;
-}
-
-.root>header>div:nth-child(6),
-.root>div>div:nth-child(6) {
-  flex: 0.5;
 }

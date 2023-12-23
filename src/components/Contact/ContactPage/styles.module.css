@@ -25,3 +25,8 @@
   color: var(--color);
   text-decoration: none;
 }
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

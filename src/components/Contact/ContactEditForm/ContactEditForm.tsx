@@ -10,7 +10,8 @@ import CancelButton from "./CancelButton/CancelButton";
 import styles from "./styles.module.css"
 import SubmitButton from "./SubmitButton/SubmitButton";
 import OptionalHeader from "./OptionalHeader/OptionalHeader";
-import TitleDoc from "./TitleDoc/TitleDoc";
+import InputText from "./InputText/InputText";
+import TextPane from "./TextPane/TextPane";
 import ContactSearchFormSimple from "../ContactSearchForm/ContactSearchFormSimple";
 import BackArrow from "../../DocFlow/BackArrow/BackArrow";
 
@@ -22,8 +23,6 @@ export default function ContactEditForm() {
   const [errorMessage, setErrorResponse] = useState<IErrorMessage>();
 
   const navigate = useNavigate()
-
-  const [fileList, setFileList] = useState<FileList[]>([])
 
   return <>
     <ContactSearchFormSimple />
@@ -43,7 +42,19 @@ export default function ContactEditForm() {
 
         <legend className="mt-3">{!contact ? "Добавление нового поставщика" : "Изменение данных поставщика"}</legend>
 
-        <TitleDoc errorMessage={errorMessage} title={contact?.title} />
+        <InputText errorMessage={errorMessage} val={contact?.title} prefix="title" label="Название организации" />
+
+        <InputText errorMessage={errorMessage} val={contact?.site} prefix="site" label="Сайт" />
+
+        <InputText errorMessage={errorMessage} val={contact?.email} prefix="email" label="email" />
+
+        <InputText errorMessage={errorMessage} val={contact?.phone} prefix="phone" label="phone" />
+
+        <InputText errorMessage={errorMessage} val={contact?.name} prefix="name" label="Контакт" />
+
+        <InputText errorMessage={errorMessage} val={contact?.products} prefix="products" label="Продукция" />
+
+        <TextPane val={contact?.info} />
 
         <SubmitButton />
 

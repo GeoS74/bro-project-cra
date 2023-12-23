@@ -16,12 +16,30 @@ export default function ContactPage() {
     <div className={classNames(styles.root)}>
     <OptionalHeader {...p} />
       <h3 className="mt-4">{p.title}</h3>
-      
+
+      <div className="mt-4">
+        <p>сайт: {p.site}</p>
+      </div>
+
       <div className="mt-4">
         <p>email: {p.email}</p>
       </div>
 
-      <div className="mt-4"><pre>{p.info}</pre></div>
+      <div className="mt-4">
+        <p>тел.: {p.phone}</p>
+      </div>
+
+      <div className="mt-4">
+        <p>контакт: {p.name}</p>
+      </div>
+
+      <div className="mt-4">
+        <p>продукция: {p.products}</p>
+      </div>
+
+      <div className="mt-4">
+      <p>доп. информация:</p>
+        <pre>{p.info}</pre></div>
     </div>
     </>
 }
