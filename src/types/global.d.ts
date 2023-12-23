@@ -107,7 +107,7 @@ interface IContact {
   name: string
   info: string
   phone: string
-  createdat: string
+  createdAt: string
 }
 
 interface IDoc {

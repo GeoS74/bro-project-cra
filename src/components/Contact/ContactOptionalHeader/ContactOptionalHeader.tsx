@@ -10,11 +10,11 @@ import { ReactComponent as IconEdit } from "./icons/wrench.svg";
 import { ReactComponent as IconDelete } from "./icons/trash.svg";
 import styles from "./styles.module.css"
 
-export default function OptionalHeader({ id, createdat }: IContact) {
+export default function OptionalHeader({ id, createdAt }: IContact) {
   const navigate = useNavigate();
 
   return <div className={styles.root}>
-    <div><small>добавлен {date(createdat)}</small></div>
+    <div><small>добавлен {date(createdAt)}</small></div>
     <div>
       <small></small>
 
