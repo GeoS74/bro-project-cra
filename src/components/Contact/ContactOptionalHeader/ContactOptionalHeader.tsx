@@ -1,0 +1,72 @@
+import { useNavigate } from "react-router-dom";
+import session from "../../../libs/token.manager"
+import tokenManager from "../../../libs/token.manager"
+import fetchWrapper from "../../../libs/fetch.wrapper";
+import serviceHost from "../../../libs/service.host";
+import { responseNotIsArray } from "../../../middleware/response.validator";
+import { date } from "../../../libs/formatter";
+
+import { ReactComponent as IconEdit } from "./icons/wrench.svg";
+import { ReactComponent as IconDelete } from "./icons/trash.svg";
+import styles from "./styles.module.css"
+
+export default function OptionalHeader({ id, createdat }: IContact) {
+  const navigate = useNavigate();
+
+  return <div className={styles.root}>
+    <div><small>добавлен {date(createdat)}</small></div>
+    <div>
+      <small></small>
+
+      {_actionFinder(session.getMe()?.roles[0], 'Поставщики', 'Справочник', 'Редактировать') ?
+        <IconEdit className={styles.svg}
+          onClick={() => navigate(`/contacts/edit/${id}`)}
+        /> 
+        : <></>}
+
+      {_actionFinder(session.getMe()?.roles[0], 'Поставщики', 'Справочник', 'Удалить') ?
+        <IconDelete className={styles.svg}
+          onClick={async () => {
+            // ninja code ;)
+            await _deleteContact(id) ? navigate(-1) : null;
+          }} /> 
+          : <></>}
+    </div>
+  </div>
+}
+
+async function _deleteContact(id: string) {
+  if (!confirm('Удалить поставщика?')) {
+    return false;
+  }
+
+  return fetchWrapper(() => fetch(`${serviceHost('signum')}/api/contact/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${tokenManager.getAccess()}`
+    }
+  }))
+    .then(responseNotIsArray)
+    .then(async response => {
+      if (response.ok) {
+        return true;
+      }
+      throw new Error(`response status: ${response.status}`)
+    })
+    .catch(error => {
+      console.log(error.message);
+      return false;
+    })
+}
+
+function _actionFinder(
+  role?: IRole,
+  titleDirecting?: string,
+  titleTask?: string,
+  action?: ActionMode,
+): boolean {
+  return !!role
+    ?.directings.find(e => e.title === titleDirecting)
+    ?.tasks.find(e => e.title === titleTask)
+    ?.actions.find(e => e.title === action);
+}

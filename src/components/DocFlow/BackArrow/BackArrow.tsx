@@ -6,7 +6,8 @@ export default function BackArrow() {
     const navigate = useNavigate();
     return (
         <div className={styles.root} onClick={() => navigate(-1)}>
-            <IconBackArrow  height="30px" width="30px" className={styles.rootButton}/>
+            {/* <IconBackArrow  height="30px" width="30px" className={styles.rootButton}/> */}
+            <p>Вернуться назад</p>
         </div>
         
         

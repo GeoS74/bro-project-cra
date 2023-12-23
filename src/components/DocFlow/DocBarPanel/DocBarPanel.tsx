@@ -26,11 +26,24 @@ export default function DocBarPanel() {
     } */}
 
     <div className={styles.root}>
-      <DocBarLink
+
+    {_actionFinder(session.getMe()?.roles[0], 'Поставщики') ?
+        <DocBarLink
         title="Поставщики"
         Icon={IconPhone}
         queryString="/contacts"
       />
+        : <></>}
+
+      {_actionFinder(session.getMe()?.roles[0], 'Поставщики', 'Справочник', 'Создать') ?
+        <DocBarLink
+        title="Добавить поставщика"
+        Icon={IconPhone}
+        queryString="/contacts/create"
+      />
+        : <></>}
+
+      
 
       {/* <DepInvocesForDirector />
 
@@ -61,4 +74,21 @@ export default function DocBarPanel() {
       <DepAddInvoice /> */}
     </div>
   </div>
+}
+
+function _actionFinder(
+  role?: IRole,
+  titleDirecting?: string,
+  titleTask?: string,
+  action?: ActionMode,
+): boolean {
+  if(!titleTask && !action) {
+    return !!role
+      ?.directings.find(e => e.title === titleDirecting)
+  }
+
+  return !!role
+    ?.directings.find(e => e.title === titleDirecting)
+    ?.tasks.find(e => e.title === titleTask)
+    ?.actions.find(e => e.title === action);
 }

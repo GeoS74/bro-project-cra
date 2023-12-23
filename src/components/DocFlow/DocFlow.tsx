@@ -7,7 +7,7 @@ export default function DocFlow() {
     return <>
         <Navigate />
         <div className={styles.root} >
-            <h1></h1>
+            <h1>Сигнал</h1>
             <hr />
             <Outlet />
         </div>
