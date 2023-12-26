@@ -13,33 +13,22 @@ export default function ContactPage() {
     return <>
     <ContactSearchFormSimple />
     <BackArrow path={"/contacts"}  />
-    <div className={classNames(styles.root)}>
+    <div className={classNames(styles.root, "card")}>
     <OptionalHeader {...p} />
       <h3 className="mt-4">{p.title}</h3>
 
-      <div className="mt-4">
-        <p>сайт: {p.site}</p>
-      </div>
+      {p.products ? <div className="mt-4">{p.products}</div> : ""}
+      {p.phone || p.name ? <div className="mt-4">{p.phone} {p.name}</div> : ""}
+      {p.email ? <div className="mt-4">{p.email}</div> : ""}
+      {p.site ? <div className="mt-4"><a href={p.site} target="_blank" rel="noreferrer">{p.site}</a></div> : ""}
 
-      <div className="mt-4">
-        <p>email: {p.email}</p>
-      </div>
+      {p.info ? 
+        <div className="mt-4">
+          <small>доп. информация:</small>
+          <pre className="mt-2">{p.info}</pre>
+        </div>
+        : <></>}
 
-      <div className="mt-4">
-        <p>тел.: {p.phone}</p>
-      </div>
-
-      <div className="mt-4">
-        <p>контакт: {p.name}</p>
-      </div>
-
-      <div className="mt-4">
-        <p>продукция: {p.products}</p>
-      </div>
-
-      <div className="mt-4">
-      <p>доп. информация:</p>
-        <pre>{p.info}</pre></div>
     </div>
     </>
 }

@@ -1,4 +1,18 @@
-.root>header,
+.root>div {
+  display: flex;
+  flex-flow: column;
+  max-width: 1500px;
+}
+
+.root>div div {
+  padding: 10px 25px;
+}
+
+.root>div:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+/* .root>header,
 .root>div>section {
   display: flex;
   flex-flow: row nowrap;
@@ -14,10 +28,10 @@
 }
 .root>header{
   cursor: default;
-}
+} */
 
 /* title and article */
-.root div p {
+/* .root div p {
   color: #1a1a1a;
 }
 
@@ -31,10 +45,10 @@
 
 .root div p:nth-child(2) {
   font-size: small;
-}
+} */
 
 /* width columns */
-.root>header>div:nth-child(1),
+/* .root>header>div:nth-child(1),
 .root>div>section>div:nth-child(1) {
   flex: 1;
 }
@@ -48,4 +62,4 @@
 .root>div>section>div:nth-child(4),
 .root>div>section>div:nth-child(5) {
   flex: 1;
-}
+} */

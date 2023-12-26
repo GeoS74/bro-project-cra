@@ -10,6 +10,7 @@ import { ReactComponent as IconFilter } from "./icons/filter-square.svg";
 import { ReactComponent as IconFire } from "./icons/fire.svg";
 import { ReactComponent as IconFolder } from "./icons/folder.svg";
 import { ReactComponent as IconPhone } from "./icons/telephone-outbound.svg";
+import { ReactComponent as IconPhonePlus } from "./icons/telephone-plus.svg";
 import AddDocButton from "./AddDocButton/AddDocButton";
 import DepAddInvoice from "./DepAddInvoice/DepAddInvoice";
 import DepInvocesForDirector from "./DepInvocesForDirector/DepInvocesForDirector";
@@ -38,7 +39,7 @@ export default function DocBarPanel() {
       {_actionFinder(session.getMe()?.roles[0], 'Поставщики', 'Справочник', 'Создать') ?
         <DocBarLink
         title="Добавить поставщика"
-        Icon={IconPhone}
+        Icon={IconPhonePlus}
         queryString="/contacts/create"
       />
         : <></>}
