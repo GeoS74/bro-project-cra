@@ -1,19 +1,20 @@
 /**
  * представление документов в виде плитки
  */
-import DocBar from "./DocBar/DocBar";
+
 import DocBarLink from "./DocBarLink/DocBarLink";
 import session from "../../../libs/token.manager";
-import finder from "../../../libs/deep.finder";
-import { ReactComponent as IconFoo } from "./icons/foo.svg";
-import { ReactComponent as IconFilter } from "./icons/filter-square.svg";
-import { ReactComponent as IconFire } from "./icons/fire.svg";
-import { ReactComponent as IconFolder } from "./icons/folder.svg";
 import { ReactComponent as IconPhone } from "./icons/telephone-outbound.svg";
 import { ReactComponent as IconPhonePlus } from "./icons/telephone-plus.svg";
-import AddDocButton from "./AddDocButton/AddDocButton";
-import DepAddInvoice from "./DepAddInvoice/DepAddInvoice";
-import DepInvocesForDirector from "./DepInvocesForDirector/DepInvocesForDirector";
+// import DocBar from "./DocBar/DocBar";
+// import finder from "../../../libs/deep.finder";
+// import { ReactComponent as IconFoo } from "./icons/foo.svg";
+// import { ReactComponent as IconFilter } from "./icons/filter-square.svg";
+// import { ReactComponent as IconFire } from "./icons/fire.svg";
+// import { ReactComponent as IconFolder } from "./icons/folder.svg";
+// import AddDocButton from "./AddDocButton/AddDocButton";
+// import DepAddInvoice from "./DepAddInvoice/DepAddInvoice";
+// import DepInvocesForDirector from "./DepInvocesForDirector/DepInvocesForDirector";
 import styles from "./styles.module.css";
 
 export default function DocBarPanel() {
@@ -83,11 +84,13 @@ function _actionFinder(
   titleTask?: string,
   action?: ActionMode,
 ): boolean {
-  if(!titleTask && !action) {
-    return !!role
-      ?.directings.find(e => e.title === titleDirecting)
+  if(!role) {
+    return false;
   }
 
+  if(!titleTask && !action) {
+    return !!role.directings.find(e => e.title === titleDirecting)
+  }
   return !!role
     ?.directings.find(e => e.title === titleDirecting)
     ?.tasks.find(e => e.title === titleTask)
