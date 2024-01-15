@@ -37,7 +37,7 @@ export default function DocBarPanel() {
       />
         {/* : <></>} */}
 
-      {_actionFinder(session.getMe()?.roles[0], 'Поставщики', 'Справочник', 'Создать') ?
+      {_actionFinder(session.getMe()?.roles, 'Поставщики', 'Справочник', 'Создать') ?
         <DocBarLink
         title="Добавить поставщика"
         Icon={IconPhonePlus}
@@ -79,7 +79,7 @@ export default function DocBarPanel() {
 }
 
 function _actionFinder(
-  role?: IRole,
+  role?: IRole[],
   titleDirecting?: string,
   titleTask?: string,
   action?: ActionMode,
@@ -89,9 +89,9 @@ function _actionFinder(
   }
 
   if(!titleTask && !action) {
-    return !!role.directings.find(e => e.title === titleDirecting)
+    return !!role[0].directings.find(e => e.title === titleDirecting)
   }
-  return !!role
+  return !!role[0]
     ?.directings.find(e => e.title === titleDirecting)
     ?.tasks.find(e => e.title === titleTask)
     ?.actions.find(e => e.title === action);
