@@ -1,4 +1,4 @@
-const prod = true; 
+const prod = false; 
 export default {
   catalog: {
     back: {
@@ -22,6 +22,12 @@ export default {
     back: {
       host: prod ? '' : 'http://localhost',
       port: prod ? 0 : 3300,
+    }
+  },
+  cargobox: {
+    back: {
+      host: prod ? '' : 'http://localhost',
+      port: prod ? 0 : 3232,
     }
   },
 }
