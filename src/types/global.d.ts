@@ -186,6 +186,14 @@ interface INews {
   updatedAt: string    
 }
 
+/*
+* интерфейс объекта города, возвращаемого микросервисом "cargobox"
+*/
+interface ICity {
+  code: string
+  fullname: string
+}
+
 
 
 

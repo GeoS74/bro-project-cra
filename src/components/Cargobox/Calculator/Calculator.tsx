@@ -1,4 +1,4 @@
-import City from "./City"
+import City from "./City/City"
 import styles from "./styles.module.css"
 import classNames from "classnames";
 import { useSelector } from "react-redux";
@@ -9,7 +9,7 @@ export default function DocFlow() {
     <form onSubmit={(event) => _onSubmit(event)}>
       <legend className="mt-3 mb-4">Расчёт стоимости доставки грузов</legend>
 
-      <City />
+      <City fieldName="arrival"/>
 
       <input type="submit" value="Рассчитать доставку" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)} />
     </form>
