@@ -10,6 +10,7 @@ export default function DocFlow() {
       <legend className="mt-3 mb-4">Расчёт стоимости доставки грузов</legend>
 
       <City fieldName="arrival"/>
+      <City fieldName="derrival"/>
 
       <input type="submit" value="Рассчитать доставку" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)} />
     </form>

@@ -7,8 +7,11 @@ type Props = {
 }
 
 export default function City({fieldName}: Props) {
-  const [cities, setCity] = useState<ICity[]>([]);
-  console.log(cities)
+  const [cities, setCities] = useState<ICity[]>([]);
+  const [activeCity, setACtiveCity] = useState<ICity>();
+
+  console.log(activeCity)
+
   return <>
     <div className="form-group col-sm-5">
       <label htmlFor={fieldName} className="form-label mt-4">Откуда</label>
@@ -16,35 +19,39 @@ export default function City({fieldName}: Props) {
         className="form-control" 
         id={fieldName} 
         placeholder="выберите город"
-        onInput={(event) => _searchCity(event, setCity)}
+        value={activeCity?.fullname || ""}
+        onInput={(event) => _searchCity(event, setCities, setACtiveCity)}
       />
 
-      <CityList cities={cities} />
+      <CityList cities={cities} setACtiveCity={setACtiveCity} setCities={setCities} />
 
-      {/* <input type="text" 
+      <input type="text" 
         name={fieldName} 
-        defaultValue={cities[0]?.fullname}
-      /> */}
+        defaultValue={activeCity?.code}
+      />
     </div>
   </>
 }
 
 function _searchCity(
   event: React.FormEvent<HTMLInputElement>,
-  setCity: React.Dispatch<React.SetStateAction<ICity[]>>
+  setCities: React.Dispatch<React.SetStateAction<ICity[]>>,
+  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>
 ) {
   // console.log(event.currentTarget.value)
   // setCity([event.currentTarget.value])
+
+  setACtiveCity(undefined);
 
   fetch(`${serviceHost("cargobox")}/api/cargobox/kladr/search/city/?city=${event.currentTarget.value}`)
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
         // console.log(res)
-        setCity(res);
+        setCities(res);
         return;
       }
-      setCity([]);
+      setCities([]);
       // else if ([400, 404].includes(response.status)) {
       //   return;
       // }

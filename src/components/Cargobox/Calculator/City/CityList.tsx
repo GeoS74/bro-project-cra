@@ -1,22 +1,36 @@
 type Props = {
   cities: ICity[]
+  setCities: React.Dispatch<React.SetStateAction<ICity[]>>
+  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>
 }
 
-export default function CityList({cities}: Props) {
-  return <div>
-    {
-      cities.length ? <select name="select" size={cities.length}>
-      {_makeOptions(cities)}
-    </select>
-    : <></>
-    }
-  </div>
+export default function CityList({ cities, setCities, setACtiveCity }: Props) {
+  return cities.length ? <ul>{_makeLi(cities, setCities, setACtiveCity)}</ul> : <></>
 }
 
-function _makeOptions(cities: ICity[]) {
-  return cities.map((value, index) => {
-    return <option key={index} value={value.fullname} >
-      {value.fullname}
-    </option>
+function _makeLi(
+  cities: ICity[],
+  setCities: React.Dispatch<React.SetStateAction<ICity[]>>,
+  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>
+) {
+  return cities.map((city, index) => {
+    return <li 
+    key={index} 
+    data-code={city.code}
+    onClick={() => {
+      setACtiveCity(city)
+      setCities([])
+       
+    }}
+    >
+      {city.fullname}
+    </li>
   })
+}
+
+
+function foo(
+  event: React.MouseEvent<HTMLLIElement, MouseEvent>
+) {
+  console.log(event.currentTarget.dataset.code)
 }

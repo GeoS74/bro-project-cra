@@ -1,1 +1,40 @@
-.root {}
+.root {
+  max-width: 1000px;
+  /* background-color: red; */
+}
+
+.root form{
+  padding: 10px;
+  /* background-color: rgb(9, 255, 0); */
+}
+
+.root form div {
+  position: relative;
+  /* background-color: yellow; */
+}
+
+.root form input {
+  /* background-color: yellow; */
+}
+
+.root form ul {
+  position: absolute;
+  width: 100%;
+  list-style-type: none;
+  background-color: whitesmoke;
+  padding: 0px;
+  z-index: 100500;
+}
+
+.root form ul>li {
+  padding: 10px;
+}
+.root form ul>li:hover {
+  cursor: pointer;
+  background-color: grey;
+}
+
+.root form ul,
+.root input {
+  border: solid 1px var(--color) !important;
+}

@@ -5,8 +5,3 @@
 .root>h1 {
   color: var(--color);
 }
-
-.root select,
-.root input {
-  border: solid 1px var(--color) !important;
-}
