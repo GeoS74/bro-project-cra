@@ -9,39 +9,38 @@ type Props = {
 export default function City({fieldName}: Props) {
   const [cities, setCities] = useState<ICity[]>([]);
   const [activeCity, setACtiveCity] = useState<ICity>();
+  const [inputValue, setInputValue] = useState('');
 
-  console.log(activeCity)
+  console.log('render')
 
-  return <>
-    <div className="form-group col-sm-5">
-      <label htmlFor={fieldName} className="form-label mt-4">Откуда</label>
-      <input type="text" 
-        className="form-control" 
-        id={fieldName} 
-        placeholder="выберите город"
-        value={activeCity?.fullname || ""}
-        onInput={(event) => _searchCity(event, setCities, setACtiveCity)}
-      />
+  return <div className="form-group col-sm-5">
+    <label htmlFor={fieldName} className="form-label mt-4">Откуда</label>
+    <input type="text" 
+      className="form-control" 
+      id={fieldName} 
+      placeholder="выберите город"
+      value={activeCity?.fullname || inputValue}
+      onInput={(event) => _searchCity(event, setCities, setACtiveCity, setInputValue)}
+       
+    />
 
-      <CityList cities={cities} setACtiveCity={setACtiveCity} setCities={setCities} />
+    <CityList cities={cities} setACtiveCity={setACtiveCity} setCities={setCities} />
 
-      <input type="text" 
-        name={fieldName} 
-        defaultValue={activeCity?.code}
-      />
-    </div>
-  </>
+    <input type="text" 
+      name={fieldName} 
+      defaultValue={activeCity?.code}
+    />
+  </div>
 }
 
 function _searchCity(
   event: React.FormEvent<HTMLInputElement>,
   setCities: React.Dispatch<React.SetStateAction<ICity[]>>,
-  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>
+  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>,
+  setInputValue: React.Dispatch<React.SetStateAction<string>>
 ) {
-  // console.log(event.currentTarget.value)
-  // setCity([event.currentTarget.value])
-
   setACtiveCity(undefined);
+  setInputValue(event.currentTarget.value);
 
   fetch(`${serviceHost("cargobox")}/api/cargobox/kladr/search/city/?city=${event.currentTarget.value}`)
     .then(async response => {
