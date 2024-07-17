@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 import City from "./City/City"
-import Box from "./Box/Box";
+import AccordionBox from "./AccordionBox/AccordionBox";
 import styles from "./styles.module.css"
 
 export default function Calculator() {
@@ -15,9 +15,8 @@ export default function Calculator() {
       <City fieldName="arrival" labelValue="куда" />
 
       <hr/>
-      
-      <Box />
-      
+
+      <AccordionBox />
 
       <input type="submit" value="Рассчитать доставку" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)} />
     </form>
