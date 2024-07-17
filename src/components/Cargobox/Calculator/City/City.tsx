@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import serviceHost from "../../../../libs/service.host"
 import CityList from "./CityList"
+import classNames from "classnames"
+import styles from "./styles.module.css"
 
 type Props = {
   fieldName: string
@@ -51,7 +53,7 @@ export default function City({fieldName, labelValue}: Props) {
   useEffect(() => setMouseDown(false))
 
   return <div 
-    className="form-group col-sm-5"
+    className={classNames("form-group col-sm-5", styles.root)}
     onMouseDown={() => setMouseDown(true)}
   >
 
@@ -106,6 +108,10 @@ function _searchCity(
     fullname: event.currentTarget.value,
     code: ''
   });
+
+  if(!event.currentTarget.value) {
+    return;
+  }
 
   fetch(`${serviceHost("cargobox")}/api/cargobox/kladr/search/city/?city=${event.currentTarget.value}`)
     .then(async response => {

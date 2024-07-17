@@ -1,0 +1,10 @@
+.root div{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.root div input {
+  flex: 4 15px;
+  margin-right: 10px;
+}

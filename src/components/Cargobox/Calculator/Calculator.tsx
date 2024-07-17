@@ -1,7 +1,8 @@
-import City from "./City/City"
-import styles from "./styles.module.css"
-import classNames from "classnames";
 import { useSelector } from "react-redux";
+import classNames from "classnames";
+import City from "./City/City"
+import Box from "./Box/Box";
+import styles from "./styles.module.css"
 
 export default function Calculator() {
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
@@ -10,11 +11,12 @@ export default function Calculator() {
     <form onSubmit={(event) => _onSubmit(event)}>
       <legend className="mt-3">Расчёт стоимости доставки грузов</legend>
 
-      <City fieldName="arrival" labelValue="откуда" />
-      <City fieldName="derrival" labelValue="куда" />
+      <City fieldName="derival" labelValue="откуда" />
+      <City fieldName="arrival" labelValue="куда" />
 
       <hr/>
       
+      <Box />
       
 
       <input type="submit" value="Рассчитать доставку" className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4`)} />

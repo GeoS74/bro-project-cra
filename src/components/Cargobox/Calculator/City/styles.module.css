@@ -1,0 +1,20 @@
+.root {
+  position: relative;
+}
+
+.root ul {
+  position: absolute;
+  width: 100%;
+  list-style-type: none;
+  background-color: whitesmoke;
+  padding: 0px;
+  z-index: 100500;
+}
+
+.root ul>li {
+  padding: 10px;
+}
+.root ul>li:hover {
+  cursor: pointer;
+  background-color: rgb(218, 218, 218);
+}

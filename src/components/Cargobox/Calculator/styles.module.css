@@ -6,28 +6,7 @@
   padding: 10px;
 }
 
-.root form div {
-  position: relative;
-}
-
-.root form ul {
-  position: absolute;
-  width: 100%;
-  list-style-type: none;
-  background-color: whitesmoke;
-  padding: 0px;
-  z-index: 100500;
-}
-
-.root form ul>li {
-  padding: 10px;
-}
-.root form ul>li:hover {
-  cursor: pointer;
-  background-color: rgb(218, 218, 218);
-}
-
-.root form ul,
+.root ul,
 .root input {
   border: solid 1px var(--color) !important;
 }
