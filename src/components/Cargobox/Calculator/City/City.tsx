@@ -4,6 +4,7 @@ import CityList from "./CityList"
 
 type Props = {
   fieldName: string
+  labelValue: string
 }
 
 /*
@@ -42,7 +43,7 @@ mousedown -> blur -> mouseup -> click
 исходное состояние. 
 */
 
-export default function City({fieldName}: Props) {
+export default function City({fieldName, labelValue}: Props) {
   const [cities, setCities] = useState<ICity[]>([]);
   const [activeCity, setACtiveCity] = useState<ICity>();
   const [mouseDown, setMouseDown] = useState(false);
@@ -54,7 +55,7 @@ export default function City({fieldName}: Props) {
     onMouseDown={() => setMouseDown(true)}
   >
 
-    <label htmlFor={fieldName} className="form-label mt-4">Откуда</label>
+    <label htmlFor={fieldName} className="form-label mt-4">{labelValue}</label>
     <input type="text" 
       className="form-control" 
       id={fieldName} 
@@ -87,7 +88,7 @@ export default function City({fieldName}: Props) {
       setCities={setCities} 
     />
 
-    <input type="text" 
+    <input type="hidden" 
       name={fieldName} 
       defaultValue={activeCity?.code || ''}
     />

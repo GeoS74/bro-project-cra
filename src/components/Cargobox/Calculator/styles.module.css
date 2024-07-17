@@ -1,20 +1,13 @@
 .root {
   max-width: 1000px;
-  /* background-color: red; */
 }
 
 .root form{
   padding: 10px;
-  /* background-color: rgb(9, 255, 0); */
 }
 
 .root form div {
   position: relative;
-  background-color: yellow;
-}
-
-.root form input {
-  /* background-color: yellow; */
 }
 
 .root form ul {
@@ -31,7 +24,7 @@
 }
 .root form ul>li:hover {
   cursor: pointer;
-  background-color: grey;
+  background-color: rgb(218, 218, 218);
 }
 
 .root form ul,
