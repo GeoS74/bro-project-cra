@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import serviceHost from "../../../../libs/service.host"
 import CityList from "./CityList"
 
@@ -6,29 +6,90 @@ type Props = {
   fieldName: string
 }
 
+/*
+логика работы компоненты:
+при вводе символов с клавиатуры, компонента обращается к бэку для получения списка городов
+если список получен и он не пустой, то под полем input отображается список подсказок.
+При потере фокуса поля input или при клике по элементу списка подсказок - список скрывается,
+поле получает правильное название населенного пункта, а в скрытое поле записывается код города.
+
+Для сокрытия списка используется событие onBlur на поле ввода, это событие обнуляет список городов,
+что в свою очередь скрывает список подсказок. При клике по элементу выпадающего списка, происходит тоже самое. 
+Проблема здесь в том, что событие click возникает только когда клавиша мыши отпускается, а событие blur срабатывает
+сразу после нажатия кнопки мыши и потере фокуса на поле ввода.
+
+mousedown -> blur -> mouseup -> click
+
+Поэтому, тут надо каким-то образом обрабатывать событие click на элементе списка ДО наступления blur события,
+иначе click не будет вызван, т.к. blur обнулит список городов. 
+
+Вариант 1: использовать setTimeout внутри blur события (см. строку 79).
+Плюсы: компонента потребует только 2 useState. 
+Минусы: задержка должна быть примерно 250 мс, эту задержку видно глазом. 
+Более того, пользователь может зажать клавишу мыши и не отпускать её какое-то время. 
+В этом случае blur также сработает раньше. 
+
+Вариант 2: отслеживать клики по компоненте
+Плюсы: нет зависимости от setTimeout-a 
+Минусы: требуется дополнительный useState (setMouseDown), обработчик события onMouseDown и useEffect
+
+В этой реализации добавляется useState (setMouseDown), который по факту работает как флаг для отслеживания
+клика внутри компоненты. Т.к. событие mousedown наступает раньше blur, то это позволяет отловить клик по компоненте. 
+При срабатывании onMouseDown стейт mouseDown меняется на true, а следующий за этим вызов onBlur
+реагирует в зависимости от состояния mouseDown. Если true - то клик был по компоненте и делать ничего не надо,
+если false - то клик был вне компоненты (иначе бы сработало событие mousedown) и в этом случае надо скрыть
+список подсказок. Хук useEffect вызывается после рендера компоненты и устанавливает стейт mouseDown в
+исходное состояние. 
+*/
+
 export default function City({fieldName}: Props) {
   const [cities, setCities] = useState<ICity[]>([]);
   const [activeCity, setACtiveCity] = useState<ICity>();
-  const [inputValue, setInputValue] = useState('');
+  const [mouseDown, setMouseDown] = useState(false);
 
-  console.log('render')
+  useEffect(() => setMouseDown(false))
 
-  return <div className="form-group col-sm-5">
+  return <div 
+    className="form-group col-sm-5"
+    onMouseDown={() => setMouseDown(true)}
+  >
+
     <label htmlFor={fieldName} className="form-label mt-4">Откуда</label>
     <input type="text" 
       className="form-control" 
       id={fieldName} 
       placeholder="выберите город"
-      value={activeCity?.fullname || inputValue}
-      onInput={(event) => _searchCity(event, setCities, setACtiveCity, setInputValue)}
-       
+      autoComplete="off"
+      value={activeCity?.fullname || ''}
+
+      // срабатывает если фокус на input-е и город ещё не выбран
+      onFocus={(event) => {
+        if(!activeCity?.code) {
+          _searchCity(event, setCities, setACtiveCity)
+        }
+      }}
+
+      onInput={(event) => _searchCity(event, setCities, setACtiveCity)}
+
+      onBlur={() => {
+        if(mouseDown) return;
+
+        if(cities.length) {
+          setCities([])
+          // setTimeout(() => setCities([]), 250)
+        }
+      }} 
     />
 
-    <CityList cities={cities} setACtiveCity={setACtiveCity} setCities={setCities} />
+    <CityList 
+      cities={cities} 
+      setACtiveCity={setACtiveCity} 
+      setCities={setCities} 
+    />
 
     <input type="text" 
       name={fieldName} 
-      defaultValue={activeCity?.code}
+      defaultValue={activeCity?.code || ''}
     />
   </div>
 }
@@ -36,43 +97,31 @@ export default function City({fieldName}: Props) {
 function _searchCity(
   event: React.FormEvent<HTMLInputElement>,
   setCities: React.Dispatch<React.SetStateAction<ICity[]>>,
-  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>,
-  setInputValue: React.Dispatch<React.SetStateAction<string>>
+  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>
 ) {
-  setACtiveCity(undefined);
-  setInputValue(event.currentTarget.value);
+
+  // сбрасывает активного города
+  setACtiveCity({
+    fullname: event.currentTarget.value,
+    code: ''
+  });
 
   fetch(`${serviceHost("cargobox")}/api/cargobox/kladr/search/city/?city=${event.currentTarget.value}`)
     .then(async response => {
       if (response.ok) {
         const res = await response.json()
-        // console.log(res)
         setCities(res);
         return;
+      } 
+      else if ([400, 404].includes(response.status)) {
+        setCities([]);
+        return;
       }
-      setCities([]);
-      // else if ([400, 404].includes(response.status)) {
-      //   return;
-      // }
-      // throw new Error(`response status: ${response.status}`)
+      throw new Error(`response status: ${response.status}`)
     })
-    .catch(error => console.log(error.message))
+    .catch(error => {
+      console.log(error.message);
+      setCities([]);
+    })
 }
-
-
-// function _getErrorResponse(error: string): IErrorMessage {
-//   switch (error) {
-//     case "invalid title":
-//       return { field: "title", message: "Введите название документа" }
-//     case "invalid directing id":
-//       return { field: "directSelect", message: "Не выбрано направление" }
-//     case "invalid task id":
-//       return { field: "taskSelect", message: "Не выбран тип документа" }
-//     case "bad mime type":
-//       return { field: "fileUpload", message: "Не поддерживаемый тип файлов" }
-//     default: return { field: "", message: "" }
-//   }
-// }
-
-
  

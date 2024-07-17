@@ -16,8 +16,7 @@ function _makeLi(
   return cities.map((city, index) => {
     return <li 
     key={index} 
-    data-code={city.code}
-    onClick={() => {
+    onClickCapture={() => {
       setACtiveCity(city)
       setCities([])
        
@@ -26,11 +25,4 @@ function _makeLi(
       {city.fullname}
     </li>
   })
-}
-
-
-function foo(
-  event: React.MouseEvent<HTMLLIElement, MouseEvent>
-) {
-  console.log(event.currentTarget.dataset.code)
 }

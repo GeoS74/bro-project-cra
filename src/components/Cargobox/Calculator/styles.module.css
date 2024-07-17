@@ -10,7 +10,7 @@
 
 .root form div {
   position: relative;
-  /* background-color: yellow; */
+  background-color: yellow;
 }
 
 .root form input {
