@@ -6,17 +6,16 @@ import { useState } from "react"
 
 export default function AccordionBox() {
   const theme = (useSelector((state) =>  state) as {theme: {theme: string}}).theme.theme
-  const [amountPlaces, setAmountPlaces] = useState(1)
+  const [boxes, setBoxes] = useState([<Box num={1} key={0} />]);
 
   return <>
     <button type="button"  
-        onClick={() => setAmountPlaces(amountPlaces+1)}
-        className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4 mb-4`)} >+ Добавить место</button>
+        onClick={() => setBoxes([...boxes, <Box num={boxes.length+1} key={boxes.length} />])}
+        className={classNames(`btn btn-outline-${theme === 'light' ? 'primary' : 'light'} mt-4 mb-4`)} 
+    >+ Добавить место</button>
 
     <div className={classNames(styles.root, "accordion")}>
-      {
-        new Array(amountPlaces).fill(null).map((_, i) => <Box num={i+1} key={i} />)
-      }
+      {[...boxes]}
     </div>
   </>
 }

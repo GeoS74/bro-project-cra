@@ -3,10 +3,13 @@ import serviceHost from "../../../../libs/service.host"
 import CityList from "./CityList"
 import classNames from "classnames"
 import styles from "./styles.module.css"
+import { ErrorMessage } from "../../../DocFlow/EditForm/ErrorMessage/ErrorMessage"
 
 type Props = {
   fieldName: string
   labelValue: string
+  setError: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>
+  errorMessage: IErrorMessage | undefined
 }
 
 /*
@@ -45,7 +48,7 @@ mousedown -> blur -> mouseup -> click
 исходное состояние. 
 */
 
-export default function City({fieldName, labelValue}: Props) {
+export default function City({fieldName, labelValue, setError, errorMessage}: Props) {
   const [cities, setCities] = useState<ICity[]>([]);
   const [activeCity, setACtiveCity] = useState<ICity>();
   const [mouseDown, setMouseDown] = useState(false);
@@ -68,11 +71,11 @@ export default function City({fieldName, labelValue}: Props) {
       // срабатывает если фокус на input-е и город ещё не выбран
       onFocus={(event) => {
         if(!activeCity?.code) {
-          _searchCity(event, setCities, setACtiveCity)
+          _searchCity(event, setCities, setACtiveCity, setError)
         }
       }}
 
-      onInput={(event) => _searchCity(event, setCities, setACtiveCity)}
+      onInput={(event) => _searchCity(event, setCities, setACtiveCity, setError)}
 
       onBlur={() => {
         if(mouseDown) return;
@@ -83,6 +86,7 @@ export default function City({fieldName, labelValue}: Props) {
         }
       }} 
     />
+    {errorMessage?.field === fieldName ? <ErrorMessage errorMessage={errorMessage.message} /> : <></>}
 
     <CityList 
       cities={cities} 
@@ -100,8 +104,12 @@ export default function City({fieldName, labelValue}: Props) {
 function _searchCity(
   event: React.FormEvent<HTMLInputElement>,
   setCities: React.Dispatch<React.SetStateAction<ICity[]>>,
-  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>
+  setACtiveCity: React.Dispatch<React.SetStateAction<ICity | undefined>>,
+  setError: React.Dispatch<React.SetStateAction<IErrorMessage | undefined>>
 ) {
+
+  // сброс сообщения об ошибке
+  setError(undefined);
 
   // сбрасывает активного города
   setACtiveCity({
