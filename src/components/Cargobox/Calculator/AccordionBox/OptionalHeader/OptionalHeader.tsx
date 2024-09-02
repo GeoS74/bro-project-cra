@@ -1,13 +1,17 @@
 import styles from "./styles.module.css"
 import { ReactComponent as IconDelete } from "./icons/trash.svg";
 
+// type Props = {
+//   setHidden: React.Dispatch<React.SetStateAction<boolean>>
+// }
+
 type Props = {
-  setHidden: React.Dispatch<React.SetStateAction<boolean>>
+  delBox: () => void
 }
 
-export default function OptionalHeader({setHidden}: Props) {
+export default function OptionalHeader({delBox}: Props) {
   return <div className={styles.root}
-    onClick={() => setHidden(true)}
+    onClick={() => delBox()}
   >
     <small>Удалить место</small>
     <IconDelete className={styles.svg}/>

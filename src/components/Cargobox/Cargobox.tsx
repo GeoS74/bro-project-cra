@@ -7,7 +7,7 @@ import styles from "./styles.module.css"
 
 export default function DocFlow() {
   return <>
-    <Head 
+    <Head
       title="Каталог автозапчастей компании SIGNAL"
       description="Каталог автозапчастей и запасных частей к спецтехнике компании SIGNAL"
     />
